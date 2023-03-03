@@ -35,7 +35,7 @@ export const privateRoute = (req: Request, res: Response, next: NextFunction) =>
 export const privateRouteADM = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('jwt', (err: any, user: Express.User ) => {
       req.user = user
-      // if(user) {
+      // if(req.user) {
       //   if(req.user.id === '446e0c3a-87bd-4fc6-a23f-5a39f894ef72') {
 
       //   }

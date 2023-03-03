@@ -4,9 +4,9 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import passport from 'passport'
 import userRouter from './routes/user'
-// import motoboyRouter from './routes/motoboy'
-// import boyRouter from './routes/motoboyRoute'
-// import routeRouter from './routes/route'
+import postRouter from './routes/post'
+import commentRouter from './routes/comment'
+import likeInCommentPostRouter from './routes/likeInComment'
 // import clientRouter from './routes/client'
 // import invoiceRouter from './routes/invoice'
 
@@ -22,9 +22,9 @@ server.use(express.urlencoded({ extended: true}))
 
 server.use(passport.initialize())
 server.use(userRouter)
-// server.use(motoboyRouter)
-// server.use(boyRouter)
-// server.use(routeRouter)
+server.use(postRouter)
+server.use(commentRouter)
+server.use(likeInCommentPostRouter)
 // server.use(clientRouter)
 // server.use(invoiceRouter)
 

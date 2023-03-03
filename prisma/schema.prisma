@@ -11,10 +11,105 @@ datasource db {
 }
 
 model User {
+  id             String           @id @default(uuid())
+  name           String
+  email          String           @unique
+  password       String
+  avatar         String?
+  Comment        CommentInPost[]
+  likesInComment LikeInComment[]
+  Forum          Forum[]
+  CommentInForum CommentInForum[]
+  LikeInForum    LikeInForum[]
+
+  @@map("users")
+}
+
+model UserADM {
   id       String @id @default(uuid())
   name     String
   email    String @unique
   password String
+  Post     Post[]
 
-  @@map("users")
+  @@map("userAdm")
+}
+
+model Post {
+  id                String          @id @default(uuid())
+  content           String
+  contentPreComment String
+  date              DateTime        @default(now())
+  title             String
+  img               String?
+  video             String?
+  userADMId         String
+  userADM           UserADM         @relation(fields: [userADMId], references: [id])
+  Comment           CommentInPost[]
+  likesInComment    LikeInComment[]
+
+  @@map("posts")
+}
+
+model CommentInPost {
+  id             String          @id @default(uuid())
+  id_comment     String?
+  post_id        String
+  user_id        String
+  date           DateTime        @default(now())
+  comment        String
+  postId         Post            @relation(fields: [post_id], references: [id])
+  userId         User            @relation(fields: [user_id], references: [id])
+  likesInComment LikeInComment[]
+
+  @@map("comments")
+}
+
+model LikeInComment {
+  id         String        @id @default(uuid())
+  post_id    String
+  user_id    String
+  comment_id String
+  postId     Post          @relation(fields: [post_id], references: [id])
+  userId     User          @relation(fields: [user_id], references: [id])
+  commentId  CommentInPost @relation(fields: [comment_id], references: [id])
+
+  @@map("likeInComments")
+}
+
+model Forum {
+  id             String           @id @default(uuid())
+  title          String
+  user_id        String
+  userId         User             @relation(fields: [user_id], references: [id])
+  CommentInForum CommentInForum[]
+  LikeInForum    LikeInForum[]
+
+  @@map("forums")
+}
+
+model CommentInForum {
+  id               String        @id @default(uuid())
+  id_comment_forum String?
+  forum_id         String
+  user_id          String
+  date             DateTime      @default(now())
+  comment          String
+  forumId          Forum         @relation(fields: [forum_id], references: [id])
+  userId           User          @relation(fields: [user_id], references: [id])
+  LikeInForum      LikeInForum[]
+
+  @@map("commentInForums")
+}
+
+model LikeInForum {
+  id                String         @id @default(uuid())
+  forum_id          String
+  user_id           String
+  commentInForum_id String
+  forumId           Forum          @relation(fields: [forum_id], references: [id])
+  userId            User           @relation(fields: [user_id], references: [id])
+  commentId         CommentInForum @relation(fields: [commentInForum_id], references: [id])
+
+  @@map("likeInForums")
 }

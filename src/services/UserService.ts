@@ -16,11 +16,27 @@ export const UserService = {
     findOne: async(id: string) => {
         return await prisma.user.findUnique({ where: { id }})
     },
+    findADM: async(id: string) => {
+        return await prisma.userADM.findUnique({ where: { id }})
+    },
     findAll: async() => {
         return await prisma.user.findMany({})
     },
     create: async(data: PropCreate) => {
         const dataNewUser =  await prisma.user.create({
+            data: {
+                name: data.name,
+                email: data.email,
+                password: bcrypt.hashSync(data.password, 10)
+            }
+        })
+        if(dataNewUser) {
+            const token = generateToken({ id: dataNewUser.id })
+            return { dataNewUser, token}
+        }
+    },
+    createAdm: async(data: PropCreate) => {
+        const dataNewUser =  await prisma.userADM.create({
             data: {
                 name: data.name,
                 email: data.email,
@@ -54,6 +70,16 @@ export const UserService = {
     },
     login: async(email: string, password: string) => {
         const user =  await prisma.user.findUnique({ where: { email }})
+        if(user) {
+            let hash = bcrypt.compareSync(password as string, user.password)
+            if(hash) {
+                const token = generateToken({ id: user.id })
+                return { hash, token, name: user.name, email: user.email, id: user.id}
+            }
+        }
+    },
+    loginAdm: async(email: string, password: string) => {
+        const user =  await prisma.userADM.findUnique({ where: { email }})
         if(user) {
             let hash = bcrypt.compareSync(password as string, user.password)
             if(hash) {
