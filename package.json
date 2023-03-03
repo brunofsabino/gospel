@@ -1,0 +1,19 @@
+{
+  "name": "opiniaogospel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunofsabino/gospel.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brunofsabino/gospel/issues"
+  },
+  "homepage": "https://github.com/brunofsabino/gospel#readme"
+}
