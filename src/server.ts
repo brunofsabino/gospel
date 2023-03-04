@@ -7,8 +7,9 @@ import userRouter from './routes/user'
 import postRouter from './routes/post'
 import commentRouter from './routes/comment'
 import likeInCommentPostRouter from './routes/likeInComment'
+import likeInCommentForumRouter from './routes/likeInForum'
 import forumRouter from './routes/forum'
-// import invoiceRouter from './routes/invoice'
+import commentForumRouter from './routes/commentForum'
 
 
 dotenv.config()
@@ -26,7 +27,8 @@ server.use(postRouter)
 server.use(commentRouter)
 server.use(likeInCommentPostRouter)
 server.use(forumRouter)
-// server.use(invoiceRouter)
+server.use(commentForumRouter)
+server.use(likeInCommentForumRouter)
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     if(err.status) {
