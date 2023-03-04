@@ -4,10 +4,10 @@ const prisma = new PrismaClient()
 type PropCreate = {
   post_id: string,
   comment_id: string,
+  done?: boolean
 }
 type UpdateCreate = {
-  post_id: string,
-  comment_id: string,
+  done: boolean
 }
 export const LikeInCommentService = {
   create: async(id: string, data: PropCreate) => {
@@ -15,7 +15,8 @@ export const LikeInCommentService = {
       data: {
           user_id: id,
           post_id: data.post_id,
-          comment_id: data.comment_id
+          comment_id: data.comment_id,
+          done: !data.done
       }
     })
     return newLikeInCommentPost
@@ -26,16 +27,18 @@ export const LikeInCommentService = {
   findOne: async(id: string) => {
     return await prisma.likeInComment.findUnique({ where: { id }})
   },
-  // update: async(id: string, data: UpdateCreate) => {
-  //   return await prisma.commentInPost.update({
-  //       where: { id },
-  //       data : {
-  //         comment: data.comment,
-  //         id_comment: data.idComment
-  //       }
-  //   })
-  // },
-  // deleteCommentPost: async(id: string) => {
-  //   return await prisma.commentInPost.delete({ where: { id }})
-  // }
+  findOneByCommentId: async( comment_id: string) => {
+    return await prisma.likeInComment.findUnique({ where: { comment_id }})
+  },
+  update: async(id: string, data: UpdateCreate) => {
+    return await prisma.likeInComment.update({
+        where: { id },
+        data : {
+          done: data.done
+        }
+    })
+  },
+  deleteLikeCommentPost: async(id: string) => {
+    return await prisma.likeInComment.delete({ where: { id }})
+  }
 }

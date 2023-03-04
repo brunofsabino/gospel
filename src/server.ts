@@ -7,7 +7,7 @@ import userRouter from './routes/user'
 import postRouter from './routes/post'
 import commentRouter from './routes/comment'
 import likeInCommentPostRouter from './routes/likeInComment'
-// import clientRouter from './routes/client'
+import forumRouter from './routes/forum'
 // import invoiceRouter from './routes/invoice'
 
 
@@ -25,7 +25,7 @@ server.use(userRouter)
 server.use(postRouter)
 server.use(commentRouter)
 server.use(likeInCommentPostRouter)
-// server.use(clientRouter)
+server.use(forumRouter)
 // server.use(invoiceRouter)
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {

@@ -69,7 +69,8 @@ model LikeInComment {
   id         String        @id @default(uuid())
   post_id    String
   user_id    String
-  comment_id String
+  comment_id String        @unique
+  done       Boolean       @default(false)
   postId     Post          @relation(fields: [post_id], references: [id])
   userId     User          @relation(fields: [user_id], references: [id])
   commentId  CommentInPost @relation(fields: [comment_id], references: [id])
@@ -80,6 +81,7 @@ model LikeInComment {
 model Forum {
   id             String           @id @default(uuid())
   title          String
+  description    String
   user_id        String
   userId         User             @relation(fields: [user_id], references: [id])
   CommentInForum CommentInForum[]
