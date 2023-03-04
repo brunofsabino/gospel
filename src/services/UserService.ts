@@ -1,9 +1,11 @@
 import { PrismaClient } from "@prisma/client"
+import { IsEmail } from 'class-validator'
 import bcrypt from "bcrypt"
 import { generateToken } from '../config/passport'
 
 const prisma = new PrismaClient()
 type PropCreate = {
+    
     name: string,
     email: string,
     password: string
@@ -23,6 +25,7 @@ export const UserService = {
         return await prisma.user.findMany({})
     },
     create: async(data: PropCreate) => {
+        
         const dataNewUser =  await prisma.user.create({
             data: {
                 name: data.name,

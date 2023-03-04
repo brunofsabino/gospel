@@ -2,16 +2,17 @@ import { Request, Response } from "express";
 import { UserService } from "../services/UserService";
 import { PostService } from "../services/PostService";
 import { CommentService } from "../services/CommentService";
+import validator from 'validator'
 
 
 export const create = async(req: Request, res: Response) => {
   const { userId, postId   } = req.params
   const { comment, idComment } = req.body
-  
+
   const user = await UserService.findOne(userId)
   const post = await PostService.findOne(postId)
 
-  if(user && post && comment ) {
+  if(user && post && comment) {
     const newCommentPost = await CommentService.create(user.id, { postId, idComment: idComment ?? null, comment })
     if(newCommentPost) {
       res.status(201).json({ comment: newCommentPost })

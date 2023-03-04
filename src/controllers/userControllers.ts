@@ -1,10 +1,13 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/UserService";
+import validator from 'validator'
+import {isEmail} from 'class-validator'
 
 
 export const createADM = async(req: Request, res: Response) => {
   const { name, password, email } = req.body
-  if(name && password && email) {
+  const emailValid = validator.isEmail(email)
+  if(name && password && emailValid) {
       const emailExists = await UserService.findByEmail(email)
       if(!emailExists) {
           const newUser = await UserService.createAdm({name, password, email})
@@ -18,12 +21,23 @@ export const createADM = async(req: Request, res: Response) => {
       res.status(500).json({error : "Dados invalidos"})
   }
 }
+
 export const create = async(req: Request, res: Response) => {
   const { name, password, email } = req.body
-  if(name && password && email) {
+  const emailValid = validator.isEmail(email)
+  const nameValid = validator.isEmpty(name)
+  const passwordValid = validator.isEmpty(password)
+
+  if(!emailValid || nameValid || passwordValid) {
+    res.status(500).json({error : "Digite um e-mail ou nome valido"})
+  } else if (!nameValid && !passwordValid && emailValid) {
       const emailExists = await UserService.findByEmail(email)
       if(!emailExists) {
-          const newUser = await UserService.create({name, password, email})
+          const newUser = await UserService.create({
+            name, 
+            password, 
+            email
+          })
           if(newUser) {
               res.status(201).json({ id: newUser.dataNewUser.id, token: newUser.token })
           }
@@ -53,7 +67,9 @@ export const update = async(req: Request, res: Response) => {
   const { name, password } = req.body
   const user = await UserService.findOne(id)
   if(user) {
-      if(name && password != undefined) {
+    const nameValid = validator.isEmpty(name)
+    const passwordValid = validator.isEmpty(password)
+      if(!nameValid && password != undefined && !passwordValid) {
           const userUpdate = await UserService.update(user.id, {
               name, password: password !== undefined ? password : user.password
           })
@@ -80,9 +96,15 @@ export const update = async(req: Request, res: Response) => {
 }
 export const login = async(req: Request, res: Response) => {
   const { email, password } = req.body
-  if(email && password) {
+  const emailValid = validator.isEmail(email)
+  const passwordValid = validator.isEmpty(password)
+  if(emailValid && !passwordValid) {
       const loggedUser = await UserService.login(email, password)
       if(loggedUser) {
+          // const token2 = loggedUser.token
+          // console.log(req.session.userId)
+          // req.session.token = token2
+          //console.log(req.session.)
           res.status(200).json({sucess: true, token: loggedUser.token, name: loggedUser.name, email: loggedUser.email, id: loggedUser.id})
       } else {
           res.status(500).json({error : "Dados invalidos"})
@@ -111,6 +133,8 @@ export const home = async(req: Request, res: Response) => {
   const users = await UserService.findAll()
   if(users) {
       res.status(200).json({ users})
+  } else {
+    res.status(500).json({error : "Dados invalidos"})
   }
 }
 export const deleteUser = async(req: Request, res: Response) => {

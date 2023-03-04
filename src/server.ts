@@ -10,6 +10,7 @@ import likeInCommentPostRouter from './routes/likeInComment'
 import likeInCommentForumRouter from './routes/likeInForum'
 import forumRouter from './routes/forum'
 import commentForumRouter from './routes/commentForum'
+import session from 'express-session'
 
 
 dotenv.config()
@@ -17,6 +18,8 @@ dotenv.config()
 const server = express()
 
 server.use(cors())
+
+
 
 server.use(express.static(path.join(__dirname, '../public')))
 server.use(express.urlencoded({ extended: true}))
@@ -30,7 +33,23 @@ server.use(forumRouter)
 server.use(commentForumRouter)
 server.use(likeInCommentForumRouter)
 
+
+server.use(session({
+  secret: 'dapsdaifnasdáosdasd',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: true }
+}))
+declare module 'express-session' {
+  export interface SessionData {
+    user: { [key: string]: any };
+    userId: number;
+  }
+}
+
+
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  
     if(err.status) {
         res.status(err.status)
     } else {
