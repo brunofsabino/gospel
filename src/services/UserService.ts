@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client"
-import { IsEmail } from 'class-validator'
 import bcrypt from "bcrypt"
 import { generateToken } from '../config/passport'
 
