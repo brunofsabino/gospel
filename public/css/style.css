@@ -145,7 +145,214 @@ main .main-news-area2 {
 main .main-news-area2 img{
   width: 100%;
 }
-.slide,
-.area-slide {
+.area-sections-aside {
+  width: 100%;
+  display: flex;
+}
+.slide {
   width: 60%;
+  display: flex;
+}
+.slider {
+  width: 100%;
+  height: 350px;
+  overflow: hidden;
+}
+.slider--width {
+  height: 100%;
+  display: flex;
+  transition: all ease 0.3s;
+}
+.slider--item {
+  width: 100%;
+  /* height: inherit; */
+  background-position: center;
+  background-size: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFF;
+  /* text-shadow: 0px 1px 1px #333; */
+}
+.slider--controls {
+  position: absolute;
+  z-index: 99;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.slider--control {
+  width: 25px;
+  height: 50px;
+  background-color: rgba(255,107,0,0.5);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slider--item-content {
+  width: 100%;
+  height: 350px;
+  background-image: url(../images/jesse-aguiar-570x300.png);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: flex-start;
+  padding: 30px;
+}
+.slider--item-subtitle {
+  font-size: 14px;
+  background-color: var(--orange-black);
+  width: fit-content;
+  /* padding: 5px; */
+  border-radius: 7px;
+  padding: 5px 10px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.slider--item-title {
+  width: 100%;
+  margin-bottom: 15px;
+  background-color: rgba(255,255,255,0.6);
+  color: var(--black-light);
+  padding: 5px 15px;
+  border-radius: 10px;
+}
+.slider--item-title h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+aside {
+  width: 40%;
+}
+.aside-content {
+  margin: 0px 20px;
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #999;
+  border-radius: 10px;
+}
+.aside-title {
+  font-size: 14px;
+  background-color: var(--orange-black);
+  width: fit-content;
+  border-radius: 7px;
+  padding: 5px 10px;
+  font-weight: 500;
+  margin: 20px;
+  color: #fff;
+}
+.aside-forum {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.aside-forum1,
+.aside-forum2,
+.aside-forum3,
+.aside-forum4,
+.aside-forum5,
+.aside-forum6 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F6F6F6;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 0.5px solid #999;
+  margin-bottom: 15px;
+}
+.aside-forum1-person,
+.aside-forum2-person,
+.aside-forum3-person,
+.aside-forum4-person,
+.aside-forum5-person,
+.aside-forum6-person {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.aside-forum1-person-area,
+.aside-forum2-person-area,
+.aside-forum3-person-area,
+.aside-forum4-person-area,
+.aside-forum5-person-area,
+.aside-forum6-person-area {
+  width: 50px;
+    height: 50px;
+    border: 1px solid #999;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.aside-forum1-desc,
+.aside-forum2-desc,
+.aside-forum3-desc,
+.aside-forum4-desc,
+.aside-forum5-desc,
+.aside-forum6-desc {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.aside-forum1-desc-title h3,
+.aside-forum2-desc-title h3,
+.aside-forum3-desc-title h3,
+.aside-forum4-desc-title h3,
+.aside-forum5-desc-title h3,
+.aside-forum6-desc-title h3 {
+  font-size: 16px;
+}
+.aside-forum1-desc-res,
+.aside-forum2-desc-res,
+.aside-forum3-desc-res,
+.aside-forum4-desc-res,
+.aside-forum5-desc-res,
+.aside-forum6-desc-res {
+  font-size: 12px;
+}
+.aside-forum1-desc-qt-comments,
+.aside-forum2-desc-qt-comments,
+.aside-forum3-desc-qt-comments,
+.aside-forum4-desc-qt-comments,
+.aside-forum5-desc-qt-comments,
+.aside-forum6-desc-qt-comments {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 3px;
+}
+.aside-forum1-desc-qt-comments img,
+.aside-forum2-desc-qt-comments img,
+.aside-forum3-desc-qt-comments img,
+.aside-forum4-desc-qt-comments img,
+.aside-forum5-desc-qt-comments img,
+.aside-forum6-desc-qt-comments img {
+  width: 20px;
+  margin-right: 5px;
+}
+.aside-forum1-desc-qt-comments p,
+.aside-forum2-desc-qt-comments p,
+.aside-forum3-desc-qt-comments p,
+.aside-forum4-desc-qt-comments p,
+.aside-forum5-desc-qt-comments p,
+.aside-forum6-desc-qt-comments p {
+  color: var(--orange-black);
+  font-weight: 600;
+  margin-right: 10px;
 }
