@@ -81,6 +81,11 @@ header {
   font-size:18px;
   font-weight: bold;
 }
+.area-alerts,
+.header-persona,
+.header-persona-open {
+  display:  none;
+}
 .header-persona-open a {
   display: flex;
   align-items: center;
