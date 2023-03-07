@@ -136,11 +136,13 @@ main .main-news-area1 {
   color: var(--black-light);
   letter-spacing: 1px;
   padding: 15px 0px;
+  cursor: pointer;
 }
 .main-news-p {
   font-family: 'Roboto', sans-serif;
   letter-spacing: 1.5px;
   margin: 10px 0px;
+  cursor: pointer;
 }
 .main-news-comment {
   display: flex;
@@ -160,6 +162,7 @@ main .main-news-area2 {
 }
 main .main-news-area2 img{
   width: 100%;
+  cursor: pointer;
 }
 .area-sections-aside {
   width: 100%;
@@ -277,7 +280,7 @@ aside {
   margin-bottom:20px;
 }
 .aside-title {
-  font-size: 16px;
+  font-size: 15px;
   background-color: var(--orange-black);
   width: fit-content;
   border-radius: 7px;

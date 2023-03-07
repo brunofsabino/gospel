@@ -107,14 +107,17 @@ main {
 .area-comments-content img {
   width: 25px;
   height: 25px;
+  margin-left: 5px;
 }
 .news-details-comments-pg {
   display: flex;
   padding: 25px 20px;
   align-items: center;
 }
-.initial-pg {
+.initial-pg,
+.final-pg {
   margin: 5px;
+  color:#999;
 }
 .pg-prev,
 .pg-next {
@@ -123,14 +126,25 @@ main {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  color:#999;
+}
+.pg-current {
+  margin: 10px;
+  font-weight: 600;
+  display: flex;
+}
+.pg-current p {
+  margin-left: 5px;
 }
 .pg-prev img {
   rotate: 90deg;
   margin: 5px;
+  width: 15px;
 }
 .pg-next img {
   rotate: -90deg;
   margin: 5px;
+  width: 15px;
 }
 .area-comments-users {
   padding: 25px 20px;
@@ -138,7 +152,8 @@ main {
   flex-direction: column;
   width: 100%;
 }
-.area-comments-user {
+.area-comments-user,
+.area-comments-user-response {
   display: flex;
   width: 100%;
   margin-bottom: 25px;
@@ -161,6 +176,20 @@ main {
   justify-content: space-between;
   margin-bottom: 5px;
 }
+.area-comments-user-name-complaint h3,
+.area-comments-user-comment p,
+.area-comments-user-response-content p,
+.area-comments-user-name h3 {
+  font-size: 16px;
+  margin-right: 5px;
+}
+.area-comments-user-name {
+  display: flex;
+  align-items: center;
+}
+.area-comments-user-name-date {
+  font-size: 12px;
+}
 .area-comments-user-like-dislike-resp {
   display: flex;
   width: 50%;
@@ -169,13 +198,20 @@ main {
 .area-comments-user-dislike {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
   width: 45px;
   margin-right: 10px;
 }
+.area-comments-user-like-qt,
+.area-comments-user-dislike-qt {
+  margin-right: 5px;
+}
+.dlt_comment {
+  display: none;
+}
 .area-comments-user-like img,
 .area-comments-user-dislike img {
-  width: 20px;
+  width: 15px;
+  cursor: pointer;
 }
 .area-comments-user-resp {
   display: flex;
@@ -185,10 +221,6 @@ main {
 }
 .area-comments-user-resp p {
   font-weight: 600;
-}
-.area-comments-user-response {
-  display: flex;
-  width: 100%;
 }
 .area-comment-user-desc {
   background-color: #E9EAED;

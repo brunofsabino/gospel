@@ -1,0 +1,265 @@
+main {
+  padding-top: 40px;
+}
+.area-forum-title {
+  padding: 25px;
+  border: 1px solid var(--orange-black);
+  border-radius: 15px;
+  width: 80%;
+  /* background-color: #ff6b0129; */
+  background-color: #ff6b010f;
+  margin-bottom: 40px;
+}
+.area-forum-title h1 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 50px;
+  font-weight: 900;
+  color: var(--black-light);
+  letter-spacing: 1px;
+  padding: 15px 0px;
+  cursor: pointer;
+}
+.area-forum-title p {
+  width: 80%;
+}
+.area-forum-title-button {
+  margin-top: 20px;
+}
+.area-forum-title-button button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: fit-content;
+  background-color: var(--orange-black);
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+}
+.area-forum-topics-filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.area-forum-filters {
+  display: flex;
+}
+.area-filters-populary {
+  width: fit-content;
+    background-color: var(--orange-black);
+    padding: 5px 20px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    color: #fff;
+    cursor: pointer;
+}
+.area-filters-recents {
+  width: fit-content;
+  background-color: #ff6b0129;
+  padding: 5px 20px;
+  border-bottom-right-radius: 15px;
+  border-top-right-radius: 15px;
+  color: #333;
+  cursor: pointer;
+}
+.area-forum-topics {
+  display: flex;
+  width: 100%;
+  margin-top: 35px;
+}
+.area-topics-users {
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+}
+.area-topics-user {
+  border: 1px solid var(--orange-black);
+  padding: 10px 20px;
+  display: flex;
+  width: 100%;
+  display: flex;
+  width: 100%;
+  margin-bottom: 25px;
+  border-radius: 15px;
+  /* background-color: #ff6b0105; */
+  background-color: #fff;
+  cursor: pointer;
+}
+.area-topics-user-person {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.area-topics-person-img {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #999;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.area-topics-user-content {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+.area-topics-user-content-info {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  border-radius: 15px;
+  margin-bottom: 5px;
+}
+.area-topics-title-date {
+  display: flex;
+  justify-content: space-between;
+}
+.area-topics-title {
+  display: flex;
+  align-items: center;
+}
+.area-topics-title h3 {
+  font-size: 16px;
+  margin-right: 5px;
+}
+.area-topics-date {
+  font-size: 12px;
+}
+.area-topics-last-responde {
+  display: flex;
+  justify-content: space-between;
+}
+.area-topics-last-responde p {
+  font-size: 16px;
+  margin-right: 5px;
+}
+.area-topics-last-responde-qt-comments {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.area-topics-last-responde-qt-comments img {
+  width: 25px;
+  margin-right: 5px;
+}
+.area-topics-last-responde-qt-comments p {
+  font-weight: 600;
+}
+.news-week-1-aside,
+.news-week-2-aside,
+.news-week-3-aside,
+.news-week-4-aside,
+.news-week-5-aside {
+  display: flex;
+  border: 1px solid #999;
+  border-radius: 15px;
+  padding: 8px 10px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+.news-week-1-img-aside,
+.news-week-2-img-aside,
+.news-week-3-img-aside,
+.news-week-4-img-aside,
+.news-week-5-img-aside {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+  margin-right: 10px;
+}
+.news-week-1-img-aside img,
+.news-week-2-img-aside img,
+.news-week-3-img-aside img,
+.news-week-4-img-aside img,
+.news-week-5-img-aside img {
+  width:100%;
+}
+.news-week-1-desc-aside,
+.news-week-2-desc-aside,
+.news-week-3-desc-aside,
+.news-week-4-desc-aside,
+.news-week-5-desc-aside {
+  margin: 0px 0px;
+  display: flex;
+  flex-direction: column;
+  padding: 0px 0px;
+}
+.news-week-1-title-aside,
+.news-week-2-title-aside,
+.news-week-3-title-aside,
+.news-week-4-title-aside,
+.news-week-5-title-aside {
+  margin-top: 5px;
+}
+.news-week-1-title-aside h3,
+.news-week-2-title-aside h3,
+.news-week-3-title-aside h3,
+.news-week-4-title-aside h3,
+.news-week-5-title-aside h3 {
+  font-size: 16px;
+}
+.news-week-1-p-more-aside,
+.news-week-2-p-more-aside,
+.news-week-3-p-more-aside,
+.news-week-4-p-more-aside,
+.news-week-5-p-more-aside {
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.news-week-1-p-aside,
+.news-week-2-p-aside,
+.news-week-3-p-aside,
+.news-week-4-p-aside,
+.news-week-5-p-aside,
+.news-week-1-more-aside,
+.news-week-2-more-aside,
+.news-week-3-more-aside,
+.news-week-4-more-aside,
+.news-week-5-more-aside {
+  font-size: 14px;
+}
+.news-week-1-p-aside,
+.news-week-2-p-aside,
+.news-week-3-p-aside,
+.news-week-4-p-aside,
+.news-week-5-p-aside {
+  display: flex;
+}
+.news-week-1-p-aside p,
+.news-week-2-p-aside p,
+.news-week-3-p-aside p,
+.news-week-4-p-aside p,
+.news-week-5-p-aside p {
+  margin-right: 10px;
+}
+.news-week-1-p-comment-aside,
+.news-week-2-p-comment-aside,
+.news-week-3-p-comment-aside,
+.news-week-4-p-comment-aside,
+.news-week-5-p-comment-aside {
+  display: flex;
+}
+.news-week-1-p-comment-aside img,
+.news-week-2-p-comment-aside img,
+.news-week-3-p-comment-aside img,
+.news-week-4-p-comment-aside img,
+.news-week-5-p-comment-aside img {
+  width: 20px;
+  margin-right: 5px;
+}
+.area-forum-title-name-user {
+  background-color: var(--orange-black);
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 15px;
+  color: #fff;
+}
