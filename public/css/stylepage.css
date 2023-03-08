@@ -231,3 +231,26 @@ main {
 .area-comments-complaint {
   cursor: pointer;
 }
+.news-details-share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #999;
+  border-radius: 15px;
+  margin: 15px 20px;
+}
+.news-details-share p {
+  margin-right: 20px;
+}
+.news-details-share-area-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  height: 45px;
+}
+.news-details-share img {
+  width: 100%;
+  margin-right: 5%;
+  cursor: pointer;
+}

@@ -34,18 +34,25 @@ server.use(commentForumRouter)
 server.use(likeInCommentForumRouter)
 
 
+
+declare module 'express-session' {
+  export interface SessionData {
+    // user: { [key: string]: any };
+    // userId: number;
+    token: string;
+  }
+}
 server.use(session({
   secret: 'dapsdaifnasdáosdasd',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: true }
+  // cookie: { secure: true }
 }))
-declare module 'express-session' {
-  export interface SessionData {
-    user: { [key: string]: any };
-    userId: number;
-  }
-}
+
+// server.use((req, res, next) => {
+//   res.locals.token ='req.flash';
+//   next()
+// })
 
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {

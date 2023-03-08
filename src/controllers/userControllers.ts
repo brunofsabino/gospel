@@ -101,10 +101,7 @@ export const login = async(req: Request, res: Response) => {
   if(emailValid && !passwordValid) {
       const loggedUser = await UserService.login(email, password)
       if(loggedUser) {
-          // const token2 = loggedUser.token
-          // console.log(req.session.userId)
-          // req.session.token = token2
-          //console.log(req.session.)
+          res.cookie('token', loggedUser.token, { maxAge: 3600000, httpOnly: true, secure: true })
           res.status(200).json({sucess: true, token: loggedUser.token, name: loggedUser.name, email: loggedUser.email, id: loggedUser.id})
       } else {
           res.status(500).json({error : "Dados invalidos"})
