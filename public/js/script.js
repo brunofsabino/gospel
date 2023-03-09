@@ -1,7 +1,12 @@
 let totalSlides = document.querySelectorAll('.slider--item').length;
+let sliderWidth = document.querySelector('.slider').clientWidth;
 let currentSlide = 0;
 
-let sliderWidth = document.querySelector('.slider').clientWidth;
+const body = document.querySelector('body')
+const buttonEnter = document.querySelector('.button-enter')
+const buttonCloseModal = document.querySelector('.modal-login-home-close')
+const backgroundModalHome = document.querySelector('.modal-login-home')
+const modalHome = document.querySelector('.modal-login-home-content-close')
 
 document.querySelector('.slider--width').style.width = 
     `${sliderWidth * totalSlides}px`;
@@ -34,3 +39,23 @@ function updateMargin() {
 }
 
 setInterval(goNext, 5000);
+
+buttonEnter.addEventListener('click', item => openModal(item))
+modalHome.addEventListener('click', closeModal)
+buttonCloseModal.addEventListener('click', closeModal)
+
+function openModal(item) {
+  item.preventDefault();
+  body.style.overflow = 'hidden'
+  backgroundModalHome.style.display = 'flex'
+  setTimeout( ()=>{
+    backgroundModalHome.style.opacity = 1
+}, 400);
+}
+function closeModal() {
+  body.style.overflow = 'auto'
+  backgroundModalHome.style.opacity = 0
+  setTimeout( ()=>{
+    backgroundModalHome.style.display = 'none'
+}, 400);
+}

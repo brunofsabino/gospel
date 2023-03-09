@@ -560,3 +560,130 @@ footer .header-logo p {
   margin-top: 10px;
   line-height: 15px;
 }
+.modal-login-home {
+  transition: all ease .5s;
+  display: none;
+  /* position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto; */
+}
+.modal-login-home-content {
+  position: fixed;
+  top: 20%;
+  left: 33%;
+  z-index: 10;
+  width: 30%;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #999;
+  display: flex;
+  margin: 20px 0px;
+  flex-direction: column;
+  padding: 10px 15px;
+}
+.modal-login-home-content-close {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.65);
+  display: flex;
+  transition: all ease .5s;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+.modal-login-home-close {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+.modal-login-home-content h3 {
+  text-align: center;
+}
+.modal-login-home-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+.modal-login-home-inputs .email,
+.modal-login-home-inputs .password,
+.modal-login-home-inputs .password2 {
+  width: 85%;
+  padding: 8px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #999;
+  margin-bottom: 10px;
+}
+.modal-login-home-inputs .password,
+.modal-login-home-inputs .password2,
+.modal-login-home-inputs-p-p,
+.modal-login-home-inputs-p-p2 {
+  display: none;
+}
+.modal-login-home-inputs-p,
+.modal-login-home-inputs-p-p,
+.modal-login-home-inputs-p-p2 {
+  width: 85%;
+  font-size: 13px;
+  font-weight: 500;
+}
+.modal-login-home-buttons,
+.modal-login-home-buttons-google {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.buttonLogin,
+.buttonEmail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 80%;
+  background-color: var(--orange-black);
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #fff;
+  border: none;
+}
+.buttonLogin {
+  display: none;
+}
+.modal-login-home-g {
+  margin-top: 15px;
+}
+.modal-login-home-g p {
+  text-align: center;
+  margin-top: 15px;
+}
+.modal-login-home-buttons-google {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.modal-login-home-buttons-google  a {
+  box-shadow: 0px 0px 15px #999;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  border-radius: 25px;
+  cursor: pointer;
+}
