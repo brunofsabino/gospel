@@ -3,12 +3,24 @@ let sliderWidth = document.querySelector('.slider').clientWidth;
 let currentSlide = 0;
 
 const body = document.querySelector('body')
-const buttonEnter = document.querySelector('.button-enter')
+const buttonEnter = document.querySelector('.button-enter') 
+const areaAlertsUser = document.querySelector('.area-alerts')
+const areaPersonaUser = document.querySelector('.header-persona')
+const areaPersonaAUser = document.querySelector('.header-persona a')
+const areaPersonaIMGUser = document.querySelector('.header-persona a img')
+const areaConfigUser = document.querySelector('.header-persona-open')
+const openConfigUser = document.querySelector('.header-persona-open a')
+const areaConfigLoggoutUser = document.querySelector('.header-persona-perfil')
+const areaPerfilUser = document.querySelector('.area-persona-perfil')
+const areaLoggoutUser = document.querySelector('.area-persona-logout')
+
+
 const buttonCloseModal = document.querySelector('.modal-login-home-close')
 const backgroundModalHome = document.querySelector('.modal-login-home')
 const modalHome = document.querySelector('.modal-login-home-content-close')
 
 
+const h3Modal = document.querySelector('.modal-login-home-content h3')
 const inputEmailModal = document.querySelector('.modal-login-home-content .email')
 const inputNameModal = document.querySelector('.modal-login-home-content .nameInput')
 const inputPasswordModal = document.querySelector('.modal-login-home-content .password')
@@ -134,6 +146,7 @@ function toDoLogin() {
     buttonLogin.style.display = 'flex'
     pEmailModal.style.display = 'flex'
     pPasswordModal.style.display = 'flex'
+    h3Modal.innerText = 'Faça o Login em sua conta!'
 }
 function openInputsRegisterEmail(){
     buttonContinuesEmail.style.display = 'none'
@@ -147,6 +160,7 @@ function openInputsRegisterEmail(){
     pNameModal.style.display = 'flex'
     pPasswordModal.style.display = 'flex'
     pPassword2Modal.style.display = 'flex'
+    
 }
 function closeInputsRegisterEmail() {
     buttonContinuesEmail.style.display = 'flex'
@@ -168,8 +182,11 @@ function closeInputsRegisterEmail() {
     pNoticePassword2.innerText = ''
     setTimeout( ()=>{
         buttonLogin.style.backgroundColor = 'var(--orange-black)'
+        h3Modal.innerText = 'Entre gratuitamente para o Opinião Gospel'
         buttonLogin.innerText = 'Login'
-    }, 2000);
+        buttonRegister.style.backgroundColor = 'var(--orange-black)'
+        buttonRegister.innerText = 'Continuar'
+    }, 1000);
     
 }
 function validateEmail (emailCapturadoDoFormulario) {
@@ -180,14 +197,45 @@ function validateEmail (emailCapturadoDoFormulario) {
      return false; 
    }
 }
-function loginsucess() {
+function loginSucess(user) {
     buttonLogin.style.backgroundColor = '#0cc70cfc'
     buttonLogin.innerText = 'Login feito com sucesso'
     setTimeout( ()=>{
         closeModal()
     }, 500);
-    
+    userLogged(user)
 }
+function createSucess() {
+    buttonRegister.style.backgroundColor = '#0cc70cfc'
+    buttonRegister.innerText = 'Conta criada com sucesso'
+    setTimeout( ()=>{
+        closeModal()
+    }, 500);
+    userLogged(user)
+}
+function userLogged(user) {
+    buttonEnter.style.display = 'none'
+    areaAlertsUser.style.display = 'flex'
+    areaPersonaUser.style.display = 'flex'
+    areaConfigUser.style.display = 'flex'
+    console.log(user)
+    areaPerfilUser.setAttribute('id', user.id)
+}
+function loggoutUser() {
+    localStorage.removeItem('token')
+    localStorage.removeItem('id')
+    location.reload() 
+}
+function toggleAreaUser(item) {
+    item.preventDefault()
+    areaConfigLoggoutUser.classList.toggle('close')
+}
+areaPersonaAUser.addEventListener('click', item => toggleAreaUser(item))
+areaPersonaIMGUser.addEventListener('click', item => toggleAreaUser(item))
+areaPersonaUser.addEventListener('click', item => toggleAreaUser(item))
+openConfigUser.addEventListener('click',  item => toggleAreaUser(item))
+
+areaLoggoutUser.addEventListener('click', loggoutUser)
 
 buttonRegister.addEventListener('click', item => {
     sendDataNewUser(inputEmailModal.value, inputNameModal.value, inputPasswordModal.value, inputPassword2Modal.value)
@@ -195,6 +243,7 @@ buttonRegister.addEventListener('click', item => {
 buttonLogin.addEventListener('click', item => {
     loginUser(inputEmailModal.value, inputPasswordModal.value)
 })
+
 async function sendDataNewUser(email, name, password, password2) {
     pNoticePassword2.innerHTML = ''
     pNoticeEmail.innerText = ''
@@ -211,6 +260,21 @@ async function sendDataNewUser(email, name, password, password2) {
     }
     const newUser = await registerNewUser(email, name, password, password2)
 }
+async function getUser() {
+    const id = localStorage.getItem('id')
+    const user = await fetch(`http://localhost:4000/user/${id}`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    })
+    const json = await user.json()
+    if(json.id) {
+        userLogged(json.id)
+    }
+}
+getUser()
+
 async function findByEmail(email) {
     const emailValid = validateEmail(email)
     if(emailValid) {
@@ -221,10 +285,8 @@ async function findByEmail(email) {
             }
         })
         const json = await existsEmail.json()
-        // json.error === 'E-mail não cadastrado' ?? openInputs()
-        // json.id ?? toDoLogin()
         if(json.error === 'E-mail não cadastrado') {
-            
+            openInputs()
         }
         if(json.id){
             toDoLogin()
@@ -246,13 +308,12 @@ async function registerNewUser(email, name, password, password2) {
             })
         })
         const json = await newUser.json()
-        if(json.error === 'E-mail já cadastrado. Faça o login!') {
-            console.log(json.error)
-            
-            // infoModal.innerHTML = json.error
-            // exit
+        if(json.id) {
+            createSucess(json)
+            localStorage.setItem("token", json.token);
+            localStorage.setItem('id', json.id)
+            areaPerfilUser.setAttribute('id', json.id)
         }
-        console.log(json)
     } 
 }
 async function loginUser(email, password)  {
@@ -267,7 +328,24 @@ async function loginUser(email, password)  {
     })
     const json = await loginUser.json();
     if(json.id){
-        loginsucess()
+        loginSucess(json)
+        localStorage.setItem("token", json.token);
+        localStorage.setItem('id', json.id)
+        // console.log(token)
+        // localStorage.setItem()
     }
-    console.log(json)
 }
+// function getCookie(name) {
+
+//     let cookie = {};
+    
+//     document.cookie.split(';').forEach(function(el) {
+//       let [k,v] = el.split('=');
+//       cookie[k.trim()] = v;
+//     })
+//     console.log(cookie[name])
+//     return cookie[name];
+    
+//   }
+  
+//   const myCookie = getCookie("somecookie")

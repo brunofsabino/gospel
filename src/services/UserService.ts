@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient, User } from "@prisma/client"
 import bcrypt from "bcrypt"
 import { generateToken } from '../config/passport'
 
@@ -24,7 +24,6 @@ export const UserService = {
         return await prisma.user.findMany({})
     },
     create: async(data: PropCreate) => {
-        
         const dataNewUser =  await prisma.user.create({
             data: {
                 name: data.name,

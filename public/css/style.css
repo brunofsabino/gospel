@@ -86,6 +86,54 @@ header {
 .header-persona-open {
   display:  none;
 }
+.area-alerts,
+.header-persona {
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+}
+.header-persona a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.area-alerts img,
+.header-persona img,
+.header-persona-open img {
+  width: 75%;
+}
+.header-persona-perfil {
+  display: flex;
+  width: 100px;
+  position: absolute;
+  top: 50px;
+  right: 74px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #fff;
+  background-color: #999999b5;
+}
+.header-persona-perfil.close {
+  display: none;
+}
+.area-persona-perfil,
+.area-persona-logout {
+  width: 100%;
+  padding: 10px 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.area-persona-logout:hover,
+.area-persona-perfil:hover {
+  opacity: 0.5;
+  color: #333;
+  background-color: #f3e2e2b5;
+}
 .header-persona-open a {
   display: flex;
   align-items: center;

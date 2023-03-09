@@ -39,8 +39,8 @@ export const create = async(req: Request, res: Response) => {
             email
           })
           if(newUser) {
-            res.cookie('token', newUser.token, { maxAge: 36000, httpOnly: true, secure: true })
-            res.status(201).json({ user: newUser })
+            res.cookie('token', newUser.token, { maxAge: 3600000, httpOnly: true, secure: true })
+            res.status(201).json({ id: newUser.dataNewUser.id, email: newUser.dataNewUser.email, name: newUser.dataNewUser.name, token: newUser.token })
           }
       } else {
           res.status(500).json({error : "E-mail já cadastrado. Faça o login!"})
@@ -59,7 +59,7 @@ export const one = async(req: Request, res: Response) => {
   if(user) {
       res.status(200).json({id: user })
   } else {
-      res.status(500).json({error : "Dados invalidos"})
+      res.status(300).json({error : "Usuario nao localizado"})
   }
 }
 export const oneEmail = async(req: Request, res: Response) => {
@@ -68,7 +68,7 @@ export const oneEmail = async(req: Request, res: Response) => {
     if(user) {
         res.status(200).json({id: user.id, email:user.email })
     } else {
-        res.status(500).json({error : "E-mail não cadastrado"})
+        res.status(200).json({error : "E-mail não cadastrado"})
     }
   }
 
