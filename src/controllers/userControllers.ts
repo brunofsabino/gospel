@@ -39,7 +39,8 @@ export const create = async(req: Request, res: Response) => {
             email
           })
           if(newUser) {
-              res.status(201).json({ id: newUser.dataNewUser.id, token: newUser.token })
+            res.cookie('token', newUser.token, { maxAge: 36000, httpOnly: true, secure: true })
+            res.status(201).json({ user: newUser })
           }
       } else {
           res.status(500).json({error : "E-mail já cadastrado. Faça o login!"})
@@ -61,6 +62,15 @@ export const one = async(req: Request, res: Response) => {
       res.status(500).json({error : "Dados invalidos"})
   }
 }
+export const oneEmail = async(req: Request, res: Response) => {
+    const { email } = req.params
+    const user = await UserService.findByEmail(email)
+    if(user) {
+        res.status(200).json({id: user.id, email:user.email })
+    } else {
+        res.status(500).json({error : "E-mail não cadastrado"})
+    }
+  }
 
 export const update = async(req: Request, res: Response) => {
   const { id } = req.params

@@ -563,17 +563,6 @@ footer .header-logo p {
 .modal-login-home {
   transition: all ease .5s;
   display: none;
-  /* position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(255, 255, 255, 0.5);
-  display: flex;
-  transition: all ease .5s;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto; */
 }
 .modal-login-home-content {
   position: fixed;
@@ -621,7 +610,8 @@ footer .header-logo p {
 }
 .modal-login-home-inputs .email,
 .modal-login-home-inputs .password,
-.modal-login-home-inputs .password2 {
+.modal-login-home-inputs .nameInput,
+.modal-login-home-inputs .p2assword {
   width: 85%;
   padding: 8px;
   border-radius: 5px;
@@ -630,14 +620,18 @@ footer .header-logo p {
   margin-bottom: 10px;
 }
 .modal-login-home-inputs .password,
-.modal-login-home-inputs .password2,
+.modal-login-home-inputs .p2assword,
+.modal-login-home-inputs .nameInput,
 .modal-login-home-inputs-p-p,
+.modal-login-home-inputs-p-n,
+.modal-login-home-inputs-p,
 .modal-login-home-inputs-p-p2 {
   display: none;
 }
 .modal-login-home-inputs-p,
 .modal-login-home-inputs-p-p,
-.modal-login-home-inputs-p-p2 {
+.modal-login-home-inputs-p-p2,
+.modal-login-home-inputs-p-n {
   width: 85%;
   font-size: 13px;
   font-weight: 500;
@@ -649,7 +643,8 @@ footer .header-logo p {
   align-items: center;
 }
 .buttonLogin,
-.buttonEmail {
+.buttonEmail,
+.buttonLoginEmail {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -663,11 +658,14 @@ footer .header-logo p {
   color: #fff;
   border: none;
 }
-.buttonLogin {
+.buttonLogin,
+.buttonLoginEmail {
   display: none;
 }
 .modal-login-home-g {
   margin-top: 15px;
+  align-items: center;
+  justify-content: center;
 }
 .modal-login-home-g p {
   text-align: center;
@@ -686,4 +684,14 @@ footer .header-logo p {
   height: 50px;
   border-radius: 25px;
   cursor: pointer;
+}
+.notice-email,
+.notice-password,
+.notice-name,
+.notice-password2 {
+  color: red;
+  font-weight: 500;
+  margin-top: -10px;
+  font-size: 12px;
+  margin-bottom: 10px;
 }
