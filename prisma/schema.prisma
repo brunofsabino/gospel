@@ -37,14 +37,20 @@ model UserADM {
 
 model Post {
   id                String          @id @default(uuid())
-  content           String
+  contentP1         String
+  contentP2         String?
+  contentP3         String?
+  contentP4         String?
+  contentP5         String?
+  contentP6         String?
+  contentP7         String?
   contentPreComment String
   date              DateTime        @default(now())
   title             String
   img               String?
   video             String?
   userADMId         String
-  userADM           UserADM         @relation(fields: [userADMId], references: [id])
+  userADM           UserADM         @relation(fields: [userADMId], references: [id], onDelete: Cascade)
   Comment           CommentInPost[]
   likesInComment    LikeInComment[]
 
@@ -58,8 +64,8 @@ model CommentInPost {
   user_id        String
   date           DateTime        @default(now())
   comment        String
-  postId         Post            @relation(fields: [post_id], references: [id])
-  userId         User            @relation(fields: [user_id], references: [id])
+  postId         Post            @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  userId         User            @relation(fields: [user_id], references: [id], onDelete: Cascade)
   likesInComment LikeInComment[]
 
   @@map("comments")
@@ -71,9 +77,9 @@ model LikeInComment {
   user_id    String
   comment_id String        @unique
   done       Boolean       @default(true)
-  postId     Post          @relation(fields: [post_id], references: [id])
-  userId     User          @relation(fields: [user_id], references: [id])
-  commentId  CommentInPost @relation(fields: [comment_id], references: [id])
+  postId     Post          @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  userId     User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  commentId  CommentInPost @relation(fields: [comment_id], references: [id], onDelete: Cascade)
 
   @@map("likeInComments")
 }
@@ -83,7 +89,7 @@ model Forum {
   title          String
   description    String
   user_id        String
-  userId         User             @relation(fields: [user_id], references: [id])
+  userId         User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
   CommentInForum CommentInForum[]
   LikeInForum    LikeInForum[]
 
@@ -97,8 +103,8 @@ model CommentInForum {
   user_id          String
   date             DateTime      @default(now())
   comment          String
-  forumId          Forum         @relation(fields: [forum_id], references: [id])
-  userId           User          @relation(fields: [user_id], references: [id])
+  forumId          Forum         @relation(fields: [forum_id], references: [id], onDelete: Cascade)
+  userId           User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
   LikeInForum      LikeInForum[]
 
   @@map("commentInForums")
@@ -110,9 +116,9 @@ model LikeInForum {
   done              Boolean        @default(true)
   user_id           String
   commentInForum_id String         @unique
-  forumId           Forum          @relation(fields: [forum_id], references: [id])
-  userId            User           @relation(fields: [user_id], references: [id])
-  commentId         CommentInForum @relation(fields: [commentInForum_id], references: [id])
+  forumId           Forum          @relation(fields: [forum_id], references: [id], onDelete: Cascade)
+  userId            User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  commentId         CommentInForum @relation(fields: [commentInForum_id], references: [id], onDelete: Cascade)
 
   @@map("likeInForums")
 }

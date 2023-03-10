@@ -10,9 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/stylepage.css">
-  <link rel="stylesheet" href="../css/styleforum.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/stylepage.css">
+  <link rel="stylesheet" href="css/styleforum.css">
   <title>Opinião Gospel</title>
 </head>
 <body>
@@ -20,23 +20,70 @@
     <div class="header-content ">
       <div class="header-content-desc container">
         <div class="header-logo">
-          <img src="../images/logo.png" alt="Logo Opinião Gospel">
+          <img src="images/logo.png" alt="Logo Opinião Gospel">
           <p>Opinião Gospel</p>
         </div>
         <div class="header-icons-menu">
           <nav>
-            <li><a href=""><div class="area-home"><img src="../images/home.svg" alt="Imagem Home">Home</div></a></li>
-            <li><a href=""><div class="area-forum"><img src="../images/forum.svg" alt="Imagem Fórum">Fórum</div></a></li>
-            <li><a href=""><div class="area-alerts"><img src="../images/alert.svg" alt="Imagem Alerta"></div></a></li>
+            <li><a href=""><div class="area-home"><img src="images/home.svg" alt="Imagem Home">Home</div></a></li>
+            <li><a href=""><div class="area-forum"><img src="images/forum.svg" alt="Imagem Fórum">Fórum</div></a></li>
+            <li><a href=""><div class="area-alerts"><img src="images/alert.svg" alt="Imagem Alerta"></div></a></li>
           </nav>
-          <div class="header-persona"><a href=""><img src="../images/persona.png" alt="Imagem Perfil"></a></div>
-          <div class="header-persona-open"><a href=""><img src="../images/seta-expandir.png" alt="Imagem Expandir Perfil"></a></div>
+          <div class="header-persona"><a href=""><img src="images/persona.png" alt="Imagem Perfil"></a></div>
+          <div class="header-persona-open"><a href=""><img src="images/seta-expandir.png" alt="Imagem Expandir Perfil">
+            <div class="header-persona-perfil close">
+              <div class="area-persona-perfil" id="">Perfil</div>
+              <div class="area-persona-logout" id="">Sair</div>
+            </div>
+          </a></div>
           <div class="button-enter"><a href="">Entrar</a></div>
         </div>
       </div>
     </div>
   </header>
   <main>
+    <div class="modal-login-home">
+      <div class="modal-login-home-content">
+        <div class="modal-login-home-close">
+          <img src="images/close.svg" alt="Fechar modal">
+        </div>
+        <h3>Entre gratuitamente para o Opinião Gospel</h3>
+        <div class="modal-login-home-inputs">
+          <div class="modal-login-home-inputs-p">
+            <p>Seu e-mail:</p>
+          </div>
+          <input type="text" placeholder="Seu e-mail" name="email" class="email">
+          <p class="notice-email"></p>
+          <div class="modal-login-home-inputs-p-n">
+            <p>Seu nome:</p>
+          </div>
+          <input type="text" placeholder="Digite seu nome" name="name" class="nameInput">
+          <p class="notice-name"></p>
+          <div class="modal-login-home-inputs-p-p">
+            <p>Sua senha:</p>
+          </div>
+          <input type="password" placeholder="Sua senha" name="password" class="password">
+          <p class="notice-password"></p>
+          <div class="modal-login-home-inputs-p-p2">
+            <p>Confirme sua senha:</p>
+          </div>
+          <input type="password" placeholder="Confirme sua senha"  name="password2" class="p2assword">
+          <p class="notice-password2"></p>
+        </div>
+        <div class="modal-login-home-buttons">
+          <button class="buttonEmail">Continuar com o e-mail</button>
+          <button class="buttonLogin">Continuar</button>
+          <button class="buttonLoginEmail">Login</button>
+        </div>
+        <div class="modal-login-home-g">
+          <p>Ou continue com o</p>
+        </div>
+        <div class="modal-login-home-buttons-google">
+          <a class="buttonGoogle"><img src="images/google.svg" alt=""></a>
+        </div>
+      </div>
+      <div class="modal-login-home-content-close"></div>
+    </div>
     <div class="area-perfil-comments container">
       <div class="area-perfil">
         <div class="area-perfil-content">
@@ -44,13 +91,13 @@
             <div class="area-perfil-img">
               <img src="" alt="">
               <div class="area-perfil-alterar">
-                <img src="../images/camera.svg" alt="Alterar imagem do perfil">
+                <img src="images/camera.svg" alt="Alterar imagem do perfil">
               </div>
             </div>
           </div>
           <div class="area-perfil-name">
             <p>Bruno Ferraz Sabino</p>
-            <img src="../images/pencil.svg" alt="">
+            <img src="images/pencil.svg" alt="">
           </div>
         </div>
       </div>
@@ -63,7 +110,7 @@
             </div>
             <div class="news-week-1-aside-area-news">
               <div class="news-week-1-img-aside-perfil">
-                <img src="../images/Imagem21-570x300 1.png" alt="">
+                <img src="images/Imagem21-570x300 1.png" alt="">
               </div>
               <div class="news-week-1-desc-aside-perfil">
                 <div class="news-week-1-title-aside-perfil">
@@ -74,7 +121,7 @@
                   <div class="news-week-1-p-aside-perfil">
                     <p>Opine</p>
                     <div class="news-week-1-p-comment-aside-perfil">
-                      <img src="../images/forum.svg" alt="">
+                      <img src="images/forum.svg" alt="">
                       <p>15</p>
                     </div>
                   </div>
@@ -91,7 +138,7 @@
             </div>
             <div class="news-week-1-aside-area-news">
               <div class="news-week-1-img-aside-perfil">
-                <img src="../images/Imagem21-570x300 1.png" alt="">
+                <img src="images/Imagem21-570x300 1.png" alt="">
               </div>
               <div class="news-week-1-desc-aside-perfil">
                 <div class="news-week-1-title-aside-perfil">
@@ -102,7 +149,7 @@
                   <div class="news-week-1-p-aside-perfil">
                     <p>Opine</p>
                     <div class="news-week-1-p-comment-aside-perfil">
-                      <img src="../images/forum.svg" alt="">
+                      <img src="images/forum.svg" alt="">
                       <p>15</p>
                     </div>
                   </div>
@@ -119,7 +166,7 @@
             </div>
             <div class="news-week-1-aside-area-news">
               <div class="news-week-1-img-aside-perfil">
-                <img src="../images/Imagem21-570x300 1.png" alt="">
+                <img src="images/Imagem21-570x300 1.png" alt="">
               </div>
               <div class="news-week-1-desc-aside-perfil">
                 <div class="news-week-1-title-aside-perfil">
@@ -130,7 +177,7 @@
                   <div class="news-week-1-p-aside-perfil">
                     <p>Opine</p>
                     <div class="news-week-1-p-comment-aside-perfil">
-                      <img src="../images/forum.svg" alt="">
+                      <img src="images/forum.svg" alt="">
                       <p>15</p>
                     </div>
                   </div>
@@ -151,7 +198,7 @@
             <div class="aside-forum1" style="background-color: #FFF;">
               <div class="aside-forum1-person">
                 <div class="aside-forum1-person-area">
-                  <img src="../images/persona.png" alt="">
+                  <img src="images/persona.png" alt="">
                 </div>
               </div>
               <div class="aside-forum1-desc">
@@ -162,7 +209,7 @@
                   <p>Última resposta: Fulano de tal há 1 dia</p>
                 </div>
                 <div class="aside-forum1-desc-qt-comments">
-                  <img src="../images/forum.svg" alt="">
+                  <img src="images/forum.svg" alt="">
                   <p>10 Comentários</p>
                 </div>
               </div>
@@ -176,7 +223,7 @@
             <div class="aside-forum1" style="background-color: #FFF;">
               <div class="aside-forum1-person">
                 <div class="aside-forum1-person-area">
-                  <img src="../images/persona.png" alt="">
+                  <img src="images/persona.png" alt="">
                 </div>
               </div>
               <div class="aside-forum1-desc">
@@ -187,7 +234,7 @@
                   <p>Última resposta: Fulano de tal há 1 dia</p>
                 </div>
                 <div class="aside-forum1-desc-qt-comments">
-                  <img src="../images/forum.svg" alt="">
+                  <img src="images/forum.svg" alt="">
                   <p>10 Comentários</p>
                 </div>
               </div>
@@ -201,7 +248,7 @@
             <div class="aside-forum1" style="background-color: #FFF;">
               <div class="aside-forum1-person">
                 <div class="aside-forum1-person-area">
-                  <img src="../images/persona.png" alt="">
+                  <img src="images/persona.png" alt="">
                 </div>
               </div>
               <div class="aside-forum1-desc">
@@ -212,7 +259,7 @@
                   <p>Última resposta: Fulano de tal há 1 dia</p>
                 </div>
                 <div class="aside-forum1-desc-qt-comments">
-                  <img src="../images/forum.svg" alt="">
+                  <img src="images/forum.svg" alt="">
                   <p>10 Comentários</p>
                 </div>
               </div>
@@ -226,7 +273,7 @@
   <footer>
     <div class="footer-area container">
       <div class="header-logo">
-        <img src="../images/logo-white.png" alt="Logo Opinião Gospel">
+        <img src="images/logo-white.png" alt="Logo Opinião Gospel">
         <p>Opinião Gospel</p>
       </div>
       <div class="footer-area-desc">
@@ -235,6 +282,6 @@
       </div>
     </div>
   </footer>
-  <script src="../js/script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

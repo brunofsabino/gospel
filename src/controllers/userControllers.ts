@@ -39,6 +39,8 @@ export const create = async(req: Request, res: Response) => {
             email
           })
           if(newUser) {
+            // req.session.views
+            // req.session.token = newUser.token
             res.cookie('token', newUser.token, { maxAge: 3600000, httpOnly: true, secure: true })
             res.status(201).json({ id: newUser.dataNewUser.id, email: newUser.dataNewUser.email, name: newUser.dataNewUser.name, token: newUser.token })
           }
@@ -52,6 +54,14 @@ export const create = async(req: Request, res: Response) => {
 export const all = async(req: Request, res: Response) => {
   const all = await UserService.findAll()
   res.status(200).json({users: all})
+}
+export const adm = async(req: Request, res: Response) => {
+    //const all = await UserService.findAll()
+    res.render('pages/login.ejs')
+}
+export const oneAdm = async(req: Request, res: Response) => {
+    const { token } = req.params
+    res.render('pages/login.ejs')
 }
 export const one = async(req: Request, res: Response) => {
   const { id } = req.params
@@ -123,8 +133,8 @@ export const login = async(req: Request, res: Response) => {
 export const loginAdm = async(req: Request, res: Response) => {
   const { email, password } = req.body
   if(email && password) {
-      const loggedUser = await UserService.loginAdm(email, password)
-      if(loggedUser) {
+      const loggedUser = await UserService.admLogin(email, password)
+      if(loggedUser && loggedUser.id === 'd215be0e-5383-4a98-ba99-5fd3f4738fd9') {
           res.status(200).json({sucess: true, token: loggedUser.token, name: loggedUser.name, email: loggedUser.email, id: loggedUser.id})
       } else {
           res.status(500).json({error : "Dados invalidos"})

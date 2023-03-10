@@ -1,6 +1,6 @@
-let totalSlides = document.querySelectorAll('.slider--item').length;
-let sliderWidth = document.querySelector('.slider').clientWidth;
-let currentSlide = 0;
+// let totalSlides = document.querySelectorAll('.slider--item').length;
+// let sliderWidth = document.querySelector('.slider').clientWidth;
+// let currentSlide = 0;
 
 const body = document.querySelector('body')
 const buttonEnter = document.querySelector('.button-enter') 
@@ -40,33 +40,35 @@ const pNoticePassword = document.querySelector('.modal-login-home-content .notic
 const pNoticePassword2 = document.querySelector('.modal-login-home-content .notice-password2')
 
 
-document.querySelector('.slider--width').style.width = 
-    `${sliderWidth * totalSlides}px`;
-document.querySelector('.slider--controls').style.width = 
-    `${sliderWidth}px`;
-document.querySelector('.slider--controls').style.height = 
-    `${document.querySelector('.slider').clientHeight}px`;
-function goPrev() {
-    currentSlide--;
-    if(currentSlide < 0) {
-        currentSlide = totalSlides - 1;
-    }
-    updateMargin();
-}
-function goNext() {
-    currentSlide++;
-    if(currentSlide > (totalSlides-1)) {
-        currentSlide = 0;
-    }
-    updateMargin();
-}
-function updateMargin() {
-    let sliderItemWidth = document.querySelector('.slider--item').clientWidth;
-    let newMargin = (currentSlide * sliderItemWidth);
-    document.querySelector('.slider--width').style.marginLeft = 
-        `-${newMargin}px`;
-}
-setInterval(goNext, 5000);
+
+
+// document.querySelector('.slider--width').style.width = 
+//     `${sliderWidth * totalSlides}px`;
+// document.querySelector('.slider--controls').style.width = 
+//     `${sliderWidth}px`;
+// document.querySelector('.slider--controls').style.height = 
+//     `${document.querySelector('.slider').clientHeight}px`;
+// function goPrev() {
+//     currentSlide--;
+//     if(currentSlide < 0) {
+//         currentSlide = totalSlides - 1;
+//     }
+//     updateMargin();
+// }
+// function goNext() {
+//     currentSlide++;
+//     if(currentSlide > (totalSlides-1)) {
+//         currentSlide = 0;
+//     }
+//     updateMargin();
+// }
+// function updateMargin() {
+//     let sliderItemWidth = document.querySelector('.slider--item').clientWidth;
+//     let newMargin = (currentSlide * sliderItemWidth);
+//     document.querySelector('.slider--width').style.marginLeft = 
+//         `-${newMargin}px`;
+// }
+// setInterval(goNext, 5000);
 
 buttonEnter.addEventListener('click', item => openModal(item))
 modalHome.addEventListener('click', closeModal)
@@ -98,6 +100,7 @@ buttonContinuesEmail.addEventListener('click', (item) => {
         findByEmail(email)
     }
 } )
+
 
 inputPasswordModal.addEventListener('focus', noticePassword)
 inputPasswordModal.addEventListener('keyup', item => countNoticePassword(item))
@@ -205,7 +208,7 @@ function loginSucess(user) {
     }, 500);
     userLogged(user)
 }
-function createSucess() {
+function createSucess(user) {
     buttonRegister.style.backgroundColor = '#0cc70cfc'
     buttonRegister.innerText = 'Conta criada com sucesso'
     setTimeout( ()=>{
@@ -218,18 +221,36 @@ function userLogged(user) {
     areaAlertsUser.style.display = 'flex'
     areaPersonaUser.style.display = 'flex'
     areaConfigUser.style.display = 'flex'
-    console.log(user)
     areaPerfilUser.setAttribute('id', user.id)
 }
 function loggoutUser() {
     localStorage.removeItem('token')
     localStorage.removeItem('id')
+    localStorage.removeItem('email')
+    localStorage.removeItem('name')
     location.reload() 
 }
 function toggleAreaUser(item) {
     item.preventDefault()
     areaConfigLoggoutUser.classList.toggle('close')
 }
+async function openPageMyPerfil(item) {
+    const idUser = areaPerfilUser.getAttribute('id')
+    const user = await getUser(idUser)
+    window.open(`http://localhost:4000/user/${user.id}`, '_blank')
+    // window.location.href = `http://localhost:4000/user/${user.id}`
+    alterar_url(`http://lnovo/perfil/${user.name}`)
+    // history.pushState(null, null, `http://localhost/opiniaogospel/public/perfil/${user.name}`)
+    // const pagePerfil = await getUserPerfil(idUser, user.name)
+    // const urlParams = new URLSearchParams('file:///C:/Projetos/opiniaogospel/public/perfil/perfil.html')
+    // urlParams.set('id', user.id)
+    // console.log(urlParams)
+    // window.location.href = 'file:///C:/Projetos/opiniaogospel/public/perfil/perfil.html'
+}
+function alterar_url(nova){
+    history.pushState({}, null, nova);
+  }
+areaPerfilUser.addEventListener('click', item => openPageMyPerfil(item))
 areaPersonaAUser.addEventListener('click', item => toggleAreaUser(item))
 areaPersonaIMGUser.addEventListener('click', item => toggleAreaUser(item))
 areaPersonaUser.addEventListener('click', item => toggleAreaUser(item))
@@ -271,6 +292,7 @@ async function getUser() {
     const json = await user.json()
     if(json.id) {
         userLogged(json.id)
+        return json.id
     }
 }
 getUser()
@@ -316,6 +338,7 @@ async function registerNewUser(email, name, password, password2) {
         }
     } 
 }
+
 async function loginUser(email, password)  {
     const loginUser = await fetch(`http://localhost:4000/login`, {
         method: 'POST',
@@ -331,6 +354,8 @@ async function loginUser(email, password)  {
         loginSucess(json)
         localStorage.setItem("token", json.token);
         localStorage.setItem('id', json.id)
+        localStorage.setItem('email', json.email)
+        localStorage.setItem('name', json.name)
         // console.log(token)
         // localStorage.setItem()
     }

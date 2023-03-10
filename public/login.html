@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/stylepage.css">
+  <link rel="stylesheet" href="css/styleforum.css">
+  <link rel="stylesheet" href="css/stylelogin.css">
+  <title>Opinião Gospel</title>
+</head>
+<body>
+  <header>
+    <div class="header-content ">
+      <div class="header-content-desc container">
+        <div class="header-logo">
+          <img src="images/logo.png" alt="Logo Opinião Gospel">
+          <p>Opinião Gospel</p>
+        </div>
+        <div class="header-icons-menu">
+          <nav>
+            <li><a href=""><div class="area-home"><img src="images/home.svg" alt="Imagem Home">Home</div></a></li>
+            <li><a href=""><div class="area-forum"><img src="images/forum.svg" alt="Imagem Fórum">Fórum</div></a></li>
+            <li><a href=""><div class="area-alerts"><img src="images/alert.svg" alt="Imagem Alerta"></div></a></li>
+          </nav>
+          <div class="header-persona"><a href=""><img src="images/persona.png" alt="Imagem Perfil"></a></div>
+          <div class="header-persona-open"><a href=""><img src="images/seta-expandir.png" alt="Imagem Expandir Perfil">
+            <div class="header-persona-perfil close">
+              <div class="area-persona-perfil" id="">Perfil</div>
+              <div class="area-persona-logout" id="">Sair</div>
+            </div>
+          </a></div>
+          <div class="button-enter"><a href="">Entrar</a></div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="modal-login-home">
+    <div class="modal-login-home-content">
+      <div class="modal-login-home-close">
+        <img src="images/close.svg" alt="Fechar modal">
+      </div>
+      <h3>Entre gratuitamente para o Opinião Gospel</h3>
+      <div class="modal-login-home-inputs">
+        <div class="modal-login-home-inputs-p">
+          <p>Seu e-mail:</p>
+        </div>
+        <input type="text" placeholder="Seu e-mail" name="email" class="email">
+        <p class="notice-email"></p>
+        <div class="modal-login-home-inputs-p-n">
+          <p>Seu nome:</p>
+        </div>
+        <input type="text" placeholder="Digite seu nome" name="name" class="nameInput">
+        <p class="notice-name"></p>
+        <div class="modal-login-home-inputs-p-p">
+          <p>Sua senha:</p>
+        </div>
+        <input type="password" placeholder="Sua senha" name="password" class="password">
+        <p class="notice-password"></p>
+        <div class="modal-login-home-inputs-p-p2">
+          <p>Confirme sua senha:</p>
+        </div>
+        <input type="password" placeholder="Confirme sua senha"  name="password2" class="p2assword">
+        <p class="notice-password2"></p>
+      </div>
+      <div class="modal-login-home-buttons">
+        <button class="buttonEmail">Continuar com o e-mail</button>
+        <button class="buttonLogin">Continuar</button>
+        <button class="buttonLoginEmail">Login</button>
+      </div>
+      <div class="modal-login-home-g">
+        <p>Ou continue com o</p>
+      </div>
+      <div class="modal-login-home-buttons-google">
+        <a class="buttonGoogle"><img src="images/google.svg" alt=""></a>
+      </div>
+    </div>
+    <div class="modal-login-home-content-close"></div>
+  </div>
+  <div class="area-login-adm container">
+    <div class="area-inputs">
+      <input type="email" placeholder="Digite seu email" name="email" class="inputEmail">
+      <input type="password" placeholder="Digite sua senha" name="password" class="inputPassword">
+    </div>
+    <button>Login</button>
+  </div>
+  <main>
+    <div class="area-post container">
+      <form action="POST">
+        <label>Titulo:<input type="text" name="title"><br><br></label>
+        <label>Imagem:<input type="file"  name="myfile"><br><br></label>
+        <label>Link Video:<input type="text"  name="video"><br><br></label>
+        <label>Conteudo parafrago incentivando aos comentários:<input type="text"  name="contentPreComment"><br><br></label>
+        <label>Conteudo do 1 paragrafo: <input type="text"  name="contentP1"></textarea><br><br></label>
+        <label>Conteudo do 2 paragrafo: <input type="text"  name="contentP2"></textarea><br><br></label>
+        <label>Conteudo do 3 paragrafo: <input type="text"  name="contentP3"></textarea><br><br></label>
+        <label>Conteudo do 4 paragrafo: <input type="text"  name="contentP4"></textarea><br><br></label>
+        <label>Conteudo do 5 paragrafo: <input type="text"  name="contentP5"></textarea><br><br></label>
+        <label>Conteudo do 6 paragrafo: <input type="text"  name="contentP6"></textarea><br><br></label>
+        <label>Conteudo do 7 paragrafo: <input type="text"  name="contentP7"></textarea><br><br></label>
+        <input type="submit" value="Salvar Postagem">
+        <button>Postar no site</button>
+      </form>
+    </div>
+  </main>
+  <script src="js/login.js"></script>
+</body>
+</html>

@@ -6,6 +6,7 @@ import * as PostController from '../controllers/postControllers'
 const router = Router()
 
 
+router.post('/post/createFile', PostController.createFile)
 router.post('/post/:userADMId', privateRoute, PostController.create)
 router.get('/post', privateRoute, PostController.all)
 router.get('/post/:id', privateRoute, PostController.one)

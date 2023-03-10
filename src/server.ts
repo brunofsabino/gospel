@@ -3,6 +3,7 @@ import path from 'path'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import passport from 'passport'
+import homeRouter from './routes/home'
 import userRouter from './routes/user'
 import postRouter from './routes/post'
 import commentRouter from './routes/comment'
@@ -11,7 +12,7 @@ import likeInCommentForumRouter from './routes/likeInForum'
 import forumRouter from './routes/forum'
 import commentForumRouter from './routes/commentForum'
 import session from 'express-session'
-
+import ejs from 'ejs'
 
 dotenv.config()
 
@@ -20,11 +21,13 @@ const server = express()
 server.use(cors())
 
 
-
+server.set('view engine', 'ejs')
+server.set('views', path.join(__dirname, 'views'))
 server.use(express.static(path.join(__dirname, '../public')))
 server.use(express.urlencoded({ extended: true}))
 
 server.use(passport.initialize())
+server.use(homeRouter)
 server.use(userRouter)
 server.use(postRouter)
 server.use(commentRouter)
@@ -39,6 +42,7 @@ declare module 'express-session' {
   export interface SessionData {
     // user: { [key: string]: any };
     // userId: number;
+    views: number;
     token: string;
   }
 }
@@ -46,13 +50,12 @@ server.use(session({
   secret: 'dapsdaifnasdáosdasd',
   resave: false,
   saveUninitialized: false,
-  // cookie: { secure: true }
+  cookie: { secure: true }
 }))
 
-// server.use((req, res, next) => {
-//   res.locals.token ='req.flash';
-//   next()
-// })
+server.use((req, res)=> {
+  res.render('pages/404')
+})
 
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {

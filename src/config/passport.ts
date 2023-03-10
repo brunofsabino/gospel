@@ -29,12 +29,15 @@ export const generateToken = (data: object) => {
 export const privateRoute = (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate('jwt', (err: any, user: Express.User | undefined) => {
         req.user = user
+        console.log('private route'+ req.user)
         return user ? next() : next(notAuthorizedJson)
     })(req, res, next)
 }
+
 export const privateRouteADM = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('jwt', (err: any, user: Express.User ) => {
       req.user = user
+
       // if(req.user) {
       //   if(req.user.id === '446e0c3a-87bd-4fc6-a23f-5a39f894ef72') {
 

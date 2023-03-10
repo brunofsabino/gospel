@@ -79,7 +79,7 @@ export const UserService = {
             }
         }
     },
-    loginAdm: async(email: string, password: string) => {
+    admLogin: async(email: string, password: string) => {
         const user =  await prisma.userADM.findUnique({ where: { email }})
         if(user) {
             let hash = bcrypt.compareSync(password as string, user.password)
