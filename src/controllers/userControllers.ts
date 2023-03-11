@@ -59,6 +59,10 @@ export const adm = async(req: Request, res: Response) => {
     //const all = await UserService.findAll()
     res.render('pages/login.ejs')
 }
+export const admArea = async(req: Request, res: Response) => {
+    //const all = await UserService.findAll()
+    res.render('pages/areaAdm.ejs')
+}
 export const oneAdm = async(req: Request, res: Response) => {
     const { token } = req.params
     res.render('pages/login.ejs')
@@ -143,6 +147,19 @@ export const loginAdm = async(req: Request, res: Response) => {
       res.status(500).json({error : "Dados invalidos"})
   }
 }
+export const loginAdmArea = async(req: Request, res: Response) => {
+    const { email, password } = req.body
+    if(email && password) {
+        const loggedUser = await UserService.admLogin(email, password)
+        if(loggedUser && loggedUser.id === 'd215be0e-5383-4a98-ba99-5fd3f4738fd9') {
+            res.status(200).json({sucess: true, token: loggedUser.token, name: loggedUser.name, email: loggedUser.email, id: loggedUser.id})
+        } else {
+            res.status(500).json({error : "Dados invalidos"})
+        }
+    } else {
+        res.status(500).json({error : "Dados invalidos"})
+    }
+  }
 export const logout = async(req: Request, res: Response) => {
   
 }
