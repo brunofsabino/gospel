@@ -8,32 +8,34 @@ import path from 'path'
 export const create = async(req: Request, res: Response) => {
   const { contentP1, contentP2, contentP3, contentP4, contentP5, contentP6, contentP7, contentPreComment, title, img, video } = req.body
   const { userADMId } = req.params
-  if(contentP1 && contentPreComment &&  title && userADMId) {
-      const userADM = await UserService.findADM(userADMId)
-      if(userADM) {
-          const newPost = await PostService.create({ 
-            userADMId, 
-            title, 
-            contentP1, 
-            contentP2: contentP2 ?? null, 
-            contentP3: contentP3 ?? null, 
-            contentP4: contentP4 ?? null, 
-            contentP5: contentP5 ?? null, 
-            contentP6: contentP6 ?? null, 
-            contentP7: contentP7 ?? null, 
-            contentPreComment, 
-            img: img ?? null, 
-            video: video ?? null  
-        })
-          if(newPost) {
-              res.status(201).json({ post: newPost })
-          }
-      } else {
-          res.status(500).json({error : "Erro ao usuario logado"})
-      }
-  } else {
-      res.status(500).json({error : "Dados invalidos"})
-  }
+  console.log(userADMId, req.file, contentP1, contentP2, contentP3, contentP4, contentP5, contentP6, contentP7, contentPreComment, title, img, video)
+  // if(contentP1 && contentPreComment &&  title && userADMId) {
+  //     const userADM = await UserService.findADM(userADMId)
+  //     if(userADM) {
+  //         const newPost = await PostService.create({ 
+  //           userADMId, 
+  //           title, 
+  //           contentP1, 
+  //           contentP2: contentP2 ?? null, 
+  //           contentP3: contentP3 ?? null, 
+  //           contentP4: contentP4 ?? null, 
+  //           contentP5: contentP5 ?? null, 
+  //           contentP6: contentP6 ?? null, 
+  //           contentP7: contentP7 ?? null, 
+  //           contentPreComment, 
+  //           img: img ?? null, 
+  //           video: video ?? null  
+  //       })
+  //         if(newPost) {
+  //             res.status(201).json({ post: newPost })
+  //         }
+  //     } else {
+  //         res.status(500).json({error : "Erro ao usuario logado"})
+  //     }
+  // } else {
+  //     res.status(500).json({error : "Dados invalidos"})
+  // }
+  res.json({})
 }
 export const createFile = async(req: Request, res: Response) => {
     
