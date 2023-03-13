@@ -11,60 +11,505 @@
   <title>Opinião Gospel</title>
 </head>
 <body>
-  <header>
-    <div class="header-content ">
-      <div class="header-content-desc container">
-        <div class="header-logo">
-          <img src="images/logo.png" alt="Logo Opinião Gospel">
-          <p>Opinião Gospel</p>
-        </div>
-        <div class="header-icons-menu">
-          <nav>
-            <li><a href=""><div class="area-home"><img src="images/home.svg" alt="Imagem Home">Home</div></a></li>
-            <li><a href=""><div class="area-forum"><img src="images/forum.svg" alt="Imagem Fórum">Fórum</div></a></li>
-            <li><a href=""><div class="area-alerts"><img src="images/alert.svg" alt="Imagem Alerta"></div></a></li>
-          </nav>
-          <div class="header-persona"><a href=""><img src="images/persona.png" alt="Imagem Perfil"></a></div>
-          <div class="header-persona-open"><a href=""><img src="images/seta-expandir.png" alt="Imagem Expandir Perfil">
-            <div class="header-persona-perfil close">
-              <div class="area-persona-perfil" id="">Perfil</div>
-              <div class="area-persona-logout" id="">Sair</div>
-            </div>
-          </a></div>
-          <div class="button-enter"><a href="">Entrar</a></div>
-        </div>
-      </div>
-    </div>
-  </header>
+  <%- include('../partials/header') %>
   <main>
     <div class="area-posts container">
       <div class="area-posts-content">
         <button>posts</button>
         <p >Postagens do banco de dados:</p> 
-        
+        <div class="area-posts-content-inputs"></div>
       </div>
+      <div class="area-posts-buttons">
+        <div class="area-button-main-news">
+          <p>Main News</p>
+          <a class="pre-visu" href="">Pré-visualizar</a>
+          <a href="">Postar no site</a>
+          <input type="text" name="" id="" class="subtitleMainNews" placeholder="Digite uma palavra para o subtitulo">
+          <input type="text" name="" id="" class="pMainNews" placeholder="Digite um pequeno paragrafo da noticia">
+        </div>
+        <div class="area-button-slide1">
+          <p>Slide 1</p>
+          <a  >Pré-visualizar</a>
+          <a href="">Postar no site</a>
+          <input type="text" name="" id="" placeholder="Digite uma palavra para o subtitulo">
+        </div>
+        <div class="area-button-slide2">
+          <p>Slide 2</p>
+          <a href="">Pré-visualizar</a>
+          <a href="">Postar no site</a>
+          <input type="text" name="" id="" placeholder="Digite uma palavra para o subtitulo">
+        </div>
+        <div class="area-button-slide3">
+          <p>Slide 3</p>
+          <a href="">Pré-visualizar</a>
+          <a href="">Postar no site</a>
+          <input type="text" name="" id="" placeholder="Digite uma palavra para o subtitulo">
+        </div>
+        <div class="area-button-news1">
+          <p>News 1</p>
+          <a href="">Pré-visualizar</a>
+          <a href="">Postar no site</a>
+        </div>
+        <div class="area-button-news2">
+          <p>News 2</p>
+          <a href="">Pré-visualizar</a>
+          <a href="">Postar no site</a>
+        </div>
+        <div class="area-button-news3">
+          <p>News 3</p>
+          <a href="">Pré-visualizar</a>
+          <a href="">Postar no site</a>
+        </div>
+        <div class="area-button-news4">
+          <p>News 4</p>
+          <a href="">Pré-visualizar</a>
+          <a href="">Postar no site</a>
+        </div>
+        <div class="area-button-news5">
+          <p>News 5</p>
+          <a href="">Pré-visualizar</a>
+          <a href="">Postar no site</a>
+        </div>
+        <div class="area-button-news6">
+          <p>News 6</p>
+          <a href="">Pré-visualizar</a>
+          <a href="">Postar no site</a>
+        </div>
+        <div class="area-button-news7">
+          <p>News 7</p>
+          <a href="">Pré-visualizar</a>
+          <a href="">Postar no site</a>
+        </div>
+      </div>
+    </div>
+    <div style="align-items: center;" class="main-news container">
+      <div class="modal-login-home">
+        <div class="modal-login-home-content">
+          <div class="modal-login-home-close">
+            <img src="images/close.svg" alt="Fechar modal">
+          </div>
+          <h3>Entre gratuitamente para o Opinião Gospel</h3>
+          <div class="modal-login-home-inputs">
+            <div class="modal-login-home-inputs-p">
+              <p>Seu e-mail:</p>
+            </div>
+            <input type="text" placeholder="Seu e-mail" name="email" class="email">
+            <p class="notice-email"></p>
+            <div class="modal-login-home-inputs-p-n">
+              <p>Seu nome:</p>
+            </div>
+            <input type="text" placeholder="Digite seu nome" name="name" class="nameInput">
+            <p class="notice-name"></p>
+            <div class="modal-login-home-inputs-p-p">
+              <p>Sua senha:</p>
+            </div>
+            <input type="password" placeholder="Sua senha" name="password" class="password">
+            <p class="notice-password"></p>
+            <div class="modal-login-home-inputs-p-p2">
+              <p>Confirme sua senha:</p>
+            </div>
+            <input type="password" placeholder="Confirme sua senha"  name="password2" class="p2assword">
+            <p class="notice-password2"></p>
+          </div>
+          <div class="modal-login-home-buttons">
+            <button class="buttonEmail">Continuar com o e-mail</button>
+            <button class="buttonLogin">Continuar</button>
+            <button class="buttonLoginEmail">Login</button>
+          </div>
+          <div class="modal-login-home-g">
+            <p>Ou continue com o</p>
+          </div>
+          <div class="modal-login-home-buttons-google">
+            <a class="buttonGoogle"><img src="images/google.svg" alt=""></a>
+          </div>
+        </div>
+        <div class="modal-login-home-content-close"></div>
+      </div>
+      <div class="main-news-area1">
+        <div class="main-news-subtitle"><p>Música</p></div>
+        <div class="main-news-title"><h1>Para Maurício Soares, a saída de Jessé Aguiar da música gospel foi “falta de equilíbrio emocional”</h1></div>
+        <div class="main-news-p"><p>A fala de Maurício Soares sobre a decisão de Jessé Aguiar reverberou no cenário gospel.</p></div>
+        <div class="main-news-comment"><img src="images/forum.svg" alt="Faça um comentário na notícia">Comente!</div>
+      </div>
+      <div class="main-news-area2">
+        <img src="images/Mauricio-Soares-e-Jesse-Aguiar.jpg" alt="Mauricio-Soares-e-Jesse-Aguiar">
+      </div>
+    </div>
+    <div class="area-sections-aside container">
+      <div class="area-sections">
+        <section class="slide ">
+          <div class="slider">
+            <div class="slider--controls">
+                <div class="slider--control" onclick="goPrev()" ><img src="images/seta-expandir.png" style="rotate: 90deg;" alt=""></div>
+                <div class="slider--control" onclick="goNext()"><img src="images/seta-expandir.png" style="rotate: -90deg;" alt=""></div>
+            </div>
+            <div class="slider--width">
+                <div class="slider--item slide-one" >
+                    <div class="slider--item-content-1">
+                      <div class="slider--item-subtitle-1">Destaque</div>
+                      <div class="slider--item-title-1">
+                        <h2>Polêmico, Jessé Aguiar anuncia que não pertence mais “ao 
+                          mercado gospel”</h2>
+                      </div>
+                    </div>
+                </div>
+                <div class="slider--item slide-two" >
+                  <div class="slider--item-content-2">
+                    <div class="slider--item-subtitle-2">Destaque</div>
+                    <div class="slider--item-title-2">
+                      <h2>Polêmico, Jessé Aguiar anuncia que não pertence mais “ao 
+                        mercado gospel”</h2>
+                    </div>
+                  </div>
+                </div>
+                <div class="slider--item slide-three" >
+                  <div class="slider--item-content-3">
+                    <div class="slider--item-subtitle-3">Destaque</div>
+                    <div class="slider--item-title-3">
+                      <h2>Polêmico, Jessé Aguiar anuncia que não pertence mais “ao 
+                        mercado gospel”</h2>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </section>
+        <section class="news-week">
+          <div class="news-week-titlemain">
+            Mais Notícias
+          </div>
+          <div class="news-week-content">
+            <div class="news-week-1">
+              <div class="news-week-1-img">
+                <img src="images/Imagem21-570x300 1.png" alt="">
+              </div>
+              <div class="news-week-1-desc">
+                <div class="news-week-1-title">
+                  <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
+                    mas são derrotadas pelas orações</h3>
+                </div>
+                <div class="news-week-1-p-more">
+                  <div class="news-week-1-p">
+                    <p>Opine</p>
+                    <div class="news-week-1-p-comment">
+                      <img src="images/forum.svg" alt="">
+                      <p>15</p>
+                    </div>
+                  </div>
+                  <div class="news-week-1-more">
+                    Saiba mais
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="news-week-2">
+              <div class="news-week-2-img">
+                <img src="images/Imagem21-570x300 1.png" alt="">
+              </div>
+              <div class="news-week-2-desc">
+                <div class="news-week-2-title">
+                  <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
+                    mas são derrotadas pelas orações</h3>
+                </div>
+                <div class="news-week-2-p-more">
+                  <div class="news-week-2-p">
+                    <p>Opine</p>
+                    <div class="news-week-2-p-comment">
+                      <img src="images/forum.svg" alt="">
+                      <p>15</p>
+                    </div>
+                  </div>
+                  <div class="news-week-2-more">
+                    Saiba mais
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="news-week-3">
+              <div class="news-week-3-img">
+                <img src="images/Imagem21-570x300 1.png" alt="">
+              </div>
+              <div class="news-week-3-desc">
+                <div class="news-week-3-title">
+                  <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
+                    mas são derrotadas pelas orações</h3>
+                </div>
+                <div class="news-week-3-p-more">
+                  <div class="news-week-3-p">
+                    <p>Opine</p>
+                    <div class="news-week-3-p-comment">
+                      <img src="images/forum.svg" alt="">
+                      <p>15</p>
+                    </div>
+                  </div>
+                  <div class="news-week-3-more">
+                    Saiba mais
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="news-week-4">
+              <div class="news-week-4-img">
+                <img src="images/Imagem21-570x300 1.png" alt="">
+              </div>
+              <div class="news-week-4-desc">
+                <div class="news-week-4-title">
+                  <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
+                    mas são derrotadas pelas orações</h3>
+                </div>
+                <div class="news-week-4-p-more">
+                  <div class="news-week-4-p">
+                    <p>Opine</p>
+                    <div class="news-week-4-p-comment">
+                      <img src="images/forum.svg" alt="">
+                      <p>15</p>
+                    </div>
+                  </div>
+                  <div class="news-week-4-more">
+                    Saiba mais
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="news-week-5">
+              <div class="news-week-5-img">
+                <img src="images/Imagem21-570x300 1.png" alt="">
+              </div>
+              <div class="news-week-5-desc">
+                <div class="news-week-5-title">
+                  <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
+                    mas são derrotadas pelas orações</h3>
+                </div>
+                <div class="news-week-5-p-more">
+                  <div class="news-week-5-p">
+                    <p>Opine</p>
+                    <div class="news-week-5-p-comment">
+                      <img src="images/forum.svg" alt="">
+                      <p>15</p>
+                    </div>
+                  </div>
+                  <div class="news-week-5-more">
+                    Saiba mais
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="news-week-6">
+              <div class="news-week-6-img">
+                <img src="images/Imagem21-570x300 1.png" alt="">
+              </div>
+              <div class="news-week-6-desc">
+                <div class="news-week-6-title">
+                  <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
+                    mas são derrotadas pelas orações</h3>
+                </div>
+                <div class="news-week-6-p-more">
+                  <div class="news-week-6-p">
+                    <p>Opine</p>
+                    <div class="news-week-6-p-comment">
+                      <img src="images/forum.svg" alt="">
+                      <p>15</p>
+                    </div>
+                  </div>
+                  <div class="news-week-6-more">
+                    Saiba mais
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="news-week-7">
+              <div class="news-week-7-img">
+                <img src="images/Imagem21-570x300 1.png" alt="">
+              </div>
+              <div class="news-week-7-desc">
+                <div class="news-week-7-title">
+                  <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
+                    mas são derrotadas pelas orações</h3>
+                </div>
+                <div class="news-week-7-p-more">
+                  <div class="news-week-7-p">
+                    <p>Opine</p>
+                    <div class="news-week-7-p-comment">
+                      <img src="images/forum.svg" alt="">
+                      <p>15</p>
+                    </div>
+                  </div>
+                  <div class="news-week-7-more">
+                    Saiba mais
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <aside> 
+        <div class="aside-content">
+          <div class="aside-title">
+            <h3>As mais comentadas da semana no Fórum</h3>
+          </div>
+          <div class="aside-forum">
+            <div class="aside-forum1">
+              <div class="aside-forum1-person">
+                <div class="aside-forum1-person-area">
+                  <img src="images/persona.png" alt="">
+                </div>
+              </div>
+              <div class="aside-forum1-desc">
+                <div class="aside-forum1-desc-title">
+                  <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
+                </div>
+                <div class="aside-forum1-desc-res">
+                  <p>Última resposta: Fulano de tal há 1 dia</p>
+                </div>
+                <div class="aside-forum1-desc-qt-comments">
+                  <img src="images/forum.svg" alt="">
+                  <p>10 Comentários</p>
+                </div>
+              </div>
+  
+            </div>
+            <div class="aside-forum2">
+              <div class="aside-forum2-person">
+                <div class="aside-forum2-person-area">
+                  <img src="images/persona.png" alt="">
+                </div>
+              </div>
+              <div class="aside-forum2-desc">
+                <div class="aside-forum2-desc-title">
+                  <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
+                </div>
+                <div class="aside-forum2-desc-res">
+                  <p>Última resposta: Fulano de tal há 1 dia</p>
+                </div>
+                <div class="aside-forum2-desc-qt-comments">
+                  <img src="images/forum.svg" alt="">
+                  <p>10 Comentários</p>
+                </div>
+              </div>
+            </div>
+            <div class="aside-forum3">
+              <div class="aside-forum3-person">
+                <div class="aside-forum3-person-area">
+                  <img src="images/persona.png" alt="">
+                </div>
+              </div>
+              <div class="aside-forum3-desc">
+                <div class="aside-forum3-desc-title">
+                  <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
+                </div>
+                <div class="aside-forum3-desc-res">
+                  <p>Última resposta: Fulano de tal há 1 dia</p>
+                </div>
+                <div class="aside-forum3-desc-qt-comments">
+                  <img src="images/forum.svg" alt="">
+                  <p>10 Comentários</p>
+                </div>
+              </div>
+            </div>
+            <div class="aside-forum4">
+              <div class="aside-forum4-person">
+                <div class="aside-forum4-person-area">
+                  <img src="images/persona.png" alt="">
+                </div>
+              </div>
+              <div class="aside-forum4-desc">
+                <div class="aside-forum4-desc-title">
+                  <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
+                </div>
+                <div class="aside-forum4-desc-res">
+                  <p>Última resposta: Fulano de tal há 1 dia</p>
+                </div>
+                <div class="aside-forum4-desc-qt-comments">
+                  <img src="images/forum.svg" alt="">
+                  <p>10 Comentários</p>
+                </div>
+              </div>
+            </div>
+            <div class="aside-forum5">
+              <div class="aside-forum5-person">
+                <div class="aside-forum5-person-area">
+                  <img src="images/persona.png" alt="">
+                </div>
+              </div>
+              <div class="aside-forum5-desc">
+                <div class="aside-forum5-desc-title">
+                  <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
+                </div>
+                <div class="aside-forum5-desc-res">
+                  <p>Última resposta: Fulano de tal há 1 dia</p>
+                </div>
+                <div class="aside-forum5-desc-qt-comments">
+                  <img src="images/forum.svg" alt="">
+                  <p>10 Comentários</p>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </aside>
+    </div>
   </main>
   <script>
     const button = document.querySelector('.area-posts-content button')
-    const p = document.querySelector('.area-posts-content p')
+    const buttonPreVisu = document.querySelector('.pre-visu')
+    const inputs = document.querySelector('.area-posts-content-inputs')
+    
+    const subtitleMainNews = document.querySelector('.subtitleMainNews')
+    const h1MainNews = document.querySelector('.main-news-title h1')
+    const pMainNews = document.querySelector('.pMainNews')
+    const pMainNewsVisu = document.querySelector('.main-news-p p')
+    const subtitleMainNewsVisu = document.querySelector('.main-news-subtitle p')
+    const imgMainNewsVisu = document.querySelector('main .main-news-area2 img')
+
+    buttonPreVisu.addEventListener('click', item => preVisualize(item))
     button.addEventListener('click', getPosts)
-  async function getPosts() {
-    const posts = await fetch(`http://localhost:4000/site/d215be0e-5383-4a98-ba99-5fd3f4738fd9`, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
-    })
-    const json = await posts.json();
-    console.log(json)
-    if(json.posts){
-      console.log(json.posts)
-      json.posts.forEach(item => {
-        p.innerHTML +=  `<input type="radio" id="${item.id}" name="fav_language" value="${item.id}">
-        <label for="${item.id}">${item.title}</label><br>`
+    async function getPosts() {
+      const posts = await fetch(`http://localhost:4000/site/d215be0e-5383-4a98-ba99-5fd3f4738fd9`, {
+          method: 'GET',
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+          }
       })
+      const json = await posts.json();
+      console.log(json)
+      if(json.posts){
+        console.log(json.posts)
+        json.posts.forEach(item => {
+          inputs.innerHTML +=  `<input type="radio" id="${item.id}" name="fav_language" value="${item.id}">
+          <label for="${item.id}">${item.title}</label><br>`
+        })
+      }
     }
-  }
+    async function getPost(id) {
+      const post = await fetch(`http://localhost:4000/post/${id}`, {
+          method: 'GET',
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+          }
+      })
+      const json = await post.json();
+      if(json.post){
+        return json.post
+      }
+    }
+    async function preVisualize(item) {
+      item.preventDefault();
+      const inputsRadioChecked = document.querySelector('.area-posts-content-inputs input:checked')
+      console.log(inputsRadioChecked)
+      if(inputsRadioChecked.value != '' && subtitleMainNews.value != '' && pMainNews.value != '') {
+        const post = await getPost(inputsRadioChecked.value)
+        if(post) {
+          pMainNewsVisu.innerText = pMainNews.value
+          subtitleMainNewsVisu.innerText = subtitleMainNews.value
+          h1MainNews.innerText = post.title
+          imgMainNewsVisu.setAttribute('src', `media/${post.img}`)
+        }
+      }
+    }
   </script>
+  <script src="js/slide.js"></script>
+  <%- include('../partials/footer') %>
 </body>
 </html>

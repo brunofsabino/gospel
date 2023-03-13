@@ -14,32 +14,7 @@
   <title>Opinião Gospel</title>
 </head>
 <body>
-  
-  <header>
-    <div class="header-content ">
-      <div class="header-content-desc container">
-        <div class="header-logo">
-          <img src="images/logo.png" alt="Logo Opinião Gospel">
-          <p>Opinião Gospel</p>
-        </div>
-        <div class="header-icons-menu">
-          <nav>
-            <li><a href=""><div class="area-home"><img src="images/home.svg" alt="Imagem Home">Home</div></a></li>
-            <li><a href=""><div class="area-forum"><img src="images/forum.svg" alt="Imagem Fórum">Fórum</div></a></li>
-            <li><a href=""><div class="area-alerts"><img src="images/alert.svg" alt="Imagem Alerta"></div></a></li>
-          </nav>
-          <div class="header-persona"><a href=""><img src="images/persona.png" alt="Imagem Perfil"></a></div>
-          <div class="header-persona-open"><a href=""><img src="images/seta-expandir.png" alt="Imagem Expandir Perfil">
-            <div class="header-persona-perfil close">
-              <div class="area-persona-perfil" id="">Perfil</div>
-              <div class="area-persona-logout" id="">Sair</div>
-            </div>
-          </a></div>
-          <div class="button-enter"><a href="">Entrar</a></div>
-        </div>
-      </div>
-    </div>
-  </header>
+  <%- include('../partials/header') %>
   <main>
     <div class="main-news container">
       <div class="modal-login-home">
@@ -410,19 +385,7 @@
       </aside>
     </div>
   </main>
-  <footer>
-    <div class="footer-area container">
-      <div class="header-logo">
-        <img src="images/logo-white.png" alt="Logo Opinião Gospel">
-        <p>Opinião Gospel</p>
-      </div>
-      <div class="footer-area-desc">
-        <span>Opinião Gospel ©</span>  
-        <p style="display: none">Participe deste espaço de discussões e esclareça suas dúvidas sobre a fé cristã, fique por dentro das últimas notícias do meio gospel e descubra mais sobre os principais artistas e líderes religiosos evangélicos</p> 
-      </div>
-    </div>
-  </footer>
-  
+  <%- include('../partials/footer') %>
 <script src="js/script.js"></script>
 <script src="js/slide.js"></script>
 </body>

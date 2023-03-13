@@ -33,7 +33,7 @@ export const create = async(req: Request, res: Response) => {
         video: video ?? null 
       })
       if(newPost) {
-        res.render('pages/site')
+        res.render('pages/site.ejs')
       }
     else {
       res.status(500).json({error : "Erro ao usuario logado"})
