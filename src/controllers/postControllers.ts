@@ -10,10 +10,10 @@ export const create = async(req: Request, res: Response) => {
   const { contentP1, contentP2, contentP3, contentP4, contentP5, contentP6, contentP7, contentPreComment, title, img, video, userADMId } = req.body
   
   if(req.file && contentP1 && contentPreComment &&  title && userADMId) {
-    const filename500 = `${req.file.filename}.500.jpg`
-    const filename80 = `${req.file.filename}.80.jpg`
-    await sharp(req.file.path).resize(500).toFormat('jpg').toFile(`./public/media/${filename500}`)
-    await sharp(req.file.path).resize(80).toFormat('jpg').toFile(`./public/media/${filename80}`)
+    const filename600 = `${req.file.filename}.600.jpg`
+    const filename150 = `${req.file.filename}.150.jpg`
+    await sharp(req.file.path).resize(500).toFormat('jpg').toFile(`./public/media/${filename600}`)
+    await sharp(req.file.path).resize(150).toFormat('jpg').toFile(`./public/media/${filename150}`)
     await unlink(req.file.path)
     const userADM = await UserService.findADM(userADMId)
     
@@ -29,7 +29,7 @@ export const create = async(req: Request, res: Response) => {
         contentP6: contentP6 ?? null, 
         contentP7: contentP7 ?? null, 
         contentPreComment, 
-        img: filename500 ?? null, 
+        img: filename600 ?? null, 
         video: video ?? null 
       })
       if(newPost) {

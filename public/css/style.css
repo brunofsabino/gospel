@@ -192,6 +192,7 @@ main .main-news-area1 {
   letter-spacing: 1.5px;
   margin: 10px 0px;
   cursor: pointer;
+  color: var(--black-light);
 }
 .main-news-comment {
   display: flex;
@@ -259,6 +260,7 @@ main .main-news-area2 img{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 }
 .slider--control {
   width: 25px;
@@ -290,7 +292,7 @@ main .main-news-area2 img{
   font-size: 14px;
   background-color: var(--orange-black);
   width: fit-content;
-  /* padding: 5px; */
+  color: #fff;
   border-radius: 7px;
   padding: 5px 10px;
   font-weight: 500;
@@ -405,6 +407,7 @@ aside {
 .aside-forum5-desc-title h3,
 .aside-forum6-desc-title h3 {
   font-size: 16px;
+  color: var(--black-light);
 }
 .aside-forum1-desc-res,
 .aside-forum2-desc-res,
@@ -413,6 +416,7 @@ aside {
 .aside-forum5-desc-res,
 .aside-forum6-desc-res {
   font-size: 12px;
+  color: var(--black-light);
 }
 .aside-forum1-desc-qt-comments,
 .aside-forum2-desc-qt-comments,
@@ -477,6 +481,15 @@ aside {
   border: 1px solid #999;
   cursor: pointer;
   margin-bottom: 20px;
+}
+.news-week-1 a,
+.news-week-2 a,
+.news-week-3 a,
+.news-week-4 a,
+.news-week-5 a,
+.news-week-6 a,
+.news-week-7 a {
+  display: flex;
 }
 .news-week-1-img,
 .news-week-2-img,
