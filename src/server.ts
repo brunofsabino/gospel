@@ -12,7 +12,7 @@ import likeInCommentForumRouter from './routes/likeInForum'
 import forumRouter from './routes/forum'
 import commentForumRouter from './routes/commentForum'
 import session from 'express-session'
-import ejs from 'ejs'
+import { MulterError } from 'multer'
 
 dotenv.config()
 
@@ -55,21 +55,33 @@ server.use(session({
 
 server.use((req, res)=> {
   res.render('pages/404')
+  //res.json({error: 'Endpoint não encontrado.'})
 })
 
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  
-    if(err.status) {
-        res.status(err.status)
+    //res.status(400) // bad request
+    // if(err instanceof MulterError) {
+    //   res.json({ error: err.code })
+    // } 
+    if(err instanceof MulterError) {
+      console.log("Erro img:" + err.code)
+      res.json({ error: err.code })
     } else {
-        res.status(400)
+      console.log("Erro img:" + err)
+      res.json({ error: "Ocorreu algum erro"})
     }
-    if(err.message) {
-        res.json({ error: err.message})
-    } else {
-        res.json({ error: "Ocorreu algum erro"})
-    }
+    // if(err.status) {
+    //     res.status(err.status)
+    // } else {
+    //     res.status(400)
+    // }
+    // if(err.message) {
+    //     res.json({ error: err.message})
+    // } else {
+    //     res.json({ error: "Ocorreu algum erro"})
+    // }
+    
 }
 server.use(errorHandler)
 

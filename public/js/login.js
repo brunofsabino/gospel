@@ -5,6 +5,37 @@ const inputPassword = document.querySelector('.area-login-adm .inputPassword')
 const buttonLoginU = document.querySelector('.area-login-adm button')
 const buttonLoggout = document.querySelector('.area-post .button-loggout')
 
+// const buttonPost = document.querySelector('.area-post .btn-post')
+// const idPost = document.querySelector('.area-post .id-post')
+
+// const img = document.querySelector('.img-form')
+// let selectedFile 
+// const file =  new FileReader();
+// img.onchange = () => {
+//   selectedFile = img.files[0];
+//   console.log(selectedFile);
+// }
+// if(img) {
+//    file.readAsDataURL(img);
+// }
+// console.log(img)
+// buttonPost.addEventListener('click', item => postSend(item))
+// async function postSend(item) {
+//   item.preventDefault()
+//   if(idPost) {
+//     const loginUser = await fetch(`http://localhost:4000/post/${idPost}`, {
+//     method: 'POST',
+//     headers: {
+//         "Content-Type": "application/x-www-form-urlencoded"
+//     },
+//     body: new URLSearchParams({
+//       selectedFile
+//     })
+//   })
+// const json = await loginUser.json();
+//   }
+  
+// }
 buttonLoginU.addEventListener('click', async()=> {
   await loginUser2(inputEmail.value, inputPassword.value)
 })
@@ -37,20 +68,3 @@ function loggoutUser() {
   areaPost.style.display = "none";
   location.reload() 
 }
-async function getUser() {
-  const token = localStorage.getItem('token')
-  const user = await fetch(`http://localhost:4000/userAdmToken/${token}`, {
-      method: 'GET',
-      headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-      }
-  })
-  const json = await user.json()
-  if(json.id) {
-      //userLogged(json.id)
-      areaLogin.style.display = "none";
-      areaPost.style.display = "flex";
-      return json.id
-  }
-}
-// getUser()

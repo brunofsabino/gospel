@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/stylepage.css">
+  <link rel="stylesheet" href="css/styleforum.css">
+  <link rel="stylesheet" href="css/stylelogin.css">
+  <title>Opinião Gospel</title>
+</head>
+<body>
+  <header>
+    <div class="header-content ">
+      <div class="header-content-desc container">
+        <div class="header-logo">
+          <img src="images/logo.png" alt="Logo Opinião Gospel">
+          <p>Opinião Gospel</p>
+        </div>
+        <div class="header-icons-menu">
+          <nav>
+            <li><a href=""><div class="area-home"><img src="images/home.svg" alt="Imagem Home">Home</div></a></li>
+            <li><a href=""><div class="area-forum"><img src="images/forum.svg" alt="Imagem Fórum">Fórum</div></a></li>
+            <li><a href=""><div class="area-alerts"><img src="images/alert.svg" alt="Imagem Alerta"></div></a></li>
+          </nav>
+          <div class="header-persona"><a href=""><img src="images/persona.png" alt="Imagem Perfil"></a></div>
+          <div class="header-persona-open"><a href=""><img src="images/seta-expandir.png" alt="Imagem Expandir Perfil">
+            <div class="header-persona-perfil close">
+              <div class="area-persona-perfil" id="">Perfil</div>
+              <div class="area-persona-logout" id="">Sair</div>
+            </div>
+          </a></div>
+          <div class="button-enter"><a href="">Entrar</a></div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="area-posts container">
+      <div class="area-posts-content">
+        <button>posts</button>
+        <p >Postagens do banco de dados:</p> 
+        
+      </div>
+  </main>
+  <script>
+    const button = document.querySelector('.area-posts-content button')
+    const p = document.querySelector('.area-posts-content p')
+    button.addEventListener('click', getPosts)
+  async function getPosts() {
+    const posts = await fetch(`http://localhost:4000/site/d215be0e-5383-4a98-ba99-5fd3f4738fd9`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    })
+    const json = await posts.json();
+    console.log(json)
+    if(json.posts){
+      console.log(json.posts)
+      json.posts.forEach(item => {
+        p.innerHTML +=  `<input type="radio" id="${item.id}" name="fav_language" value="${item.id}">
+        <label for="${item.id}">${item.title}</label><br>`
+      })
+    }
+  }
+  </script>
+</body>
+</html>
