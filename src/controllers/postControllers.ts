@@ -7,9 +7,24 @@ import path from 'path'
 
 
 export const create = async(req: Request, res: Response) => {
-  const { contentP1, contentP2, contentP3, contentP4, contentP5, contentP6, contentP7, contentPreComment, title, img, video, userADMId } = req.body
+  const { 
+    contentP1, 
+    contentP2, 
+    contentP3, 
+    contentP4, 
+    contentP5, 
+    contentP6, 
+    contentP7, 
+    contentPreComment, 
+    title,
+    subTitle, 
+    summaryParagraph,
+    img, 
+    video, 
+    userADMId 
+  } = req.body
   
-  if(req.file && contentP1 && contentPreComment &&  title && userADMId) {
+  if(req.file && contentP1 && contentPreComment &&  title && userADMId && subTitle && summaryParagraph) {
     const filename600 = `${req.file.filename}.600.jpg`
     const filename150 = `${req.file.filename}.150.jpg`
     await sharp(req.file.path).resize(500).toFormat('jpg').toFile(`./public/media/${filename600}`)
@@ -29,19 +44,20 @@ export const create = async(req: Request, res: Response) => {
         contentP6: contentP6 ?? null, 
         contentP7: contentP7 ?? null, 
         contentPreComment, 
+        summaryParagraph,
+        subTitle,
         img: filename600 ?? null, 
         video: video ?? null 
       })
       if(newPost) {
-        res.render('pages/site.ejs')
+        res.status(200).json({post: newPost})
+      } else {
+        res.status(500).json({error: 'Arquivo invalido ou Dados invalidos'})
       }
-    else {
+    } else {
       res.status(500).json({error : "Erro ao usuario logado"})
     }
-    // res.json({image1: `${filename500}`, image2: `${filename80}` })
-  } else {
-    res.status(400).json({error: 'Arquivo invalido ou Dados invalidos'})
-  }}
+  }
 }
 export const all = async(req: Request, res: Response) => {
   const { id } = req.params
@@ -54,9 +70,22 @@ export const all = async(req: Request, res: Response) => {
     }
 }
 export const home = async(req: Request, res: Response) => {
+    if(req.cookies) {
+      console.log(req.cookies.token)
+    }
     const all = await PostService.findAll()
     res.render('pages/home.ejs', )
+}
+export const home2 = async(req: Request, res: Response) => {
+  //console.log(req.cookies.token)
+  if(req.cookies) {
+    console.log(req.cookies.token)
   }
+  const all = await PostService.findAll()
+  res.render('pages/home.ejs', {
+    all
+  } )
+}
 export const one = async(req: Request, res: Response) => {
   const { id } = req.params
   const post = await PostService.findOne(id)

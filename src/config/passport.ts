@@ -29,7 +29,6 @@ export const generateToken = (data: object) => {
 export const privateRoute = (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate('jwt', (err: any, user: Express.User | undefined) => {
         req.user = user
-        console.log('private route'+ req.user)
         return user ? next() : next(notAuthorizedJson)
     })(req, res, next)
 }

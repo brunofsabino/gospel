@@ -16,7 +16,7 @@ const upload = multer({
 
 
 // router.post('/post/createFile', PostController.createFile)
-router.post('/post/e5765c426d9d292a3fd76afe009beaf2/4148fec44f0a20f4808a26928d4c8ed835e8175a/create', upload.single('img'), PostController.create)
+router.post('/post', upload.single('img'), PostController.create)
 router.get('/site/:id', PostController.all)
 router.get('/post/:id', PostController.one)
 router.put('/post/:id', privateRoute, PostController.update)

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { UserService } from "../services/UserService";
 import validator from 'validator'
 import {isEmail} from 'class-validator'
+import Cookies from 'js-cookie'
 
 
 export const createADM = async(req: Request, res: Response) => {
@@ -41,8 +42,8 @@ export const create = async(req: Request, res: Response) => {
           if(newUser) {
             // req.session.views
             // req.session.token = newUser.token
-            res.cookie('token', newUser.token, { maxAge: 3600000, httpOnly: true, secure: true })
-            res.status(201).json({ id: newUser.dataNewUser.id, email: newUser.dataNewUser.email, name: newUser.dataNewUser.name, token: newUser.token })
+            //res.cookie('token', newUser.token, { maxAge: 3600000, httpOnly: true, secure: true })
+            res.status(201).json({ id: newUser.dataNewUser.id,  token: newUser.token })
           }
       } else {
           res.status(500).json({error : "E-mail já cadastrado. Faça o login!"})
@@ -71,10 +72,11 @@ export const oneAdm = async(req: Request, res: Response) => {
 export const one = async(req: Request, res: Response) => {
   const { id } = req.params
   const user = await UserService.findOne(id)
+  
   if(user) {
-      res.status(200).json({id: user })
+    res.status(200).json({id: user.id, name: user.name, email: user.email })
   } else {
-      res.status(300).json({error : "Usuario nao localizado"})
+      res.status(400).json({error : "Usuario nao localizado"})
   }
 }
 export const oneEmail = async(req: Request, res: Response) => {
@@ -126,8 +128,10 @@ export const login = async(req: Request, res: Response) => {
   if(emailValid && !passwordValid) {
       const loggedUser = await UserService.login(email, password)
       if(loggedUser) {
-          res.cookie('token', loggedUser.token, { maxAge: 3600000, httpOnly: true, secure: true })
-          res.status(200).json({sucess: true, token: loggedUser.token, name: loggedUser.name, email: loggedUser.email, id: loggedUser.id})
+          //res.cookie('token', loggedUser.token, { maxAge: 3600000, httpOnly: true, secure: true })
+          //res.cookie('token', loggedUser.token, { maxAge: 3600000, httpOnly: true})
+          
+          res.status(200).json({sucess: true, token: loggedUser.token, id: loggedUser.id})
       } else {
           res.status(500).json({error : "Dados invalidos"})
       }

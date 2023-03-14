@@ -1,6 +1,3 @@
-// let totalSlides = document.querySelectorAll('.slider--item').length;
-// let sliderWidth = document.querySelector('.slider').clientWidth;
-// let currentSlide = 0;
 
 const body = document.querySelector('body')
 const buttonEnter = document.querySelector('.button-enter') 
@@ -38,37 +35,6 @@ const pNoticeEmail = document.querySelector('.modal-login-home-content .notice-e
 const pNoticeName = document.querySelector('.modal-login-home-content .notice-name')
 const pNoticePassword = document.querySelector('.modal-login-home-content .notice-password')
 const pNoticePassword2 = document.querySelector('.modal-login-home-content .notice-password2')
-
-
-
-
-// document.querySelector('.slider--width').style.width = 
-//     `${sliderWidth * totalSlides}px`;
-// document.querySelector('.slider--controls').style.width = 
-//     `${sliderWidth}px`;
-// document.querySelector('.slider--controls').style.height = 
-//     `${document.querySelector('.slider').clientHeight}px`;
-// function goPrev() {
-//     currentSlide--;
-//     if(currentSlide < 0) {
-//         currentSlide = totalSlides - 1;
-//     }
-//     updateMargin();
-// }
-// function goNext() {
-//     currentSlide++;
-//     if(currentSlide > (totalSlides-1)) {
-//         currentSlide = 0;
-//     }
-//     updateMargin();
-// }
-// function updateMargin() {
-//     let sliderItemWidth = document.querySelector('.slider--item').clientWidth;
-//     let newMargin = (currentSlide * sliderItemWidth);
-//     document.querySelector('.slider--width').style.marginLeft = 
-//         `-${newMargin}px`;
-// }
-// setInterval(goNext, 5000);
 
 buttonEnter.addEventListener('click', item => openModal(item))
 modalHome.addEventListener('click', closeModal)
@@ -291,7 +257,7 @@ async function getUser() {
     })
     const json = await user.json()
     if(json.id) {
-        userLogged(json.id)
+        userLogged(json)
         return json.id
     }
 }
@@ -354,8 +320,6 @@ async function loginUser(email, password)  {
         loginSucess(json)
         localStorage.setItem("token", json.token);
         localStorage.setItem('id', json.id)
-        localStorage.setItem('email', json.email)
-        localStorage.setItem('name', json.name)
         // console.log(token)
         // localStorage.setItem()
     }

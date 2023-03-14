@@ -46,7 +46,13 @@ model Post {
   contentP7         String?
   contentPreComment String
   date              DateTime        @default(now())
+  updatedIn         DateTime?
   title             String
+  subTitle          String
+  mainNewsShow      Boolean         @default(false)
+  slideShow         Boolean         @default(false)
+  newsShow          Boolean         @default(false)
+  summaryParagraph  String
   img               String?
   video             String?
   userADMId         String

@@ -14,7 +14,7 @@
   <%- include('../partials/header') %>
   <main>
     <div class="area-post container">
-      <form method="POST" enctype="multipart/form-data" action="http://localhost:4000/post">
+      <form method="POST" enctype="multipart/form-data" action="http://localhost:4000/post/e5765c426d9d292a3fd76afe009beaf2">
         <label>Titulo:<input type="text" name="title"><br><br></label>
         <label>Id:<input type="text" name="userADMId" class="id-post"><br><br></label>
         <label>Imagem:<input type="file"  accept='image/*' capture name="img" class="img-form"><br><br></label>
@@ -41,7 +41,7 @@
         <div class="area-button-main-news">
           <p>Main News</p>
           <a class="pre-visu" href="">Pré-visualizar</a>
-          <a href="">Postar no site</a>
+          <a href=""class="postar-main-news">Postar no site</a>
           <input type="text" name="" id="" class="subtitleMainNews" placeholder="Digite uma palavra para o subtitulo">
           <input type="text" name="" id="" class="pMainNews" placeholder="Digite um pequeno paragrafo da noticia">
         </div>
@@ -470,7 +470,11 @@
     </div>
   </main>
   <script>
+    import * as update from 'js/update.js';
+
     const button = document.querySelector('.area-posts-content button')
+    const buttonPostMainNews = document.querySelector('.postar-main-news')
+
     const buttonPreVisu = document.querySelector('.pre-visu')
     const buttonPreVisuSlide1 = document.querySelector('.pre-visu-slide1')
     const buttonPreVisuNews1 = document.querySelector('.pre-visu-news1')
@@ -501,6 +505,7 @@
     const titleNews2 = document.querySelector('.news-week-2-title h3')
     const titleNews3 = document.querySelector('.news-week-3-title h3')
 
+    buttonPostMainNews.addEventListener('click', item => postMainNews(item))
     buttonPreVisu.addEventListener('click', item => preVisualize(item))
     buttonPreVisuSlide1.addEventListener('click', item => preVisualizeSlide1(item))
     buttonPreVisuNews1.addEventListener('click', item => preVisualizeNews1(item))
@@ -535,10 +540,26 @@
         return json.post
       }
     }
+    async function postMainNews(item) {
+      item.preventDefault();
+      const inputsRadioChecked = document.querySelector('.area-posts-content-inputs input:checked')
+      if(inputsRadioChecked.value != '' && subtitleMainNews.value != '' && pMainNews.value != '') {
+        const post = await getPost(inputsRadioChecked.value)
+        if(post) {
+          update.subtitleMainNews.innerText = subtitleMainNews.value
+          update.h1MainNews.innerText = post.title
+          update.pMainNews.innerText = pMainNews.value
+          update.imgMainNews.setAttribute('src', `media/${post.img}`)
+          // pMainNewsVisu.innerText = pMainNews.value
+          // subtitleMainNewsVisu.innerText = subtitleMainNews.value
+          // h1MainNews.innerText = post.title
+          // imgMainNewsVisu.setAttribute('src', `media/${post.img}`)
+        }
+      }
+    }
     async function preVisualize(item) {
       item.preventDefault();
       const inputsRadioChecked = document.querySelector('.area-posts-content-inputs input:checked')
-      console.log(inputsRadioChecked)
       if(inputsRadioChecked.value != '' && subtitleMainNews.value != '' && pMainNews.value != '') {
         const post = await getPost(inputsRadioChecked.value)
         if(post) {
@@ -576,6 +597,7 @@
     }
   </script>
   <script src="js/slide.js"></script>
+  <script src="js/update.js"></script>
   <%- include('../partials/footer') %>
 </body>
 </html>

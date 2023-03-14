@@ -13,6 +13,7 @@ import forumRouter from './routes/forum'
 import commentForumRouter from './routes/commentForum'
 import session from 'express-session'
 import { MulterError } from 'multer'
+import Cookies from 'js-cookie'
 
 dotenv.config()
 

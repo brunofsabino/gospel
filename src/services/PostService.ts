@@ -10,6 +10,8 @@ type PropCreate = {
   contentP6?: string,
   contentP7?: string,
   contentPreComment: string,
+  summaryParagraph: string,
+  subTitle: string,
   title: string,
   img?: string,
   video?: string,
@@ -42,6 +44,8 @@ export const PostService = {
           contentP6: data.contentP6 ?? null,
           contentP7: data.contentP7 ?? null,
           contentPreComment: data.contentPreComment,
+          summaryParagraph: data.summaryParagraph,
+          subTitle: data.subTitle,
           img: data.img ?? null,
           video: data.video ?? null
       }
