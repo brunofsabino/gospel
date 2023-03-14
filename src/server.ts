@@ -65,23 +65,23 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     // if(err instanceof MulterError) {
     //   res.json({ error: err.code })
     // } 
-    if(err instanceof MulterError) {
-      console.log("Erro img:" + err.code)
-      res.json({ error: err.code })
+    // if(err instanceof MulterError) {
+    //   console.log("Erro img:" + err.code)
+    //   res.json({ error: err.code })
+    // } else {
+    //   console.log("Erro img:" + err)
+    //   res.json({ error: "Ocorreu algum erro"})
+    // }
+    if(err.status) {
+        res.status(err.status)
     } else {
-      console.log("Erro img:" + err)
-      res.json({ error: "Ocorreu algum erro"})
+        res.status(400)
     }
-    // if(err.status) {
-    //     res.status(err.status)
-    // } else {
-    //     res.status(400)
-    // }
-    // if(err.message) {
-    //     res.json({ error: err.message})
-    // } else {
-    //     res.json({ error: "Ocorreu algum erro"})
-    // }
+    if(err.message) {
+        res.json({ error: err.message})
+    } else {
+        res.json({ error: "Ocorreu algum erro"})
+    }
     
 }
 server.use(errorHandler)

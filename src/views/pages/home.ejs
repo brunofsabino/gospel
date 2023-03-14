@@ -16,6 +16,7 @@
 <body>
   <%- include('../partials/header') %>
   <main>
+   
     <div class="main-news container">
       <div class="modal-login-home">
         <div class="modal-login-home-content">
@@ -59,16 +60,20 @@
         </div>
         <div class="modal-login-home-content-close"></div>
       </div>
-      <div class="main-news-area1">
-        <div class="main-news-subtitle"><p>Música</p></div>
-        <a href=""><div class="main-news-title"><h1>Para Maurício Soares, a saída de Jessé Aguiar da música gospel foi “falta de equilíbrio emocional”</h1></div></a> 
-        <a href=""><div class="main-news-p"><p>A fala de Maurício Soares sobre a decisão de Jessé Aguiar reverberou no cenário gospel.</p></div></a> 
-        <a href=""> <div class="main-news-comment"><img src="images/forum.svg" alt="Faça um comentário na notícia">Comente!</div></a>
+      <% if (mainNews) { %>
+        
+      <div class="main-news-area1" getItem="<%=mainNews.id%>">
+        <div class="main-news-subtitle"><p><%=mainNews.subTitle%></p></div>
+        <a href="/news/<%=mainNews.title.split(' ').join('-')%>"><div class="main-news-title"><h1><%=mainNews.title%></h1></div></a> 
+        <a href="/news/<%=mainNews.title.split(' ').join('-')%>"><div class="main-news-p"><p><%=mainNews.summaryParagraph%></p></div></a> 
+        <a href="/news/<%=mainNews.title.split(' ').join('-')%>"> <div class="main-news-comment"><img src="images/forum.svg" alt="Faça um comentário na notícia">Comente!</div></a>
       </div>
       <div class="main-news-area2">
-        <a href=""><img src="images/Mauricio-Soares-e-Jesse-Aguiar.jpg" alt="Mauricio-Soares-e-Jesse-Aguiar"></a>
+        <a href="/news/<%=mainNews.title.split(' ').join('-')%>"><img src="media/<%=mainNews.img%>" alt="<%=mainNews.title%>"></a>
       </div>
+      <% } %>
     </div>
+    
     <div class="area-sections-aside container">
       <div class="area-sections">
         <section class="slide ">
@@ -78,39 +83,18 @@
                 <div class="slider--control" onclick="goNext()"><img src="images/seta-expandir.png" style="rotate: -90deg;" alt=""></div>
             </div>
             <div class="slider--width">
-                <div class="slider--item slide-one" >
-                  <a href="">
-                    <div class="slider--item-content-1">
-                      <div class="slider--item-subtitle-1">Destaque</div>
+              <%slideShow.forEach(function(item){%>
+                <div class="slider--item slide-one" getItem="<%=item.id%>">
+                  <a href="/news/<%=item.title.split(' ').join('-')%>">
+                    <div class="slider--item-content-1" style="background-image: url('media/<%=item.img%>');">
+                      <div class="slider--item-subtitle-1"><%=item.subTitle%></div>
                       <div class="slider--item-title-1">
-                        <h2>Polêmico, Jessé Aguiar anuncia que não pertence mais “ao 
-                          mercado gospel”</h2>
+                        <h2><%=item.title%></h2>
                       </div>
                     </div>
                   </a>
                 </div>
-                <div class="slider--item slide-two" >
-                  <a href="">
-                  <div class="slider--item-content-2">
-                    <div class="slider--item-subtitle-2">Destaque</div>
-                    <div class="slider--item-title-2">
-                      <h2>Polêmico, Jessé Aguiar anuncia que não pertence mais “ao 
-                        mercado gospel”</h2>
-                    </div>
-                  </div>
-                </a>
-                </div>
-                <div class="slider--item slide-three" >
-                  <a href="">
-                    <div class="slider--item-content-3">
-                        <div class="slider--item-subtitle-3">Destaque</div>
-                        <div class="slider--item-title-3">
-                          <h2>Polêmico, Jessé Aguiar anuncia que não pertence mais “ao 
-                            mercado gospel”</h2>
-                        </div>
-                    </div>
-                  </a>
-                </div>
+              <%});%>
             </div>
           </div>
         </section>
@@ -119,15 +103,15 @@
             Mais Notícias
           </div>
           <div class="news-week-content">
-            <div class="news-week-1">
-              <a href="">
+            <%newsShow.forEach(function(item){%>
+            <div class="news-week-1" getItem="<%=item.id%>">
+              <a href="/news/<%=item.title.split(' ').join('-')%>">
                 <div class="news-week-1-img">
-                  <img src="images/Imagem21-570x300 1.png" alt="">
+                  <img src="media/<%=item.img%>" alt="<%=item.title.split(' ').join('-')%>">
                 </div>
                 <div class="news-week-1-desc">
                   <div class="news-week-1-title">
-                    <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
-                      mas são derrotadas pelas orações</h3>
+                    <h3><%=item.title%></h3>
                   </div>
                   <div class="news-week-1-p-more">
                     <div class="news-week-1-p">
@@ -144,156 +128,7 @@
                 </div>
               </a>
             </div>
-            <div class="news-week-2">
-              <a href="">
-                <div class="news-week-2-img">
-                  <img src="images/Imagem21-570x300 1.png" alt="">
-                </div>
-                <div class="news-week-2-desc">
-                  <div class="news-week-2-title">
-                    <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
-                      mas são derrotadas pelas orações</h3>
-                  </div>
-                  <div class="news-week-2-p-more">
-                    <div class="news-week-2-p">
-                      <p>Opine</p>
-                      <div class="news-week-2-p-comment">
-                        <img src="images/forum.svg" alt="">
-                        <p>15</p>
-                      </div>
-                    </div>
-                    <div class="news-week-2-more">
-                      Saiba mais
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="news-week-3">
-              <a href="">
-                <div class="news-week-3-img">
-                  <img src="images/Imagem21-570x300 1.png" alt="">
-                </div>
-                <div class="news-week-3-desc">
-                  <div class="news-week-3-title">
-                    <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
-                      mas são derrotadas pelas orações</h3>
-                  </div>
-                  <div class="news-week-3-p-more">
-                    <div class="news-week-3-p">
-                      <p>Opine</p>
-                      <div class="news-week-3-p-comment">
-                        <img src="images/forum.svg" alt="">
-                        <p>15</p>
-                      </div>
-                    </div>
-                    <div class="news-week-3-more">
-                      Saiba mais
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="news-week-4">
-              <a href="">
-                <div class="news-week-4-img">
-                  <img src="images/Imagem21-570x300 1.png" alt="">
-                </div>
-                <div class="news-week-4-desc">
-                  <div class="news-week-4-title">
-                    <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
-                      mas são derrotadas pelas orações</h3>
-                  </div>
-                  <div class="news-week-4-p-more">
-                    <div class="news-week-4-p">
-                      <p>Opine</p>
-                      <div class="news-week-4-p-comment">
-                        <img src="images/forum.svg" alt="">
-                        <p>15</p>
-                      </div>
-                    </div>
-                    <div class="news-week-4-more">
-                      Saiba mais
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="news-week-5">
-              <a href="">
-                <div class="news-week-5-img">
-                  <img src="images/Imagem21-570x300 1.png" alt="">
-                </div>
-                <div class="news-week-5-desc">
-                  <div class="news-week-5-title">
-                    <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
-                      mas são derrotadas pelas orações</h3>
-                  </div>
-                  <div class="news-week-5-p-more">
-                    <div class="news-week-5-p">
-                      <p>Opine</p>
-                      <div class="news-week-5-p-comment">
-                        <img src="images/forum.svg" alt="">
-                        <p>15</p>
-                      </div>
-                    </div>
-                    <div class="news-week-5-more">
-                      Saiba mais
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="news-week-6">
-              <a href="">
-                <div class="news-week-6-img">
-                  <img src="images/Imagem21-570x300 1.png" alt="">
-                </div>
-                <div class="news-week-6-desc">
-                  <div class="news-week-6-title">
-                    <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
-                      mas são derrotadas pelas orações</h3>
-                  </div>
-                  <div class="news-week-6-p-more">
-                    <div class="news-week-6-p">
-                      <p>Opine</p>
-                      <div class="news-week-6-p-comment">
-                        <img src="images/forum.svg" alt="">
-                        <p>15</p>
-                      </div>
-                    </div>
-                    <div class="news-week-6-more">
-                      Saiba mais
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div class="news-week-7">
-              <a href="">
-                <div class="news-week-7-img">
-                  <img src="images/Imagem21-570x300 1.png" alt="">
-                </div>
-                <div class="news-week-7-desc">
-                  <div class="news-week-7-title">
-                    <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
-                      mas são derrotadas pelas orações</h3>
-                  </div>
-                  <div class="news-week-7-p-more">
-                    <div class="news-week-7-p">
-                      <p>Opine</p>
-                      <div class="news-week-7-p-comment">
-                        <img src="images/forum.svg" alt="">
-                        <p>15</p>
-                      </div>
-                    </div>
-                    <div class="news-week-7-more">
-                      Saiba mais
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
+            <%});%>
           </div>
         </section>
       </div>

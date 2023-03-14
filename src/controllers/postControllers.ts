@@ -4,6 +4,7 @@ import { PostService } from "../services/PostService";
 import sharp from 'sharp'
 import { unlink } from 'fs/promises'
 import path from 'path'
+import { CommentService } from "../services/CommentService";
 
 
 export const create = async(req: Request, res: Response) => {
@@ -70,11 +71,25 @@ export const all = async(req: Request, res: Response) => {
     }
 }
 export const home = async(req: Request, res: Response) => {
-    if(req.cookies) {
-      console.log(req.cookies.token)
+    const mainNews = await PostService.findMainNews()
+    const slideShow = await PostService.findSlideShow()
+    const newsShow = await PostService.findNewsShow()
+    //newsShow.qt = 0
+    let qtComments
+    newsShow.forEach(async(item) => {
+      qtComments = await CommentService.qtComment(item.id)
+      // qtComments.qt = qtComments.length
+      // console.log(qtComments.length)
+    })
+    if(qtComments) {
+      console.log(qtComments[0])
     }
-    const all = await PostService.findAll()
-    res.render('pages/home.ejs', )
+    console.log(slideShow)
+    res.render('pages/home.ejs', {
+      mainNews,
+      slideShow,
+      newsShow
+    })
 }
 export const home2 = async(req: Request, res: Response) => {
   //console.log(req.cookies.token)
@@ -87,9 +102,10 @@ export const home2 = async(req: Request, res: Response) => {
   } )
 }
 export const one = async(req: Request, res: Response) => {
-  const { id } = req.params
+  const { idAdm, id } = req.params
   const post = await PostService.findOne(id)
-  if(post) {
+  const adm = await UserService.findADM(idAdm)
+  if(post && adm) {
       res.status(200).json({post })
   } else {
       res.status(500).json({error : "Dados invalidos"})
@@ -97,10 +113,36 @@ export const one = async(req: Request, res: Response) => {
 }
 export const update = async(req: Request, res: Response) => {
   const { id } = req.params
-  const { contentP1, contentP2, contentP3, contentP4, contentP5, contentP6, contentP7, contentPreComment, title, img, video } = req.body
+  const { 
+    contentP1, 
+    contentP2, 
+    contentP3, 
+    contentP4, 
+    contentP5, 
+    contentP6, 
+    contentP7, 
+    contentPreComment, 
+    title,
+    subTitle, 
+    img,
+    summaryParagraph, 
+    video, 
+    userADMId 
+  } = req.body
+  let imgName = ''
   const post = await PostService.findOne(id)
+  if(req.file) {
+    const filename600 = `${req.file.filename}.600.jpg`
+    const filename150 = `${req.file.filename}.150.jpg`
+    await sharp(req.file.path).resize(500).toFormat('jpg').toFile(`./public/media/${filename600}`)
+    await sharp(req.file.path).resize(150).toFormat('jpg').toFile(`./public/media/${filename150}`)
+    await unlink(req.file.path)
+    imgName = filename600
+  }
   if(post) {
-      if(contentP1 || contentP2 || contentP3 || contentP4 || contentP5 || contentP6 || contentP7 || contentPreComment || title || img || video) {
+    const userADM = await UserService.findADM(userADMId)
+    if(userADM) {
+      if(contentP1 || contentP2 || contentP3 || contentP4 || contentP5 || contentP6 || contentP7 || contentPreComment || title || imgName || video || subTitle || summaryParagraph) {
           const postUpdate = await PostService.update(post.id, {
             title: title ?? post.title, 
             contentP1: contentP1 ?? post.contentP1, 
@@ -111,7 +153,9 @@ export const update = async(req: Request, res: Response) => {
             contentP6: contentP6 ?? post.contentP6, 
             contentP7: contentP7 ?? post.contentP7, 
             contentPreComment: contentPreComment ?? post.contentPreComment, 
-            img: img ?? post.img, 
+            subTitle: subTitle ?? post.subTitle, 
+            summaryParagraph: summaryParagraph ?? post.summaryParagraph, 
+            img: imgName ?? post.img, 
             video: video ?? post.video
           })
           if(postUpdate) {
@@ -122,16 +166,67 @@ export const update = async(req: Request, res: Response) => {
       } else {
           res.status(500).json({error : "Dados invalidos"})
       }
+    } else {
+      res.status(500).json({error : "usuario logado não localizado"})
+    }
   } else {
       res.status(500).json({error : "Dados invalidos"})
   }
 }
-export const deletePost = async(req: Request, res: Response) => {
+export const updateMainNews = async(req: Request, res: Response) => {
   const { id } = req.params
-  const post = await PostService.deletePost(id)
-  if(post) {
-     res.json({ success: true})
+  const { idAdm } = req.body
+  const userADM = await UserService.findADM(idAdm)
+  const post = await PostService.findOne(id)
+  if(userADM && post) {
+    const mainNewshow = await PostService.updateShow(post.id, {
+      mainNewsShow: !post.mainNewsShow
+    })
+    if(mainNewshow) {
+      res.json({ post: mainNewshow})
+    }
+  }
+}
+export const updateSlide = async(req: Request, res: Response) => {
+  const { id } = req.params
+  const { idAdm } = req.body
+  const userADM = await UserService.findADM(idAdm)
+  const post = await PostService.findOne(id)
+  if(userADM && post) {
+    const slideShow = await PostService.updateShow(post.id, {
+      slideShow: !post.slideShow
+    })
+    if(slideShow) {
+      res.json({ post: slideShow})
+    }
+  }
+}
+export const updateNewsShow = async(req: Request, res: Response) => {
+  const { id } = req.params
+  const { idAdm } = req.body
+  const userADM = await UserService.findADM(idAdm)
+  const post = await PostService.findOne(id)
+  if(userADM && post) {
+    const Newshow = await PostService.updateShow(post.id, {
+      newsShow: !post.newsShow
+    })
+    if(Newshow) {
+      res.json({ post: Newshow})
+    }
+  }
+}
+export const deletePost = async(req: Request, res: Response) => {
+  const { idAdm, id } = req.params
+  const userADM = await UserService.findADM(idAdm)
+  if(userADM) {
+    console.log('aqui')
+    const post = await PostService.deletePost(id)
+    if(post) {
+      res.json({ success: true})
+    } else {
+        res.status(500).json({error : "Dados invalidos"})
+    }
   } else {
-      res.status(500).json({error : "Dados invalidos"})
+    res.status(500).json({error : "usuario logado não localizado"})
   }
 }

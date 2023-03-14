@@ -144,10 +144,8 @@ export const loginAdm = async(req: Request, res: Response) => {
   if(email && password) {
       const loggedUser = await UserService.admLogin(email, password)
       if(loggedUser && loggedUser.id === 'd215be0e-5383-4a98-ba99-5fd3f4738fd9') {
-          res.render('pages/site.ejs', {
-            loggedUser
-          })
-          //res.status(200).json({sucess: true, token: loggedUser.token, name: loggedUser.name, email: loggedUser.email, id: loggedUser.id})
+          
+          res.status(200).json({sucess: true, token: loggedUser.token, name: loggedUser.name, email: loggedUser.email, id: loggedUser.id})
           //.render('pages/site.ejs')
             //res.render('pages/site.ejs')
       } else {

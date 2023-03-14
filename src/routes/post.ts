@@ -14,13 +14,14 @@ const upload = multer({
   limits: { fieldSize: 2000000}
 })
 
-
-// router.post('/post/createFile', PostController.createFile)
 router.post('/post', upload.single('img'), PostController.create)
-router.get('/site/:id', PostController.all)
-router.get('/post/:id', PostController.one)
-router.put('/post/:id', privateRoute, PostController.update)
-router.delete('/post/:id', privateRoute, PostController.deletePost)
+router.get('/post/:id', PostController.all)
+router.get('/post/:idAdm/:id', PostController.one)
+router.put('/post/:id',  upload.single('img'), PostController.update)
+router.put('/post/mainnews/:id',  PostController.updateMainNews)
+router.put('/post/slideshow/:id',  PostController.updateSlide)
+router.put('/post/newsshow/:id',  PostController.updateNewsShow)
+router.delete('/post/:idAdm/:id', PostController.deletePost)
 
 
 export default router

@@ -39,5 +39,8 @@ export const CommentService = {
   },
   deleteCommentPost: async(id: string) => {
     return await prisma.commentInPost.delete({ where: { id }})
+  },
+  qtComment: async(id: string) => {
+    return await prisma.commentInPost.findMany({ where: { id }})
   }
 }
