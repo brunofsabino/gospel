@@ -15,7 +15,10 @@ export const create = async(req: Request, res: Response) => {
   if(user && post && comment) {
     const newCommentPost = await CommentService.create(user.id, { postId, idComment: idComment ?? null, comment })
     if(newCommentPost) {
-      res.status(201).json({ comment: newCommentPost })
+      const updateQtComments = await PostService.updateQtComments(post.id)
+      if(updateQtComments) {
+        res.status(201).json({ comment: newCommentPost })
+      }
     } else {
       res.status(500).json({error : "Dados invalidos"})
     }

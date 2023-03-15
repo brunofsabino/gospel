@@ -33,4 +33,10 @@ export const privateRoute = (req: Request, res: Response, next: NextFunction) =>
     })(req, res, next)
 }
 
+// export const verifyToken = (req:Request, res: Response) => {
+//     passport.authenticate('jwt', (err: any, user: Express.User | undefined) => {
+//         req.user = user
+//         return user ? true : false
+//     })
+// }
 export default passport

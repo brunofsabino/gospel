@@ -53,6 +53,7 @@ model Post {
   slideShow         Boolean         @default(false)
   newsShow          Boolean         @default(false)
   summaryParagraph  String
+  qtComments        Int?
   img               String?
   video             String?
   userADMId         String
@@ -70,7 +71,6 @@ model CommentInPost {
   user_id        String
   date           DateTime        @default(now())
   comment        String
-  qt             Int?
   postId         Post            @relation(fields: [post_id], references: [id], onDelete: Cascade)
   userId         User            @relation(fields: [user_id], references: [id], onDelete: Cascade)
   likesInComment LikeInComment[]

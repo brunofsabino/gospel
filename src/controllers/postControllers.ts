@@ -74,17 +74,8 @@ export const home = async(req: Request, res: Response) => {
     const mainNews = await PostService.findMainNews()
     const slideShow = await PostService.findSlideShow()
     const newsShow = await PostService.findNewsShow()
-    //newsShow.qt = 0
-    let qtComments
-    newsShow.forEach(async(item) => {
-      qtComments = await CommentService.qtComment(item.id)
-      // qtComments.qt = qtComments.length
-      // console.log(qtComments.length)
-    })
-    if(qtComments) {
-      console.log(qtComments[0])
-    }
-    console.log(slideShow)
+
+  
     res.render('pages/home.ejs', {
       mainNews,
       slideShow,
@@ -110,6 +101,25 @@ export const one = async(req: Request, res: Response) => {
   } else {
       res.status(500).json({error : "Dados invalidos"})
   }
+}
+export const oneNews = async(req: Request, res: Response) => {
+  const { title } = req.params
+  console.log(title)
+  const newTitle = title.split('-').join(' ')
+  const one = await PostService.findOneByTitle(newTitle)
+  if(one) {
+    const comments = await CommentService.findAllPost(one.id)
+    if(comments) {
+      res.render('pages/news', {
+        news: one,
+        comments
+      })
+    }
+    
+  } else {
+    res.status(500).json({error: 'Post não localizado'})
+  }
+  
 }
 export const update = async(req: Request, res: Response) => {
   const { id } = req.params

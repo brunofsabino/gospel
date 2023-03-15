@@ -79,6 +79,7 @@ export const one = async(req: Request, res: Response) => {
       res.status(400).json({error : "Usuario nao localizado"})
   }
 }
+
 export const oneEmail = async(req: Request, res: Response) => {
     const { email } = req.params
     const user = await UserService.findByEmail(email)

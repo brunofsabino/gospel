@@ -17,6 +17,7 @@ const upload = multer({
 router.post('/post', upload.single('img'), PostController.create)
 router.get('/post/:id', PostController.all)
 router.get('/post/:idAdm/:id', PostController.one)
+router.get('/news/:title', PostController.oneNews)
 router.put('/post/:id',  upload.single('img'), PostController.update)
 router.put('/post/mainnews/:id',  PostController.updateMainNews)
 router.put('/post/slideshow/:id',  PostController.updateSlide)

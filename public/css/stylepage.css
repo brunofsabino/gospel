@@ -33,7 +33,7 @@ main {
   margin: 30px;
 }
 .news-details-img-video img {
-  width: 75%;
+  width: 55%;
 }
 .news-details-desc-aside {
   display: flex;
@@ -246,11 +246,17 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40%;
-  height: 45px;
+  width: 35%;
+  height: 50px;
 }
-.news-details-share img {
+.news-details-share a {
   width: 100%;
   margin-right: 5%;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.news-details-share img {
+  width: 100%;
 }

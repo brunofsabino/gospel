@@ -25,6 +25,9 @@ export const CommentService = {
   findAll: async() => {
     return await prisma.commentInPost.findMany({})
   },
+  findAllPost: async(id: string) => {
+    return await prisma.commentInPost.findMany({ where: { post_id: id}})
+  },
   findOne: async(id: string) => {
     return await prisma.commentInPost.findUnique({ where: { id }})
   },
@@ -37,10 +40,14 @@ export const CommentService = {
         }
     })
   },
+  
   deleteCommentPost: async(id: string) => {
     return await prisma.commentInPost.delete({ where: { id }})
   },
   qtComment: async(id: string) => {
-    return await prisma.commentInPost.findMany({ where: { id }})
+    let comments = await prisma.commentInPost.findMany({ where: { post_id : id }})
+    if(comments) {
+      return comments.length
+    }
   }
 }

@@ -1,7 +1,9 @@
 import { PrismaClient } from "@prisma/client"
+import { CommentService } from "./CommentService"
 
 const prisma = new PrismaClient()
 type PropCreate = {
+  id?: string,
   contentP1: string,
   contentP2?: string,
   contentP3?: string,
@@ -14,10 +16,12 @@ type PropCreate = {
   subTitle: string,
   title: string,
   img?: string,
+  qtComments?: number,
   video?: string,
   userADMId: string,
 }
 type PropUpdate = {
+  id?: string,
   contentP1?: string,
   contentP2?: string,
   contentP3?: string,
@@ -25,6 +29,7 @@ type PropUpdate = {
   contentP5?: string,
   contentP6?: string,
   contentP7?: string,
+  qtComments?: number,
   summaryParagraph?: string,
   subTitle?: string,
   contentPreComment?: string,
@@ -74,6 +79,9 @@ export const PostService = {
   findNewsShow: async() => {
     return await prisma.post.findMany({ where: { newsShow: true }})
   },
+  findOneByTitle: async(title: string) => {
+    return await prisma.post.findFirst({ where: { title }})
+  },
   update: async(id: string, data: PropUpdate) => {
     return await prisma.post.update({
         where: { id },
@@ -93,6 +101,18 @@ export const PostService = {
           video: data.video
         }
     })
+  },
+  updateQtComments: async(id: string) => {
+    let post = await prisma.post.findUnique({ where: {id}})
+    if(post) {
+      const qt = await prisma.post.update({
+        where: {  id },
+        data : {
+          qtComments: post.qtComments ? ++post.qtComments : 1
+        }
+      })
+      return true
+    }
   },
   updateShow: async(id: string, data: PropUpdateShow) => {
     const post = await prisma.post.findUnique({ where: { id }})

@@ -1,7 +1,7 @@
 <footer>
   <div class="footer-area container">
     <div class="header-logo">
-      <img src="images/logo-white.png" alt="Logo Opinião Gospel">
+      <img src="/images/logo-white.png" alt="Logo Opinião Gospel">
       <p>Opinião Gospel</p>
     </div>
     <div class="footer-area-desc">
@@ -10,3 +10,41 @@
     </div>
   </div>
 </footer>
+<script src="js/script.js"></script>
+<script src="js/slide.js"></script>
+<script>
+  const buttonEnter = document.querySelector('.button-enter') 
+  const areaAlertsUser = document.querySelector('.area-alerts')
+  const areaPersonaUser = document.querySelector('.header-persona')
+  const areaPersonaAUser = document.querySelector('.header-persona a')
+  const areaPersonaIMGUser = document.querySelector('.header-persona a img')
+  const areaConfigUser = document.querySelector('.header-persona-open')
+  const openConfigUser = document.querySelector('.header-persona-open a')
+  const areaConfigLoggoutUser = document.querySelector('.header-persona-perfil')
+  const areaPerfilUser = document.querySelector('.area-persona-perfil')
+  const areaLoggoutUser = document.querySelector('.area-persona-logout')
+  async function getUser() {
+    const id = localStorage.getItem('id')
+    const user = await fetch(`http://localhost:4000/user/${id}/`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    })
+    const json = await user.json()
+    if(json.id) {
+        userLogged(json)
+        return json.id
+    }
+  }
+  function userLogged(user) {
+    buttonEnter.style.display = 'none'
+    areaAlertsUser.style.display = 'flex'
+    areaPersonaUser.style.display = 'flex'
+    areaConfigUser.style.display = 'flex'
+    areaPerfilUser.setAttribute('id', user.id)
+  }
+  getUser()
+</script>
+</body>
+</html>
