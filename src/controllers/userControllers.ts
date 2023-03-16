@@ -92,17 +92,21 @@ export const oneEmail = async(req: Request, res: Response) => {
 
 export const update = async(req: Request, res: Response) => {
   const { id } = req.params
-  const { name, password } = req.body
+  const { name, password, avatar } = req.body
   const user = await UserService.findOne(id)
   if(user) {
-    const nameValid = validator.isEmpty(name)
-    const passwordValid = validator.isEmpty(password)
-      if(!nameValid && password != undefined && !passwordValid) {
+    
+    //const nameValid = validator.isEmpty(name)
+    //const passwordValid = validator.isEmpty(password)
+      if(name || password || avatar) {
+        console.log('name, password, avatar')
           const userUpdate = await UserService.update(user.id, {
-              name, password: password !== undefined ? password : user.password
+              name: name ?? user.name, 
+              password: password ?? user.password,
+              avatar: avatar ?? null
           })
           if(userUpdate) {
-              res.status(201).json({ id: userUpdate.id, name: userUpdate.name, email: userUpdate.email})
+              res.status(201).json({ id: userUpdate.id, name: userUpdate.name, email: userUpdate.email, avatar: userUpdate.avatar})
           } else {
               res.status(500).json({error : "Dados invalidos"})
           }

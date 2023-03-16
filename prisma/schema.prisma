@@ -11,16 +11,18 @@ datasource db {
 }
 
 model User {
-  id             String           @id @default(uuid())
-  name           String
-  email          String           @unique
-  password       String
-  avatar         String?
-  Comment        CommentInPost[]
-  likesInComment LikeInComment[]
-  Forum          Forum[]
-  CommentInForum CommentInForum[]
-  LikeInForum    LikeInForum[]
+  id                    String                  @id @default(uuid())
+  name                  String
+  email                 String                  @unique
+  password              String
+  avatar                String?
+  Comment               CommentInPost[]
+  likesInComment        LikeInComment[]
+  Forum                 Forum[]
+  CommentInForum        CommentInForum[]
+  LikeInForum           LikeInForum[]
+  responseComment       ResponseComment[]
+  LikeInResponseComment LikeInResponseComment[]
 
   @@map("users")
 }
@@ -36,46 +38,69 @@ model UserADM {
 }
 
 model Post {
-  id                String          @id @default(uuid())
-  contentP1         String
-  contentP2         String?
-  contentP3         String?
-  contentP4         String?
-  contentP5         String?
-  contentP6         String?
-  contentP7         String?
-  contentPreComment String
-  date              DateTime        @default(now())
-  updatedIn         DateTime?
-  title             String
-  subTitle          String
-  mainNewsShow      Boolean         @default(false)
-  slideShow         Boolean         @default(false)
-  newsShow          Boolean         @default(false)
-  summaryParagraph  String
-  qtComments        Int?
-  img               String?
-  video             String?
-  userADMId         String
-  userADM           UserADM         @relation(fields: [userADMId], references: [id], onDelete: Cascade)
-  Comment           CommentInPost[]
-  likesInComment    LikeInComment[]
+  id                    String                  @id @default(uuid())
+  contentP1             String
+  contentP2             String?
+  contentP3             String?
+  contentP4             String?
+  contentP5             String?
+  contentP6             String?
+  contentP7             String?
+  contentPreComment     String
+  date                  DateTime                @default(now())
+  updatedIn             DateTime?
+  title                 String
+  subTitle              String
+  mainNewsShow          Boolean                 @default(false)
+  slideShow             Boolean                 @default(false)
+  newsShow              Boolean                 @default(false)
+  summaryParagraph      String
+  qtComments            Int?
+  img                   String?
+  video                 String?
+  userADMId             String
+  userADM               UserADM                 @relation(fields: [userADMId], references: [id], onDelete: Cascade)
+  Comment               CommentInPost[]
+  likesInComment        LikeInComment[]
+  responseComment       ResponseComment[]
+  LikeInResponseComment LikeInResponseComment[]
 
   @@map("posts")
 }
 
 model CommentInPost {
-  id             String          @id @default(uuid())
-  id_comment     String?
-  post_id        String
-  user_id        String
-  date           DateTime        @default(now())
-  comment        String
-  postId         Post            @relation(fields: [post_id], references: [id], onDelete: Cascade)
-  userId         User            @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  likesInComment LikeInComment[]
+  id                String            @id @default(uuid())
+  post_id           String
+  user_id           String
+  nameUserInComment String
+  imgUserInComment  String
+  date              DateTime          @default(now())
+  comment           String
+  postId            Post              @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  userId            User              @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  likesInComment    LikeInComment[]
+  responseComment   ResponseComment[]
 
   @@map("comments")
+}
+
+model ResponseComment {
+  id                     String                  @id @default(uuid())
+  post_id                String
+  user_id                String
+  id_comment             String
+  nameUser               String
+  imgUser                String
+  userNameCommentReply   String
+  userAvatarCommentReply String
+  dateCommentReply       DateTime
+  date                   DateTime                @default(now())
+  postId                 Post                    @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  userId                 User                    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  commentId              CommentInPost           @relation(fields: [id_comment], references: [id], onDelete: Cascade)
+  likesInComment         LikeInResponseComment[]
+
+  @@map("response_comments")
 }
 
 model LikeInComment {
@@ -89,6 +114,19 @@ model LikeInComment {
   commentId  CommentInPost @relation(fields: [comment_id], references: [id], onDelete: Cascade)
 
   @@map("likeInComments")
+}
+
+model LikeInResponseComment {
+  id                String          @id @default(uuid())
+  post_id           String
+  user_id           String
+  comment_id        String          @unique
+  done              Boolean         @default(true)
+  postId            Post            @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  userId            User            @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  commentResponseId ResponseComment @relation(fields: [comment_id], references: [id], onDelete: Cascade)
+
+  @@map("likeInResponseComments")
 }
 
 model Forum {

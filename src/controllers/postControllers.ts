@@ -109,6 +109,7 @@ export const oneNews = async(req: Request, res: Response) => {
   const one = await PostService.findOneByTitle(newTitle)
   if(one) {
     const comments = await CommentService.findAllPost(one.id)
+    console.log(comments)
     if(comments) {
       res.render('pages/news', {
         news: one,

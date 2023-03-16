@@ -11,7 +11,8 @@ type PropCreate = {
 }
 type PropUpdate = {
     name?: string,
-    password?: string
+    password?: string,
+    avatar?: string
 }
 export const UserService = {
     findOne: async(id: string) => {
@@ -57,7 +58,8 @@ export const UserService = {
             where: { id },
             data : {
                 name : data.name,
-                password : bcrypt.hashSync(data.password as string, 10)
+                password : bcrypt.hashSync(data.password as string, 10),
+                avatar: data.avatar ?? null
             }
         })
     },

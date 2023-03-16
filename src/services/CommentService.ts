@@ -4,11 +4,12 @@ const prisma = new PrismaClient()
 type PropCreate = {
   idComment?: string,
   postId: string,
-  comment: string
+  comment: string,
+  nameUserInComment: string,
+  imgUserInComment: string
 }
 type UpdateCreate = {
-  comment: string,
-  idComment?: string,
+  comment: string
 }
 export const CommentService = {
   create: async(id: string, data: PropCreate) => {
@@ -17,7 +18,8 @@ export const CommentService = {
           user_id: id,
           post_id: data.postId,
           comment: data.comment,
-          id_comment: data.idComment
+          nameUserInComment: data.nameUserInComment,
+          imgUserInComment: data.imgUserInComment ?? ''
       }
     })
     return newCommentPost
@@ -35,8 +37,7 @@ export const CommentService = {
     return await prisma.commentInPost.update({
         where: { id },
         data : {
-          comment: data.comment,
-          id_comment: data.idComment
+          comment: data.comment
         }
     })
   },

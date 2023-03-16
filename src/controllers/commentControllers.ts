@@ -6,14 +6,22 @@ import validator from 'validator'
 
 
 export const create = async(req: Request, res: Response) => {
-  const { userId, postId   } = req.params
-  const { comment, idComment } = req.body
+  const { userId, postId    } = req.params
+  const { comment } = req.body
 
   const user = await UserService.findOne(userId)
   const post = await PostService.findOne(postId)
 
   if(user && post && comment) {
-    const newCommentPost = await CommentService.create(user.id, { postId, idComment: idComment ?? null, comment })
+    const nameUserInComment = user.name
+    const imgUserInComment = user.avatar ?? ''
+    
+    const newCommentPost = await CommentService.create(user.id, { 
+      postId, 
+      comment, 
+      nameUserInComment,
+      imgUserInComment
+    })
     if(newCommentPost) {
       const updateQtComments = await PostService.updateQtComments(post.id)
       if(updateQtComments) {
@@ -41,12 +49,11 @@ export const one = async(req: Request, res: Response) => {
 }
 export const update = async(req: Request, res: Response) => {
   const { id } = req.params
-  const { comment, idComment } = req.body
+  const { comment } = req.body
   const commentOne = await CommentService.findOne(id)
   if(commentOne && comment) {
     const commentUpdate = await CommentService.update(commentOne.id, {
-      comment,
-      idComment: idComment ?? commentOne.id_comment
+      comment
     })
     if(commentUpdate) {
         res.status(201).json({ comment: commentUpdate })
