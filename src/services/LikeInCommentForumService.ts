@@ -24,6 +24,9 @@ export const LikeInCommentForumService = {
   findAll: async() => {
     return await prisma.likeInForum.findMany({})
   },
+  findAllLikeForum: async(id: string) => {
+    return await prisma.likeInForum.findMany({ where: { id: id}})
+  },
   findOne: async(id: string) => {
     return await prisma.likeInForum.findUnique({ where: { id }})
   },

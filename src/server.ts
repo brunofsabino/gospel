@@ -13,13 +13,16 @@ import forumRouter from './routes/forum'
 import commentForumRouter from './routes/commentForum'
 import session from 'express-session'
 import { MulterError } from 'multer'
-import Cookies from 'js-cookie'
+import cookieParser from 'cookie-parser'
 
 dotenv.config()
 
 const server = express()
 
-server.use(cors())
+server.use(cookieParser())
+server.use(cors({
+  credentials: true,
+}))
 
 
 server.set('view engine', 'ejs')

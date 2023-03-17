@@ -5,6 +5,7 @@ import sharp from 'sharp'
 import { unlink } from 'fs/promises'
 import path from 'path'
 import { CommentService } from "../services/CommentService";
+import { LikeInCommentService } from "../services/LikeInCommentService";
 
 
 export const create = async(req: Request, res: Response) => {
@@ -110,7 +111,7 @@ export const oneNews = async(req: Request, res: Response) => {
   if(one) {
     const comments = await CommentService.findAllPost(one.id)
     const responseComments = await CommentService.findAllResponseComments(one.id)
-    console.log(comments)
+    console.log(responseComments)
     if(comments) {
       res.render('pages/news', {
         news: one,

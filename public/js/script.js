@@ -1,15 +1,15 @@
 
 const body = document.querySelector('body')
-const buttonEnter = document.querySelector('.button-enter') 
-const areaAlertsUser = document.querySelector('.area-alerts')
-const areaPersonaUser = document.querySelector('.header-persona')
-const areaPersonaAUser = document.querySelector('.header-persona a')
-const areaPersonaIMGUser = document.querySelector('.header-persona a img')
-const areaConfigUser = document.querySelector('.header-persona-open')
-const openConfigUser = document.querySelector('.header-persona-open a')
-const areaConfigLoggoutUser = document.querySelector('.header-persona-perfil')
-const areaPerfilUser = document.querySelector('.area-persona-perfil')
-const areaLoggoutUser = document.querySelector('.area-persona-logout')
+// const buttonEnter = document.querySelector('.button-enter') 
+// const areaAlertsUser = document.querySelector('.area-alerts')
+// const areaPersonaUser = document.querySelector('.header-persona')
+// const areaPersonaAUser = document.querySelector('.header-persona a')
+// const areaPersonaIMGUser = document.querySelector('.header-persona a img')
+// const areaConfigUser = document.querySelector('.header-persona-open')
+// const openConfigUser = document.querySelector('.header-persona-open a')
+// const areaConfigLoggoutUser = document.querySelector('.header-persona-perfil')
+// const areaPerfilUser = document.querySelector('.area-persona-perfil')
+// const areaLoggoutUser = document.querySelector('.area-persona-logout')
 
 
 const buttonCloseModal = document.querySelector('.modal-login-home-close')
@@ -37,18 +37,18 @@ const pNoticePassword = document.querySelector('.modal-login-home-content .notic
 const pNoticePassword2 = document.querySelector('.modal-login-home-content .notice-password2')
 
 
-buttonEnter.addEventListener('click', item => openModal(item))
+//buttonEnter.addEventListener('click', item => openModal(item))
 modalHome.addEventListener('click', closeModal)
 buttonCloseModal.addEventListener('click', closeModal)
 
-function openModal(item) {
-  item.preventDefault();
-  body.style.overflow = 'hidden'
-  backgroundModalHome.style.display = 'flex'
-  setTimeout( ()=>{
-    backgroundModalHome.style.opacity = 1
-}, 400);
-}
+// function openModal(item) {
+//   item.preventDefault();
+//   body.style.overflow = 'hidden'
+//   backgroundModalHome.style.display = 'flex'
+//   setTimeout( ()=>{
+//     backgroundModalHome.style.opacity = 1
+// }, 400);
+// }
 function closeModal() {
   body.style.overflow = 'auto'
   backgroundModalHome.style.opacity = 0
@@ -190,13 +190,13 @@ function userLogged(user) {
     areaConfigUser.style.display = 'flex'
     areaPerfilUser.setAttribute('id', user.id)
 }
-function loggoutUser() {
-    localStorage.removeItem('token')
-    localStorage.removeItem('id')
-    localStorage.removeItem('email')
-    localStorage.removeItem('name')
-    location.reload() 
-}
+// function loggoutUser() {
+//     localStorage.removeItem('token')
+//     localStorage.removeItem('id')
+//     localStorage.removeItem('email')
+//     localStorage.removeItem('name')
+//     location.reload() 
+// }
 // function toggleAreaUser(item) {
 //     item.preventDefault()
 //     areaConfigLoggoutUser.classList.toggle('close')
@@ -223,7 +223,7 @@ function alterar_url(nova){
 // areaPersonaUser.addEventListener('click', item => toggleAreaUser(item))
 // openConfigUser.addEventListener('click',  item => toggleAreaUser(item))
 
-areaLoggoutUser.addEventListener('click', loggoutUser)
+// areaLoggoutUser.addEventListener('click', loggoutUser)
 
 buttonRegister.addEventListener('click', item => {
     sendDataNewUser(inputEmailModal.value, inputNameModal.value, inputPasswordModal.value, inputPassword2Modal.value)

@@ -24,22 +24,34 @@
   const areaPerfilUser = document.querySelector('.area-persona-perfil')
   const areaLoggoutUser = document.querySelector('.area-persona-logout')
 
+  buttonEnter.addEventListener('click', item => openModal(item))
   areaPersonaAUser.addEventListener('click', item => toggleAreaUser(item))
   areaPersonaIMGUser.addEventListener('click', item => toggleAreaUser(item))
   areaPersonaUser.addEventListener('click', item => toggleAreaUser(item))
   openConfigUser.addEventListener('click',  item => toggleAreaUser(item))
+
+
+  areaLoggoutUser.addEventListener('click', loggoutUser)
   function toggleAreaUser(item) {
     item.preventDefault()
     areaConfigLoggoutUser.classList.toggle('close')
-}
+  }
+  function openModal(item) {
+    item.preventDefault();
+    body.style.overflow = 'hidden'
+    backgroundModalHome.style.display = 'flex'
+    setTimeout( ()=>{
+      backgroundModalHome.style.opacity = 1
+  }, 400);
+  }
   async function getUser() {
     const id = localStorage.getItem('id')
     const user = await fetch(`http://localhost:4000/user/${id}/`, {
         method: 'GET',
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
-            "Authorization": `Bearer ${localStorage.getItem('token')}`
-        }
+        },
+        credentials: 'include'
     })
     const json = await user.json()
     if(json.id) {
@@ -54,6 +66,13 @@
     areaConfigUser.style.display = 'flex'
     areaPerfilUser.setAttribute('id', user.id)
   }
+  function loggoutUser() {
+    localStorage.removeItem('token')
+    localStorage.removeItem('id')
+    localStorage.removeItem('email')
+    localStorage.removeItem('name')
+    location.reload() 
+}
   getUser()
 </script>
 </body>

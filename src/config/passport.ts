@@ -9,7 +9,8 @@ dotenv.config()
 
 const notAuthorizedJson = { status: 401, message: "Não autorizado" }
 const options = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    //jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    jwtFromRequest: ExtractJwt.fromExtractors([extractFromCookie]),
     secretOrKey: process.env.JWT_SECRET as string
 }
 
@@ -21,6 +22,13 @@ passport.use(new JWTStrategy(options, async(payload, done)=>{
         return done(notAuthorizedJson, false)
     }
 }))
+function extractFromCookie(req: Request) {
+    let token = null;
+    if (req && req.cookies) {
+      token = req.cookies.jwt;
+    }
+    return token;
+  }
 
 export const generateToken = (data: object) => {
     return jwt.sign(data, process.env.JWT_SECRET as string, { expiresIn: "1d" })

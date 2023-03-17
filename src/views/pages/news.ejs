@@ -132,6 +132,7 @@
                           <div class="area-comments-complaint " get-item="<%=item.id%>" data-item="<%=item.user_id%>">...
                             <div class="area-comments-complaint-options area-comments-complaint-none" get-item="<%=item.id%>">
                               <p class="denounce">Denunciar</p>
+                              
                               <p class="edit">Editar</p>
                               <p class="del">Excluir</p>
                             </div>
@@ -143,13 +144,15 @@
                       </div>
                       <div class="area-comments-user-like-dislike-resp" >
                         <div class="area-comments-user-like">
-                          <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                          <div class="area-comments-user-like-qt">1</div>
+                          <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"  data-item="<%=item.id%>">
+                            <path  data-item="<%=item.id%>" d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          <div class="area-comments-user-like-qt" data-item="<%=item.id%>"><%=item.qtLikes%></div>
                         </div>
                         <div class="area-comments-user-dislike">
-                          <img src="/images/dislike.svg" alt="">
+                          <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 14V4M8 14L4 14V4.00002L8 4M8 14L13.1956 20.0615C13.6886 20.6367 14.4642 20.884 15.1992 20.7002L15.2467 20.6883C16.5885 20.3529 17.1929 18.7894 16.4258 17.6387L14 14H18.5604C19.8225 14 20.7691 12.8454 20.5216 11.6078L19.3216 5.60779C19.1346 4.67294 18.3138 4.00002 17.3604 4.00002L8 4" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
                           <div class="area-comments-user-dislike-qt">1</div>
                         </div>
                         <div class="area-comments-user-resp" get-item="<%=item.id%>">
@@ -206,8 +209,10 @@
                       </div>
                       <div class="area-comments-user-like-dislike-resp">
                         <div class="area-comments-user-like">
-                          <div class="area-comments-user-like-qt">1</div>
-                          <img src="/images/like.svg" alt="">
+                          <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"  data-item="<%=item.id%>">
+                            <path  data-item="<%=item.id%>" d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          <div class="area-comments-user-like-qt" data-item="<%=item.id%>"></div>
                         </div>
                         <div class="area-comments-user-dislike">
                           <div class="area-comments-user-dislike-qt">1</div>
@@ -252,7 +257,7 @@
                     </div>
                     <div class="area-comments-user-like-dislike-resp">
                       <div class="area-comments-user-like">
-                        <div class="area-comments-user-like-qt">1</div>
+                        <div class="area-comments-user-like-qt"></div>
                         <img src="images/like.svg" alt="">
                       </div>
                       <div class="area-comments-user-dislike">
@@ -387,12 +392,59 @@
   </main>
   <script>
     
+    
+    const buttonLikeComment = document.querySelectorAll('.area-comments-user-like svg')
+    const qtLikeComment = document.querySelectorAll('.area-comments-user-like-qt')
+
     const buttonSendComment = document.querySelector('.area-comments-new .area-comments-content img')
     const inputSendComment = document.querySelector('.area-comments-content input')
+
+    buttonLikeComment.forEach(item => {
+      item.addEventListener('click', a => {
+        const id = item.getAttribute('data-item')
+        const id2 = a.target.getAttribute('data-item')
+        if(id === id2) {
+          const fill = item.getAttribute('fill')
+          if(fill == 'var(--orange-black)') {
+            item.setAttribute("fill", "none")
+            qtLikeComment.forEach(item => {
+              const id3 = item.getAttribute("data-item")
+              if(id2 === id3) {
+                if(item.innerText != '' && item.innerText > 1) {
+                  item.innerText = --item.innerText
+                } else if (item.innerText == 1){
+                  item.innerText = ''
+                } else {
+                  item.innerText = ''
+                }
+              }
+            })
+          } else {
+            item.setAttribute("fill", "var(--orange-black)")
+            qtLikeComment.forEach(item => {
+              const id3 = item.getAttribute("data-item")
+              if(id2 === id3) {
+                item.innerText = ++item.innerText
+                // if(item.innerText === '') {
+                //   item.innerText = ++item.innerText
+                // }
+              }
+            })
+          }
+        }
+        
+      })
+    })
+
+
+
     buttonSendComment.addEventListener('click', item => {
       const id = item.target.getAttribute('data-item')
       sendComment(id)
     })
+    function likeComment(item)  {
+      console.log('clicou')
+    }
     function sendComment(idPost) {
       if(inputSendComment.value != '' && inputSendComment.value.length > 1) {
           if(idPost) {

@@ -81,6 +81,7 @@ model CommentInPost {
   imgUserReplyComment    String?
   userNameCommentReply   String?
   userAvatarCommentReply String?
+  qtLikes                Int?
   dateCommentReply       DateTime?
   commentReply           String?
   postId                 Post              @relation(fields: [post_id], references: [id], onDelete: Cascade)
@@ -102,6 +103,7 @@ model ResponseComment {
   userAvatarCommentReply String
   userCommentReply       String?
   dateCommentReply       DateTime
+  qtLikes                Int?
   date                   DateTime      @default(now())
   comment_response       String
   postId                 Post          @relation(fields: [post_id], references: [id], onDelete: Cascade)

@@ -72,7 +72,31 @@ export const CommentService = {
         }
     })
   },
-  
+  updateQtLikes: async(id: string) => {
+    let comment = await prisma.commentInPost.findUnique({ where: {id}})
+    if(comment) {
+      const qt = await prisma.commentInPost.update({
+        where: {  id },
+        data : {
+          qtLikes: comment.qtLikes ? ++comment.qtLikes : 1
+        }
+      })
+      return true
+    }
+  },
+  updateRemoveQtLikes: async(id: string) => {
+    let comment = await prisma.commentInPost.findUnique({ where: {id}})
+    console.log(comment)
+    if(comment) {
+      const qt = await prisma.commentInPost.update({
+        where: {  id },
+        data : {
+          qtLikes: comment.qtLikes ? --comment.qtLikes : 0
+        }
+      })
+      return true
+    }
+  },
   deleteCommentPost: async(id: string) => {
     return await prisma.commentInPost.delete({ where: { id }})
   },
