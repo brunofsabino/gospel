@@ -36,6 +36,7 @@ const pNoticeName = document.querySelector('.modal-login-home-content .notice-na
 const pNoticePassword = document.querySelector('.modal-login-home-content .notice-password')
 const pNoticePassword2 = document.querySelector('.modal-login-home-content .notice-password2')
 
+
 buttonEnter.addEventListener('click', item => openModal(item))
 modalHome.addEventListener('click', closeModal)
 buttonCloseModal.addEventListener('click', closeModal)
@@ -196,13 +197,13 @@ function loggoutUser() {
     localStorage.removeItem('name')
     location.reload() 
 }
-function toggleAreaUser(item) {
-    item.preventDefault()
-    areaConfigLoggoutUser.classList.toggle('close')
-}
+// function toggleAreaUser(item) {
+//     item.preventDefault()
+//     areaConfigLoggoutUser.classList.toggle('close')
+// }
 async function openPageMyPerfil(item) {
     const idUser = areaPerfilUser.getAttribute('id')
-    const user = await getUser(idUser)
+    //const user = await getUser(idUser)
     window.open(`http://localhost:4000/user/${user.id}`, '_blank')
     // window.location.href = `http://localhost:4000/user/${user.id}`
     alterar_url(`http://lnovo/perfil/${user.name}`)
@@ -216,11 +217,11 @@ async function openPageMyPerfil(item) {
 function alterar_url(nova){
     history.pushState({}, null, nova);
   }
-areaPerfilUser.addEventListener('click', item => openPageMyPerfil(item))
-areaPersonaAUser.addEventListener('click', item => toggleAreaUser(item))
-areaPersonaIMGUser.addEventListener('click', item => toggleAreaUser(item))
-areaPersonaUser.addEventListener('click', item => toggleAreaUser(item))
-openConfigUser.addEventListener('click',  item => toggleAreaUser(item))
+//areaPerfilUser.addEventListener('click', item => openPageMyPerfil(item))
+// areaPersonaAUser.addEventListener('click', item => toggleAreaUser(item))
+// areaPersonaIMGUser.addEventListener('click', item => toggleAreaUser(item))
+// areaPersonaUser.addEventListener('click', item => toggleAreaUser(item))
+// openConfigUser.addEventListener('click',  item => toggleAreaUser(item))
 
 areaLoggoutUser.addEventListener('click', loggoutUser)
 
@@ -247,21 +248,6 @@ async function sendDataNewUser(email, name, password, password2) {
     }
     const newUser = await registerNewUser(email, name, password, password2)
 }
-async function getUser() {
-    const id = localStorage.getItem('id')
-    const user = await fetch(`http://localhost:4000/user/${id}`, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
-    })
-    const json = await user.json()
-    if(json.id) {
-        userLogged(json)
-        return json.id
-    }
-}
-getUser()
 
 async function findByEmail(email) {
     const emailValid = validateEmail(email)

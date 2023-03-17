@@ -8,6 +8,17 @@ type PropCreate = {
   nameUserInComment: string,
   imgUserInComment: string
 }
+type PropCreateResponse = {
+  post_id: string, 
+  id_comment: string,
+  nameUser: string,
+  imgUser: string,
+  userNameCommentReply: string,
+  userAvatarCommentReply: string,
+  dateCommentReply: Date,
+  comment_response: string,
+  userCommentReply: string
+}
 type UpdateCreate = {
   comment: string
 }
@@ -24,11 +35,31 @@ export const CommentService = {
     })
     return newCommentPost
   },
+  createResponseComment: async(id: string, data: PropCreateResponse) =>{
+    const newResponseCommentPost =  await prisma.responseComment.create({
+      data: {
+          user_id: id,
+          post_id: data.post_id, 
+          id_comment: data.id_comment,
+          nameUser: data.nameUser,
+          imgUser: data.imgUser,
+          userNameCommentReply: data.userNameCommentReply,
+          userAvatarCommentReply: data.userAvatarCommentReply,
+          dateCommentReply: data.dateCommentReply,
+          comment_response : data.comment_response,
+          userCommentReply: data.userCommentReply
+      }
+    })
+    return newResponseCommentPost
+  },
   findAll: async() => {
     return await prisma.commentInPost.findMany({})
   },
   findAllPost: async(id: string) => {
     return await prisma.commentInPost.findMany({ where: { post_id: id}})
+  },
+  findAllResponseComments: async(id: string) => {
+    return await prisma.responseComment.findMany({ where: { post_id: id}})
   },
   findOne: async(id: string) => {
     return await prisma.commentInPost.findUnique({ where: { id }})

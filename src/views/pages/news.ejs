@@ -86,13 +86,14 @@
           <div class="news-details-comments">
             <div class="news-details-comments-qt">
               <% if (comments.length>0) { %>
-                <p><%=comments.length%> Comentários</p>
+                <p><%=comments.length+responseComments.length%> Comentários</p>
                 <br>
               <% } %>
               <% if (comments.length==0) { %>
                 <p>Nenhum Comentário</p>
                 <br>
               <% } %>
+              
               <img src="/images/forum.svg" alt="">
             </div>
             <div class="news-details-comments-new">
@@ -104,7 +105,7 @@
                 </div>
                 <div class="area-comments-content">
                   <input type="text" placeholder="Deixe seu comentário">
-                  <img src="/images/send.png" alt="Enviar Comentário">
+                  <img src="/images/send.png" alt="Enviar Comentário" data-item="<%=news.id%>">
                 </div>
               </div>
               <div class="news-details-comments-pg">
@@ -128,10 +129,79 @@
                           <div class="area-comments-user-name">
                             <h3><%=item.nameUserInComment%></h3> <div class="area-comments-user-name-date"><%=item.date.toString().slice(4,10)%></div>
                           </div>
-                          <div class="area-comments-complaint dlt_comment">...</div>
+                          <div class="area-comments-complaint " get-item="<%=item.id%>" data-item="<%=item.user_id%>">...
+                            <div class="area-comments-complaint-options area-comments-complaint-none" get-item="<%=item.id%>">
+                              <p class="denounce">Denunciar</p>
+                              <p class="edit">Editar</p>
+                              <p class="del">Excluir</p>
+                            </div>
+                          </div>
                         </div>
                         <div class="area-comments-user-comment">
                           <p><%=item.comment%></p>
+                        </div>
+                      </div>
+                      <div class="area-comments-user-like-dislike-resp" >
+                        <div class="area-comments-user-like">
+                          <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                          <div class="area-comments-user-like-qt">1</div>
+                        </div>
+                        <div class="area-comments-user-dislike">
+                          <img src="/images/dislike.svg" alt="">
+                          <div class="area-comments-user-dislike-qt">1</div>
+                        </div>
+                        <div class="area-comments-user-resp" get-item="<%=item.id%>">
+                          <img src="/images/response.png" alt="" get-item="<%=item.id%>">
+                          <p get-item="<%=item.id%>">Responder</p>
+                        </div>
+                      </div>
+                      <div class="area-comments-reply-new area-comments-reply-new-none" get-item="<%=item.id%>">
+                        <div class="area-comments-person">
+                          <div class="area-comments-person-img">
+                            <img src="/images/persona.png" alt="">
+                          </div>
+                        </div>
+                        <div class="area-comments-content">
+                          <input type="text" placeholder="Deixe sua resposta">
+                          <img src="/images/send.png" alt="Enviar Comentário">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <%});%>
+                <%responseComments.forEach(function(item){%>
+                  <div class="area-comments-user-response">
+                    <div class="area-comments-user-person">
+                      <div class="area-comments-person-img">
+                        <img src="/images/persona.png" alt="">
+                      </div>
+                    </div>
+                    <div class="area-comments-user-content">
+                      <div class="area-comments-user-content-info">
+                        <div class="area-comments-user-name-complaint">
+                          <div class="area-comments-user-name">
+                            <h3><%=item.nameUser%></h3> <div class="area-comments-user-name-date"><%=item.date.toString().slice(4,10)%></div>
+                          </div>
+                          <div class="area-comments-complaint " get-item="<%=item.id%>" data-item="<%=item.user_id%>">...
+                            <div class="area-comments-complaint-options area-comments-complaint-none" get-item="<%=item.id%>">
+                              <p class="denounce">Denunciar</p>
+                              <p class="edit">Editar</p>
+                              <p class="del">Excluir</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="area-comment-user-desc">
+                          <div class="area-comments-user-name">
+                            <h3><%=item.userNameCommentReply%></h3> <div class="area-comments-user-name-date"><%=item.dateCommentReply.toString().slice(4,10)%></div>
+                          </div>
+                          <div class="area-comments-user-comment">
+                            <p><%=item.userCommentReply%></p>
+                          </div>
+                        </div>
+                        <div class="area-comments-user-response-content">
+                          <p><%=item.comment_response%></p>
                         </div>
                       </div>
                       <div class="area-comments-user-like-dislike-resp">
@@ -143,58 +213,25 @@
                           <div class="area-comments-user-dislike-qt">1</div>
                           <img src="/images/dislike.svg" alt="">
                         </div>
-                        <div class="area-comments-user-resp">
-                          <img src="/images/response.png" alt="">
-                          <p>Responder</p>
+                        <div class="area-comments-user-resp" get-item="<%=item.id%>">
+                          <img src="/images/response.png" alt="" get-item="<%=item.id%>">
+                          <p get-item="<%=item.id%>">Responder</p>
+                        </div>
+                      </div>
+                      <div class="area-comments-reply-new area-comments-reply-new-none" get-item="<%=item.id%>">
+                        <div class="area-comments-person">
+                          <div class="area-comments-person-img">
+                            <img src="/images/persona.png" alt="">
+                          </div>
+                        </div>
+                        <div class="area-comments-content">
+                          <input type="text" placeholder="Deixe sua resposta">
+                          <img src="/images/send.png" alt="Enviar Comentário">
                         </div>
                       </div>
                     </div>
                   </div>
-                <%});%>
-                
-                    <div class="area-comments-user-response">
-                      <div class="area-comments-user-person">
-                        <div class="area-comments-person-img">
-                          <img src="images/persona.png" alt="">
-                        </div>
-                      </div>
-                      <div class="area-comments-user-content">
-                        <div class="area-comments-user-content-info">
-                          <div class="area-comments-user-name-complaint">
-                            <div class="area-comments-user-name">
-                              <h3>Usuario REspondendo</h3> <div class="area-comments-user-name-date">10/03</div>
-                            </div>
-                            <div class="area-comments-complaint dlt_comment">...</div>
-                          </div>
-                          <div class="area-comment-user-desc">
-                            <div class="area-comments-user-name">
-                              <h3>Usuario Respondido</h3> <div class="area-comments-user-name-date">10/03</div>
-                            </div>
-                            <div class="area-comments-user-comment">
-                              <p>Comentario adss</p>
-                            </div>
-                          </div>
-                          <div class="area-comments-user-response-content">
-                            <p>COmentanrio respondendo</p>
-                          </div>
-                        </div>
-                        <div class="area-comments-user-like-dislike-resp">
-                          <div class="area-comments-user-like">
-                            <div class="area-comments-user-like-qt">1</div>
-                            <img src="images/like.svg" alt="">
-                          </div>
-                          <div class="area-comments-user-dislike">
-                            <div class="area-comments-user-dislike-qt">1</div>
-                            <img src="images/dislike.svg" alt="">
-                          </div>
-                          <div class="area-comments-user-resp">
-                            <img src="images/response.png" alt="">
-                            <p>Responder</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  
+                <%});%>  
                 <div class="area-comments-user">
                   <div class="area-comments-user-person">
                     <div class="area-comments-person-img">
@@ -348,5 +385,92 @@
         </aside>
       </div>
   </main>
+  <script>
+    
+    const buttonSendComment = document.querySelector('.area-comments-new .area-comments-content img')
+    const inputSendComment = document.querySelector('.area-comments-content input')
+    buttonSendComment.addEventListener('click', item => {
+      const id = item.target.getAttribute('data-item')
+      sendComment(id)
+    })
+    function sendComment(idPost) {
+      if(inputSendComment.value != '' && inputSendComment.value.length > 1) {
+          if(idPost) {
+            sendCommentPost(localStorage.getItem('id'), idPost, inputSendComment.value )
+          }
+      }
+    }
+    async function sendCommentPost(id, idPost, comment) {
+      const newComment = await fetch(`http://localhost:4000/comment/${id}/${idPost}/`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
+        body: new URLSearchParams({
+          comment
+        })
+      })
+      const json = await newComment.json()
+      if(json.comment) {
+        console.log(json)
+        document.location.reload(); 
+      }
+    }
+    setTimeout(()=> {
+      const buttonReplyComment = document.querySelectorAll('.area-comments-user-resp')
+      const replyComment = document.querySelectorAll('.area-comments-reply-new')
+      const areaUploadComment = document.querySelectorAll('.area-comments-complaint ')
+      const areaUploadCommentNone = document.querySelectorAll('.area-comments-complaint-none')
+      
+      const pDenounce = document.querySelectorAll('.denounce')
+      const pEdit = document.querySelectorAll('.edit')
+      const pDel = document.querySelectorAll('.del')
+
+      
+
+      buttonReplyComment.forEach(item => 
+        item.addEventListener('click', item => {
+        const id = item.target.getAttribute('get-item')
+        openReplyComment(id)
+      }))
+      function openReplyComment(id) {
+        replyComment.forEach(item => {
+          const id2 = item.getAttribute('get-item')
+          if(id === id2) {
+            item.classList.toggle('area-comments-reply-new-none')
+          }
+        })
+      }
+      areaUploadComment.forEach(item => 
+          item.addEventListener('click', item => {
+          const id = item.target.getAttribute('get-item')
+          const id3 = item.target.getAttribute('data-item')
+          const id2 = localStorage.getItem('id')
+          if(id2 === id3) {
+            pEdit.forEach(item => item.style.display = 'block')
+            pDel.forEach(item => item.style.display = 'block')
+            pDenounce.forEach(item => item.style.display = 'none')
+            // pDenounce.style.display = 'none'
+          } else {
+            pEdit.forEach(item => item.style.display = 'none')
+            pDel.forEach(item => item.style.display = 'none')
+            pDenounce.forEach(item => item.style.display = 'block')
+          }
+          openUploadComment(id)
+
+      }))
+      function openUploadComment(id) {
+        areaUploadCommentNone.forEach(item => {
+          const id2 = item.getAttribute('get-item')
+          if(id === id2) {
+            item.classList.toggle('area-comments-complaint-none')
+          }
+        })
+      }
+
+    }, 500)
+    
+  </script>
   <%- include('../partials/footer') %>
  

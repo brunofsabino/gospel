@@ -23,12 +23,22 @@
   const areaConfigLoggoutUser = document.querySelector('.header-persona-perfil')
   const areaPerfilUser = document.querySelector('.area-persona-perfil')
   const areaLoggoutUser = document.querySelector('.area-persona-logout')
+
+  areaPersonaAUser.addEventListener('click', item => toggleAreaUser(item))
+  areaPersonaIMGUser.addEventListener('click', item => toggleAreaUser(item))
+  areaPersonaUser.addEventListener('click', item => toggleAreaUser(item))
+  openConfigUser.addEventListener('click',  item => toggleAreaUser(item))
+  function toggleAreaUser(item) {
+    item.preventDefault()
+    areaConfigLoggoutUser.classList.toggle('close')
+}
   async function getUser() {
     const id = localStorage.getItem('id')
     const user = await fetch(`http://localhost:4000/user/${id}/`, {
         method: 'GET',
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
         }
     })
     const json = await user.json()

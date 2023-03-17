@@ -69,23 +69,30 @@ model Post {
 }
 
 model CommentInPost {
-  id                String            @id @default(uuid())
-  post_id           String
-  user_id           String
-  nameUserInComment String
-  imgUserInComment  String
-  date              DateTime          @default(now())
-  comment           String
-  postId            Post              @relation(fields: [post_id], references: [id], onDelete: Cascade)
-  userId            User              @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  likesInComment    LikeInComment[]
-  responseComment   ResponseComment[]
+  id                     String            @id @default(uuid())
+  post_id                String
+  user_id                String
+  nameUserInComment      String
+  imgUserInComment       String
+  date                   DateTime          @default(now())
+  comment                String
+  id_commentReply        String?
+  nameUserReplyComment   String?
+  imgUserReplyComment    String?
+  userNameCommentReply   String?
+  userAvatarCommentReply String?
+  dateCommentReply       DateTime?
+  commentReply           String?
+  postId                 Post              @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  userId                 User              @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  likesInComment         LikeInComment[]
+  responseComment        ResponseComment[]
 
   @@map("comments")
 }
 
 model ResponseComment {
-  id                     String                  @id @default(uuid())
+  id                     String        @id @default(uuid())
   post_id                String
   user_id                String
   id_comment             String
@@ -93,12 +100,15 @@ model ResponseComment {
   imgUser                String
   userNameCommentReply   String
   userAvatarCommentReply String
+  userCommentReply       String?
   dateCommentReply       DateTime
-  date                   DateTime                @default(now())
-  postId                 Post                    @relation(fields: [post_id], references: [id], onDelete: Cascade)
-  userId                 User                    @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  commentId              CommentInPost           @relation(fields: [id_comment], references: [id], onDelete: Cascade)
-  likesInComment         LikeInResponseComment[]
+  date                   DateTime      @default(now())
+  comment_response       String
+  postId                 Post          @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  userId                 User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  commentId              CommentInPost @relation(fields: [id_comment], references: [id], onDelete: Cascade)
+
+  likesInComment LikeInResponseComment[]
 
   @@map("response_comments")
 }
