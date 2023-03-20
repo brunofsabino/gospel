@@ -22,6 +22,9 @@ type PropCreateResponse = {
 type UpdateCreate = {
   comment: string
 }
+type UpdateShowLike = {
+  likeShow: boolean
+}
 export const CommentService = {
   create: async(id: string, data: PropCreate) => {
     const newCommentPost =  await prisma.commentInPost.create({
@@ -64,6 +67,9 @@ export const CommentService = {
   findOne: async(id: string) => {
     return await prisma.commentInPost.findUnique({ where: { id }})
   },
+  findOneResponseComment: async(id: string) => {
+    return await prisma.responseComment.findUnique({ where: { id }})
+  },
   update: async(id: string, data: UpdateCreate) => {
     return await prisma.commentInPost.update({
         where: { id },
@@ -71,6 +77,30 @@ export const CommentService = {
           comment: data.comment
         }
     })
+  },
+  updateShowLikesTrue: async(id: string) => {
+    let comment = await prisma.commentInPost.findUnique({ where: {id}})
+    if(comment) {
+      const qt = await prisma.commentInPost.update({
+        where: {  id },
+        data : {
+          likeShow: true
+        }
+      })
+      return true
+    }
+  },
+  updateShowLikesFalse: async(id: string) => {
+    let comment = await prisma.commentInPost.findUnique({ where: {id}})
+    if(comment) {
+      const qt = await prisma.commentInPost.update({
+        where: {  id },
+        data : {
+          likeShow: false
+        }
+      })
+      return true
+    }
   },
   updateQtLikes: async(id: string) => {
     let comment = await prisma.commentInPost.findUnique({ where: {id}})
@@ -84,11 +114,36 @@ export const CommentService = {
       return true
     }
   },
+  updateQtResponseLikes: async(id: string) => {
+    let comment = await prisma.responseComment.findUnique({ where: {id}})
+    if(comment) {
+      const qt = await prisma.responseComment.update({
+        where: {  id },
+        data : {
+          qtLikes: comment.qtLikes ? ++comment.qtLikes : 1
+        }
+      })
+      return true
+    }
+  },
   updateRemoveQtLikes: async(id: string) => {
     let comment = await prisma.commentInPost.findUnique({ where: {id}})
     console.log(comment)
     if(comment) {
       const qt = await prisma.commentInPost.update({
+        where: {  id },
+        data : {
+          qtLikes: comment.qtLikes ? --comment.qtLikes : 0
+        }
+      })
+      return true
+    }
+  },
+  updateRemoveResponseQtLikes: async(id: string) => {
+    let comment = await prisma.responseComment.findUnique({ where: {id}})
+    console.log(comment)
+    if(comment) {
+      const qt = await prisma.responseComment.update({
         where: {  id },
         data : {
           qtLikes: comment.qtLikes ? --comment.qtLikes : 0

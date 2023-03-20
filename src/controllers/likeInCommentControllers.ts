@@ -19,13 +19,17 @@ export const create = async(req: Request, res: Response) => {
     })
     if(newLikeInCommentPost) {
       const qtLikesInComment = await CommentService.updateQtLikes(newLikeInCommentPost.comment_id)
+      // const showLikesInComment = await CommentService.updateShowLikes(newLikeInCommentPost.comment_id, {
+      //   likeShow: !newLikeInCommentPost.likeShow,
+      // })
       res.status(201).json({ like: newLikeInCommentPost })
     } else {
       res.status(500).json({error : "Dados invalidos"})
     }
   } else if (likeComment){
     const likeCommentPostUpdate = await LikeInCommentService.update(likeComment.id, {
-      done: !likeComment.done
+      done: !likeComment.done,
+      //likeShow: !likeComment.likeShow
     })
     if(likeCommentPostUpdate){
       if(likeCommentPostUpdate.done === true) {
@@ -53,27 +57,36 @@ export const createResponse = async(req: Request, res: Response) => {
   const { userId, postId, commentId  } = req.body
   const user = await UserService.findOne(userId)
   const post = await PostService.findOne(postId)
-  const comment = await CommentService.findOne(commentId)
-  const likeComment = await LikeInCommentService.findOneByCommentId(commentId)
+  const comment = await CommentService.findOneResponseComment(commentId)
+  const likeComment = await LikeInCommentService.findOneByResponseCommentId(commentId)
 
   if(user && post && comment && !likeComment ) {
-    const newLikeInCommentPost = await LikeInCommentService.createResponse(user.id, { 
+    const newLikeInResponseCommentPost = await LikeInCommentService.createResponse(user.id, { 
       post_id: post.id, 
       comment_id: comment.id,
+      nameUser: user.name,
+      imgUser: user.avatar ?? '',
+      userNameCommentReply: comment.userNameCommentReply,
+      userAvatarCommentReply: comment.userAvatarCommentReply ?? '',
+      userCommentReply: comment.userCommentReply ?? '',
+      dateCommentReply: comment.dateCommentReply,
+      qtLikes: comment.qtLikes ?? null,
+      comment_response: comment.comment_response ?? '' 
     })
-    if(newLikeInCommentPost) {
-      const qtLikesInComment = await CommentService.updateQtLikes(newLikeInCommentPost.comment_id)
-      res.status(201).json({ like: newLikeInCommentPost })
+    if(newLikeInResponseCommentPost) {
+      const qtLikesInComment = await CommentService.updateQtResponseLikes(newLikeInResponseCommentPost.comment_id)
+      res.status(201).json({ like: newLikeInResponseCommentPost })
     } else {
       res.status(500).json({error : "Dados invalidos"})
     }
   } else if (likeComment){
-    const likeCommentPostUpdate = await LikeInCommentService.update(likeComment.id, {
-      done: !likeComment.done
+    const likeCommentPostUpdate = await LikeInCommentService.updateResponseComment(likeComment.id, {
+      done: !likeComment.done,
+      //likeShow: !likeComment.likeShow
     })
     if(likeCommentPostUpdate){
       if(likeCommentPostUpdate.done === true) {
-        const qtLikesInComment = await CommentService.updateQtLikes(likeCommentPostUpdate.comment_id)
+        const qtLikesInComment = await CommentService.updateQtResponseLikes(likeCommentPostUpdate.comment_id)
         if(qtLikesInComment) {
           res.status(201).json({ like: likeCommentPostUpdate })
         } else {
@@ -81,7 +94,7 @@ export const createResponse = async(req: Request, res: Response) => {
       }
       } 
       if(likeCommentPostUpdate.done === false) {
-        const qtLikesInComment = await CommentService.updateRemoveQtLikes(likeCommentPostUpdate.comment_id)
+        const qtLikesInComment = await CommentService.updateRemoveResponseQtLikes(likeCommentPostUpdate.comment_id)
         if(qtLikesInComment) {
           res.status(201).json({ like: likeCommentPostUpdate })
         } else {

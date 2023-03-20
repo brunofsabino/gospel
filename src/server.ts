@@ -19,7 +19,7 @@ dotenv.config()
 
 const server = express()
 
-server.use(cookieParser())
+//server.use(cookieParser())
 server.use(cors({
   credentials: true,
 }))
@@ -42,14 +42,20 @@ server.use(likeInCommentForumRouter)
 
 
 
+// declare module 'express-session' {
+//   export interface SessionData {
+//     // user: { [key: string]: any };
+//     // userId: number;
+//     views: number;
+//     token: string;
+//   }
+// }
 declare module 'express-session' {
-  export interface SessionData {
-    // user: { [key: string]: any };
-    // userId: number;
-    views: number;
-    token: string;
+  interface SessionData {
+    user: string;
   }
 }
+
 server.use(session({
   secret: 'dapsdaifnasdáosdasd',
   resave: false,

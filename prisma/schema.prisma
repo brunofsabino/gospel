@@ -82,6 +82,7 @@ model CommentInPost {
   userNameCommentReply   String?
   userAvatarCommentReply String?
   qtLikes                Int?
+  likeShow               Boolean?          @default(false)
   dateCommentReply       DateTime?
   commentReply           String?
   postId                 Post              @relation(fields: [post_id], references: [id], onDelete: Cascade)
@@ -104,6 +105,7 @@ model ResponseComment {
   userCommentReply       String?
   dateCommentReply       DateTime
   qtLikes                Int?
+  likeShow               Boolean?      @default(false)
   date                   DateTime      @default(now())
   comment_response       String
   postId                 Post          @relation(fields: [post_id], references: [id], onDelete: Cascade)
@@ -134,6 +136,7 @@ model LikeInResponseComment {
   user_id           String
   comment_id        String          @unique
   done              Boolean         @default(true)
+  likeShow          Boolean         @default(true)
   postId            Post            @relation(fields: [post_id], references: [id], onDelete: Cascade)
   userId            User            @relation(fields: [user_id], references: [id], onDelete: Cascade)
   commentResponseId ResponseComment @relation(fields: [comment_id], references: [id], onDelete: Cascade)

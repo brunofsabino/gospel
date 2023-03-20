@@ -30,7 +30,9 @@
   areaPersonaUser.addEventListener('click', item => toggleAreaUser(item))
   openConfigUser.addEventListener('click',  item => toggleAreaUser(item))
 
-
+  // setTimeout(()=> {
+  //   getUser(localStorage.getItem('id'))
+  // }, 500)
   areaLoggoutUser.addEventListener('click', loggoutUser)
   function toggleAreaUser(item) {
     item.preventDefault()
@@ -44,9 +46,9 @@
       backgroundModalHome.style.opacity = 1
   }, 400);
   }
-  async function getUser() {
-    const id = localStorage.getItem('id')
-    const user = await fetch(`http://localhost:4000/user/${id}/`, {
+  async function getUser(id) {
+    // const id = localStorage.getItem('id')
+    const user = await fetch(`http://localhost:4000/user/${id}`, {
         method: 'GET',
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -73,7 +75,7 @@
     localStorage.removeItem('name')
     location.reload() 
 }
-  getUser()
+  
 </script>
 </body>
 </html>

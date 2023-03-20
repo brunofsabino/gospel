@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import { Strategy as JWTStrategy , ExtractJwt} from 'passport-jwt'
 import jwt from 'jsonwebtoken'
 import { UserService } from '../services/UserService'
+import { User } from '@prisma/client'
 
 dotenv.config()
 
@@ -35,7 +36,7 @@ export const generateToken = (data: object) => {
 }
 
 export const privateRoute = (req: Request, res: Response, next: NextFunction) => {
-    passport.authenticate('jwt', (err: any, user: Express.User | undefined) => {
+    passport.authenticate('jwt', (err: any, user: User) => {
         req.user = user
         return user ? next() : next(notAuthorizedJson)
     })(req, res, next)

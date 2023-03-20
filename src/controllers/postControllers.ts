@@ -105,18 +105,33 @@ export const one = async(req: Request, res: Response) => {
 }
 export const oneNews = async(req: Request, res: Response) => {
   const { title } = req.params
+  const { id } = req.body
   console.log(title)
   const newTitle = title.split('-').join(' ')
   const one = await PostService.findOneByTitle(newTitle)
+  
   if(one) {
     const comments = await CommentService.findAllPost(one.id)
+    //const updateLikesFalse = CommentService.updateShowLikesFalse(one.id)
     const responseComments = await CommentService.findAllResponseComments(one.id)
-    console.log(responseComments)
+    const likes = await LikeInCommentService.findAllLikeComment(one.id)
+    // if(id){
+    //   likes.forEach(item => {
+    //     if(item.user_id === id) {
+    //       const updateLikes = CommentService.updateShowLikesTrue(item.comment_id)
+    //     }
+    //   })
+    //   console.log(likes)
+    // }
+    
+    console.log(comments)
+    console.log(likes)
     if(comments) {
       res.render('pages/news', {
         news: one,
         comments,
-        responseComments
+        responseComments,
+        likes
       })
     }
     

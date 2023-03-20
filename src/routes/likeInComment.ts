@@ -5,6 +5,7 @@ import * as LikeInCommentController from '../controllers/likeInCommentController
 const router = Router()
 
 router.post('/likeInComment', privateRoute, LikeInCommentController.create)
+router.post('/likeInResponseComment', privateRoute, LikeInCommentController.createResponse)
 router.get('/likeInComment', privateRoute, LikeInCommentController.all)
 router.get('/likeInComment/:id', privateRoute, LikeInCommentController.one)
 router.put('/likeInComment/:id', privateRoute, LikeInCommentController.update)
