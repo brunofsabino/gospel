@@ -75,12 +75,14 @@ export const home = async(req: Request, res: Response) => {
     const mainNews = await PostService.findMainNews()
     const slideShow = await PostService.findSlideShow()
     const newsShow = await PostService.findNewsShow()
-
+    const userId = req.session.userId;
+    console.log(userId)
   
     res.render('pages/home.ejs', {
       mainNews,
       slideShow,
-      newsShow
+      newsShow,
+      userId
     })
 }
 export const home2 = async(req: Request, res: Response) => {
@@ -109,12 +111,16 @@ export const oneNews = async(req: Request, res: Response) => {
   console.log(title)
   const newTitle = title.split('-').join(' ')
   const one = await PostService.findOneByTitle(newTitle)
+  const userId = req.session.userId;
+    console.log(userId)
   
   if(one) {
     const comments = await CommentService.findAllPost(one.id)
     //const updateLikesFalse = CommentService.updateShowLikesFalse(one.id)
     const responseComments = await CommentService.findAllResponseComments(one.id)
     const likes = await LikeInCommentService.findAllLikeComment(one.id)
+    // const userId = req.session.userId;
+    // console.log(userId)
     // if(id){
     //   likes.forEach(item => {
     //     if(item.user_id === id) {
@@ -131,7 +137,8 @@ export const oneNews = async(req: Request, res: Response) => {
         news: one,
         comments,
         responseComments,
-        likes
+        likes,
+        userId
       })
     }
     

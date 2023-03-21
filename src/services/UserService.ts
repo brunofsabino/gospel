@@ -1,5 +1,6 @@
 import { PrismaClient, User } from "@prisma/client"
 import bcrypt from "bcrypt"
+import { Request, Response } from "express";
 import { generateToken } from '../config/passport'
 
 const prisma = new PrismaClient()
@@ -91,6 +92,10 @@ export const UserService = {
             }
         }
     },
+    // logInUser: function (req: Request, res: Response) {
+    //     const userId = req.session.userId;
+    //     return userId
+    // },
     deleteUser: async(id: string) => {
         return await prisma.user.delete({ where: { id }})
     }

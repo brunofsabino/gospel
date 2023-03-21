@@ -40,7 +40,7 @@ export const create = async(req: Request, res: Response) => {
             email
           })
           if(newUser) {
-            req.session.user = newUser.dataNewUser.id;
+            req.session.userId = newUser.dataNewUser.id;
             console.log(req.session)
             res.cookie('jwt', newUser.token, {httpOnly: true,secure: true, maxAge: 24 * 60 * 60 * 1000 });
             //res.setHeader('Set-Cookie', `id=${newUser.dataNewUser.id}; Max-Age=360000`);
@@ -135,10 +135,14 @@ export const login = async(req: Request, res: Response) => {
   if(emailValid && !passwordValid) {
       const loggedUser = await UserService.login(email, password)
       if(loggedUser) {
-        res.cookie('jwt', loggedUser.token, {httpOnly: true,secure: true, maxAge: 24 * 60 * 60 * 1000 });
-        //req.session.user = loggedUser.id;
+        req.session.userId = loggedUser.id;
+        res.cookie('jwt', loggedUser.token, {httpOnly: true,secure: true, maxAge: 24 * 60 * 60 * 1000 })
+            .status(200)
+            .json({sucess: true, token: loggedUser.token, id: loggedUser.id})
+            //.render('pages/home');
         //res.setHeader('Set-Cookie', `id=${loggedUser.id}; Max-Age=360000`);
-        res.status(200).json({sucess: true, token: loggedUser.token, id: loggedUser.id})
+        //res.status(200).json({sucess: true, token: loggedUser.token, id: loggedUser.id}).render('pages/home')
+        
       } else {
           res.status(500).json({error : "Dados invalidos"})
       }
@@ -179,12 +183,8 @@ export const logout = async(req: Request, res: Response) => {
   
 }
 export const home = async(req: Request, res: Response) => {
-  const users = await UserService.findAll()
-  if(users) {
-      res.status(200).json({ users})
-  } else {
-    res.status(500).json({error : "Dados invalidos"})
-  }
+      const userId = req.session.userId;
+    console.log(userId)
 }
 export const deleteUser = async(req: Request, res: Response) => {
   const { id } = req.params

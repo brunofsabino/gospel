@@ -1,4 +1,4 @@
-import express, { ErrorRequestHandler } from 'express'
+import express, { ErrorRequestHandler, Request, Response } from 'express'
 import path from 'path'
 import dotenv from 'dotenv'
 import cors from 'cors'
@@ -11,7 +11,7 @@ import likeInCommentPostRouter from './routes/likeInComment'
 import likeInCommentForumRouter from './routes/likeInForum'
 import forumRouter from './routes/forum'
 import commentForumRouter from './routes/commentForum'
-import session from 'express-session'
+import session, { SessionOptions } from 'express-session';
 import { MulterError } from 'multer'
 import cookieParser from 'cookie-parser'
 
@@ -31,14 +31,9 @@ server.use(express.static(path.join(__dirname, '../public')))
 server.use(express.urlencoded({ extended: true}))
 
 server.use(passport.initialize())
-server.use(homeRouter)
-server.use(userRouter)
-server.use(postRouter)
-server.use(commentRouter)
-server.use(likeInCommentPostRouter)
-server.use(forumRouter)
-server.use(commentForumRouter)
-server.use(likeInCommentForumRouter)
+
+
+
 
 
 
@@ -51,17 +46,48 @@ server.use(likeInCommentForumRouter)
 //   }
 // }
 declare module 'express-session' {
-  interface SessionData {
-    user: string;
+  export interface SessionData {
+    userId: string;
   }
 }
-
-server.use(session({
-  secret: 'dapsdaifnasdáosdasd',
+const sessionConfig: SessionOptions = {
+  secret: 'dasafasdasdefay',
   resave: false,
-  saveUninitialized: false,
-  cookie: { secure: true }
-}))
+  saveUninitialized: true,
+  cookie: { secure: false }, // use secure: true em produção, com HTTPS
+};
+server.use(session(sessionConfig))
+server.use(userRouter)
+server.use(homeRouter)
+server.use(postRouter)
+server.use(commentRouter)
+server.use(likeInCommentPostRouter)
+server.use(forumRouter)
+server.use(commentForumRouter)
+server.use(likeInCommentForumRouter)
+// server.use(session({
+//   secret: 'dapsdaifnasdáosdasd',
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: { secure: true }
+// }))
+// server.get('/homes', (req: Request, res: Response) => {
+//   // use a sessão aqui
+//   req.session.userId = '123';
+//   res.send('Hello World!');
+// });
+// server.get('/profile', (req: Request, res: Response) => {
+//   // verificar se o usuário está autenticado
+//   const userId = req.session.userId;
+//   if (userId) {
+//     // exibir o perfil do usuário
+//     res.send(`Bem-vindo, usuário ${userId}.`);
+//   } else {
+//     // redirecionar para a página de login
+//     res.redirect('/login');
+//   }
+// });
+
 
 server.use((req, res)=> {
   res.render('pages/404')

@@ -28,20 +28,23 @@
         <nav>
           <li><a href=""><div class="area-home"><img src="/images/home.svg" alt="Imagem Home">Home</div></a></li>
           <li><a href=""><div class="area-forum"><img src="/images/forum.svg" alt="Imagem Fórum">Fórum</div></a></li>
-          <li><a href=""><div class="area-alerts"><img src="/images/alert.svg" alt="Imagem Alerta"></div></a></li>
+          <% if (userId) { %>
+            <li><a href=""><div class="area-alerts"><img src="/images/alert.svg" alt="Imagem Alerta"></div></a></li>
+          <% } %> 
         </nav>
-        
+        <% if (userId) { %>
           <div class="header-persona"><a href=""><img src="/images/persona.png" alt="Imagem Perfil"></a></div>
           <div class="header-persona-open"><a href=""><img src="/images/seta-expandir.png" alt="Imagem Expandir Perfil">
-          <div class="header-persona-perfil close">
-            <a href="/user"><div class="area-persona-perfil" id="">Perfil</div></a>
-            <div class="area-persona-logout" id="">Sair</div>
+            <div class="header-persona-perfil close">
+              <a href="/user"><div class="area-persona-perfil" id="">Perfil</div></a>
+              <div class="area-persona-logout" id="">Sair</div>
+            </div></a>
           </div>
-        </a></div>
-        
+          
+        <% } %> 
+        <% if (userId===undefined) { %>
           <div class="button-enter"><a href="">Entrar</a></div>
-        
-        
+        <% } %> 
         
       </div>
     </div>
