@@ -360,6 +360,7 @@ async function loginUser(email, password)  {
     const json = await loginUser.json();
     if(json.id){
         loginSucess(json)
+        console.log(json)
         localStorage.setItem('id', json.id)
         location.reload() 
     }

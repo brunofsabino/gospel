@@ -547,7 +547,7 @@
             if(item.parentNode.classList.contains("area-comments-user-like-resp")){
               const idPost = item.parentNode.getAttribute("data")
               const idComment = item.getAttribute("id-item")
-              console.log("ID POST: " + idPost + "ID COMMENT: " + id2)
+              console.log("ID POST: " + id2 + " " +localStorage.getItem("id")+" " + "ID COMMENT: " + idPost )
               sendLikeInResponseComment(id2, localStorage.getItem("id"), idPost)
             } 
             qtLikeComment.forEach(item => {

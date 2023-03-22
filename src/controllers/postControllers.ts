@@ -131,7 +131,7 @@ export const oneNews = async(req: Request, res: Response) => {
     //   console.log(likes)
     // }
     
-    console.log(responseComments)
+    console.log(likes)
     console.log(responseLikes)
     if(comments) {
       res.render('pages/news', {

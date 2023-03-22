@@ -107,6 +107,7 @@ export const CommentService = {
   updateQtLikes: async(id: string) => {
     let comment = await prisma.commentInPost.findUnique({ where: {id}})
     if(comment) {
+      console.log('chegou aqui')
       const qt = await prisma.commentInPost.update({
         where: {  id },
         data : {
