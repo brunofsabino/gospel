@@ -206,24 +206,26 @@ main {
   display: flex;
   width: 50%;
 }
-.area-comments-user-like {
+.area-comments-user-like,
+.area-comments-user-like-resp {
   display: flex;
   align-items: center;
-  width: 15%;
-  margin-right: 5px;
+  /* width: 15%;
+  margin-right: 5px; */
 }
 .area-comments-user-dislike {
   display: none;
 }
 .area-comments-user-like-qt,
 .area-comments-user-dislike-qt {
-  margin-right: 5px;
+  margin-right: 15px;
   font-weight: 600;
 }
 .dlt_comment {
   display: none;
 }
 .area-comments-user-like svg,
+.area-comments-user-like-resp svg,
 .area-comments-user-dislike svg {
   min-width: 30%;
   margin-right: 5px;

@@ -19,7 +19,7 @@ dotenv.config()
 
 const server = express()
 
-//server.use(cookieParser())
+server.use(cookieParser())
 server.use(cors({
   credentials: true,
 }))

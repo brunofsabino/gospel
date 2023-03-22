@@ -59,7 +59,9 @@ export const CommentService = {
     return await prisma.commentInPost.findMany({})
   },
   findAllPost: async(id: string) => {
-    return await prisma.commentInPost.findMany({ where: { post_id: id}})
+    return await prisma.commentInPost.findMany({ where: { post_id: id}, orderBy: {
+      date: 'desc',
+    }})
   },
   findAllResponseComments: async(id: string) => {
     return await prisma.responseComment.findMany({ where: { post_id: id}})

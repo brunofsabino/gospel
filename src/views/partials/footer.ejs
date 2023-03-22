@@ -13,68 +13,59 @@
 <script src="js/script.js"></script>
 <script src="js/slide.js"></script>
 <script>
-  const buttonEnter = document.querySelector('.button-enter') 
-  const areaAlertsUser = document.querySelector('.area-alerts')
-  const areaPersonaUser = document.querySelector('.header-persona')
-  const areaPersonaAUser = document.querySelector('.header-persona a')
-  const areaPersonaIMGUser = document.querySelector('.header-persona a img')
-  const areaConfigUser = document.querySelector('.header-persona-open')
-  const openConfigUser = document.querySelector('.header-persona-open a')
-  const areaConfigLoggoutUser = document.querySelector('.header-persona-perfil')
-  const areaPerfilUser = document.querySelector('.area-persona-perfil')
-  const areaLoggoutUser = document.querySelector('.area-persona-logout')
+  // const buttonEnter = document.querySelector('.button-enter') 
+  // const areaAlertsUser = document.querySelector('.area-alerts')
+  // const areaPersonaUser = document.querySelector('.header-persona')
+  // const areaPersonaAUser = document.querySelector('.header-persona a')
+  // const areaPersonaIMGUser = document.querySelector('.header-persona a img')
+  // const areaConfigUser = document.querySelector('.header-persona-open')
+  // const openConfigUser = document.querySelector('.header-persona-open a')
+  // const areaConfigLoggoutUser = document.querySelector('.header-persona-perfil')
+  // const areaPerfilUser = document.querySelector('.area-persona-perfil')
+  // const areaLoggoutUser = document.querySelector('.area-persona-logout')
 
-  buttonEnter.addEventListener('click', item => openModal(item))
+  
   areaPersonaAUser.addEventListener('click', item => toggleAreaUser(item))
   areaPersonaIMGUser.addEventListener('click', item => toggleAreaUser(item))
   areaPersonaUser.addEventListener('click', item => toggleAreaUser(item))
   openConfigUser.addEventListener('click',  item => toggleAreaUser(item))
 
-  // setTimeout(()=> {
-  //   getUser(localStorage.getItem('id'))
-  // }, 500)
+  
   areaLoggoutUser.addEventListener('click', loggoutUser)
   function toggleAreaUser(item) {
     item.preventDefault()
     areaConfigLoggoutUser.classList.toggle('close')
   }
-  function openModal(item) {
-    item.preventDefault();
-    body.style.overflow = 'hidden'
-    backgroundModalHome.style.display = 'flex'
-    setTimeout( ()=>{
-      backgroundModalHome.style.opacity = 1
-  }, 400);
-  }
-  async function getUser(id) {
-    // const id = localStorage.getItem('id')
-    const user = await fetch(`http://localhost:4000/user/${id}`, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        credentials: 'include'
-    })
-    const json = await user.json()
-    if(json.id) {
-        userLogged(json)
-        return json.id
-    }
-  }
-  function userLogged(user) {
-    buttonEnter.style.display = 'none'
-    areaAlertsUser.style.display = 'flex'
-    areaPersonaUser.style.display = 'flex'
-    areaConfigUser.style.display = 'flex'
-    areaPerfilUser.setAttribute('id', user.id)
-  }
-  function loggoutUser() {
-    localStorage.removeItem('token')
-    localStorage.removeItem('id')
-    localStorage.removeItem('email')
-    localStorage.removeItem('name')
-    location.reload() 
-}
+  
+  // async function getUser(id) {
+  //   // const id = localStorage.getItem('id')
+  //   const user = await fetch(`http://localhost:4000/user/${id}`, {
+  //       method: 'GET',
+  //       headers: {
+  //           "Content-Type": "application/x-www-form-urlencoded",
+  //       },
+  //       credentials: 'include'
+  //   })
+  //   const json = await user.json()
+  //   if(json.id) {
+  //       userLogged(json)
+  //       return json.id
+  //   }
+  // }
+  // function userLogged(user) {
+  //   buttonEnter.style.display = 'none'
+  //   areaAlertsUser.style.display = 'flex'
+  //   areaPersonaUser.style.display = 'flex'
+  //   areaConfigUser.style.display = 'flex'
+  //   areaPerfilUser.setAttribute('id', user.id)
+  // }
+  // function loggoutUser() {
+  //   localStorage.removeItem('token')
+  //   localStorage.removeItem('id')
+  //   localStorage.removeItem('email')
+  //   localStorage.removeItem('name')
+  //   location.reload() 
+  // }
   
 </script>
 </body>

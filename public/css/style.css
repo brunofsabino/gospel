@@ -116,6 +116,7 @@ header {
   font-size: 16px;
   color: #fff;
   background-color: #999999b5;
+  cursor: pointer;
 }
 .header-persona-perfil.close {
   display: none;
@@ -130,12 +131,14 @@ header {
 
 }
 .area-persona-logout:hover,
-.area-persona-perfil:hover {
+.header-persona-perfil a:hover {
   opacity: 0.5;
   color: #333;
   background-color: #f3e2e2b5;
 }
 .header-persona-open a {
+  color: #fff;
+  width: 100%;
   display: flex;
   align-items: center;
   margin-left: 5px;

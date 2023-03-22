@@ -11,7 +11,10 @@ dotenv.config()
 const notAuthorizedJson = { status: 401, message: "Não autorizado" }
 const options = {
     //jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    jwtFromRequest: ExtractJwt.fromExtractors([extractFromCookie]),
+    jwtFromRequest: ExtractJwt.fromExtractors([
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
+        extractJwtFromCookie,
+    ]),
     secretOrKey: process.env.JWT_SECRET as string
 }
 
@@ -23,10 +26,11 @@ passport.use(new JWTStrategy(options, async(payload, done)=>{
         return done(notAuthorizedJson, false)
     }
 }))
-function extractFromCookie(req: Request) {
+function extractJwtFromCookie(req: Request) {
     let token = null;
     if (req && req.cookies) {
-      token = req.cookies.jwt;
+        token = req.cookies['jwt'];
+        console.log(token)
     }
     return token;
   }
@@ -36,7 +40,7 @@ export const generateToken = (data: object) => {
 }
 
 export const privateRoute = (req: Request, res: Response, next: NextFunction) => {
-    passport.authenticate('jwt', (err: any, user: User) => {
+    passport.authenticate('jwt',{ session: false }, (err: any, user: User) => {
         req.user = user
         return user ? next() : next(notAuthorizedJson)
     })(req, res, next)

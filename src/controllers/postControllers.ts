@@ -119,6 +119,7 @@ export const oneNews = async(req: Request, res: Response) => {
     //const updateLikesFalse = CommentService.updateShowLikesFalse(one.id)
     const responseComments = await CommentService.findAllResponseComments(one.id)
     const likes = await LikeInCommentService.findAllLikeComment(one.id)
+    const responseLikes = await LikeInCommentService.findAllLikeResponseComment(one.id)
     // const userId = req.session.userId;
     // console.log(userId)
     // if(id){
@@ -130,14 +131,15 @@ export const oneNews = async(req: Request, res: Response) => {
     //   console.log(likes)
     // }
     
-    console.log(comments)
-    console.log(likes)
+    console.log(responseComments)
+    console.log(responseLikes)
     if(comments) {
       res.render('pages/news', {
         news: one,
         comments,
         responseComments,
         likes,
+        responseLikes,
         userId
       })
     }

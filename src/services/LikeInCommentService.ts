@@ -52,6 +52,9 @@ export const LikeInCommentService = {
   findAllLikeComment: async(id: string) => {
     return await prisma.likeInComment.findMany({ where: { post_id: id, done: true}})
   },
+  findAllLikeResponseComment: async(id: string) => {
+    return await prisma.likeInResponseComment.findMany({ where: { post_id: id, done: true}})
+  },
   findOne: async(id: string) => {
     return await prisma.likeInComment.findUnique({ where: { id }})
   },

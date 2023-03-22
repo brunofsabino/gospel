@@ -2,6 +2,48 @@
   <%- include('../partials/header') %>
   <main>
     <div class="news-details container">
+      <div class="modal-login-home">
+        <div class="modal-login-home-content">
+          <div class="modal-login-home-close">
+            <img src="images/close.svg" alt="Fechar modal">
+          </div>
+          <h3>Entre gratuitamente para o Opinião Gospel</h3>
+          <div class="modal-login-home-inputs">
+            <div class="modal-login-home-inputs-p">
+              <p>Seu e-mail:</p>
+            </div>
+            <input type="text" placeholder="Seu e-mail" name="email" class="email">
+            <p class="notice-email"></p>
+            <div class="modal-login-home-inputs-p-n">
+              <p>Seu nome:</p>
+            </div>
+            <input type="text" placeholder="Digite seu nome" name="name" class="nameInput">
+            <p class="notice-name"></p>
+            <div class="modal-login-home-inputs-p-p">
+              <p>Sua senha:</p>
+            </div>
+            <input type="password" placeholder="Sua senha" name="password" class="password">
+            <p class="notice-password"></p>
+            <div class="modal-login-home-inputs-p-p2">
+              <p>Confirme sua senha:</p>
+            </div>
+            <input type="password" placeholder="Confirme sua senha"  name="password2" class="p2assword">
+            <p class="notice-password2"></p>
+          </div>
+          <div class="modal-login-home-buttons">
+            <button class="buttonEmail">Continuar com o e-mail</button>
+            <button class="buttonLogin">Continuar</button>
+            <button class="buttonLoginEmail">Login</button>
+          </div>
+          <div class="modal-login-home-g">
+            <p>Ou continue com o</p>
+          </div>
+          <div class="modal-login-home-buttons-google">
+            <a class="buttonGoogle"><img src="images/google.svg" alt=""></a>
+          </div>
+        </div>
+        <div class="modal-login-home-content-close"></div>
+      </div>
       <div class="news-details-subtitle"><p><%=news.subTitle%></p></div>
       <div class="news-details"><h1><%=news.title%></h1></div>
       <div class="news-details-img-video">
@@ -143,12 +185,20 @@
                         </div>
                       </div>
                       <div class="area-comments-user-like-dislike-resp" >
-                        <div class="area-comments-user-like">
-                          <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"  data-item="<%=item.id%>">
-                            <path  data-item="<%=item.id%>" d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>
-
-                          <div class="area-comments-user-like-qt" data-item="<%=item.id%>"><%=item.qtLikes%></div>
+                        <div class="area-comments-user-like" data="<%=item.post_id%>" id-item="<%=item.id%>">
+                          <%likes.forEach(function(like){%>
+                            <% if (like.user_id===userId && like.comment_id===item.id ) { %>   
+                              <svg width="20px" height="20px" viewBox="0 0 24 24" fill="var(--orange-black)"  xmlns="http://www.w3.org/2000/svg"  >
+                                <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>               
+                            <% } %> 
+                          <%});%>  
+                        </div>
+                        <div class="area-comments-user-like-qt" data-item="<%=item.id%>">
+                          <% if (item.qtLikes===0 ) { %>   
+                          <% } else { %> 
+                            <%=item.qtLikes%>
+                            <% } %> 
                         </div>
                         <div class="area-comments-user-dislike">
                           <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -209,11 +259,20 @@
                         </div>
                       </div>
                       <div class="area-comments-user-like-dislike-resp">
-                        <div class="area-comments-user-like">
-                          <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"  data-item="<%=item.id%>">
-                            <path  data-item="<%=item.id%>" d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>
-                          <div class="area-comments-user-like-qt" data-item="<%=item.id%>"><%=item.qtLikes%></div>
+                        <div class="area-comments-user-like-resp" data="<%=item.post_id%>" id-item="<%=item.id%>">
+                          <%responseLikes.forEach(function(like){%>
+                            <% if (like.user_id===userId && like.comment_id===item.id ) { %>   
+                              <svg width="20px" height="20px" viewBox="0 0 24 24" fill="var(--orange-black)"  xmlns="http://www.w3.org/2000/svg"  >
+                                <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>               
+                            <% } %> 
+                          <%});%>  
+                        </div>
+                        <div class="area-comments-user-like-qt" data-item="<%=item.id%>">
+                          <% if (item.qtLikes===0 ) { %>   
+                          <% } else { %> 
+                            <%=item.qtLikes%>
+                            <% } %> 
                         </div>
                         <div class="area-comments-user-dislike">
                           <div class="area-comments-user-dislike-qt">1</div>
@@ -393,21 +452,35 @@
   </main>
   <script>
     
-    
-    const buttonLikeComment = document.querySelectorAll('.area-comments-user-like svg')
-    const qtLikeComment = document.querySelectorAll('.area-comments-user-like-qt')
-
     const buttonSendComment = document.querySelector('.area-comments-new .area-comments-content img')
     const inputSendComment = document.querySelector('.area-comments-content input')
 
-    buttonLikeComment.forEach(item => {
+    setTimeout(()=> {
+      areaSVG()
+    },200)
+    function areaSVG() {
+      const buttonLikeComment = document.querySelectorAll('.area-comments-user-like svg')
+      const buttonLikeInResponseComment= document.querySelectorAll('.area-comments-user-like-resp svg')
+      const qtLikeComment = document.querySelectorAll('.area-comments-user-like-qt')
+    
+    
+      buttonLikeComment.forEach(item => likeInComment(item))
+      buttonLikeInResponseComment.forEach(item => likeInResponseComment(item))
+    function likeInComment(item) {
       item.addEventListener('click', a => {
-        const id = item.getAttribute('data-item')
-        const id2 = a.target.getAttribute('data-item')
-        if(id === id2) {
+        const id2 = a.target.closest('.area-comments-user-like').getAttribute('id-item')
+        const id3 = a.target.closest('.area-comments-user-like').getAttribute('data')
+        console.log(id2)
+        if(id2) {
           const fill = item.getAttribute('fill')
           if(fill == 'var(--orange-black)') {
             item.setAttribute("fill", "none")
+            if(item.parentNode.classList.contains("area-comments-user-like")){
+              const idPost = item.parentNode.getAttribute("data")
+              const idComment = item.getAttribute("data-item")
+              console.log(id2, localStorage.getItem("id"), idPost)
+              sendLikeInComment(id2, localStorage.getItem("id"), idPost)
+            } 
             qtLikeComment.forEach(item => {
               const id3 = item.getAttribute("data-item")
               if(id2 === id3) {
@@ -422,6 +495,12 @@
             })
           } else {
             item.setAttribute("fill", "var(--orange-black)")
+            if(item.parentNode.classList.contains("area-comments-user-like")){
+              const idPost = item.parentNode.getAttribute("data")
+              const idComment = item.getAttribute("data-item")
+              console.log("ID POST: " + idPost + "ID COMMENT: " + idComment)
+              sendLikeInComment(id2, localStorage.getItem("id"), idPost)
+            } 
             qtLikeComment.forEach(item => {
               const id3 = item.getAttribute("data-item")
               if(id2 === id3) {
@@ -433,11 +512,81 @@
             })
           }
         }
-        
       })
+    }
+
+    function likeInResponseComment(item) {
+      item.addEventListener('click', a => {
+        const id2 = a.target.closest('.area-comments-user-like-resp').getAttribute('id-item')
+        const id3 = a.target.closest('.area-comments-user-like-resp').getAttribute('data')
+        console.log(id2)
+        if(id2) {
+          const fill = item.getAttribute('fill')
+          if(fill == 'var(--orange-black)') {
+            item.setAttribute("fill", "none")
+            if(item.parentNode.classList.contains("area-comments-user-like-resp")){
+              const idPost = item.parentNode.getAttribute("data")
+              const idComment = item.getAttribute("data-item")
+              console.log(id2, localStorage.getItem("id"), idPost)
+              sendLikeInResponseComment(id2, localStorage.getItem("id"), idPost)
+            } 
+            qtLikeComment.forEach(item => {
+              const id3 = item.getAttribute("data-item")
+              if(id2 === id3) {
+                if(item.innerText != '' && item.innerText > 1) {
+                  item.innerText = --item.innerText
+                } else if (item.innerText == 1){
+                  item.innerText = ''
+                } else {
+                  item.innerText = ''
+                }
+              }
+            })
+          } else {
+            item.setAttribute("fill", "var(--orange-black)")
+            if(item.parentNode.classList.contains("area-comments-user-like-resp")){
+              const idPost = item.parentNode.getAttribute("data")
+              const idComment = item.getAttribute("id-item")
+              console.log("ID POST: " + idPost + "ID COMMENT: " + id2)
+              sendLikeInResponseComment(id2, localStorage.getItem("id"), idPost)
+            } 
+            qtLikeComment.forEach(item => {
+              const id3 = item.getAttribute("data-item")
+              if(id2 === id3) {
+                item.innerText = ++item.innerText
+                // if(item.innerText === '') {
+                //   item.innerText = ++item.innerText
+                // }
+              }
+            })
+          }
+        }
+      })
+    }
+    }
+    
+  
+    
+    const areaButtonLikeComment = document.querySelectorAll('.area-comments-user-like')
+    const buttonLikeInResponseComment= document.querySelectorAll('.area-comments-user-like-resp')
+    criaSVGLike(areaButtonLikeComment)
+    criaSVGLike(buttonLikeInResponseComment)
+    // areaButtonLikeComment.forEach(item => {
+    //   if(item.childNodes.length ===1) {
+    //     item.innerHTML =  `<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg"  data-item="">
+    //                         <path  data-item="" d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    //                       </svg>`
+    //   }
+    // })
+    function criaSVGLike(item) {
+      item.forEach(item => {
+      if(item.childNodes.length ===1) {
+        item.innerHTML =  `<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg"  data-item="">
+                            <path  data-item="" d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>`
+      }
     })
-
-
+    }
 
     buttonSendComment.addEventListener('click', item => {
       const id = item.target.getAttribute('data-item')
@@ -453,13 +602,58 @@
           }
       }
     }
+    async function sendLikeInComment(commentId, userId, postId) {
+      if(userId) {
+        const like = await fetch(`http://localhost:4000/likeInComment`, {
+          method: 'POST',
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              //"Authorization": `Bearer ${localStorage.getItem('token')}`
+          },
+          credentials: "include",
+          body: new URLSearchParams({
+            commentId,
+            userId,
+            postId
+          })
+        })
+        const json = await like.json()
+        if(json) {
+          console.log(json)
+          //location.
+        }
+      } 
+    }
+    async function sendLikeInResponseComment(commentId, userId, postId) {
+      if(userId) {
+        const like = await fetch(`http://localhost:4000/likeInResponseComment`, {
+          method: 'POST',
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              //"Authorization": `Bearer ${localStorage.getItem('token')}`
+          },
+          credentials: "include",
+          body: new URLSearchParams({
+            commentId,
+            userId,
+            postId
+          })
+        })
+        const json = await like.json()
+        if(json) {
+          console.log(json)
+          //location.
+        }
+      } 
+    }
     async function sendCommentPost(id, idPost, comment) {
       const newComment = await fetch(`http://localhost:4000/comment/${id}/${idPost}/`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
-            "Authorization": `Bearer ${localStorage.getItem('token')}`
+            //"Authorization": `Bearer ${localStorage.getItem('token')}`
         },
+        credentials: "include",
         body: new URLSearchParams({
           comment
         })
@@ -475,6 +669,8 @@
       const replyComment = document.querySelectorAll('.area-comments-reply-new')
       const areaUploadComment = document.querySelectorAll('.area-comments-complaint ')
       const areaUploadCommentNone = document.querySelectorAll('.area-comments-complaint-none')
+      
+      
       
       const pDenounce = document.querySelectorAll('.denounce')
       const pEdit = document.querySelectorAll('.edit')
