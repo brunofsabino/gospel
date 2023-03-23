@@ -121,7 +121,7 @@ model LikeInComment {
   id         String        @id @default(uuid())
   post_id    String
   user_id    String
-  comment_id String        @unique
+  comment_id String
   done       Boolean       @default(true)
   postId     Post          @relation(fields: [post_id], references: [id], onDelete: Cascade)
   userId     User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
@@ -134,7 +134,7 @@ model LikeInResponseComment {
   id                String          @id @default(uuid())
   post_id           String
   user_id           String
-  comment_id        String          @unique
+  comment_id        String
   done              Boolean         @default(true)
   likeShow          Boolean         @default(true)
   postId            Post            @relation(fields: [post_id], references: [id], onDelete: Cascade)

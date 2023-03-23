@@ -58,11 +58,11 @@ export const LikeInCommentService = {
   findOne: async(id: string) => {
     return await prisma.likeInComment.findUnique({ where: { id }})
   },
-  findOneByCommentId: async( comment_id: string) => {
-    return await prisma.likeInComment.findUnique({ where: { comment_id }})
+  findOneByCommentId: async( user_id: string, comment_id: string) => {
+    return await prisma.likeInComment.findFirst({ where: { user_id , comment_id }  })
   },
-  findOneByResponseCommentId: async( comment_id: string) => {
-    return await prisma.likeInResponseComment.findUnique({ where: { comment_id }})
+  findOneByResponseCommentId: async( comment_id: string, user_id: string) => {
+    return await prisma.likeInResponseComment.findFirst({ where: { comment_id, user_id }})
   },
   update: async(id: string, data: UpdateCreate) => {
     let aaa = await prisma.likeInComment.update({

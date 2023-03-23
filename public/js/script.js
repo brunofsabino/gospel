@@ -12,7 +12,24 @@
 // const areaLoggoutUser = document.querySelector('.area-persona-logout')
 
 
-
+async function home()  {
+    const loginUser = await fetch(`/home`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        credentials: 'include'
+    })
+    const json = await loginUser.json();
+    console.log(json)
+    //     console.log(json)
+    // if(json.id){
+    //     loginSucess(json)
+    //     console.log(json)
+    //     localStorage.setItem('id', json.id)
+    //     location.reload() 
+    // }
+}
 
 
 

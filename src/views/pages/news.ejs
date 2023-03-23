@@ -145,7 +145,7 @@
                     <img src="/images/persona.png" alt="">
                   </div>
                 </div>
-                <div class="area-comments-content">
+                <div class="area-comments-content" >
                   <input type="text" placeholder="Deixe seu comentário">
                   <img src="/images/send.png" alt="Enviar Comentário" data-item="<%=news.id%>">
                 </div>
@@ -187,7 +187,7 @@
                       <div class="area-comments-user-like-dislike-resp" >
                         <div class="area-comments-user-like" data="<%=item.post_id%>" id-item="<%=item.id%>">
                           <%likes.forEach(function(like){%>
-                            <% if (like.user_id===userId && like.comment_id===item.id ) { %>   
+                            <% if (like.user_id===userId.id && like.comment_id===item.id ) { %>   
                               <svg width="20px" height="20px" viewBox="0 0 24 24" fill="var(--orange-black)"  xmlns="http://www.w3.org/2000/svg"  >
                                 <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                               </svg>               
@@ -217,9 +217,9 @@
                             <img src="/images/persona.png" alt="">
                           </div>
                         </div>
-                        <div class="area-comments-content">
-                          <input type="text" placeholder="Deixe sua resposta">
-                          <img src="/images/send.png" alt="Enviar Comentário">
+                        <div class="area-comments-content"  id-item="<%=item.post_id%>">
+                          <input type="text" placeholder="Deixe sua resposta" get-item="<%=item.id%>">
+                          <img src="/images/send.png" alt="Enviar Comentário" get-item="<%=userId.id%>">
                         </div>
                       </div>
                     </div>
@@ -255,13 +255,13 @@
                           </div>
                         </div>
                         <div class="area-comments-user-response-content">
-                          <p><%=item.comment_response%></p>
+                          <p get-item="<%=item.id_comment%>"><%=item.comment_response%></p>
                         </div>
                       </div>
                       <div class="area-comments-user-like-dislike-resp">
                         <div class="area-comments-user-like-resp" data="<%=item.post_id%>" id-item="<%=item.id%>">
                           <%responseLikes.forEach(function(like){%>
-                            <% if (like.user_id===userId && like.comment_id===item.id ) { %>   
+                            <% if (like.user_id===userId.id && like.comment_id===item.id ) { %>   
                               <svg width="20px" height="20px" viewBox="0 0 24 24" fill="var(--orange-black)"  xmlns="http://www.w3.org/2000/svg"  >
                                 <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                               </svg>               
@@ -289,9 +289,9 @@
                             <img src="/images/persona.png" alt="">
                           </div>
                         </div>
-                        <div class="area-comments-content">
-                          <input type="text" placeholder="Deixe sua resposta">
-                          <img src="/images/send.png" alt="Enviar Comentário">
+                        <div class="area-comments-content-resp"  id-item="<%=item.post_id%>">
+                          <input type="text" placeholder="Deixe sua resposta" get-item="<%=item.id_comment%>" data-comment="<%=item.comment_response%>">
+                          <img src="/images/send.png" alt="Enviar Comentário" get-item="<%=userId.id%>">
                         </div>
                       </div>
                     </div>
@@ -453,7 +453,11 @@
   <script>
     
     const buttonSendComment = document.querySelector('.area-comments-new .area-comments-content img')
+    const buttonSendResponseComment = document.querySelectorAll('.area-comments-reply-new .area-comments-content img')
+    const buttonSendResponseCommentResponse = document.querySelectorAll('.area-comments-reply-new .area-comments-content-resp img')
     const inputSendComment = document.querySelector('.area-comments-content input')
+    const inputSendResponseComment = document.querySelectorAll('.area-comments-reply-new .area-comments-content input')
+    const inputSendResponseCommentResponse = document.querySelectorAll('.area-comments-reply-new .area-comments-content-resp input')
 
     setTimeout(()=> {
       areaSVG()
@@ -592,6 +596,36 @@
       const id = item.target.getAttribute('data-item')
       sendComment(id)
     })
+    buttonSendResponseComment.forEach(item => {
+      item.addEventListener('click', c => {
+        const id = c.target.getAttribute('get-item')//userID
+        inputSendResponseComment.forEach(inp => {
+          const id2 = inp.getAttribute('get-item') //comment_id
+          const id3 = inp.closest('.area-comments-content').getAttribute('id-item') //post_id
+          if(id && inp.value.length > 1 && id3 && id2) {
+            console.log(id +' '+inp.value+ ' ' + id3 + ' '+id2)
+            sendResponseComment(id, inp.value, id2, id3 )
+          }
+        })
+      })
+    })
+    buttonSendResponseCommentResponse.forEach(item => {
+      item.addEventListener('click', c => {
+        const id = c.target.getAttribute('get-item')//userID
+        inputSendResponseCommentResponse.forEach(inp => {
+          const id2 = inp.getAttribute('get-item') //comment_id
+          const id3 = inp.closest('.area-comments-content-resp').getAttribute('id-item') //post_id
+          const comment = inp.getAttribute('data-comment')
+          if(id && inp.value.length > 1 && id3 && id2 && comment) {
+
+            console.log(id +' '+inp.value+ ' ' + id3 + ' '+id2+' '+comment)
+            sendResponseComment2(id, inp.value, id2, id3, comment )
+          }
+            
+        })
+      })
+    })
+    
     function likeComment(item)  {
       console.log('clicou')
     }
@@ -602,6 +636,13 @@
           }
       }
     }
+    // function sendResponseComment(idPost) {
+    //   if(inputSendComment.value != '' && inputSendComment.value.length > 1) {
+    //       if(idPost) {
+    //         sendCommentPost(localStorage.getItem('id'), idPost, inputSendComment.value )
+    //       }
+    //   }
+    // }
     async function sendLikeInComment(commentId, userId, postId) {
       if(userId) {
         const like = await fetch(`http://localhost:4000/likeInComment`, {
@@ -645,6 +686,47 @@
           //location.
         }
       } 
+    }
+    async function sendResponseComment(userId, input, commentId, postId) {
+      console.log(userId, input, commentId, postId)
+      if(userId && input && commentId && postId) {
+        const ResponseComment = await fetch(`/commentresponse/${userId}/${postId}/${commentId}`, {
+          method: 'POST',
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+          },
+          credentials: "include",
+          body: new URLSearchParams({
+            comment: input
+          })
+        })
+        const json = await ResponseComment.json()
+        if(json.commentResponse) {
+          console.log(json)
+          document.location.reload(); 
+        }
+      }
+    }
+    async function sendResponseComment2(userId, input, commentId, postId, comment) {
+      console.log(userId, input, commentId, postId)
+      if(userId && input && commentId && postId && comment) {
+        const ResponseComment = await fetch(`/commentresponse/${userId}/${postId}/${commentId}`, {
+          method: 'POST',
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+          },
+          credentials: "include",
+          body: new URLSearchParams({
+            comment: input,
+            comment2: comment
+          })
+        })
+        const json = await ResponseComment.json()
+        if(json.commentResponse) {
+          console.log(json)
+          document.location.reload(); 
+        }
+      }
     }
     async function sendCommentPost(id, idPost, comment) {
       const newComment = await fetch(`http://localhost:4000/comment/${id}/${idPost}/`, {

@@ -29,8 +29,7 @@ passport.use(new JWTStrategy(options, async(payload, done)=>{
 function extractJwtFromCookie(req: Request) {
     let token = null;
     if (req && req.cookies) {
-        token = req.cookies['jwt'];
-        console.log(token)
+        token = req.cookies['94a08da1fecbb6e8b46990538c7b50b2'];
     }
     return token;
   }
@@ -45,11 +44,20 @@ export const privateRoute = (req: Request, res: Response, next: NextFunction) =>
         return user ? next() : next(notAuthorizedJson)
     })(req, res, next)
 }
+export const isAuthenticated = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    passport.authenticate('jwt', { session: false }, (err: any, user: User) => {
+      if (err || !user) {
+        // Caso não esteja autenticado, continua a execução da rota normalmente
+        return next();
+      }
+      // Se estiver autenticado, define req.user como o usuário autenticado
+      req.user = user;
+      return next();
+    })(req, res, next);
+  };
 
-// export const verifyToken = (req:Request, res: Response) => {
-//     passport.authenticate('jwt', (err: any, user: Express.User | undefined) => {
-//         req.user = user
-//         return user ? true : false
-//     })
-// }
 export default passport

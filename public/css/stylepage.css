@@ -95,13 +95,15 @@ main {
     justify-content: center;
     margin-right: 10px;
 }
-.area-comments-content {
+.area-comments-content,
+.area-comments-content-resp {
   display: flex;
   width: 85%;
   height: 50px;
   align-items: center;
 }
-.area-comments-content input {
+.area-comments-content input,
+.area-comments-content-resp input {
   border: 1px solid #999;
   outline: none;
   border-radius: 15px;
@@ -109,7 +111,8 @@ main {
   padding: 0px 15px;
   height: 100%;
 }
-.area-comments-content img {
+.area-comments-content img,
+.area-comments-content-resp img {
   width: 25px;
   height: 25px;
   cursor: pointer;

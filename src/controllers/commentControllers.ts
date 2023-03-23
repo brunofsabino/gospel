@@ -36,7 +36,7 @@ export const create = async(req: Request, res: Response) => {
 }
 export const createResponseComment = async(req: Request, res: Response) => {
   const { userId, postId, commentId    } = req.params
-  const { comment } = req.body
+  const { comment, comment2 } = req.body
 
   const user = await UserService.findOne(userId)
   const post = await PostService.findOne(postId)
@@ -48,16 +48,6 @@ export const createResponseComment = async(req: Request, res: Response) => {
     const userNameCommentReply = commentPost.nameUserInComment
     const userAvatarCommentReply = commentPost.imgUserInComment
     const dateCommentReply = commentPost.date
-  //   post_id                String
-  // user_id                String
-  // id_comment             String
-  // nameUser               String
-  // imgUser                String
-  // userNameCommentReply   String
-  // userAvatarCommentReply String
-  // dateCommentReply       DateTime
-  // date                   DateTime                @default(now())
-  // comment_response       String
     
     const newCommentResponsePost = await CommentService.createResponseComment(user.id, { 
       post_id: post.id, 
@@ -68,7 +58,7 @@ export const createResponseComment = async(req: Request, res: Response) => {
       userAvatarCommentReply,
       dateCommentReply,
       comment_response: comment,
-      userCommentReply: commentPost.comment
+      userCommentReply: comment2 ?? commentPost.comment
     })
     if(newCommentResponsePost) {
       //const updateQtComments = await PostService.updateQtComments(post.id)

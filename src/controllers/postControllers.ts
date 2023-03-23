@@ -6,6 +6,7 @@ import { unlink } from 'fs/promises'
 import path from 'path'
 import { CommentService } from "../services/CommentService";
 import { LikeInCommentService } from "../services/LikeInCommentService";
+import { User } from "@prisma/client";
 
 
 export const create = async(req: Request, res: Response) => {
@@ -75,16 +76,33 @@ export const home = async(req: Request, res: Response) => {
     const mainNews = await PostService.findMainNews()
     const slideShow = await PostService.findSlideShow()
     const newsShow = await PostService.findNewsShow()
-    const userId = req.session.userId;
+    //const userId = req.session.userId;
+    
+    let userId = {}
+    if (req.user) {
+      //console.log(req.user)
+      const user1 = req.user as User
+        userId = {
+        id: user1.id,
+        name: user1.name,
+        email: user1.email,
+        avatar: user1.avatar ?? ''
+      }
+    } 
     console.log(userId)
   
     res.render('pages/home.ejs', {
       mainNews,
       slideShow,
       newsShow,
-      userId
+      userId: req.user ? userId : ''
     })
 }
+export const logout = (req: Request,res: Response) => {
+  res.clearCookie('94a08da1fecbb6e8b46990538c7b50b2'); // Remove o cookie 'token'
+  // Você também pode adicionar o token a uma lista de tokens inválidos em um banco de dados ou em memória, para garantir que ele não possa ser usado novamente após o logout.
+  return res.redirect('/');
+};
 export const home2 = async(req: Request, res: Response) => {
   //console.log(req.cookies.token)
   if(req.cookies) {
@@ -99,6 +117,7 @@ export const one = async(req: Request, res: Response) => {
   const { idAdm, id } = req.params
   const post = await PostService.findOne(id)
   const adm = await UserService.findADM(idAdm)
+  
   if(post && adm) {
       res.status(200).json({post })
   } else {
@@ -111,7 +130,19 @@ export const oneNews = async(req: Request, res: Response) => {
   console.log(title)
   const newTitle = title.split('-').join(' ')
   const one = await PostService.findOneByTitle(newTitle)
-  const userId = req.session.userId;
+  //const userId = req.session.userId;
+    //console.log(userId)
+    let userId = {}
+    if (req.user) {
+      console.log(req.user)
+      const user1 = req.user as User
+        userId = {
+        id: user1.id,
+        name: user1.name,
+        email: user1.email,
+        avatar: user1.avatar ?? ''
+      }
+    } 
     console.log(userId)
   
   if(one) {
@@ -131,8 +162,8 @@ export const oneNews = async(req: Request, res: Response) => {
     //   console.log(likes)
     // }
     
-    console.log(likes)
-    console.log(responseLikes)
+    //console.log(likes)
+    console.log(responseComments)
     if(comments) {
       res.render('pages/news', {
         news: one,

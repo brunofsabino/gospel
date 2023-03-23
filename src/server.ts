@@ -56,7 +56,7 @@ const sessionConfig: SessionOptions = {
   saveUninitialized: true,
   cookie: { secure: false }, // use secure: true em produção, com HTTPS
 };
-server.use(session(sessionConfig))
+//server.use(session(sessionConfig))
 server.use(userRouter)
 server.use(homeRouter)
 server.use(postRouter)

@@ -10,7 +10,8 @@ export const create = async(req: Request, res: Response) => {
   const user = await UserService.findOne(userId)
   const post = await PostService.findOne(postId)
   const comment = await CommentService.findOne(commentId)
-  const likeComment = await LikeInCommentService.findOneByCommentId(commentId)
+  console.log(req.user)
+  const likeComment = await LikeInCommentService.findOneByCommentId(userId, commentId)
 
   if(user && post && comment && !likeComment ) {
     const newLikeInCommentPost = await LikeInCommentService.create(user.id, { 
@@ -58,7 +59,7 @@ export const createResponse = async(req: Request, res: Response) => {
   const user = await UserService.findOne(userId)
   const post = await PostService.findOne(postId)
   const comment = await CommentService.findOneResponseComment(commentId)
-  const likeComment = await LikeInCommentService.findOneByResponseCommentId(commentId)
+  const likeComment = await LikeInCommentService.findOneByResponseCommentId(commentId, userId)
 
   if(user && post && comment && !likeComment ) {
     const newLikeInResponseCommentPost = await LikeInCommentService.createResponse(user.id, { 
@@ -107,6 +108,7 @@ export const createResponse = async(req: Request, res: Response) => {
   }
 }
 export const all = async(req: Request, res: Response) => {
+  console.log(req.user)
   const all = await LikeInCommentService.findAll()
   res.status(200).json({likes: all})
 }
