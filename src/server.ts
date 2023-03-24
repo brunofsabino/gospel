@@ -7,6 +7,7 @@ import homeRouter from './routes/home'
 import userRouter from './routes/user'
 import postRouter from './routes/post'
 import commentRouter from './routes/comment'
+import denounce from './routes/denounce'
 import likeInCommentPostRouter from './routes/likeInComment'
 import likeInCommentForumRouter from './routes/likeInForum'
 import forumRouter from './routes/forum'
@@ -65,6 +66,7 @@ server.use(likeInCommentPostRouter)
 server.use(forumRouter)
 server.use(commentForumRouter)
 server.use(likeInCommentForumRouter)
+server.use(denounce)
 // server.use(session({
 //   secret: 'dapsdaifnasdáosdasd',
 //   resave: false,

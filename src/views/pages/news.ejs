@@ -2,14 +2,16 @@
   <%- include('../partials/header') %>
   <main>
     <div class="news-details container">
-      <div class="modal-login-home">
-        <div class="modal-login-home-content">
-          <div class="modal-login-home-close">
-            <img src="images/close.svg" alt="Fechar modal">
+      <div class="modal-login-home2">
+        <div class="modal-login-home-content2">
+          <div class="modal-login-home-close2">
+            <img src="/images/close.svg" alt="Fechar modal">
           </div>
-          <h3>Entre gratuitamente para o Opinião Gospel</h3>
+          <h3></h3>
           <div class="modal-login-home-inputs">
-            <div class="modal-login-home-inputs-p">
+            <div class="modal-news-comment"></div>
+            <input type="text" placeholder="[Opcional]: Descreva o motivo da denúncia." name="textDenounce" class="textDenounce">
+            <!-- <div class="modal-login-home-inputs-p">
               <p>Seu e-mail:</p>
             </div>
             <input type="text" placeholder="Seu e-mail" name="email" class="email">
@@ -28,21 +30,16 @@
               <p>Confirme sua senha:</p>
             </div>
             <input type="password" placeholder="Confirme sua senha"  name="password2" class="p2assword">
-            <p class="notice-password2"></p>
+            <p class="notice-password2"></p> -->
           </div>
           <div class="modal-login-home-buttons">
-            <button class="buttonEmail">Continuar com o e-mail</button>
-            <button class="buttonLogin">Continuar</button>
-            <button class="buttonLoginEmail">Login</button>
+            <button class="buttonDenounce">Denunciar</button>
+            <button class="buttonEdit">Editar</button>
+            <button class="buttonDelete">Deletar</button>
           </div>
-          <div class="modal-login-home-g">
-            <p>Ou continue com o</p>
-          </div>
-          <div class="modal-login-home-buttons-google">
-            <a class="buttonGoogle"><img src="images/google.svg" alt=""></a>
-          </div>
+          
         </div>
-        <div class="modal-login-home-content-close"></div>
+        <div class="modal-login-home-content-close2"></div>
       </div>
       <div class="news-details-subtitle"><p><%=news.subTitle%></p></div>
       <div class="news-details"><h1><%=news.title%></h1></div>
@@ -173,10 +170,13 @@
                           </div>
                           <div class="area-comments-complaint " get-item="<%=item.id%>" data-item="<%=item.user_id%>">...
                             <div class="area-comments-complaint-options area-comments-complaint-none" get-item="<%=item.id%>">
-                              <p class="denounce">Denunciar</p>
-                              
+                             
+                              <% if (item.user_id===userId.id ) { %>
                               <p class="edit">Editar</p>
                               <p class="del">Excluir</p>
+                              <% } else { %> 
+                                <p class="denounce" data-item="<%=item.id%>">Denunciar</p>
+                              <% } %> 
                             </div>
                           </div>
                         </div>
@@ -240,9 +240,13 @@
                           </div>
                           <div class="area-comments-complaint " get-item="<%=item.id%>" data-item="<%=item.user_id%>">...
                             <div class="area-comments-complaint-options area-comments-complaint-none" get-item="<%=item.id%>">
-                              <p class="denounce">Denunciar</p>
-                              <p class="edit">Editar</p>
-                              <p class="del">Excluir</p>
+                              
+                                <% if (item.user_id===userId.id ) { %>
+                                <p class="edit">Editar</p>
+                                <p class="del">Excluir</p>
+                                <% } else { %> 
+                                  <p class="denounce" data-item="<%=item.id%>">Denunciar</p>
+                              <% } %> 
                             </div>
                           </div>
                         </div>
@@ -290,7 +294,7 @@
                           </div>
                         </div>
                         <div class="area-comments-content-resp"  id-item="<%=item.post_id%>">
-                          <input type="text" placeholder="Deixe sua resposta" get-item="<%=item.id_comment%>" data-comment="<%=item.comment_response%>">
+                          <input type="text" placeholder="Deixe sua resposta" get-item="<%=item.id_comment%>" data-comment="<%=item.comment_response%>" data-name="<%=item.nameUser%>">
                           <img src="/images/send.png" alt="Enviar Comentário" get-item="<%=userId.id%>">
                         </div>
                       </div>
@@ -472,116 +476,109 @@
       buttonLikeInResponseComment.forEach(item => likeInResponseComment(item))
     function likeInComment(item) {
       item.addEventListener('click', a => {
-        const id2 = a.target.closest('.area-comments-user-like').getAttribute('id-item')
-        const id3 = a.target.closest('.area-comments-user-like').getAttribute('data')
-        console.log(id2)
-        if(id2) {
-          const fill = item.getAttribute('fill')
-          if(fill == 'var(--orange-black)') {
-            item.setAttribute("fill", "none")
-            if(item.parentNode.classList.contains("area-comments-user-like")){
-              const idPost = item.parentNode.getAttribute("data")
-              const idComment = item.getAttribute("data-item")
-              console.log(id2, localStorage.getItem("id"), idPost)
-              sendLikeInComment(id2, localStorage.getItem("id"), idPost)
-            } 
-            qtLikeComment.forEach(item => {
-              const id3 = item.getAttribute("data-item")
-              if(id2 === id3) {
-                if(item.innerText != '' && item.innerText > 1) {
-                  item.innerText = --item.innerText
-                } else if (item.innerText == 1){
-                  item.innerText = ''
-                } else {
-                  item.innerText = ''
+        if(localStorage.getItem('id')){
+          const id2 = a.target.closest('.area-comments-user-like').getAttribute('id-item')
+          const id3 = a.target.closest('.area-comments-user-like').getAttribute('data')
+          console.log(id2)
+          if(id2) {
+            const fill = item.getAttribute('fill')
+            if(fill == 'var(--orange-black)') {
+              item.setAttribute("fill", "none")
+              if(item.parentNode.classList.contains("area-comments-user-like")){
+                const idPost = item.parentNode.getAttribute("data")
+                const idComment = item.getAttribute("data-item")
+                console.log(id2, localStorage.getItem("id"), idPost)
+                sendLikeInComment(id2, localStorage.getItem("id"), idPost)
+              } 
+              qtLikeComment.forEach(item => {
+                const id3 = item.getAttribute("data-item")
+                if(id2 === id3) {
+                  if(item.innerText != '' && item.innerText > 1) {
+                    item.innerText = --item.innerText
+                  } else if (item.innerText == 1){
+                    item.innerText = ''
+                  } else {
+                    item.innerText = ''
+                  }
                 }
-              }
-            })
-          } else {
-            item.setAttribute("fill", "var(--orange-black)")
-            if(item.parentNode.classList.contains("area-comments-user-like")){
-              const idPost = item.parentNode.getAttribute("data")
-              const idComment = item.getAttribute("data-item")
-              console.log("ID POST: " + idPost + "ID COMMENT: " + idComment)
-              sendLikeInComment(id2, localStorage.getItem("id"), idPost)
-            } 
-            qtLikeComment.forEach(item => {
-              const id3 = item.getAttribute("data-item")
-              if(id2 === id3) {
-                item.innerText = ++item.innerText
-                // if(item.innerText === '') {
-                //   item.innerText = ++item.innerText
-                // }
-              }
-            })
+              })
+            } else {
+              item.setAttribute("fill", "var(--orange-black)")
+              if(item.parentNode.classList.contains("area-comments-user-like")){
+                const idPost = item.parentNode.getAttribute("data")
+                const idComment = item.getAttribute("data-item")
+                console.log("ID POST: " + idPost + "ID COMMENT: " + idComment)
+                sendLikeInComment(id2, localStorage.getItem("id"), idPost)
+              } 
+              qtLikeComment.forEach(item => {
+                const id3 = item.getAttribute("data-item")
+                if(id2 === id3) {
+                  item.innerText = ++item.innerText
+                }
+              })
+            }
           }
+        } else {
+          openModal2()
         }
       })
     }
 
     function likeInResponseComment(item) {
       item.addEventListener('click', a => {
-        const id2 = a.target.closest('.area-comments-user-like-resp').getAttribute('id-item')
-        const id3 = a.target.closest('.area-comments-user-like-resp').getAttribute('data')
-        console.log(id2)
-        if(id2) {
-          const fill = item.getAttribute('fill')
-          if(fill == 'var(--orange-black)') {
-            item.setAttribute("fill", "none")
-            if(item.parentNode.classList.contains("area-comments-user-like-resp")){
-              const idPost = item.parentNode.getAttribute("data")
-              const idComment = item.getAttribute("data-item")
-              console.log(id2, localStorage.getItem("id"), idPost)
-              sendLikeInResponseComment(id2, localStorage.getItem("id"), idPost)
-            } 
-            qtLikeComment.forEach(item => {
-              const id3 = item.getAttribute("data-item")
-              if(id2 === id3) {
-                if(item.innerText != '' && item.innerText > 1) {
-                  item.innerText = --item.innerText
-                } else if (item.innerText == 1){
-                  item.innerText = ''
-                } else {
-                  item.innerText = ''
+        if(localStorage.getItem('id')){
+          const id2 = a.target.closest('.area-comments-user-like-resp').getAttribute('id-item')
+          const id3 = a.target.closest('.area-comments-user-like-resp').getAttribute('data')
+          if(id2) {
+            const fill = item.getAttribute('fill')
+            if(fill == 'var(--orange-black)') {
+              item.setAttribute("fill", "none")
+              if(item.parentNode.classList.contains("area-comments-user-like-resp")){
+                const idPost = item.parentNode.getAttribute("data")
+                const idComment = item.getAttribute("data-item")
+                console.log(id2, localStorage.getItem("id"), idPost)
+                sendLikeInResponseComment(id2, localStorage.getItem("id"), idPost)
+              } 
+              qtLikeComment.forEach(item => {
+                const id3 = item.getAttribute("data-item")
+                if(id2 === id3) {
+                  if(item.innerText != '' && item.innerText > 1) {
+                    item.innerText = --item.innerText
+                  } else if (item.innerText == 1){
+                    item.innerText = ''
+                  } else {
+                    item.innerText = ''
+                  }
                 }
-              }
-            })
-          } else {
-            item.setAttribute("fill", "var(--orange-black)")
-            if(item.parentNode.classList.contains("area-comments-user-like-resp")){
-              const idPost = item.parentNode.getAttribute("data")
-              const idComment = item.getAttribute("id-item")
-              console.log("ID POST: " + id2 + " " +localStorage.getItem("id")+" " + "ID COMMENT: " + idPost )
-              sendLikeInResponseComment(id2, localStorage.getItem("id"), idPost)
-            } 
-            qtLikeComment.forEach(item => {
-              const id3 = item.getAttribute("data-item")
-              if(id2 === id3) {
-                item.innerText = ++item.innerText
-                // if(item.innerText === '') {
-                //   item.innerText = ++item.innerText
-                // }
-              }
-            })
+              })
+            } else {
+              item.setAttribute("fill", "var(--orange-black)")
+              if(item.parentNode.classList.contains("area-comments-user-like-resp")){
+                const idPost = item.parentNode.getAttribute("data")
+                const idComment = item.getAttribute("id-item")
+                console.log("ID POST: " + id2 + " " +localStorage.getItem("id")+" " + "ID COMMENT: " + idPost )
+                sendLikeInResponseComment(id2, localStorage.getItem("id"), idPost)
+              } 
+              qtLikeComment.forEach(item => {
+                const id3 = item.getAttribute("data-item")
+                if(id2 === id3) {
+                  item.innerText = ++item.innerText
+                }
+              })
+            }
           }
+        } else {
+          openModal2()
         }
       })
     }
     }
     
-  
-    
     const areaButtonLikeComment = document.querySelectorAll('.area-comments-user-like')
     const buttonLikeInResponseComment= document.querySelectorAll('.area-comments-user-like-resp')
     criaSVGLike(areaButtonLikeComment)
     criaSVGLike(buttonLikeInResponseComment)
-    // areaButtonLikeComment.forEach(item => {
-    //   if(item.childNodes.length ===1) {
-    //     item.innerHTML =  `<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg"  data-item="">
-    //                         <path  data-item="" d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    //                       </svg>`
-    //   }
-    // })
+   
     function criaSVGLike(item) {
       item.forEach(item => {
       if(item.childNodes.length ===1) {
@@ -616,10 +613,11 @@
           const id2 = inp.getAttribute('get-item') //comment_id
           const id3 = inp.closest('.area-comments-content-resp').getAttribute('id-item') //post_id
           const comment = inp.getAttribute('data-comment')
-          if(id && inp.value.length > 1 && id3 && id2 && comment) {
+          const name2 = inp.getAttribute('data-name')
+          if(id && inp.value.length > 1 && id3 && id2 && comment && name2) {
 
             console.log(id +' '+inp.value+ ' ' + id3 + ' '+id2+' '+comment)
-            sendResponseComment2(id, inp.value, id2, id3, comment )
+            sendResponseComment2(id, inp.value, id2, id3, comment, name2 )
           }
             
         })
@@ -636,13 +634,7 @@
           }
       }
     }
-    // function sendResponseComment(idPost) {
-    //   if(inputSendComment.value != '' && inputSendComment.value.length > 1) {
-    //       if(idPost) {
-    //         sendCommentPost(localStorage.getItem('id'), idPost, inputSendComment.value )
-    //       }
-    //   }
-    // }
+   
     async function sendLikeInComment(commentId, userId, postId) {
       if(userId) {
         const like = await fetch(`http://localhost:4000/likeInComment`, {
@@ -658,6 +650,10 @@
             postId
           })
         })
+        if(like.status === 401) {
+          openModal2()
+        }
+        
         const json = await like.json()
         if(json) {
           console.log(json)
@@ -680,6 +676,9 @@
             postId
           })
         })
+        if(like.status === 401) {
+          openModal2()
+        }
         const json = await like.json()
         if(json) {
           console.log(json)
@@ -700,6 +699,9 @@
             comment: input
           })
         })
+        if(ResponseComment.status === 401) {
+          openModal2()
+        }
         const json = await ResponseComment.json()
         if(json.commentResponse) {
           console.log(json)
@@ -707,7 +709,7 @@
         }
       }
     }
-    async function sendResponseComment2(userId, input, commentId, postId, comment) {
+    async function sendResponseComment2(userId, input, commentId, postId, comment, name2) {
       console.log(userId, input, commentId, postId)
       if(userId && input && commentId && postId && comment) {
         const ResponseComment = await fetch(`/commentresponse/${userId}/${postId}/${commentId}`, {
@@ -718,9 +720,13 @@
           credentials: "include",
           body: new URLSearchParams({
             comment: input,
-            comment2: comment
+            comment2: comment,
+            name2
           })
         })
+        if(ResponseComment.status === 401) {
+          openModal2()
+        }
         const json = await ResponseComment.json()
         if(json.commentResponse) {
           console.log(json)
@@ -740,30 +746,83 @@
           comment
         })
       })
+      if(newComment.status === 401) {
+        openModal2()
+      }
       const json = await newComment.json()
       if(json.comment) {
         console.log(json)
         document.location.reload(); 
       }
     }
+    async function findOneComment(id) {
+      const oneComment = await fetch(`/comment/${id}/`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include"
+      })
+      if(oneComment.status === 401) {
+        openModal2()
+      }
+      const json = await oneComment.json()
+      if(json.comment) {
+        return json.comment
+      }
+    }
+    async function sendDenounce(idUser, text, idComment) {
+      const denounce = await fetch(`/denounce`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: new URLSearchParams({
+          idUser,
+          idComment,
+          describingDenounce: text
+        })
+      })
+      if(denounce.status === 401) {
+        //openModal2()
+      }
+      const json = await denounce.json()
+      if(json.denounce) {
+        return json.denounce
+      }
+    }
+    
+    
     setTimeout(()=> {
       const buttonReplyComment = document.querySelectorAll('.area-comments-user-resp')
       const replyComment = document.querySelectorAll('.area-comments-reply-new')
       const areaUploadComment = document.querySelectorAll('.area-comments-complaint ')
       const areaUploadCommentNone = document.querySelectorAll('.area-comments-complaint-none')
       
+      const buttonCloseModal2 = document.querySelector('.modal-login-home-close2')
+      const backgroundModalHome2 = document.querySelector('.modal-login-home2')
+      const modalHome2 = document.querySelector('.modal-login-home-content-close2')
+      const h3Modal2 = document.querySelector('.modal-login-home-content2 h3')
+      const areaModalCommentDenounce = document.querySelector('.modal-news-comment')
+      const buttonDenounce = document.querySelector('.buttonDenounce')
       
-      
+
       const pDenounce = document.querySelectorAll('.denounce')
       const pEdit = document.querySelectorAll('.edit')
       const pDel = document.querySelectorAll('.del')
 
       
+      
 
       buttonReplyComment.forEach(item => 
         item.addEventListener('click', item => {
-        const id = item.target.getAttribute('get-item')
-        openReplyComment(id)
+        if(localStorage.getItem('id')) {
+          const id = item.target.getAttribute('get-item')
+          openReplyComment(id)
+        } else {
+          openModal2()
+        }
       }))
       function openReplyComment(id) {
         replyComment.forEach(item => {
@@ -773,21 +832,64 @@
           }
         })
       }
+      modalHome2.addEventListener('click', closeModalNews)
+      buttonCloseModal2.addEventListener('click', closeModalNews)
+
+      function denounceSucess() {
+        buttonDenounce.style.backgroundColor = '#0cc70cfc'
+        buttonDenounce.innerText = 'Denuncia feita com sucesso'
+        setTimeout( ()=>{
+          closeModalNews()
+        }, 500);
+      }
+      function openModalNews(idComment) {
+        body.style.overflow = 'hidden'
+        backgroundModalHome2.style.display = 'flex'
+        const inputDenounce = document.querySelector('.textDenounce')
+        buttonDenounce.addEventListener('click', () => {
+          const denounce = sendDenounce(localStorage.getItem('id'), inputDenounce.value, idComment )
+          if(denounce) {
+            denounceSucess()
+          }
+        })
+        setTimeout( ()=>{
+          backgroundModalHome2.style.opacity = 1
+      }, 400);}
+      function closeModalNews() {
+        body.style.overflow = 'auto'
+        backgroundModalHome2.style.opacity = 0
+        buttonDenounce.style.backgroundColor = 'var(--orange-black)'
+        buttonDenounce.innerText = 'Denunciar'
+        setTimeout( ()=>{
+          backgroundModalHome2.style.display = 'none'
+        }, 400);
+      }
       areaUploadComment.forEach(item => 
           item.addEventListener('click', item => {
           const id = item.target.getAttribute('get-item')
           const id3 = item.target.getAttribute('data-item')
           const id2 = localStorage.getItem('id')
-          if(id2 === id3) {
-            pEdit.forEach(item => item.style.display = 'block')
-            pDel.forEach(item => item.style.display = 'block')
-            pDenounce.forEach(item => item.style.display = 'none')
-            // pDenounce.style.display = 'none'
-          } else {
-            pEdit.forEach(item => item.style.display = 'none')
-            pDel.forEach(item => item.style.display = 'none')
-            pDenounce.forEach(item => item.style.display = 'block')
+          if(pDenounce) {
+            pDenounce.forEach(item => {
+              item.addEventListener('click', async (a) => {
+                if(localStorage.getItem('id')) {
+                  h3Modal2.innerText = 'Achou este comentário ofensivo ou inapropriado? Por favor denuncie-o. Nossa equipe de moderação irá analisá-lo e, se for o caso, excluí-lo.'
+                  const idComment = a.target.getAttribute('data-item')
+                  if(idComment) {
+                    const comment = await findOneComment(idComment)
+                    console.log(comment)
+                    if(comment) {
+                      areaModalCommentDenounce.innerText = comment.comment
+                      openModalNews(comment.id)
+                    }
+                  }
+                } else {
+                  openModal2()
+                }
+              })
+            })
           }
+          
           openUploadComment(id)
 
       }))

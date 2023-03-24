@@ -36,7 +36,7 @@ export const create = async(req: Request, res: Response) => {
 }
 export const createResponseComment = async(req: Request, res: Response) => {
   const { userId, postId, commentId    } = req.params
-  const { comment, comment2 } = req.body
+  const { comment, comment2, name2 } = req.body
 
   const user = await UserService.findOne(userId)
   const post = await PostService.findOne(postId)
@@ -45,9 +45,11 @@ export const createResponseComment = async(req: Request, res: Response) => {
   if(user && post && comment && commentPost) {
     const nameUser = user.name
     const imgUser = user.avatar
-    const userNameCommentReply = commentPost.nameUserInComment
+    const userNameCommentReply = name2 ?? commentPost.nameUserInComment
     const userAvatarCommentReply = commentPost.imgUserInComment
     const dateCommentReply = commentPost.date
+    console.log(name2)
+    console.log(userNameCommentReply)
     
     const newCommentResponsePost = await CommentService.createResponseComment(user.id, { 
       post_id: post.id, 

@@ -108,6 +108,7 @@
   const buttonCloseModal = document.querySelector('.modal-login-home-close')
   const backgroundModalHome = document.querySelector('.modal-login-home')
   const modalHome = document.querySelector('.modal-login-home-content-close')
+  
 
   const h3Modal = document.querySelector('.modal-login-home-content h3')
   const inputEmailModal = document.querySelector('.modal-login-home-content .email')
@@ -153,19 +154,29 @@
     setTimeout( ()=>{
       backgroundModalHome.style.opacity = 1
   }, 400);}
+  function openModal2() {
+    h3Modal.innerText = 'Ei, calma lá, para soltar o verbo nos comentários e espalhar aqueles likes por aí é preciso estar logado no Opinião Gospel! Bora fazer parte da turma e entrar nessa?'
+    body.style.overflow = 'hidden'
+    backgroundModalHome.style.display = 'flex'
+    setTimeout( ()=>{
+      backgroundModalHome.style.opacity = 1
+  }, 200);}
+  
 
+  
   modalHome.addEventListener('click', closeModal)
   buttonCloseModal.addEventListener('click', closeModal)
   
 
   function closeModal() {
-  body.style.overflow = 'auto'
-  backgroundModalHome.style.opacity = 0
-  setTimeout( ()=>{
-    backgroundModalHome.style.display = 'none'
-    closeInputsRegisterEmail()
-}, 400);
-}
+    body.style.overflow = 'auto'
+    backgroundModalHome.style.opacity = 0
+    setTimeout( ()=>{
+      backgroundModalHome.style.display = 'none'
+      closeInputsRegisterEmail()
+    }, 400);
+  }
+  
 function logoutUser() {
   localStorage.removeItem('id')
 }
@@ -320,25 +331,24 @@ async function sendDataNewUser(email, name, password, password2) {
 }
 
 async function findByEmail(email) {
-    const emailValid = validateEmail(email)
-    if(emailValid) {
-        const existsEmail = await fetch(`http://localhost:4000/user/email/${email}`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            }
-        })
-        const json = await existsEmail.json()
-        if(json.error === 'E-mail não cadastrado') {
-            openInputs()
-        }
-        if(json.id){
-            toDoLogin()
-        }
-    } else {
-        pNoticeEmail.innerText = 'Informe um e-mail valido'
+  const emailValid = validateEmail(email)
+  if(emailValid) {
+      const existsEmail = await fetch(`http://localhost:4000/user/email/${email}`, {
+          method: 'GET',
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+          }
+      })
+      const json = await existsEmail.json()
+      if(json.error === 'E-mail não cadastrado') {
+          openInputs()
+      }
+      if(json.id){
+          toDoLogin()
+      }
+  } else {
+      pNoticeEmail.innerText = 'Informe um e-mail valido'
     }
-    
 }
 async function registerNewUser(email, name, password, password2) {
     if(password === password2) {

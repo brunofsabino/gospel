@@ -634,11 +634,13 @@ footer .header-logo p {
   margin-top: 10px;
   line-height: 15px;
 }
-.modal-login-home {
+.modal-login-home,
+.modal-login-home2 {
   transition: all ease .5s;
   display: none;
 }
-.modal-login-home-content {
+.modal-login-home-content,
+.modal-login-home-content2 {
   position: fixed;
   top: 20%;
   left: 33%;
@@ -652,7 +654,8 @@ footer .header-logo p {
   flex-direction: column;
   padding: 10px 15px;
 }
-.modal-login-home-content-close {
+.modal-login-home-content-close,
+.modal-login-home-content-close2 {
   position: fixed;
   left: 0;
   top: 0;
@@ -665,7 +668,8 @@ footer .header-logo p {
   align-items: center;
   overflow-y: auto;
 }
-.modal-login-home-close {
+.modal-login-home-close,
+.modal-login-home-close2 {
   padding: 15px 20px;
   display: flex;
   align-items: center;
@@ -673,19 +677,21 @@ footer .header-logo p {
   justify-content: flex-end;
   cursor: pointer;
 }
-.modal-login-home-content h3 {
+.modal-login-home-content h3,
+.modal-login-home-content2 h3 {
   text-align: center;
 }
 .modal-login-home-inputs {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .modal-login-home-inputs .email,
 .modal-login-home-inputs .password,
 .modal-login-home-inputs .nameInput,
-.modal-login-home-inputs .p2assword {
+.modal-login-home-inputs .p2assword,
+.textDenounce {
   width: 85%;
   padding: 8px;
   border-radius: 5px;
@@ -718,7 +724,10 @@ footer .header-logo p {
 }
 .buttonLogin,
 .buttonEmail,
-.buttonLoginEmail {
+.buttonLoginEmail,
+.buttonDenounce,
+.buttonEdit,
+.buttonDelete {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -733,8 +742,20 @@ footer .header-logo p {
   border: none;
 }
 .buttonLogin,
-.buttonLoginEmail {
+.buttonLoginEmail,
+.buttonEdit,
+.buttonDelete {
   display: none;
+}
+.modal-news-comment {
+  border: 1px solid #999;
+  border-radius: 15px;
+  padding: 20px 10px;
+  width: 80%;
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 20px;
+  background-color: antiquewhite;
 }
 .modal-login-home-g {
   margin-top: 15px;

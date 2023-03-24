@@ -23,6 +23,7 @@ model User {
   LikeInForum           LikeInForum[]
   responseComment       ResponseComment[]
   LikeInResponseComment LikeInResponseComment[]
+  DenounceComment       Denounce[]
 
   @@map("users")
 }
@@ -181,4 +182,30 @@ model LikeInForum {
   commentId         CommentInForum @relation(fields: [commentInForum_id], references: [id], onDelete: Cascade)
 
   @@map("likeInForums")
+}
+
+model Denounce {
+  id                        String  @id @default(uuid())
+  user_id                   String
+  nameUser                  String
+  userDenounced_id          String?
+  nameUserDenounced         String?
+  textDenounce              String?
+  describingDenounce        String?
+  post_id                   String?
+  id_comment                String?
+  id_response_comment       String?
+  id_forum                  String?
+  id_forum_comment          String?
+  id_forum_comment_response String?
+  done                      Boolean @default(false)
+  userId                    User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  //postId              Post            @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  // commentId           CommentInPost   @relation(fields: [id_comment], references: [id], onDelete: Cascade)
+  // commentResponseId   ResponseComment @relation(fields: [id_response_comment], references: [id], onDelete: Cascade)
+  // forumId             Forum           @relation(fields: [id_forum], references: [id], onDelete: Cascade)
+  // forumCommentId      CommentInForum  @relation(fields: [id_forum_comment], references: [id], onDelete: Cascade)
+
+  @@map("denounces")
 }
