@@ -224,9 +224,7 @@ main {
   margin-right: 15px;
   font-weight: 600;
 }
-.dlt_comment {
-  display: none;
-}
+
 .area-comments-user-like svg,
 .area-comments-user-like-resp svg,
 .area-comments-user-dislike svg {
@@ -291,6 +289,9 @@ main {
   justify-content: center;
   width: 35%;
   height: 50px;
+}
+.dlt_comment {
+  display: none;
 }
 .news-details-share a {
   width: 100%;

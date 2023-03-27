@@ -22,6 +22,9 @@ type PropCreateResponse = {
 type UpdateCreate = {
   comment: string
 }
+type DeleteProp = {
+  commentShow: boolean
+}
 type UpdateShowLike = {
   likeShow: boolean
 }
@@ -77,6 +80,30 @@ export const CommentService = {
         where: { id },
         data : {
           comment: data.comment
+        }
+    })
+  },
+  updateDel: async(id: string, data: DeleteProp) => {
+    return await prisma.commentInPost.update({
+        where: { id },
+        data : {
+          commentShow: data.commentShow
+        }
+    })
+  },
+  updateDelResponse: async(id: string, data: DeleteProp) => {
+    return await prisma.responseComment.update({
+        where: { id },
+        data : {
+          commentShow: data.commentShow
+        }
+    })
+  },
+  updateResponseComment: async(id: string, data: UpdateCreate) => {
+    return await prisma.responseComment.update({
+        where: { id },
+        data : {
+          comment_response: data.comment
         }
     })
   },

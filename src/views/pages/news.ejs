@@ -166,22 +166,38 @@
                       <div class="area-comments-user-content-info">
                         <div class="area-comments-user-name-complaint">
                           <div class="area-comments-user-name">
-                            <h3><%=item.nameUserInComment%></h3> <div class="area-comments-user-name-date"><%=item.date.toString().slice(4,10)%></div>
+                            <h3>
+                              <% if (item.commentShow===true ) { %>
+                                <%=item.nameUserInComment%>
+                                <% } else { %> 
+                                  Usuário
+                                 <% } %> 
+                            </h3> <div class="area-comments-user-name-date"><%=item.date.toString().slice(4,10)%></div>
                           </div>
-                          <div class="area-comments-complaint " get-item="<%=item.id%>" data-item="<%=item.user_id%>">...
+                          <div class="area-comments-complaint " get-item="<%=item.id%>" data-item="<%=item.user_id%>">
+                            <% if (item.commentShow===true ) { %>
+                              ...
+                            <% } else { %> 
+                              <% } %> 
                             <div class="area-comments-complaint-options area-comments-complaint-none" get-item="<%=item.id%>">
                              
                               <% if (item.user_id===userId.id ) { %>
-                              <p class="edit">Editar</p>
-                              <p class="del">Excluir</p>
+                              <p class="edit" data-item="<%=item.id%>">Editar</p>
+                              <p class="del" data-item="<%=item.id%>">Excluir</p>
                               <% } else { %> 
-                                <p class="denounce" data-item="<%=item.id%>">Denunciar</p>
+                                <p class="denounce" data-item="<%=item.id%>" data-news="<%=news.id%>">Denunciar</p>
                               <% } %> 
                             </div>
                           </div>
                         </div>
                         <div class="area-comments-user-comment">
-                          <p><%=item.comment%></p>
+                          <p>
+                            <% if (item.commentShow===true ) { %>
+                              <%=item.comment%>
+                              <% } else { %> 
+                                Comentário removido pelo usuário.
+                               <% } %> 
+                          </p>
                         </div>
                       </div>
                       <div class="area-comments-user-like-dislike-resp" >
@@ -236,16 +252,26 @@
                       <div class="area-comments-user-content-info">
                         <div class="area-comments-user-name-complaint">
                           <div class="area-comments-user-name">
-                            <h3><%=item.nameUser%></h3> <div class="area-comments-user-name-date"><%=item.date.toString().slice(4,10)%></div>
+                            <h3>
+                              <% if (item.commentShow===true ) { %>
+                              <%=item.nameUser%>
+                              <% } else { %> 
+                                Usuário
+                               <% } %> 
+                            </h3> <div class="area-comments-user-name-date"><%=item.date.toString().slice(4,10)%></div>
                           </div>
-                          <div class="area-comments-complaint " get-item="<%=item.id%>" data-item="<%=item.user_id%>">...
+                          <div class="area-comments-complaint " get-item="<%=item.id%>" data-item="<%=item.user_id%>">
+                            <% if (item.commentShow===true ) { %>
+                              ...
+                            <% } else { %> 
+                            <% } %> 
                             <div class="area-comments-complaint-options area-comments-complaint-none" get-item="<%=item.id%>">
                               
                                 <% if (item.user_id===userId.id ) { %>
-                                <p class="edit">Editar</p>
-                                <p class="del">Excluir</p>
+                                <p class="edit" data-resp-item="<%=item.id%>">Editar</p>
+                                <p class="del" data-resp-item="<%=item.id%>">Excluir</p>
                                 <% } else { %> 
-                                  <p class="denounce" data-item="<%=item.id%>">Denunciar</p>
+                                  <p class="denounce" data-2item="<%=item.id%>" data-news="<%=news.id%>">Denunciar</p>
                               <% } %> 
                             </div>
                           </div>
@@ -259,7 +285,13 @@
                           </div>
                         </div>
                         <div class="area-comments-user-response-content">
-                          <p get-item="<%=item.id_comment%>"><%=item.comment_response%></p>
+                          <p get-item="<%=item.id_comment%>">
+                            <% if (item.commentShow===true ) { %>
+                              <%=item.comment_response%>
+                            <% } else { %> 
+                              Comentário removido pelo usuário.
+                              <% } %> 
+                            </p>
                         </div>
                       </div>
                       <div class="area-comments-user-like-dislike-resp">
@@ -301,40 +333,7 @@
                     </div>
                   </div>
                 <%});%>  
-                <div class="area-comments-user">
-                  <div class="area-comments-user-person">
-                    <div class="area-comments-person-img">
-                      <img src="images/persona.png" alt="">
-                    </div>
-                  </div>
-                  <div class="area-comments-user-content">
-                    <div class="area-comments-user-content-info">
-                      <div class="area-comments-user-name-complaint">
-                        <div class="area-comments-user-name">
-                          <h3>BrunoFSabino</h3> <div class="area-comments-user-name-date">07 mar</div>
-                        </div>
-                        <div class="area-comments-complaint dlt_comment">...</div>
-                      </div>
-                      <div class="area-comments-user-comment ">
-                        <p>Comentário removido.</p>
-                      </div>
-                    </div>
-                    <div class="area-comments-user-like-dislike-resp">
-                      <div class="area-comments-user-like">
-                        <div class="area-comments-user-like-qt"></div>
-                        <img src="images/like.svg" alt="">
-                      </div>
-                      <div class="area-comments-user-dislike">
-                        <div class="area-comments-user-dislike-qt">1</div>
-                        <img src="images/dislike.svg" alt="">
-                      </div>
-                      <div class="area-comments-user-resp">
-                        <img src="images/response.png" alt="">
-                        <p>Responder</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
               <div class="news-details-comments-pg">
                 <div class="initial-pg">1</div>
@@ -756,7 +755,8 @@
       }
     }
     async function findOneComment(id) {
-      const oneComment = await fetch(`/comment/${id}/`, {
+      if(id) {
+        const oneComment = await fetch(`/comment/${id}/`, {
         method: 'GET',
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -770,9 +770,29 @@
       if(json.comment) {
         return json.comment
       }
+      }
+      
     }
-    async function sendDenounce(idUser, text, idComment) {
-      const denounce = await fetch(`/denounce`, {
+    async function findOneCommentResponse(id) {
+      if(id) {
+        const oneComment = await fetch(`/commentresponse/${id}/`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include"
+      })
+      if(oneComment.status === 401) {
+        openModal2()
+      }
+      const json = await oneComment.json()
+      if(json.comment) {
+        return json.comment
+      }
+      }
+    }
+    async function sendDenounce(idUser, text, idComment, idPost) {
+      const denounce = await fetch(`/denounceComment`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -781,7 +801,8 @@
         body: new URLSearchParams({
           idUser,
           idComment,
-          describingDenounce: text
+          describingDenounce: text,
+          idPost
         })
       })
       if(denounce.status === 401) {
@@ -792,8 +813,87 @@
         return json.denounce
       }
     }
+    async function sendCommentEdit(idUser, commentEdit, id) {
+      const editComment = await fetch(`/comment/${id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: new URLSearchParams({
+          comment: commentEdit,
+          idUser
+        })
+      })
+      if(editComment.status === 401) {
+        //openModal2()
+      }
+      const json = await editComment.json()
+      if(json.comment) {
+        return json.comment
+      }
+    }
     
+    async function sendCommentResponseEdit(idUser, commentEdit, id) {
+      const editComment = await fetch(`/commentresponse/${id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: new URLSearchParams({
+          comment: commentEdit,
+          idUser
+        })
+      })
+      if(editComment.status === 401) {
+        //openModal2()
+      }
+      const json = await editComment.json()
+      if(json.comment) {
+        return json.comment
+      }
+    }
     
+    async function sendDeleteComment(idUser, id) {
+      const deleteComment = await fetch(`/comment/del/${id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: new URLSearchParams({
+          idUser
+        })
+      })
+      if(deleteComment.status === 401) {
+        //openModal2()
+      }
+      const json = await deleteComment.json()
+      if(json.comment) {
+        return json.comment
+      }
+    }
+    sendDeleteCommentResponse
+    async function sendDeleteCommentResponse(idUser, id) {
+      const deleteComment = await fetch(`/commentresponse/del/${id}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: new URLSearchParams({
+          idUser
+        })
+      })
+      if(deleteComment.status === 401) {
+        //openModal2()
+      }
+      const json = await deleteComment.json()
+      if(json.comment) {
+        return json.comment
+      }
+    }
     setTimeout(()=> {
       const buttonReplyComment = document.querySelectorAll('.area-comments-user-resp')
       const replyComment = document.querySelectorAll('.area-comments-reply-new')
@@ -806,6 +906,8 @@
       const h3Modal2 = document.querySelector('.modal-login-home-content2 h3')
       const areaModalCommentDenounce = document.querySelector('.modal-news-comment')
       const buttonDenounce = document.querySelector('.buttonDenounce')
+      const buttonEdit = document.querySelector('.buttonEdit')
+      const buttonDelete = document.querySelector('.buttonDelete')
       
 
       const pDenounce = document.querySelectorAll('.denounce')
@@ -840,21 +942,117 @@
         buttonDenounce.innerText = 'Denuncia feita com sucesso'
         setTimeout( ()=>{
           closeModalNews()
-        }, 500);
+        }, 700);
       }
-      function openModalNews(idComment) {
+      function editSucess() {
+        buttonEdit.style.backgroundColor = '#0cc70cfc'
+        buttonEdit.innerText = 'Comentário editado com sucesso'
+        setTimeout( ()=>{
+          closeModalNews()
+          document.location.reload(); 
+        }, 700);
+      }
+      
+      function deleteSucess() {
+        buttonDelete.style.backgroundColor = '#0cc70cfc'
+        buttonDelete.innerText = 'Comentário deletado com sucesso'
+        setTimeout( ()=>{
+          closeModalNews()
+          document.location.reload(); 
+        }, 700);
+      }
+      function openModalNews(idComment, idPost, response = '') {
+        buttonDenounce.style.display = 'block'
+        buttonDelete.style.display = 'none'
+        buttonEdit.style.display = 'none'
         body.style.overflow = 'hidden'
         backgroundModalHome2.style.display = 'flex'
         const inputDenounce = document.querySelector('.textDenounce')
+        inputDenounce.setAttribute('placeholder', '[Opcional]: Descreva o motivo da denúncia.')
         buttonDenounce.addEventListener('click', () => {
-          const denounce = sendDenounce(localStorage.getItem('id'), inputDenounce.value, idComment )
-          if(denounce) {
-            denounceSucess()
+          if(response === '') {
+            console.log('uma vez')
+            const denounce = sendDenounce(localStorage.getItem('id'), inputDenounce.value, idComment, idPost )
+            if(denounce) {
+              denounceSucess()
+            }
+          }
+          if(response === true) {
+            const denounce = sendDenounce(localStorage.getItem('id'), inputDenounce.value, idComment, idPost )
+            if(denounce) {
+              denounceSucess()
+            }
           }
         })
         setTimeout( ()=>{
           backgroundModalHome2.style.opacity = 1
-      }, 400);}
+      }, 400);
+      }
+
+      function sendPreDenounce() {
+        if(pDenounce) {
+          
+        }
+      }
+
+      function openModalNews2(idComment, response = ''){
+        buttonDenounce.style.display = 'none'
+        buttonDelete.style.display = 'none'
+        buttonEdit.style.display = 'block'
+        body.style.overflow = 'hidden'
+        backgroundModalHome2.style.display = 'flex'
+        const inputDenounce = document.querySelector('.textDenounce')
+        inputDenounce.setAttribute('placeholder', 'Edite o seu comentário')
+        inputDenounce.focus()
+        buttonEdit.addEventListener('click', () => {
+          if(inputDenounce.value.length > 1 && response == '') {
+            const edit = sendCommentEdit(localStorage.getItem('id'), inputDenounce.value, idComment )
+            if(edit) {
+              editSucess()
+            }
+          }
+          if(inputDenounce.value.length > 1 && response == true) {
+            const edit = sendCommentResponseEdit(localStorage.getItem('id'), inputDenounce.value, idComment )
+            if(edit) {
+              editSucess()
+            }
+          }
+        })
+        
+        
+        setTimeout( ()=>{
+            backgroundModalHome2.style.opacity = 1
+        }, 400);
+      }
+
+      function openModalNews3(idComment, response = ''){
+        buttonDenounce.style.display = 'none'
+        buttonDelete.style.display = 'block'
+        buttonEdit.style.display = 'none'
+        body.style.overflow = 'hidden'
+        backgroundModalHome2.style.display = 'flex'
+        const inputDenounce = document.querySelector('.textDenounce')
+        buttonDelete.addEventListener('click', () => {
+          if(response == '') {
+            const edit = sendDeleteComment(localStorage.getItem('id'), idComment )
+            if(edit) {
+              deleteSucess()
+            }
+          }
+          if(response == true) {
+            const edit = sendDeleteCommentResponse(localStorage.getItem('id'), idComment )
+            if(edit) {
+              deleteSucess()
+            }
+          }
+        })
+        
+        
+        setTimeout( ()=>{
+            backgroundModalHome2.style.opacity = 1
+        }, 400);
+      }
+
       function closeModalNews() {
         body.style.overflow = 'auto'
         backgroundModalHome2.style.opacity = 0
@@ -868,31 +1066,99 @@
           item.addEventListener('click', item => {
           const id = item.target.getAttribute('get-item')
           const id3 = item.target.getAttribute('data-item')
-          const id2 = localStorage.getItem('id')
-          if(pDenounce) {
-            pDenounce.forEach(item => {
-              item.addEventListener('click', async (a) => {
-                if(localStorage.getItem('id')) {
-                  h3Modal2.innerText = 'Achou este comentário ofensivo ou inapropriado? Por favor denuncie-o. Nossa equipe de moderação irá analisá-lo e, se for o caso, excluí-lo.'
-                  const idComment = a.target.getAttribute('data-item')
-                  if(idComment) {
-                    const comment = await findOneComment(idComment)
-                    console.log(comment)
-                    if(comment) {
-                      areaModalCommentDenounce.innerText = comment.comment
-                      openModalNews(comment.id)
-                    }
+
+          pDenounce.forEach((item, indice, array) => {
+            item.addEventListener('click', async (a) => {
+              if(localStorage.getItem('id')) {
+                h3Modal2.innerText = 'Achou este comentário ofensivo ou inapropriado? Por favor denuncie-o. Nossa equipe de moderação irá analisá-lo e, se for o caso, excluí-lo.'
+                const idComment = a.target.getAttribute('data-item')
+                const idComment2 = a.target.getAttribute('data-2item')
+                const idPost = a.target.getAttribute('data-news')
+                console.log(idComment2)
+                if(idComment && idPost && idComment2 === null) {
+                  const comment = await findOneComment(idComment)
+                  console.log(idComment)
+                  if(comment) {
+                    areaModalCommentDenounce.style.display = 'block'
+                    areaModalCommentDenounce.innerText = comment.comment
+                    openModalNews(comment.id, idPost)
                   }
-                } else {
-                  openModal2()
                 }
-              })
+                if(idComment2 && idPost && idComment === null) {
+                  const comment = await findOneCommentResponse(idComment2)
+                  console.log(comment)
+                  if(comment) {
+                    areaModalCommentDenounce.style.display = 'block'
+                    areaModalCommentDenounce.innerText = comment.comment_response
+                    openModalNews(comment.id, idPost, response = true)
+                  }
+                }
+              } else {
+                openModal2()
+              }
             })
-          }
-          
+          })
           openUploadComment(id)
 
+          pEdit.forEach(item => {
+            item.addEventListener('click', async(c) => {
+              h3Modal2.innerText = 'Edite o seu comentário.'
+              const idComment = c.target.getAttribute('data-item')
+              const idComment2 = c.target.getAttribute('data-resp-item')
+
+              if(idComment || idComment2) {
+                const comment = await findOneComment(idComment)
+                const comment2 = await findOneCommentResponse(idComment2)
+                if(comment !== undefined || comment2 != undefined) {
+                  areaModalCommentDenounce.style.display = 'none'
+                  const inputDenounce = document.querySelector('.textDenounce')
+                  inputDenounce.style.display = 'block'
+                  if(comment !== undefined) {
+                    inputDenounce.value = comment.comment
+                    openModalNews2(comment.id)
+                  }
+                  if(comment2 !== undefined) {
+                    inputDenounce.value = comment2.comment_response
+                    openModalNews2(comment2.id, response = true)
+                  }
+                }
+              }
+          })
+          pDel.forEach(itemm => {
+            itemm.addEventListener('click', async(a) => {
+              h3Modal2.innerText = 'Tem certeza que deseja excluir o seu comentário?'
+              const idComment = a.target.getAttribute('data-item')
+              const idComment2 = a.target.getAttribute('data-resp-item')
+              
+              if(idComment || idComment2) {
+                
+                  const comment = await findOneComment(idComment)
+                
+                
+                  const comment2 = await findOneCommentResponse(idComment2)
+                 
+                console.log(comment2)
+                
+                if(comment !== undefined || comment2 != undefined) {
+                  areaModalCommentDenounce.style.display = 'block'
+                  const inputDenounce = document.querySelector('.textDenounce')
+                  inputDenounce.style.display = 'none'
+                  if(comment !== undefined) {
+                    areaModalCommentDenounce.innerText = comment.comment
+                    openModalNews3(comment.id)
+                  }
+                  if(comment2 !== undefined) {
+                    areaModalCommentDenounce.innerText = comment2.comment_response
+                    openModalNews3(comment2.id, response = true)
+                  }
+                }
+              }
+            })
+          })
+      })
+
       }))
+      
       function openUploadComment(id) {
         areaUploadCommentNone.forEach(item => {
           const id2 = item.getAttribute('get-item')

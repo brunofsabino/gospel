@@ -3,6 +3,7 @@ import { UserService } from "../services/UserService";
 import { PostService } from "../services/PostService";
 import { CommentService } from "../services/CommentService";
 import validator from 'validator'
+import { User } from "@prisma/client";
 
 
 export const create = async(req: Request, res: Response) => {
@@ -88,23 +89,126 @@ export const one = async(req: Request, res: Response) => {
       res.status(500).json({error : "Dados invalidos"})
   }
 }
-export const update = async(req: Request, res: Response) => {
+export const oneResponse = async(req: Request, res: Response) => {
   const { id } = req.params
-  const { comment } = req.body
-  const commentOne = await CommentService.findOne(id)
-  if(commentOne && comment) {
-    const commentUpdate = await CommentService.update(commentOne.id, {
-      comment
-    })
-    if(commentUpdate) {
-        res.status(201).json({ comment: commentUpdate })
-    } else {
-        res.status(500).json({error : "Dados invalidos"})
-    }
-      
+  const comment = await CommentService.findOneResponseComment(id)
+  if(comment) {
+      res.status(200).json({comment })
   } else {
       res.status(500).json({error : "Dados invalidos"})
   }
+}
+export const update = async(req: Request, res: Response) => {
+  const { id } = req.params
+  const { comment, idUser } = req.body
+  const commentOne = await CommentService.findOne(id)
+  
+  if(req.user ) {
+    const user = req.user as User
+    if(user.id  === idUser) {
+      if(commentOne && comment) {
+        const commentUpdate = await CommentService.update(commentOne.id, {
+          comment
+        })
+        if(commentUpdate) {
+            res.status(201).json({ comment: commentUpdate })
+        } else {
+            res.status(500).json({error : "Dados invalidos"})
+        }
+      } else {
+          res.status(500).json({error : "Dados invalidos"})
+      }
+    } else {
+      res.status(500).json({error : "Dados invalidos"})
+    }
+  } else {
+    res.status(500).json({error : "Dados invalidos"})
+  }
+}
+export const updateDel = async(req: Request, res: Response) => {
+  const { id } = req.params
+  const {  idUser } = req.body
+  const commentOne = await CommentService.findOne(id)
+  
+  if(req.user ) {
+    const user = req.user as User
+    if(user.id  === idUser) {
+      if(commentOne ) {
+        const commentUpdateDel = await CommentService.updateDel(commentOne.id, {
+          commentShow: !commentOne.commentShow
+        })
+        if(commentUpdateDel) {
+            res.status(201).json({ comment: commentUpdateDel })
+        } else {
+            res.status(500).json({error : "Dados invalidos"})
+        }
+      } else {
+          res.status(500).json({error : "Dados invalidos"})
+      }
+    } else {
+      res.status(500).json({error : "Dados invalidos"})
+    }
+  } else {
+    res.status(500).json({error : "Dados invalidos"})
+  }
+}
+
+export const updateDelResponse = async(req: Request, res: Response) => {
+  const { id } = req.params
+  const {  idUser } = req.body
+  const commentOne = await CommentService.findOneResponseComment(id)
+  
+  if(req.user ) {
+    const user = req.user as User
+    if(user.id  === idUser) {
+      if(commentOne ) {
+        const commentUpdateDel = await CommentService.updateDelResponse(commentOne.id, {
+          commentShow: !commentOne.commentShow
+        })
+        if(commentUpdateDel) {
+            res.status(201).json({ comment: commentUpdateDel })
+        } else {
+            res.status(500).json({error : "Dados invalidos"})
+        }
+      } else {
+          res.status(500).json({error : "Dados invalidos"})
+      }
+    } else {
+      res.status(500).json({error : "Dados invalidos"})
+    }
+  } else {
+    res.status(500).json({error : "Dados invalidos"})
+  }
+}
+export const updateResponse = async(req: Request, res: Response) => {
+  const { id } = req.params
+  const { comment, idUser } = req.body
+  const commentOne = await CommentService.findOneResponseComment(id)
+  
+  if(req.user ) {
+    const user = req.user as User
+    if(user.id  === idUser) {
+      if(commentOne && comment) {
+        const commentUpdate = await CommentService.updateResponseComment(commentOne.id, {
+          comment
+        })
+        if(commentUpdate) {
+            res.status(201).json({ comment: commentUpdate })
+        } else {
+            res.status(500).json({error : "Dados invalidos"})
+        }
+          
+      } else {
+          res.status(500).json({error : "Dados invalidos"})
+      }
+    } else {
+      res.status(500).json({error : "Dados invalidos"})
+    }
+  } else {
+    res.status(500).json({error : "Dados invalidos"})
+  }
+  
+  
 }
 export const deleteCommentPost = async(req: Request, res: Response) => {
   const { id } = req.params

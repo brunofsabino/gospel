@@ -84,6 +84,8 @@ model CommentInPost {
   userAvatarCommentReply String?
   qtLikes                Int?
   likeShow               Boolean?          @default(false)
+  commentShow            Boolean?          @default(true)
+  commentModerationShow  Boolean?          @default(true)
   dateCommentReply       DateTime?
   commentReply           String?
   postId                 Post              @relation(fields: [post_id], references: [id], onDelete: Cascade)
@@ -107,6 +109,8 @@ model ResponseComment {
   dateCommentReply       DateTime
   qtLikes                Int?
   likeShow               Boolean?      @default(false)
+  commentShow            Boolean?      @default(true)
+  commentModerationShow  Boolean?      @default(true)
   date                   DateTime      @default(now())
   comment_response       String
   postId                 Post          @relation(fields: [post_id], references: [id], onDelete: Cascade)

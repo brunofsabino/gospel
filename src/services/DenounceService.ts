@@ -37,4 +37,7 @@ export const DenounceService = {
     })
     return denounce
   },
+  findAll: async() => {
+    return await prisma.denounce.findMany({})
+  },
 }
