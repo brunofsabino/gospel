@@ -76,6 +76,9 @@ main {
   flex-direction: column;
   width: 65%;
 }
+.area-topics-users a {
+  color: #222;
+}
 .area-topics-user {
   border: 1px solid var(--orange-black);
   padding: 10px 20px;

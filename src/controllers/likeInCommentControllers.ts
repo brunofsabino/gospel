@@ -20,9 +20,6 @@ export const create = async(req: Request, res: Response) => {
     })
     if(newLikeInCommentPost) {
       const qtLikesInComment = await CommentService.updateQtLikes(newLikeInCommentPost.comment_id)
-      // const showLikesInComment = await CommentService.updateShowLikes(newLikeInCommentPost.comment_id, {
-      //   likeShow: !newLikeInCommentPost.likeShow,
-      // })
       res.status(201).json({ like: newLikeInCommentPost })
     } else {
       res.status(500).json({error : "Dados invalidos"})

@@ -9,11 +9,14 @@ import { CommentForumService } from "../services/CommentForumService";
 
 
 export const create = async(req: Request, res: Response) => {
-  const { user_id , forum_id, commentInForum_id  } = req.body
-  const user = await UserService.findOne(user_id)
-  const forum = await ForumService.findOne(forum_id)
-  const commentForum = await CommentForumService.findOne(commentInForum_id)
-  const likeCommentForum = await LikeInCommentForumService.findOneByCommentId(commentInForum_id)
+  const { userId , postId, commentId  } = req.body
+  // commentId,
+  //         userId,
+  //         postId
+  const user = await UserService.findOne(userId)
+  const forum = await ForumService.findOne(postId)
+  const commentForum = await CommentForumService.findOne(commentId)
+  const likeCommentForum = await LikeInCommentForumService.findOneByCommentId(commentId)
 
   if(user && forum && commentForum && !likeCommentForum ) {
     const newLikeInCommentPost = await LikeInCommentForumService.create(user.id, { 
@@ -21,6 +24,7 @@ export const create = async(req: Request, res: Response) => {
       commentInForum_id: commentForum.id,
     })
     if(newLikeInCommentPost) {
+      const qtLikesInComment = await CommentForumService.updateQtLikes(newLikeInCommentPost.commentInForum_id)
       res.status(201).json({ like: newLikeInCommentPost })
     } else {
       res.status(500).json({error : "Dados invalidos"})
@@ -30,7 +34,22 @@ export const create = async(req: Request, res: Response) => {
       done: !likeCommentForum.done
     })
     if(likeCommentForumUpdate) {
-      res.status(201).json({ like: likeCommentForumUpdate })
+      if(likeCommentForumUpdate.done === true) {
+        const qtLikesInComment = await CommentForumService.updateQtLikes(likeCommentForumUpdate.commentInForum_id)
+        if(qtLikesInComment) {
+          res.status(201).json({ like: likeCommentForumUpdate })
+        } else {
+          res.status(500).json({error : "Dados invalidos"})
+      }
+      } 
+      if(likeCommentForumUpdate.done === false) {
+        const qtLikesInComment = await CommentForumService.updateRemoveQtLikes(likeCommentForumUpdate.commentInForum_id)
+        if(qtLikesInComment) {
+          res.status(201).json({ like: likeCommentForumUpdate })
+        } else {
+          res.status(500).json({error : "Dados invalidos"})
+      }
+      } 
   } else {
       res.status(500).json({error : "Dados invalidos"})
   }
@@ -38,7 +57,59 @@ export const create = async(req: Request, res: Response) => {
     res.status(500).json({error : "Dados invalidos"})
 }
 }
+export const createResponse = async(req: Request, res: Response) => {
+  const { userId, postId, commentId  } = req.body
+  const user = await UserService.findOne(userId)
+  const post = await ForumService.findOne(postId)
+  const comment = await CommentForumService.findOneResponseComment(commentId)
+  const likeComment = await LikeInCommentForumService.findOneByResponseCommentId(commentId, userId)
 
+  if(user && post && comment && !likeComment ) {
+    const newLikeInResponseCommentPost = await LikeInCommentForumService.createResponse(user.id, { 
+      post_id: post.id, 
+      comment_id: comment.id,
+      nameUser: user.name,
+      imgUser: user.avatar ?? '',
+      userNameCommentReply: comment.userNameCommentReply ?? '',
+      userAvatarCommentReply: comment.userAvatarCommentReply ?? '',
+      userCommentReply: comment.userNameCommentReply ?? '',
+      dateCommentReply: comment.dateCommentReply ?? new Date(),
+      qtLikes: comment.qtLikes ?? null,
+      comment_response: comment.commentReply ?? '' 
+    })
+    if(newLikeInResponseCommentPost) {
+      const qtLikesInComment = await CommentForumService.updateQtResponseLikes(newLikeInResponseCommentPost.commentForum_id)
+      res.status(201).json({ like: newLikeInResponseCommentPost })
+    } else {
+      res.status(500).json({error : "Dados invalidos"})
+    }
+  } else if (likeComment){
+    const likeCommentPostUpdate = await LikeInCommentForumService.updateResponseComment(likeComment.id, {
+      done: !likeComment.done,
+      //likeShow: !likeComment.likeShow
+    })
+    if(likeCommentPostUpdate){
+      if(likeCommentPostUpdate.done === true) {
+        const qtLikesInComment = await CommentForumService.updateQtResponseLikes(likeCommentPostUpdate.commentForum_id)
+        if(qtLikesInComment) {
+          res.status(201).json({ like: likeCommentPostUpdate })
+        } else {
+          res.status(500).json({error : "Dados invalidos"})
+      }
+      } 
+      if(likeCommentPostUpdate.done === false) {
+        const qtLikesInComment = await CommentForumService.updateRemoveResponseQtLikes(likeCommentPostUpdate.commentForum_id)
+        if(qtLikesInComment) {
+          res.status(201).json({ like: likeCommentPostUpdate })
+        } else {
+          res.status(500).json({error : "Dados invalidos"})
+      }
+      } 
+    } 
+  } else {
+    res.status(500).json({error : "Dados invalidos"})
+  }
+}
 export const all = async(req: Request, res: Response) => {
   const all = await LikeInCommentForumService.findAll()
   res.status(200).json({likes: all})

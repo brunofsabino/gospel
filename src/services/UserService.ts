@@ -8,7 +8,9 @@ type PropCreate = {
     
     name: string,
     email: string,
-    password: string
+    password: string,
+    avatar: string
+
 }
 type PropUpdate = {
     name?: string,
@@ -17,7 +19,7 @@ type PropUpdate = {
 }
 export const UserService = {
     findOne: async(id: string) => {
-        return await prisma.user.findUnique({ where: { id }})
+        return await prisma.user.findFirst({ where: { id }})
     },
     findADM: async(id: string) => {
         return await prisma.userADM.findUnique({ where: { id }})
@@ -30,7 +32,8 @@ export const UserService = {
             data: {
                 name: data.name,
                 email: data.email,
-                password: bcrypt.hashSync(data.password, 10)
+                password: bcrypt.hashSync(data.password, 10),
+                avatar: data.avatar
             }
         })
         if(dataNewUser) {

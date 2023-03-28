@@ -11,19 +11,21 @@ datasource db {
 }
 
 model User {
-  id                    String                  @id @default(uuid())
-  name                  String
-  email                 String                  @unique
-  password              String
-  avatar                String?
-  Comment               CommentInPost[]
-  likesInComment        LikeInComment[]
-  Forum                 Forum[]
-  CommentInForum        CommentInForum[]
-  LikeInForum           LikeInForum[]
-  responseComment       ResponseComment[]
-  LikeInResponseComment LikeInResponseComment[]
-  DenounceComment       Denounce[]
+  id                         String                       @id @default(uuid())
+  name                       String
+  email                      String                       @unique
+  password                   String
+  avatar                     String?
+  Comment                    CommentInPost[]
+  likesInComment             LikeInComment[]
+  Forum                      Forum[]
+  CommentInForum             CommentInForum[]
+  LikeInForum                LikeInForum[]
+  responseComment            ResponseComment[]
+  LikeInResponseComment      LikeInResponseComment[]
+  DenounceComment            Denounce[]
+  ResponseCommentInForum     ResponseCommentInForum[]
+  LikeInResponseCommentForum LikeInResponseCommentForum[]
 
   @@map("users")
 }
@@ -150,29 +152,75 @@ model LikeInResponseComment {
 }
 
 model Forum {
-  id             String           @id @default(uuid())
-  title          String
-  description    String
-  user_id        String
-  userId         User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  CommentInForum CommentInForum[]
-  LikeInForum    LikeInForum[]
+  id                         String                       @id @default(uuid())
+  title                      String
+  description                String
+  user_id                    String
+  date                       DateTime?                    @default(now())
+  avatar_user                String?
+  name_user                  String?
+  nameLastComment            String?
+  qtComments                 Int?
+  userId                     User                         @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  CommentInForum             CommentInForum[]
+  LikeInForum                LikeInForum[]
+  ResponseCommentInForum     ResponseCommentInForum[]
+  LikeInResponseCommentForum LikeInResponseCommentForum[]
 
   @@map("forums")
 }
 
 model CommentInForum {
-  id               String        @id @default(uuid())
-  id_comment_forum String?
-  forum_id         String
-  user_id          String
-  date             DateTime      @default(now())
-  comment          String
-  forumId          Forum         @relation(fields: [forum_id], references: [id], onDelete: Cascade)
-  userId           User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  LikeInForum      LikeInForum[]
+  id                     String                   @id @default(uuid())
+  id_comment_forum       String?
+  forum_id               String
+  user_id                String
+  date                   DateTime                 @default(now())
+  comment                String
+  nameUserInComment      String?
+  imgUserInComment       String?
+  id_commentReply        String?
+  nameUserReplyComment   String?
+  imgUserReplyComment    String?
+  userNameCommentReply   String?
+  userAvatarCommentReply String?
+  qtLikes                Int?
+  likeShow               Boolean?                 @default(false)
+  commentShow            Boolean?                 @default(true)
+  commentModerationShow  Boolean?                 @default(true)
+  dateCommentReply       DateTime?
+  commentReply           String?
+  forumId                Forum                    @relation(fields: [forum_id], references: [id], onDelete: Cascade)
+  userId                 User                     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  LikeInForum            LikeInForum[]
+  ResponseCommentInForum ResponseCommentInForum[]
 
   @@map("commentInForums")
+}
+
+model ResponseCommentInForum {
+  id                         String                       @id @default(uuid())
+  forum_id                   String
+  user_id                    String
+  id_commentForum            String
+  nameUser                   String
+  imgUser                    String
+  userNameCommentReply       String
+  userAvatarCommentReply     String
+  userCommentReply           String?
+  dateCommentReply           DateTime
+  qtLikes                    Int?
+  likeShow                   Boolean?                     @default(false)
+  commentShow                Boolean?                     @default(true)
+  commentModerationShow      Boolean?                     @default(true)
+  date                       DateTime                     @default(now())
+  comment_response           String
+  forumId                    Forum                        @relation(fields: [forum_id], references: [id], onDelete: Cascade)
+  userId                     User                         @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  commentForumId             CommentInForum               @relation(fields: [id_commentForum], references: [id], onDelete: Cascade)
+  LikeInResponseCommentForum LikeInResponseCommentForum[]
+
+  @@map("response_comments_forum")
 }
 
 model LikeInForum {
@@ -186,6 +234,20 @@ model LikeInForum {
   commentId         CommentInForum @relation(fields: [commentInForum_id], references: [id], onDelete: Cascade)
 
   @@map("likeInForums")
+}
+
+model LikeInResponseCommentForum {
+  id                     String                 @id @default(uuid())
+  forum_id               String
+  user_id                String
+  commentForum_id        String
+  done                   Boolean                @default(true)
+  likeShow               Boolean                @default(true)
+  forumId                Forum                  @relation(fields: [forum_id], references: [id], onDelete: Cascade)
+  userId                 User                   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  commentResponseForumId ResponseCommentInForum @relation(fields: [commentForum_id], references: [id], onDelete: Cascade)
+
+  @@map("likeInResponseCommentsForum")
 }
 
 model Denounce {

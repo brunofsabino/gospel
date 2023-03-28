@@ -4,7 +4,9 @@ const prisma = new PrismaClient()
 type PropCreate = {
   userLogged: string, 
   title: string,
-  description: string
+  description: string,
+  avatar_user?: string,
+  name_user?: string
 }
 type PropUpdate = {
   title?: string,
@@ -16,7 +18,9 @@ export const ForumService = {
       data: {
         user_id: data.userLogged,
         title: data.title,
-        description: data.description
+        description: data.description,
+        avatar_user: data.avatar_user ?? undefined,
+        name_user: data.name_user ?? undefined
       }
     })
     return dataNewForum
@@ -25,7 +29,10 @@ export const ForumService = {
     return await prisma.forum.findMany({})
   },
   findOne: async(id: string) => {
-    return await prisma.forum.findUnique({ where: { id }})
+    return await prisma.forum.findFirst({ where: { id }})
+  },
+  findOneByTitle: async(title: string) => {
+    return await prisma.forum.findFirst({ where: { title }})
   },
   update: async(id: string, data: PropUpdate) => {
     return await prisma.forum.update({

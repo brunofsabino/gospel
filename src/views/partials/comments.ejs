@@ -1,0 +1,932 @@
+<div class="news-details-comments">
+  <div class="news-details-comments-qt">
+    <% if (comments.length>0) { %>
+      <p><%=comments.length+responseComments.length%> Comentários</p>
+      <br>
+    <% } %>
+    <% if (comments.length==0) { %>
+      <p>Nenhum Comentário</p>
+      <br>
+    <% } %>
+    
+    <img src="/images/forum.svg" alt="">
+  </div>
+  <div class="news-details-comments-new">
+    <div class="area-comments-new">
+      <div class="area-comments-person">
+        <div class="area-comments-person-img">
+          <img src="/images/persona.png" alt="">
+        </div>
+      </div>
+      <div class="area-comments-content" >
+        <input type="text" placeholder="Deixe seu comentário">
+        <img src="/images/send.png" alt="Enviar Comentário" data-item="<%=news.id%>">
+      </div>
+    </div>
+    <div class="news-details-comments-pg">
+      <div class="initial-pg">1</div>
+      <div class="pg-prev"><img src="images/seta-expandir.png" alt="">anterior</div>
+      <div class="pg-current">página <p>1</p></div>
+      <div class="pg-next">próxima <img src="images/seta-expandir.png" alt=""></div>
+      <div class="final-pg">1</div>
+    </div>
+    <div class="area-comments-users">
+      <%comments.forEach(function(item){%>
+        <div class="area-comments-user">
+          <div class="area-comments-user-person">
+            <div class="area-comments-person-img">
+              <img src="/images/persona.png" alt="">
+            </div>
+          </div>
+          <div class="area-comments-user-content">
+            <div class="area-comments-user-content-info">
+              <div class="area-comments-user-name-complaint">
+                <div class="area-comments-user-name">
+                  <h3>
+                    <% if (item.commentShow===true ) { %>
+                      <%=item.nameUserInComment%>
+                      <% } else { %> 
+                        Usuário
+                       <% } %> 
+                  </h3> <div class="area-comments-user-name-date"><%=item.date.toString().slice(4,10)%></div>
+                </div>
+                <div class="area-comments-complaint " get-item="<%=item.id%>" data-item="<%=item.user_id%>">
+                  <% if (item.commentShow===true ) { %>
+                    ...
+                  <% } else { %> 
+                    <% } %> 
+                  <div class="area-comments-complaint-options area-comments-complaint-none" get-item="<%=item.id%>">
+                   
+                    <% if (item.user_id===userId.id ) { %>
+                    <p class="edit" data-item="<%=item.id%>">Editar</p>
+                    <p class="del" data-item="<%=item.id%>">Excluir</p>
+                    <% } else { %> 
+                      <p class="denounce" data-item="<%=item.id%>" data-news="<%=news.id%>">Denunciar</p>
+                    <% } %> 
+                  </div>
+                </div>
+              </div>
+              <div class="area-comments-user-comment">
+                <p>
+                  <% if (item.commentShow===true ) { %>
+                    <%=item.comment%>
+                    <% } else { %> 
+                      Comentário removido pelo usuário.
+                     <% } %> 
+                </p>
+              </div>
+            </div>
+            <div class="area-comments-user-like-dislike-resp" >
+              <div class="area-comments-user-like" data="<%=item.post_id%>" id-item="<%=item.id%>">
+                <%likes.forEach(function(like){%>
+                  <% if (like.user_id===userId.id && like.comment_id===item.id ) { %>   
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="var(--orange-black)"  xmlns="http://www.w3.org/2000/svg"  >
+                      <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>               
+                  <% } %> 
+                <%});%>  
+              </div>
+              <div class="area-comments-user-like-qt" data-item="<%=item.id%>">
+                <% if (item.qtLikes===0 ) { %>   
+                <% } else { %> 
+                  <%=item.qtLikes%>
+                  <% } %> 
+              </div>
+              <div class="area-comments-user-dislike">
+                <svg width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 14V4M8 14L4 14V4.00002L8 4M8 14L13.1956 20.0615C13.6886 20.6367 14.4642 20.884 15.1992 20.7002L15.2467 20.6883C16.5885 20.3529 17.1929 18.7894 16.4258 17.6387L14 14H18.5604C19.8225 14 20.7691 12.8454 20.5216 11.6078L19.3216 5.60779C19.1346 4.67294 18.3138 4.00002 17.3604 4.00002L8 4" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <div class="area-comments-user-dislike-qt">1</div>
+              </div>
+              <div class="area-comments-user-resp" get-item="<%=item.id%>">
+                <img src="/images/response.png" alt="" get-item="<%=item.id%>">
+                <p get-item="<%=item.id%>">Responder</p>
+              </div>
+            </div>
+            <div class="area-comments-reply-new area-comments-reply-new-none" get-item="<%=item.id%>">
+              <div class="area-comments-person">
+                <div class="area-comments-person-img">
+                  <img src="/images/persona.png" alt="">
+                </div>
+              </div>
+              <div class="area-comments-content"  id-item="<%=item.post_id%>">
+                <input type="text" placeholder="Deixe sua resposta" get-item="<%=item.id%>">
+                <img src="/images/send.png" alt="Enviar Comentário" get-item="<%=userId.id%>">
+              </div>
+            </div>
+          </div>
+        </div>
+      <%});%>
+      <%responseComments.forEach(function(item){%>
+        <div class="area-comments-user-response">
+          <div class="area-comments-user-person">
+            <div class="area-comments-person-img">
+              <img src="/images/persona.png" alt="">
+            </div>
+          </div>
+          <div class="area-comments-user-content">
+            <div class="area-comments-user-content-info">
+              <div class="area-comments-user-name-complaint">
+                <div class="area-comments-user-name">
+                  <h3>
+                    <% if (item.commentShow===true ) { %>
+                    <%=item.nameUser%>
+                    <% } else { %> 
+                      Usuário
+                     <% } %> 
+                  </h3> <div class="area-comments-user-name-date"><%=item.date.toString().slice(4,10)%></div>
+                </div>
+                <div class="area-comments-complaint " get-item="<%=item.id%>" data-item="<%=item.user_id%>">
+                  <% if (item.commentShow===true ) { %>
+                    ...
+                  <% } else { %> 
+                  <% } %> 
+                  <div class="area-comments-complaint-options area-comments-complaint-none" get-item="<%=item.id%>">
+                    
+                      <% if (item.user_id===userId.id ) { %>
+                      <p class="edit" data-resp-item="<%=item.id%>">Editar</p>
+                      <p class="del" data-resp-item="<%=item.id%>">Excluir</p>
+                      <% } else { %> 
+                        <p class="denounce" data-2item="<%=item.id%>" data-news="<%=news.id%>">Denunciar</p>
+                    <% } %> 
+                  </div>
+                </div>
+              </div>
+              <div class="area-comment-user-desc">
+                <div class="area-comments-user-name">
+                  <h3><%=item.userNameCommentReply%></h3> <div class="area-comments-user-name-date"><%=item.dateCommentReply.toString().slice(4,10)%></div>
+                </div>
+                <div class="area-comments-user-comment">
+                  <p><%=item.userCommentReply%></p>
+                </div>
+              </div>
+              <div class="area-comments-user-response-content">
+                <p get-item="<%=item.id_comment%>">
+                  <% if (item.commentShow===true ) { %>
+                    <%=item.comment_response%>
+                  <% } else { %> 
+                    Comentário removido pelo usuário.
+                    <% } %> 
+                  </p>
+              </div>
+            </div>
+            <div class="area-comments-user-like-dislike-resp">
+              <div class="area-comments-user-like-resp" data="<%=item.post_id%>" id-item="<%=item.id%>">
+                <%responseLikes.forEach(function(like){%>
+                  <% if (like.user_id===userId.id && like.comment_id===item.id ) { %>   
+                    <svg width="20px" height="20px" viewBox="0 0 24 24" fill="var(--orange-black)"  xmlns="http://www.w3.org/2000/svg"  >
+                      <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>               
+                  <% } %> 
+                <%});%>  
+              </div>
+              <div class="area-comments-user-like-qt" data-item="<%=item.id%>">
+                <% if (item.qtLikes===0 ) { %>   
+                <% } else { %> 
+                  <%=item.qtLikes%>
+                  <% } %> 
+              </div>
+              <div class="area-comments-user-dislike">
+                <div class="area-comments-user-dislike-qt">1</div>
+                <img src="/images/dislike.svg" alt="">
+              </div>
+              <div class="area-comments-user-resp" get-item="<%=item.id%>">
+                <img src="/images/response.png" alt="" get-item="<%=item.id%>">
+                <p get-item="<%=item.id%>">Responder</p>
+              </div>
+            </div>
+            <div class="area-comments-reply-new area-comments-reply-new-none" get-item="<%=item.id%>">
+              <div class="area-comments-person">
+                <div class="area-comments-person-img">
+                  <img src="/images/persona.png" alt="">
+                </div>
+              </div>
+              <div class="area-comments-content-resp"  id-item="<%=item.post_id%>">
+                <input type="text" placeholder="Deixe sua resposta" get-item="<%=item.id_comment%>" data-comment="<%=item.comment_response%>" data-name="<%=item.nameUser%>">
+                <img src="/images/send.png" alt="Enviar Comentário" get-item="<%=userId.id%>">
+              </div>
+            </div>
+          </div>
+        </div>
+      <%});%>  
+      
+    </div>
+    <div class="news-details-comments-pg">
+      <div class="initial-pg">1</div>
+      <div class="pg-prev"><img src="images/seta-expandir.png" alt="">anterior</div>
+      <div class="pg-current">página <p>1</p></div>
+      <div class="pg-next">próxima <img src="images/seta-expandir.png" alt=""></div>
+      <div class="final-pg">1</div>
+    </div>
+  </div>
+</div>
+<script>
+    
+  const buttonSendComment = document.querySelector('.area-comments-new .area-comments-content img')
+  const buttonSendResponseComment = document.querySelectorAll('.area-comments-reply-new .area-comments-content img')
+  const buttonSendResponseCommentResponse = document.querySelectorAll('.area-comments-reply-new .area-comments-content-resp img')
+  const inputSendComment = document.querySelector('.area-comments-content input')
+  const inputSendResponseComment = document.querySelectorAll('.area-comments-reply-new .area-comments-content input')
+  const inputSendResponseCommentResponse = document.querySelectorAll('.area-comments-reply-new .area-comments-content-resp input')
+
+  setTimeout(()=> {
+    areaSVG()
+  },200)
+  function areaSVG() {
+    const buttonLikeComment = document.querySelectorAll('.area-comments-user-like svg')
+    const buttonLikeInResponseComment= document.querySelectorAll('.area-comments-user-like-resp svg')
+    const qtLikeComment = document.querySelectorAll('.area-comments-user-like-qt')
+  
+  
+    buttonLikeComment.forEach(item => likeInComment(item))
+    buttonLikeInResponseComment.forEach(item => likeInResponseComment(item))
+  function likeInComment(item) {
+    item.addEventListener('click', a => {
+      if(localStorage.getItem('id')){
+        const id2 = a.target.closest('.area-comments-user-like').getAttribute('id-item')
+        const id3 = a.target.closest('.area-comments-user-like').getAttribute('data')
+        console.log(id2)
+        if(id2) {
+          const fill = item.getAttribute('fill')
+          if(fill == 'var(--orange-black)') {
+            item.setAttribute("fill", "none")
+            if(item.parentNode.classList.contains("area-comments-user-like")){
+              const idPost = item.parentNode.getAttribute("data")
+              const idComment = item.getAttribute("data-item")
+              console.log(id2, localStorage.getItem("id"), idPost)
+              sendLikeInComment(id2, localStorage.getItem("id"), idPost)
+            } 
+            qtLikeComment.forEach(item => {
+              const id3 = item.getAttribute("data-item")
+              if(id2 === id3) {
+                if(item.innerText != '' && item.innerText > 1) {
+                  item.innerText = --item.innerText
+                } else if (item.innerText == 1){
+                  item.innerText = ''
+                } else {
+                  item.innerText = ''
+                }
+              }
+            })
+          } else {
+            item.setAttribute("fill", "var(--orange-black)")
+            if(item.parentNode.classList.contains("area-comments-user-like")){
+              const idPost = item.parentNode.getAttribute("data")
+              const idComment = item.getAttribute("data-item")
+              console.log("ID POST: " + idPost + "ID COMMENT: " + idComment)
+              sendLikeInComment(id2, localStorage.getItem("id"), idPost)
+            } 
+            qtLikeComment.forEach(item => {
+              const id3 = item.getAttribute("data-item")
+              if(id2 === id3) {
+                item.innerText = ++item.innerText
+              }
+            })
+          }
+        }
+      } else {
+        openModal2()
+      }
+    })
+  }
+
+  function likeInResponseComment(item) {
+    item.addEventListener('click', a => {
+      if(localStorage.getItem('id')){
+        const id2 = a.target.closest('.area-comments-user-like-resp').getAttribute('id-item')
+        const id3 = a.target.closest('.area-comments-user-like-resp').getAttribute('data')
+        if(id2) {
+          const fill = item.getAttribute('fill')
+          if(fill == 'var(--orange-black)') {
+            item.setAttribute("fill", "none")
+            if(item.parentNode.classList.contains("area-comments-user-like-resp")){
+              const idPost = item.parentNode.getAttribute("data")
+              const idComment = item.getAttribute("data-item")
+              console.log(id2, localStorage.getItem("id"), idPost)
+              sendLikeInResponseComment(id2, localStorage.getItem("id"), idPost)
+            } 
+            qtLikeComment.forEach(item => {
+              const id3 = item.getAttribute("data-item")
+              if(id2 === id3) {
+                if(item.innerText != '' && item.innerText > 1) {
+                  item.innerText = --item.innerText
+                } else if (item.innerText == 1){
+                  item.innerText = ''
+                } else {
+                  item.innerText = ''
+                }
+              }
+            })
+          } else {
+            item.setAttribute("fill", "var(--orange-black)")
+            if(item.parentNode.classList.contains("area-comments-user-like-resp")){
+              const idPost = item.parentNode.getAttribute("data")
+              const idComment = item.getAttribute("id-item")
+              console.log("ID POST: " + id2 + " " +localStorage.getItem("id")+" " + "ID COMMENT: " + idPost )
+              sendLikeInResponseComment(id2, localStorage.getItem("id"), idPost)
+            } 
+            qtLikeComment.forEach(item => {
+              const id3 = item.getAttribute("data-item")
+              if(id2 === id3) {
+                item.innerText = ++item.innerText
+              }
+            })
+          }
+        }
+      } else {
+        openModal2()
+      }
+    })
+  }
+  }
+  
+  const areaButtonLikeComment = document.querySelectorAll('.area-comments-user-like')
+  const buttonLikeInResponseComment= document.querySelectorAll('.area-comments-user-like-resp')
+  criaSVGLike(areaButtonLikeComment)
+  criaSVGLike(buttonLikeInResponseComment)
+ 
+  function criaSVGLike(item) {
+    item.forEach(item => {
+    if(item.childNodes.length ===1) {
+      item.innerHTML =  `<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"  xmlns="http://www.w3.org/2000/svg"  data-item="">
+                          <path  data-item="" d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>`
+    }
+  })
+  }
+
+  buttonSendComment.addEventListener('click', item => {
+    const id = item.target.getAttribute('data-item')
+    sendComment(id)
+  })
+  buttonSendResponseComment.forEach(item => {
+    item.addEventListener('click', c => {
+      const id = c.target.getAttribute('get-item')//userID
+      inputSendResponseComment.forEach(inp => {
+        const id2 = inp.getAttribute('get-item') //comment_id
+        const id3 = inp.closest('.area-comments-content').getAttribute('id-item') //post_id
+        if(id && inp.value.length > 1 && id3 && id2) {
+          console.log(id +' '+inp.value+ ' ' + id3 + ' '+id2)
+          sendResponseComment(id, inp.value, id2, id3 )
+        }
+      })
+    })
+  })
+  buttonSendResponseCommentResponse.forEach(item => {
+    item.addEventListener('click', c => {
+      const id = c.target.getAttribute('get-item')//userID
+      inputSendResponseCommentResponse.forEach(inp => {
+        const id2 = inp.getAttribute('get-item') //comment_id
+        const id3 = inp.closest('.area-comments-content-resp').getAttribute('id-item') //post_id
+        const comment = inp.getAttribute('data-comment')
+        const name2 = inp.getAttribute('data-name')
+        if(id && inp.value.length > 1 && id3 && id2 && comment && name2) {
+
+          console.log(id +' '+inp.value+ ' ' + id3 + ' '+id2+' '+comment)
+          sendResponseComment2(id, inp.value, id2, id3, comment, name2 )
+        }
+          
+      })
+    })
+  })
+  
+  function likeComment(item)  {
+    console.log('clicou')
+  }
+  function sendComment(idPost) {
+    if(inputSendComment.value != '' && inputSendComment.value.length > 1) {
+        if(idPost) {
+          sendCommentPost(localStorage.getItem('id'), idPost, inputSendComment.value )
+        }
+    }
+  }
+ 
+  async function sendLikeInComment(commentId, userId, postId) {
+    if(userId) {
+      const like = await fetch(`http://localhost:4000/likeInComment`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            //"Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
+        credentials: "include",
+        body: new URLSearchParams({
+          commentId,
+          userId,
+          postId
+        })
+      })
+      if(like.status === 401) {
+        openModal2()
+      }
+      
+      const json = await like.json()
+      if(json) {
+        console.log(json)
+        //location.
+      }
+    } 
+  }
+  async function sendLikeInResponseComment(commentId, userId, postId) {
+    if(userId) {
+      const like = await fetch(`http://localhost:4000/likeInResponseComment`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            //"Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
+        credentials: "include",
+        body: new URLSearchParams({
+          commentId,
+          userId,
+          postId
+        })
+      })
+      if(like.status === 401) {
+        openModal2()
+      }
+      const json = await like.json()
+      if(json) {
+        console.log(json)
+        //location.
+      }
+    } 
+  }
+  async function sendResponseComment(userId, input, commentId, postId) {
+    console.log(userId, input, commentId, postId)
+    if(userId && input && commentId && postId) {
+      const ResponseComment = await fetch(`/commentresponse/${userId}/${postId}/${commentId}`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: new URLSearchParams({
+          comment: input
+        })
+      })
+      if(ResponseComment.status === 401) {
+        openModal2()
+      }
+      const json = await ResponseComment.json()
+      if(json.commentResponse) {
+        console.log(json)
+        document.location.reload(); 
+      }
+    }
+  }
+  async function sendResponseComment2(userId, input, commentId, postId, comment, name2) {
+    console.log(userId, input, commentId, postId)
+    if(userId && input && commentId && postId && comment) {
+      const ResponseComment = await fetch(`/commentresponse/${userId}/${postId}/${commentId}`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: new URLSearchParams({
+          comment: input,
+          comment2: comment,
+          name2
+        })
+      })
+      if(ResponseComment.status === 401) {
+        openModal2()
+      }
+      const json = await ResponseComment.json()
+      if(json.commentResponse) {
+        console.log(json)
+        document.location.reload(); 
+      }
+    }
+  }
+  async function sendCommentPost(id, idPost, comment) {
+    const newComment = await fetch(`http://localhost:4000/comment/${id}/${idPost}/`, {
+      method: 'POST',
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          //"Authorization": `Bearer ${localStorage.getItem('token')}`
+      },
+      credentials: "include",
+      body: new URLSearchParams({
+        comment
+      })
+    })
+    if(newComment.status === 401) {
+      openModal2()
+    }
+    const json = await newComment.json()
+    if(json.comment) {
+      console.log(json)
+      document.location.reload(); 
+    }
+  }
+  async function findOneComment(id) {
+    if(id) {
+      const oneComment = await fetch(`/comment/${id}/`, {
+      method: 'GET',
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+      },
+      credentials: "include"
+    })
+    if(oneComment.status === 401) {
+      openModal2()
+    }
+    const json = await oneComment.json()
+    if(json.comment) {
+      return json.comment
+    }
+    }
+    
+  }
+  async function findOneCommentResponse(id) {
+    if(id) {
+      const oneComment = await fetch(`/commentresponse/${id}/`, {
+      method: 'GET',
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+      },
+      credentials: "include"
+    })
+    if(oneComment.status === 401) {
+      openModal2()
+    }
+    const json = await oneComment.json()
+    if(json.comment) {
+      return json.comment
+    }
+    }
+  }
+  async function sendDenounce(idUser, text, idComment, idPost) {
+    const denounce = await fetch(`/denounceComment`, {
+      method: 'POST',
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+      },
+      credentials: "include",
+      body: new URLSearchParams({
+        idUser,
+        idComment,
+        describingDenounce: text,
+        idPost
+      })
+    })
+    if(denounce.status === 401) {
+      //openModal2()
+    }
+    const json = await denounce.json()
+    if(json.denounce) {
+      return json.denounce
+    }
+  }
+  async function sendCommentEdit(idUser, commentEdit, id) {
+    const editComment = await fetch(`/comment/${id}`, {
+      method: 'PUT',
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+      },
+      credentials: "include",
+      body: new URLSearchParams({
+        comment: commentEdit,
+        idUser
+      })
+    })
+    if(editComment.status === 401) {
+      //openModal2()
+    }
+    const json = await editComment.json()
+    if(json.comment) {
+      return json.comment
+    }
+  }
+  
+  async function sendCommentResponseEdit(idUser, commentEdit, id) {
+    const editComment = await fetch(`/commentresponse/${id}`, {
+      method: 'PUT',
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+      },
+      credentials: "include",
+      body: new URLSearchParams({
+        comment: commentEdit,
+        idUser
+      })
+    })
+    if(editComment.status === 401) {
+      //openModal2()
+    }
+    const json = await editComment.json()
+    if(json.comment) {
+      return json.comment
+    }
+  }
+  
+  async function sendDeleteComment(idUser, id) {
+    const deleteComment = await fetch(`/comment/del/${id}`, {
+      method: 'PUT',
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+      },
+      credentials: "include",
+      body: new URLSearchParams({
+        idUser
+      })
+    })
+    if(deleteComment.status === 401) {
+      //openModal2()
+    }
+    const json = await deleteComment.json()
+    if(json.comment) {
+      return json.comment
+    }
+  }
+  sendDeleteCommentResponse
+  async function sendDeleteCommentResponse(idUser, id) {
+    const deleteComment = await fetch(`/commentresponse/del/${id}`, {
+      method: 'PUT',
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+      },
+      credentials: "include",
+      body: new URLSearchParams({
+        idUser
+      })
+    })
+    if(deleteComment.status === 401) {
+      //openModal2()
+    }
+    const json = await deleteComment.json()
+    if(json.comment) {
+      return json.comment
+    }
+  }
+  setTimeout(()=> {
+    const buttonReplyComment = document.querySelectorAll('.area-comments-user-resp')
+    const replyComment = document.querySelectorAll('.area-comments-reply-new')
+    const areaUploadComment = document.querySelectorAll('.area-comments-complaint ')
+    const areaUploadCommentNone = document.querySelectorAll('.area-comments-complaint-none')
+    
+    const buttonCloseModal2 = document.querySelector('.modal-login-home-close2')
+    const backgroundModalHome2 = document.querySelector('.modal-login-home2')
+    const modalHome2 = document.querySelector('.modal-login-home-content-close2')
+    const h3Modal2 = document.querySelector('.modal-login-home-content2 h3')
+    const areaModalCommentDenounce = document.querySelector('.modal-news-comment')
+    const buttonDenounce = document.querySelector('.buttonDenounce')
+    const buttonEdit = document.querySelector('.buttonEdit')
+    const buttonDelete = document.querySelector('.buttonDelete')
+    
+
+    const pDenounce = document.querySelectorAll('.denounce')
+    const pEdit = document.querySelectorAll('.edit')
+    const pDel = document.querySelectorAll('.del')
+
+    
+    
+
+    buttonReplyComment.forEach(item => 
+      item.addEventListener('click', item => {
+      if(localStorage.getItem('id')) {
+        const id = item.target.getAttribute('get-item')
+        openReplyComment(id)
+      } else {
+        openModal2()
+      }
+    }))
+    function openReplyComment(id) {
+      replyComment.forEach(item => {
+        const id2 = item.getAttribute('get-item')
+        if(id === id2) {
+          item.classList.toggle('area-comments-reply-new-none')
+        }
+      })
+    }
+    modalHome2.addEventListener('click', closeModalNews)
+    buttonCloseModal2.addEventListener('click', closeModalNews)
+
+    function denounceSucess() {
+      buttonDenounce.style.backgroundColor = '#0cc70cfc'
+      buttonDenounce.innerText = 'Denuncia feita com sucesso'
+      setTimeout( ()=>{
+        closeModalNews()
+        document.location.reload(); 
+      }, 700);
+    }
+    function editSucess() {
+      buttonEdit.style.backgroundColor = '#0cc70cfc'
+      buttonEdit.innerText = 'Comentário editado com sucesso'
+      setTimeout( ()=>{
+        closeModalNews()
+        document.location.reload(); 
+      }, 700);
+    }
+    
+    function deleteSucess() {
+      buttonDelete.style.backgroundColor = '#0cc70cfc'
+      buttonDelete.innerText = 'Comentário deletado com sucesso'
+      setTimeout( ()=>{
+        closeModalNews()
+        document.location.reload(); 
+      }, 700);
+    }
+    function openModalNews(idComment, idPost, response = '') {
+      buttonDenounce.style.display = 'block'
+      buttonDelete.style.display = 'none'
+      buttonEdit.style.display = 'none'
+      body.style.overflow = 'hidden'
+      backgroundModalHome2.style.display = 'flex'
+      const inputDenounce = document.querySelector('.textDenounce')
+      inputDenounce.setAttribute('placeholder', '[Opcional]: Descreva o motivo da denúncia.')
+      buttonDenounce.addEventListener('click', () => {
+        if(response === '') {
+          const denounce = sendDenounce(localStorage.getItem('id'), inputDenounce.value, idComment, idPost )
+          if(denounce) {
+            denounceSucess()
+          }
+        }
+        if(response === true) {
+          const denounce = sendDenounce(localStorage.getItem('id'), inputDenounce.value, idComment, idPost )
+          if(denounce) {
+            denounceSucess()
+          }
+        }
+      })
+      setTimeout( ()=>{
+        backgroundModalHome2.style.opacity = 1
+    }, 400);
+    }
+
+    function sendPreDenounce() {
+      if(pDenounce) {
+        
+      }
+    }
+
+    function openModalNews2(idComment, response = ''){
+      buttonDenounce.style.display = 'none'
+      buttonDelete.style.display = 'none'
+      buttonEdit.style.display = 'block'
+      body.style.overflow = 'hidden'
+      backgroundModalHome2.style.display = 'flex'
+      const inputDenounce = document.querySelector('.textDenounce')
+      inputDenounce.setAttribute('placeholder', 'Edite o seu comentário')
+      inputDenounce.focus()
+      buttonEdit.addEventListener('click', () => {
+        if(inputDenounce.value.length > 1 && response == '') {
+          const edit = sendCommentEdit(localStorage.getItem('id'), inputDenounce.value, idComment )
+          if(edit) {
+            editSucess()
+          }
+        }
+        if(inputDenounce.value.length > 1 && response == true) {
+          const edit = sendCommentResponseEdit(localStorage.getItem('id'), inputDenounce.value, idComment )
+          if(edit) {
+            editSucess()
+          }
+        }
+      })
+      
+      
+      setTimeout( ()=>{
+          backgroundModalHome2.style.opacity = 1
+      }, 400);
+    }
+
+    function openModalNews3(idComment, response = ''){
+      buttonDenounce.style.display = 'none'
+      buttonDelete.style.display = 'block'
+      buttonEdit.style.display = 'none'
+      body.style.overflow = 'hidden'
+      backgroundModalHome2.style.display = 'flex'
+      const inputDenounce = document.querySelector('.textDenounce')
+      buttonDelete.addEventListener('click', () => {
+        if(response == '') {
+          const edit = sendDeleteComment(localStorage.getItem('id'), idComment )
+          if(edit) {
+            deleteSucess()
+          }
+        }
+        if(response == true) {
+          const edit = sendDeleteCommentResponse(localStorage.getItem('id'), idComment )
+          if(edit) {
+            deleteSucess()
+          }
+        }
+      })
+      
+      
+      setTimeout( ()=>{
+          backgroundModalHome2.style.opacity = 1
+      }, 400);
+    }
+
+    function closeModalNews() {
+      body.style.overflow = 'auto'
+      backgroundModalHome2.style.opacity = 0
+      buttonDenounce.style.backgroundColor = 'var(--orange-black)'
+      buttonDenounce.innerText = 'Denunciar'
+      setTimeout( ()=>{
+        backgroundModalHome2.style.display = 'none'
+      }, 400);
+    }
+
+    pDenounce.forEach((item, indice, array) => {
+      item.addEventListener('click', async (a) => {
+        if(localStorage.getItem('id')) {
+          h3Modal2.innerText = 'Achou este comentário ofensivo ou inapropriado? Por favor denuncie-o. Nossa equipe de moderação irá analisá-lo e, se for o caso, excluí-lo.'
+          const idComment = a.target.getAttribute('data-item')
+          const idComment2 = a.target.getAttribute('data-2item')
+          const idPost = a.target.getAttribute('data-news')
+          console.log(idComment2)
+          if(idComment && idPost && idComment2 === null) {
+            const comment = await findOneComment(idComment)
+            console.log(idComment)
+            if(comment) {
+              areaModalCommentDenounce.style.display = 'block'
+              areaModalCommentDenounce.innerText = comment.comment
+              openModalNews(comment.id, idPost)
+            }
+          }
+          if(idComment2 && idPost && idComment === null) {
+            const comment = await findOneCommentResponse(idComment2)
+            console.log(comment)
+            if(comment) {
+              areaModalCommentDenounce.style.display = 'block'
+              areaModalCommentDenounce.innerText = comment.comment_response
+              openModalNews(comment.id, idPost, response = true)
+            }
+          }
+        } else {
+          openModal2()
+        }
+      })
+    })
+    pEdit.forEach(item => {
+      item.addEventListener('click', async(c) => {
+        h3Modal2.innerText = 'Edite o seu comentário.'
+        const idComment = c.target.getAttribute('data-item')
+        const idComment2 = c.target.getAttribute('data-resp-item')
+
+        if(idComment || idComment2) {
+          const comment = await findOneComment(idComment)
+          const comment2 = await findOneCommentResponse(idComment2)
+          if(comment !== undefined || comment2 != undefined) {
+            areaModalCommentDenounce.style.display = 'none'
+            const inputDenounce = document.querySelector('.textDenounce')
+            inputDenounce.style.display = 'block'
+            if(comment !== undefined) {
+              inputDenounce.value = comment.comment
+              openModalNews2(comment.id)
+            }
+            if(comment2 !== undefined) {
+              inputDenounce.value = comment2.comment_response
+              openModalNews2(comment2.id, response = true)
+            }
+          }
+        }
+      })
+    })
+    pDel.forEach(itemm => {
+      itemm.addEventListener('click', async(a) => {
+        h3Modal2.innerText = 'Tem certeza que deseja excluir o seu comentário?'
+        const idComment = a.target.getAttribute('data-item')
+        const idComment2 = a.target.getAttribute('data-resp-item')
+        
+        if(idComment || idComment2) {
+          const comment = await findOneComment(idComment)
+          const comment2 = await findOneCommentResponse(idComment2)
+          if(comment !== undefined || comment2 != undefined) {
+            areaModalCommentDenounce.style.display = 'block'
+            const inputDenounce = document.querySelector('.textDenounce')
+            inputDenounce.style.display = 'none'
+            if(comment !== undefined) {
+              areaModalCommentDenounce.innerText = comment.comment
+              openModalNews3(comment.id)
+            }
+            if(comment2 !== undefined) {
+              areaModalCommentDenounce.innerText = comment2.comment_response
+              openModalNews3(comment2.id, response = true)
+            }
+          }
+        }
+      })
+    })
+    areaUploadComment.forEach(item => 
+        item.addEventListener('click', item => {
+        const id = item.target.getAttribute('get-item')
+        const id3 = item.target.getAttribute('data-item')
+        openUploadComment(id)
+    }))
+    
+    function openUploadComment(id) {
+      areaUploadCommentNone.forEach(item => {
+        const id2 = item.getAttribute('get-item')
+        if(id === id2) {
+          item.classList.toggle('area-comments-complaint-none')
+        }
+      })
+    }
+
+  }, 500)
+  
+</script>

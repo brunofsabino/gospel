@@ -127,7 +127,6 @@ export const one = async(req: Request, res: Response) => {
 export const oneNews = async(req: Request, res: Response) => {
   const { title } = req.params
   const { id } = req.body
-  console.log(title)
   const newTitle = title.split('-').join(' ')
   const one = await PostService.findOneByTitle(newTitle)
   //const userId = req.session.userId;
@@ -147,22 +146,10 @@ export const oneNews = async(req: Request, res: Response) => {
   
   if(one) {
     const comments = await CommentService.findAllPost(one.id)
-    //const updateLikesFalse = CommentService.updateShowLikesFalse(one.id)
     const responseComments = await CommentService.findAllResponseComments(one.id)
     const likes = await LikeInCommentService.findAllLikeComment(one.id)
     const responseLikes = await LikeInCommentService.findAllLikeResponseComment(one.id)
-    // const userId = req.session.userId;
-    // console.log(userId)
-    // if(id){
-    //   likes.forEach(item => {
-    //     if(item.user_id === id) {
-    //       const updateLikes = CommentService.updateShowLikesTrue(item.comment_id)
-    //     }
-    //   })
-    //   console.log(likes)
-    // }
     
-    //console.log(likes)
     console.log(responseComments)
     if(comments) {
       res.render('pages/news', {

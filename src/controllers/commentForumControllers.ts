@@ -4,6 +4,7 @@ import { PostService } from "../services/PostService";
 import { CommentService } from "../services/CommentService";
 import { CommentForumService } from "../services/CommentForumService";
 import { ForumService } from "../services/ForumService";
+import { User } from "@prisma/client";
 
 
 export const create = async(req: Request, res: Response) => {
@@ -14,9 +15,59 @@ export const create = async(req: Request, res: Response) => {
   const forum = await ForumService.findOne(forumId)
 
   if(user && forum && comment ) {
-    const newCommentForum = await CommentForumService.create(user.id, { forumId, comment, id_comment_forum: id_comment_forum ?? ''})
+    const nameUserInComment = user.name
+    const imgUserInComment = user.avatar ?? ''
+    console.log(nameUserInComment)
+    const newCommentForum = await CommentForumService.create(user.id, { 
+      forumId, 
+      comment, 
+      id_comment_forum: id_comment_forum ?? '',
+      nameUserInComment,
+      imgUserInComment
+    })
     if(newCommentForum) {
       res.status(201).json({ commentForum: newCommentForum })
+    } else {
+      res.status(500).json({error : "Dados invalidos"})
+    }
+  } else {
+      res.status(500).json({error : "Dados invalidos"})
+  }
+}
+export const createResponseComment = async(req: Request, res: Response) => {
+  const { userId, postId, commentId    } = req.params
+  const { comment, comment2, name2 } = req.body
+
+  const user = await UserService.findOne(userId)
+  const post = await ForumService.findOne(postId)
+  const commentPost = await CommentForumService.findOne(commentId)
+
+  if(user && post && comment && commentPost) {
+    const nameUser = user.name
+    const imgUser = user.avatar
+    const userNameCommentReply = name2 ?? commentPost.nameUserInComment
+    const userAvatarCommentReply = commentPost.imgUserInComment
+    const dateCommentReply = commentPost.date
+    console.log(name2)
+    console.log(userNameCommentReply)
+    
+    const newCommentResponsePost = await CommentForumService.createResponseComment(user.id, { 
+      post_id: post.id, 
+      id_comment: commentPost.id,
+      nameUser,
+      imgUser: imgUser ?? '',
+      userNameCommentReply,
+      userAvatarCommentReply: userAvatarCommentReply ?? '',
+      dateCommentReply,
+      comment_response: comment,
+      userCommentReply: comment2 ?? commentPost.comment
+    })
+    if(newCommentResponsePost) {
+      //const updateQtComments = await PostService.updateQtComments(post.id)
+      // if(updateQtComments) {
+        
+      // }
+      res.status(201).json({ commentResponse: newCommentResponsePost })
     } else {
       res.status(500).json({error : "Dados invalidos"})
     }
@@ -42,23 +93,122 @@ export const one = async(req: Request, res: Response) => {
       res.status(500).json({error : "Dados invalidos"})
   }
 }
-export const update = async(req: Request, res: Response) => {
+export const oneResponse = async(req: Request, res: Response) => {
   const { id } = req.params
-  const { comment, id_comment_forum } = req.body
-  const commentForumOne = await CommentForumService.findOne(id)
-  if(commentForumOne && comment) {
-    const commentForumUpdate = await CommentForumService.update(commentForumOne.id, {
-      comment,
-      id_comment_forum: id_comment_forum ?? commentForumOne.id_comment_forum
-    })
-    if(commentForumUpdate) {
-        res.status(201).json({ commentForum: commentForumUpdate })
-    } else {
-        res.status(500).json({error : "Dados invalidos"})
-    }
-      
+  const comment = await CommentForumService.findOneResponseComment(id)
+  if(comment) {
+      res.status(200).json({comment })
   } else {
       res.status(500).json({error : "Dados invalidos"})
+  }
+}
+export const update = async(req: Request, res: Response) => {
+  const { id } = req.params
+  const { comment, idUser } = req.body
+  const commentOne = await CommentForumService.findOne(id)
+  
+  if(req.user ) {
+    const user = req.user as User
+    if(user.id  === idUser) {
+      if(commentOne && comment) {
+        const commentUpdate = await CommentForumService.update(commentOne.id, {
+          comment
+        })
+        if(commentUpdate) {
+            res.status(201).json({ comment: commentUpdate })
+        } else {
+            res.status(500).json({error : "Dados invalidos"})
+        }
+      } else {
+          res.status(500).json({error : "Dados invalidos"})
+      }
+    } else {
+      res.status(500).json({error : "Dados invalidos"})
+    }
+  } else {
+    res.status(500).json({error : "Dados invalidos"})
+  }
+}
+export const updateResponse = async(req: Request, res: Response) => {
+  const { id } = req.params
+  const { comment, idUser } = req.body
+  const commentOne = await CommentForumService.findOneResponseComment(id)
+  
+  if(req.user ) {
+    const user = req.user as User
+    if(user.id  === idUser) {
+      if(commentOne && comment) {
+        const commentUpdate = await CommentForumService.updateResponseComment(commentOne.id, {
+          comment
+        })
+        if(commentUpdate) {
+            res.status(201).json({ comment: commentUpdate })
+        } else {
+            res.status(500).json({error : "Dados invalidos"})
+        }
+          
+      } else {
+          res.status(500).json({error : "Dados invalidos"})
+      }
+    } else {
+      res.status(500).json({error : "Dados invalidos"})
+    }
+  } else {
+    res.status(500).json({error : "Dados invalidos"})
+  }
+}
+export const updateDel = async(req: Request, res: Response) => {
+  const { id } = req.params
+  const {  idUser } = req.body
+  const commentOne = await CommentForumService.findOne(id)
+  
+  if(req.user ) {
+    const user = req.user as User
+    if(user.id  === idUser) {
+      if(commentOne ) {
+        const commentUpdateDel = await CommentForumService.updateDel(commentOne.id, {
+          commentShow: !commentOne.commentShow
+        })
+        if(commentUpdateDel) {
+            res.status(201).json({ comment: commentUpdateDel })
+        } else {
+            res.status(500).json({error : "Dados invalidos"})
+        }
+      } else {
+          res.status(500).json({error : "Dados invalidos"})
+      }
+    } else {
+      res.status(500).json({error : "Dados invalidos"})
+    }
+  } else {
+    res.status(500).json({error : "Dados invalidos"})
+  }
+}
+export const updateDelResponse = async(req: Request, res: Response) => {
+  const { id } = req.params
+  const {  idUser } = req.body
+  const commentOne = await CommentForumService.findOneResponseComment(id)
+  
+  if(req.user ) {
+    const user = req.user as User
+    if(user.id  === idUser) {
+      if(commentOne ) {
+        const commentUpdateDel = await CommentForumService.updateDelResponse(commentOne.id, {
+          commentShow: !commentOne.commentShow
+        })
+        if(commentUpdateDel) {
+            res.status(201).json({ comment: commentUpdateDel })
+        } else {
+            res.status(500).json({error : "Dados invalidos"})
+        }
+      } else {
+          res.status(500).json({error : "Dados invalidos"})
+      }
+    } else {
+      res.status(500).json({error : "Dados invalidos"})
+    }
+  } else {
+    res.status(500).json({error : "Dados invalidos"})
   }
 }
 export const deleteCommentForum = async(req: Request, res: Response) => {

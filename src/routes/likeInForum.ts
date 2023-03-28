@@ -5,6 +5,7 @@ import * as LikeInForumController from '../controllers/likeInCommentForumControl
 const router = Router()
 
 router.post('/likeInForum', privateRoute, LikeInForumController.create)
+router.post('/likeInResponseForumComment', privateRoute, LikeInForumController.createResponse)
 router.get('/likeInForum', privateRoute, LikeInForumController.all)
 router.get('/likeInForum/:id', privateRoute, LikeInForumController.one)
 router.put('/likeInForum/:id', privateRoute, LikeInForumController.update)
