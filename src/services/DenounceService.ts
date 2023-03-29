@@ -14,7 +14,19 @@ type PropCreate = {
   id_forum_comment?: string, 
   id_forum_comment_response?: string, 
 }
-
+type PropCreateForum = {
+  nameUser: string,                  
+  userDenounced_id?: string, 
+  nameUserDenounced?: string, 
+  textDenounce?: string, 
+  describingDenounce?: string, 
+  forum_id?: string, 
+  id_comment?: string, 
+  id_response_comment?: string, 
+  id_forum?: string, 
+  id_forum_comment?: string, 
+  id_forum_comment_response?: string, 
+}
 
 export const DenounceService = {
   create: async(id: string, data: PropCreate) => {
@@ -37,7 +49,30 @@ export const DenounceService = {
     })
     return denounce
   },
+  createInForum: async(id: string, data: PropCreateForum) => {
+    const denounce =  await prisma.denounceInForum.create({
+      data: {
+          user_id: id,
+          nameUser: data.nameUser,
+          userDenounced_id: data.userDenounced_id ?? undefined,
+          nameUserDenounced: data.nameUserDenounced ?? undefined,
+          textDenounce: data.textDenounce ?? undefined,
+          describingDenounce: data.describingDenounce ?? undefined,
+          forum_id: data.forum_id ?? undefined,
+          id_comment: data.id_comment ?? undefined,
+          id_response_comment: data.id_response_comment ?? undefined,
+          id_forum: data.id_forum ?? undefined,
+          id_forum_comment: data.id_forum_comment ?? undefined,
+          id_forum_comment_response: data.id_forum_comment_response ?? undefined,
+          
+      }
+    })
+    return denounce
+  },
   findAll: async() => {
     return await prisma.denounce.findMany({})
+  },
+  findAllInForum: async() => {
+    return await prisma.denounceInForum.findMany({})
   },
 }

@@ -69,10 +69,10 @@ export const CommentForumService = {
     }})
   },
   findOneResponseComment: async(id: string) => {
-    return await prisma.commentInForum.findUnique({ where: { id }})
+    return await prisma.responseCommentInForum.findUnique({ where: { id }})
   },
   findAllResponseComments: async(id: string) => {
-    return await prisma.commentInForum.findMany({ where: { forum_id: id}})
+    return await prisma.responseCommentInForum.findMany({ where: { forum_id: id}})
   },
   update: async(id: string, data: UpdateCreate) => {
     return await prisma.commentInForum.update({

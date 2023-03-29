@@ -273,11 +273,13 @@ main {
   margin-right: 5px;
 }
 .area-forum-title-name-user {
-  background-color: var(--orange-black);
+  background-color: #48BC6A;
   width: fit-content;
   padding: 5px 10px;
   border-radius: 15px;
   color: #fff;
+  margin: 15px 0px;
+  font-size: 12px;
 }
 .area-perfil-comments {
   display: flex;
@@ -285,6 +287,23 @@ main {
 .area-perfil {
   padding: 30px;
   width: 30%;
+}
+.area-forum-area-buttons {
+  margin: 15px 0px;
+}
+.area-forum-area-buttons .btn-forum {
+  background-color: #41B5D3;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 10px;
+  margin-right: 15px;
+}
+.area-forum-area-buttons .btn-newforum {
+  background-color: var(--orange-black);
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 10px;
+  margin-right: 15px;
 }
 .area-perfil-content {
   border: 1px solid var(--orange-black);

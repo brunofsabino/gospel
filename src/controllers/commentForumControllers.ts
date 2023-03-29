@@ -107,7 +107,7 @@ export const update = async(req: Request, res: Response) => {
   const { comment, idUser } = req.body
   const commentOne = await CommentForumService.findOne(id)
   
-  if(req.user ) {
+  if(req.user) {
     const user = req.user as User
     if(user.id  === idUser) {
       if(commentOne && comment) {

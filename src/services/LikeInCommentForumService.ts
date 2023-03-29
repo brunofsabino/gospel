@@ -55,16 +55,16 @@ export const LikeInCommentForumService = {
     return await prisma.likeInForum.findMany({ where: { forum_id: id, done: true}})
   },
   findAllLikeResponseComment: async(id: string) => {
-    return await prisma.likeInForum.findMany({ where: { forum_id: id, done: true}})
+    return await prisma.likeInResponseCommentForum.findMany({ where: { forum_id: id, done: true}})
   },
   findOneByResponseCommentId: async( comment_id: string, user_id: string) => {
-    return await prisma.likeInForum.findFirst({ where: { commentInForum_id: comment_id, user_id }})
+    return await prisma.likeInResponseCommentForum.findFirst({ where: { commentForum_id: comment_id, user_id }})
   },
   findOne: async(id: string) => {
     return await prisma.likeInForum.findUnique({ where: { id }})
   },
-  findOneByCommentId: async( commentInForum_id: string) => {
-    return await prisma.likeInForum.findFirst({ where: { commentInForum_id }})
+  findOneByCommentId: async( user_id: string, commentInForum_id: string) => {
+    return await prisma.likeInForum.findFirst({ where: { user_id , commentInForum_id }  })
   },
   update: async(id: string, data: UpdateCreate) => {
     return await prisma.likeInForum.update({

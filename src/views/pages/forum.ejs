@@ -1,6 +1,48 @@
 <%- include('../partials/header') %>
 <main>
   <div class="area-forum-title container">
+    <div class="modal-login-home2">
+      <div class="modal-login-home-content2">
+        <div class="modal-login-home-close2">
+          <img src="/images/close.svg" alt="Fechar modal">
+        </div>
+        <h3></h3>
+        <div class="modal-login-home-inputs">
+          <div class="modal-news-comment"></div>
+          <input type="text" placeholder="[Opcional]: Descreva o motivo da denúncia." name="textDenounce" class="textDenounce">
+          <textarea name="textDescribeForum" id="" class="textDescribeForum" placeholder="Descreva a descrição do tópico: Ao criar uma descrição clara e objetiva do seu tópico, você estará incentivando um debate saudável e enriquecedor para todos os usuários do Opinião Gospel!"></textarea>
+          <!-- <input type="text"  cols="30" rows="10" placeholder="Descreva a descrição do tópico: Ao criar uma descrição clara e objetiva do seu tópico, você estará incentivando um debate saudável e enriquecedor para todos os usuários do fórum." name="textDescribe" class="textDescribeForum">
+          <div class="modal-login-home-inputs-p">
+            <p>Seu e-mail:</p>
+          </div>
+          <input type="text" placeholder="Seu e-mail" name="email" class="email">
+          <p class="notice-email"></p>
+          <div class="modal-login-home-inputs-p-n">
+            <p>Seu nome:</p>
+          </div>
+          <input type="text" placeholder="Digite seu nome" name="name" class="nameInput">
+          <p class="notice-name"></p>
+          <div class="modal-login-home-inputs-p-p">
+            <p>Sua senha:</p>
+          </div>
+          <input type="password" placeholder="Sua senha" name="password" class="password">
+          <p class="notice-password"></p>
+          <div class="modal-login-home-inputs-p-p2">
+            <p>Confirme sua senha:</p>
+          </div>
+          <input type="password" placeholder="Confirme sua senha"  name="password2" class="p2assword">
+          <p class="notice-password2"></p> -->
+        </div>
+        <div class="modal-login-home-buttons">
+          <button class="buttonDenounce">Denunciar</button>
+          <button class="buttonEdit">Editar</button>
+          <button class="buttonDelete">Deletar</button>
+          <button class="buttonNewForum">Publicar</button>
+        </div>
+        
+      </div>
+      <div class="modal-login-home-content-close2"></div>
+    </div>
     <h1>Fórum Opinião Gospel</h1>
     <p>Nosso fórum é um espaço acolhedor para todas as opiniões, aqui é possível discutir e compartilhar diferentes pontos de vista sobre questões relacionadas à fé e aos demais assuntos de interesse da comunidade cristã, sempre de forma respeitosa e construtiva.</p>
     <div class="area-forum-title-button">
@@ -18,7 +60,7 @@
       <div class="area-forum-topics">
         <div class="area-topics-users">
           <%forums.forEach(function(item){%>
-            <a href="/forum/<%=item.title.split(' ').join('-')%>">
+            <a href="/forum/<%=item.title.split(' ').join('-').split('?').join('~')%>">
               <div class="area-topics-user">
                 <div class="area-topics-user-person">
                   <div class="area-topics-person-img">
@@ -29,7 +71,13 @@
                   <div class="area-topics-user-content-info">
                     <div class="area-topics-title-date">
                       <div class="area-topics-title">
-                        <h3><%=item.title%></h3> <div class="area-topics-date"><%=item.date.toString().slice(4,10)%></div>
+                        <h3>
+                          <%if(item.title.length < 65) { %>
+                            <%=item.title%>
+                          <% } else { %> 
+                            <%=item.title.substr(0,65)+"..."%>
+                          <% } %> 
+                        </h3> <div class="area-topics-date"><%=item.date.toString().slice(4,10)%></div>
                       </div>
                     </div>
                     <div class="area-topics-last-responde">
@@ -346,5 +394,91 @@
     </section>
   </div>
 </main>
+<script>
+  const buttonCloseModal2 = document.querySelector('.modal-login-home-close2')
+  const backgroundModalHome2 = document.querySelector('.modal-login-home2')
+  const modalHome2 = document.querySelector('.modal-login-home-content-close2')
+  const h3Modal2 = document.querySelector('.modal-login-home-content2 h3')
+  const areaModalCommentDenounce = document.querySelector('.modal-news-comment')
+  const buttonDenounce = document.querySelector('.buttonDenounce')
+  const buttonEdit = document.querySelector('.buttonEdit')
+  const buttonDelete = document.querySelector('.buttonDelete')
 
+  const buttonNewForum = document.querySelector('.buttonNewForum')
+
+  const btnNewForum = document.querySelector('.area-forum-title-button button')
+    btnNewForum.addEventListener('click', a => {
+      a.preventDefault()
+      if(!localStorage.getItem('id')){
+        openModal2()
+      } else {
+        openModalNewForum()
+      }
+    })
+
+  function openModalNewForum(idComment, response = ''){
+      buttonDenounce.style.display = 'none'
+      buttonDelete.style.display = 'none'
+      buttonEdit.style.display = 'none'
+      areaModalCommentDenounce.style.display = 'none'
+      buttonNewForum.style.display = 'block'
+      body.style.overflow = 'hidden'
+      h3Modal2.innerText = 'Crie um tópico no forum do Opinião Gospel!'
+      backgroundModalHome2.style.display = 'flex'
+      
+      const inputDenounce = document.querySelector('.textDenounce')
+      const describeForum = document.querySelector('.textDescribeForum')
+      describeForum.style.display = 'block'
+      inputDenounce.setAttribute('placeholder', 'Descreva em poucas palavras o título do seu tópico')
+      buttonNewForum.addEventListener('click', async () => {
+        if(inputDenounce.value.length > 10 && describeForum.value.length > 10) {
+          console.log(inputDenounce.value, describeForum.value)
+          const newForum = await createNewForum(localStorage.getItem('id'), inputDenounce.value,  describeForum.value)
+          if(newForum) {
+            const title = newForum.title.split(' ').join('-').split('?').join('~')
+            createForumSucess(title)
+          }
+        }
+      })
+      setTimeout( ()=>{
+          backgroundModalHome2.style.opacity = 1
+      }, 400);
+    }
+  async function createNewForum(user, title, description) {
+    const newForum = await fetch(`/forum/${user}`, {
+      method: 'POST',
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+      },
+      credentials: "include",
+      body: new URLSearchParams({
+        title, description
+      })
+    })
+    if(newForum.status === 401) {
+      //openModal2()
+    }
+    const json = await newForum.json()
+    if(json.newForum) {
+      return json.newForum
+    }
+  }
+  function createForumSucess(title) {
+    buttonNewForum.style.backgroundColor = '#0cc70cfc'
+    buttonNewForum.innerText = 'Tópico criado com sucesso'
+    setTimeout( ()=>{
+      closeModalNews()
+      document.location.href = `/forum/${title}`; 
+    }, 700);
+  }
+  function closeModalNews() {
+      body.style.overflow = 'auto'
+      backgroundModalHome2.style.opacity = 0
+      buttonDenounce.style.backgroundColor = 'var(--orange-black)'
+      buttonDenounce.innerText = 'Denunciar'
+      setTimeout( ()=>{
+        backgroundModalHome2.style.display = 'none'
+      }, 400);
+    }
+</script>
 <%- include('../partials/footer') %>

@@ -10,7 +10,9 @@
         <div class="modal-login-home-inputs">
           <div class="modal-news-comment"></div>
           <input type="text" placeholder="[Opcional]: Descreva o motivo da denúncia." name="textDenounce" class="textDenounce">
-          <!-- <div class="modal-login-home-inputs-p">
+          <textarea name="textDescribeForum" id="" class="textDescribeForum" placeholder="Descreva a descrição do tópico: Ao criar uma descrição clara e objetiva do seu tópico, você estará incentivando um debate saudável e enriquecedor para todos os usuários do Opinião Gospel!"></textarea>
+          <!-- <input type="text"  cols="30" rows="10" placeholder="Descreva a descrição do tópico: Ao criar uma descrição clara e objetiva do seu tópico, você estará incentivando um debate saudável e enriquecedor para todos os usuários do fórum." name="textDescribe" class="textDescribeForum">
+          <div class="modal-login-home-inputs-p">
             <p>Seu e-mail:</p>
           </div>
           <input type="text" placeholder="Seu e-mail" name="email" class="email">
@@ -35,13 +37,16 @@
           <button class="buttonDenounce">Denunciar</button>
           <button class="buttonEdit">Editar</button>
           <button class="buttonDelete">Deletar</button>
+          <button class="buttonNewForum">Publicar</button>
         </div>
         
       </div>
       <div class="modal-login-home-content-close2"></div>
     </div>
-    <div class="area-forum-title-name-user">Por: <%=foruns.name_user%></div>
+    <div class="area-forum-area-buttons"><a href="/forum" class="btn-forum">Voltar ao Fórum</a><a href="" class="btn-newforum">Criar Novo Tópico</a></div>
+    
     <h1><%=foruns.title%></h1>
+    <div class="area-forum-title-name-user">Criado por: <%=foruns.name_user%></div>
     <p style="padding: 35px 15px; background-color: #fff;  border-radius: 15px; border: 1px solid var(--orange-black);"><%=foruns.description%></p>
   </div>
   <div class="area-forum-topics-aside container">
@@ -165,6 +170,8 @@
     </section>
   </div>
 </main>
-
+<script>
+  
+</script>
 
 <%- include('../partials/footer') %>

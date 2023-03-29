@@ -10,13 +10,10 @@ import { CommentForumService } from "../services/CommentForumService";
 
 export const create = async(req: Request, res: Response) => {
   const { userId , postId, commentId  } = req.body
-  // commentId,
-  //         userId,
-  //         postId
   const user = await UserService.findOne(userId)
   const forum = await ForumService.findOne(postId)
   const commentForum = await CommentForumService.findOne(commentId)
-  const likeCommentForum = await LikeInCommentForumService.findOneByCommentId(commentId)
+  const likeCommentForum = await LikeInCommentForumService.findOneByCommentId(userId, commentId)
 
   if(user && forum && commentForum && !likeCommentForum ) {
     const newLikeInCommentPost = await LikeInCommentForumService.create(user.id, { 
@@ -75,7 +72,7 @@ export const createResponse = async(req: Request, res: Response) => {
       userCommentReply: comment.userNameCommentReply ?? '',
       dateCommentReply: comment.dateCommentReply ?? new Date(),
       qtLikes: comment.qtLikes ?? null,
-      comment_response: comment.commentReply ?? '' 
+      comment_response: comment.comment_response  
     })
     if(newLikeInResponseCommentPost) {
       const qtLikesInComment = await CommentForumService.updateQtResponseLikes(newLikeInResponseCommentPost.commentForum_id)

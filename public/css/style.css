@@ -681,6 +681,11 @@ footer .header-logo p {
 .modal-login-home-content2 h3 {
   text-align: center;
 }
+.modal-login-home-content2 h3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
 .modal-login-home-inputs {
   display: flex;
   flex-direction: column;
@@ -691,13 +696,17 @@ footer .header-logo p {
 .modal-login-home-inputs .password,
 .modal-login-home-inputs .nameInput,
 .modal-login-home-inputs .p2assword,
-.textDenounce {
-  width: 85%;
+.textDenounce,
+.textDescribeForum {
+  width: 90%;
   padding: 8px;
   border-radius: 5px;
   outline: none;
   border: 1px solid #999;
   margin-bottom: 10px;
+}
+.textDescribeForum {
+  height: 140px;
 }
 .modal-login-home-inputs .password,
 .modal-login-home-inputs .p2assword,
@@ -728,7 +737,8 @@ footer .header-logo p {
 .buttonLoginEmail,
 .buttonDenounce,
 .buttonEdit,
-.buttonDelete {
+.buttonDelete,
+.buttonNewForum {
   display: flex;
   align-items: center;
   justify-content: center;

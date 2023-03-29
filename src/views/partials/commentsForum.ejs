@@ -173,7 +173,7 @@
             <div class="area-comments-user-like-dislike-resp">
               <div class="area-comments-user-like-resp" data="<%=item.forum_id%>" id-item="<%=item.id%>">
                 <%responseLikes.forEach(function(like){%>
-                  <% if (like.user_id===userId.id && like.comment_id===item.id ) { %>   
+                  <% if (like.user_id===userId.id && like.commentForum_id===item.id ) { %>   
                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="var(--orange-black)"  xmlns="http://www.w3.org/2000/svg"  >
                       <path d="M8 10V20M8 10L4 9.99998V20L8 20M8 10L13.1956 3.93847C13.6886 3.3633 14.4642 3.11604 15.1992 3.29977L15.2467 3.31166C16.5885 3.64711 17.1929 5.21057 16.4258 6.36135L14 9.99998H18.5604C19.8225 9.99998 20.7691 11.1546 20.5216 12.3922L19.3216 18.3922C19.1346 19.3271 18.3138 20 17.3604 20L8 20" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>               
@@ -202,7 +202,7 @@
                 </div>
               </div>
               <div class="area-comments-content-resp"  id-item="<%=item.forum_id%>">
-                <input type="text" placeholder="Deixe sua resposta" get-item="<%=item.id_comment%>" data-comment="<%=item.comment_response%>" data-name="<%=item.nameUser%>">
+                <input type="text" placeholder="Deixe sua resposta" get-item="<%=item.id_commentForum %>" data-comment="<%=item.comment_response%>" data-name="<%=item.nameUser%>">
                 <img src="/images/send.png" alt="Enviar Comentário" get-item="<%=userId.id%>">
               </div>
             </div>
@@ -429,6 +429,7 @@
     } 
   }
   async function sendLikeInResponseComment(commentId, userId, postId) {
+    console.log(commentId, userId, postId)
     if(userId) {
       const like = await fetch(`/likeInResponseForumComment`, {
         method: 'POST',
@@ -560,7 +561,7 @@
     }
   }
   async function sendDenounce(idUser, text, idComment, idPost) {
-    const denounce = await fetch(`/denounceComment`, {
+    const denounce = await fetch(`/denounceCommentInForum`, {
       method: 'POST',
       headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -642,7 +643,7 @@
       return json.comment
     }
   }
-  sendDeleteCommentResponse
+  
   async function sendDeleteCommentResponse(idUser, id) {
     const deleteComment = await fetch(`/commentForumresponse/del/${id}`, {
       method: 'PUT',
@@ -662,6 +663,26 @@
       return json.comment
     }
   }
+  
+  async function createNewForum(user, title, description) {
+    const newForum = await fetch(`/forum/${user}`, {
+      method: 'POST',
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+      },
+      credentials: "include",
+      body: new URLSearchParams({
+        title, description
+      })
+    })
+    if(newForum.status === 401) {
+      //openModal2()
+    }
+    const json = await newForum.json()
+    if(json.newForum) {
+      return json.newForum
+    }
+  }
   setTimeout(()=> {
     const buttonReplyComment = document.querySelectorAll('.area-comments-user-resp')
     const replyComment = document.querySelectorAll('.area-comments-reply-new')
@@ -676,6 +697,7 @@
     const buttonDenounce = document.querySelector('.buttonDenounce')
     const buttonEdit = document.querySelector('.buttonEdit')
     const buttonDelete = document.querySelector('.buttonDelete')
+    const buttonNewForum = document.querySelector('.buttonNewForum')
     
 
     const pDenounce = document.querySelectorAll('.denounce')
@@ -730,13 +752,24 @@
         document.location.reload(); 
       }, 700);
     }
+    function createForumSucess(title) {
+      buttonNewForum.style.backgroundColor = '#0cc70cfc'
+      buttonNewForum.innerText = 'Tópico criado com sucesso'
+      setTimeout( ()=>{
+        closeModalNews()
+        document.location.href = `/forum/${title}`; 
+      }, 700);
+    }
     function openModalNews(idComment, idPost, response = '') {
       buttonDenounce.style.display = 'block'
       buttonDelete.style.display = 'none'
       buttonEdit.style.display = 'none'
+      buttonNewForum.style.display = 'none'
       body.style.overflow = 'hidden'
       backgroundModalHome2.style.display = 'flex'
       const inputDenounce = document.querySelector('.textDenounce')
+      const describeForum = document.querySelector('.textDescribeForum')
+      describeForum.style.display = 'none'
       inputDenounce.setAttribute('placeholder', '[Opcional]: Descreva o motivo da denúncia.')
       buttonDenounce.addEventListener('click', () => {
         if(response === '') {
@@ -766,10 +799,13 @@
     function openModalNews2(idComment, response = ''){
       buttonDenounce.style.display = 'none'
       buttonDelete.style.display = 'none'
+      buttonNewForum.style.display = 'none'
       buttonEdit.style.display = 'block'
       body.style.overflow = 'hidden'
       backgroundModalHome2.style.display = 'flex'
       const inputDenounce = document.querySelector('.textDenounce')
+      const describeForum = document.querySelector('.textDescribeForum')
+      describeForum.style.display = 'none'
       inputDenounce.setAttribute('placeholder', 'Edite o seu comentário')
       inputDenounce.focus()
       buttonEdit.addEventListener('click', () => {
@@ -797,9 +833,12 @@
       buttonDenounce.style.display = 'none'
       buttonDelete.style.display = 'block'
       buttonEdit.style.display = 'none'
+      buttonNewForum.style.display = 'none'
       body.style.overflow = 'hidden'
       backgroundModalHome2.style.display = 'flex'
       const inputDenounce = document.querySelector('.textDenounce')
+      const describeForum = document.querySelector('.textDescribeForum')
+      describeForum.style.display = 'none'
       buttonDelete.addEventListener('click', () => {
         if(response == '') {
           const edit = sendDeleteComment(localStorage.getItem('id'), idComment )
@@ -814,8 +853,43 @@
           }
         }
       })
+      setTimeout( ()=>{
+          backgroundModalHome2.style.opacity = 1
+      }, 400);
+    }
+    const btnNewForum = document.querySelector('.btn-newforum')
+    btnNewForum.addEventListener('click', a => {
+      a.preventDefault()
+      if(!localStorage.getItem('id')){
+        openModal2()
+      } else {
+        openModalNewForum()
+      }
+    })
+    function openModalNewForum(idComment, response = ''){
+      buttonDenounce.style.display = 'none'
+      buttonDelete.style.display = 'none'
+      buttonEdit.style.display = 'none'
+      areaModalCommentDenounce.style.display = 'none'
+      buttonNewForum.style.display = 'block'
+      body.style.overflow = 'hidden'
+      h3Modal2.innerText = 'Crie um tópico no forum do Opinião Gospel!'
+      backgroundModalHome2.style.display = 'flex'
       
-      
+      const inputDenounce = document.querySelector('.textDenounce')
+      const describeForum = document.querySelector('.textDescribeForum')
+      describeForum.style.display = 'block'
+      inputDenounce.setAttribute('placeholder', 'Descreva em poucas palavras o título do seu tópico')
+      buttonNewForum.addEventListener('click', async () => {
+        if(inputDenounce.value.length > 10 && describeForum.value.length > 10) {
+          console.log(inputDenounce.value, describeForum.value)
+          const newForum = await createNewForum(localStorage.getItem('id'), inputDenounce.value,  describeForum.value)
+          if(newForum) {
+            const title = newForum.title.split(' ').join('-').split('?').join('~')
+            createForumSucess(title)
+          }
+        }
+      })
       setTimeout( ()=>{
           backgroundModalHome2.style.opacity = 1
       }, 400);

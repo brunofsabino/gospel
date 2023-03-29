@@ -26,6 +26,7 @@ model User {
   DenounceComment            Denounce[]
   ResponseCommentInForum     ResponseCommentInForum[]
   LikeInResponseCommentForum LikeInResponseCommentForum[]
+  DenounceInForum            DenounceInForum[]
 
   @@map("users")
 }
@@ -228,7 +229,7 @@ model LikeInForum {
   forum_id          String
   done              Boolean        @default(true)
   user_id           String
-  commentInForum_id String         @unique
+  commentInForum_id String
   forumId           Forum          @relation(fields: [forum_id], references: [id], onDelete: Cascade)
   userId            User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
   commentId         CommentInForum @relation(fields: [commentInForum_id], references: [id], onDelete: Cascade)
@@ -267,11 +268,25 @@ model Denounce {
   done                      Boolean @default(false)
   userId                    User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
-  //postId              Post            @relation(fields: [post_id], references: [id], onDelete: Cascade)
-  // commentId           CommentInPost   @relation(fields: [id_comment], references: [id], onDelete: Cascade)
-  // commentResponseId   ResponseComment @relation(fields: [id_response_comment], references: [id], onDelete: Cascade)
-  // forumId             Forum           @relation(fields: [id_forum], references: [id], onDelete: Cascade)
-  // forumCommentId      CommentInForum  @relation(fields: [id_forum_comment], references: [id], onDelete: Cascade)
-
   @@map("denounces")
+}
+
+model DenounceInForum {
+  id                        String  @id @default(uuid())
+  user_id                   String
+  nameUser                  String
+  userDenounced_id          String?
+  nameUserDenounced         String?
+  textDenounce              String?
+  describingDenounce        String?
+  forum_id                  String?
+  id_comment                String?
+  id_response_comment       String?
+  id_forum                  String?
+  id_forum_comment          String?
+  id_forum_comment_response String?
+  done                      Boolean @default(false)
+  userId                    User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("denouncesInForum")
 }

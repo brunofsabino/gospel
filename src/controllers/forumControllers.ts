@@ -8,30 +8,35 @@ import { LikeInCommentForumService } from "../services/LikeInCommentForumService
 
 export const create = async(req: Request, res: Response) => {
   const { title, description } = req.body;
+  console.log(title)
   const { user } = req.params
-  // if(req.user =) {
-  //   if(req.user.id === user) {
-
-  //   }
-  // }
-  
   const userLogged = await UserService.findOne(user)
-  if(title && description &&  userLogged) {
-    const newForum = await ForumService.create({ 
-      userLogged: userLogged.id, 
-      title, 
-      description, 
-      avatar_user: userLogged.avatar ?? undefined, 
-      name_user: userLogged.name ?? undefined
-    })
-    if(newForum) {
-        res.status(201).json({ forum: newForum })
-    } else {
-      res.status(500).json({error : "Dados invalidos"})
-    }
-     } else {
+  if(req.user && userLogged && title && description ) {
+    const user = req.user as User
+    if(user.id  === userLogged.id){
+      const newForum = await ForumService.create({ 
+        userLogged: userLogged.id, 
+        title, 
+        description, 
+        avatar_user: userLogged.avatar ?? undefined, 
+        name_user: userLogged.name ?? undefined
+      })
+      if(newForum) {
+          res.status(201).json({ newForum })
+      } else {
         res.status(500).json({error : "Dados invalidos"})
-    }
+      }
+    } else {
+      res.status(500).json({error : "Usuario Invalido"})
+  }
+  } else {
+    res.status(500).json({error : "Dados invalidos"})
+}
+  
+  
+ 
+    
+     
 }
 export const home = async(req: Request, res: Response) => {
   const forums = await ForumService.findAll()
@@ -81,7 +86,9 @@ export const one = async(req: Request, res: Response) => {
 
 export const oneForum = async(req: Request, res: Response) => {
   const { title } = req.params
-  const newTitle = title.split('-').join(' ')
+  const newTitle = title.split('-').join(' ').split('~').join('?')
+  //const newTitle = decodeURI(title)
+console.log(newTitle)
   const one = await ForumService.findOneByTitle(newTitle)
   //const forum = await ForumService.findOne(id)
   if(one) {
@@ -102,9 +109,9 @@ export const oneForum = async(req: Request, res: Response) => {
     const responseLikes = await LikeInCommentForumService.findAllLikeResponseComment(one.id)
 
     console.log(userId)
+    // console.log(likes)
+    console.log(responseComments)
     console.log(one)
-    console.log(comments)
-    console.log(likes)
 
     res.render('pages/oneforum', {
       foruns: one,
