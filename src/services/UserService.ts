@@ -24,6 +24,10 @@ export const UserService = {
     findADM: async(id: string) => {
         return await prisma.userADM.findUnique({ where: { id }})
     },
+    findOneByNameId: async(id: string, name: string) => {
+        console.log(name, id)
+        return await prisma.user.findFirst({ where: { name, id }})
+    },
     findAll: async() => {
         return await prisma.user.findMany({})
     },

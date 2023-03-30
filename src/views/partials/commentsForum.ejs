@@ -1,7 +1,13 @@
 <div class="news-details-comments" style="width: 65%;">
   <div class="news-details-comments-qt">
     <% if (comments.length>0) { %>
-      <p><%=comments.length+responseComments.length%> Comentários</p>
+      <p>
+        <% if (comments.length+responseComments.length == 1 ) { %>
+          <%=comments.length+responseComments.length%> Comentário
+        <% } else { %> 
+          <%=comments.length+responseComments.length%> Comentários
+        <% } %> 
+      </p>
       <br>
     <% } %>
     <% if (comments.length==0) { %>

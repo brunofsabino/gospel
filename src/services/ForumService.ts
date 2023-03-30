@@ -7,6 +7,7 @@ type PropCreate = {
   description: string,
   avatar_user?: string,
   name_user?: string
+  qtComments?: number
 }
 type PropUpdate = {
   title?: string,
@@ -20,13 +21,17 @@ export const ForumService = {
         title: data.title,
         description: data.description,
         avatar_user: data.avatar_user ?? undefined,
-        name_user: data.name_user ?? undefined
+        name_user: data.name_user ?? undefined,
+        qtComments: data.qtComments
       }
     })
     return dataNewForum
   },
   findAll: async() => {
-    return await prisma.forum.findMany({})
+    return await prisma.forum.findMany({ orderBy: { qtComments: 'desc'}})
+  },
+  findAllRecents: async() => {
+    return await prisma.forum.findMany({orderBy: { date: 'desc'}})
   },
   findOne: async(id: string) => {
     return await prisma.forum.findFirst({ where: { id }})
@@ -42,6 +47,20 @@ export const ForumService = {
           description: data.description
         }
     })
+  },
+  updateQtComments: async(id: string, nameUser: string) => {
+    let forum = await prisma.forum.findUnique({ where: {id}})
+    if(forum) {
+      console.log('aqui')
+      const qt = await prisma.forum.update({
+        where: {  id },
+        data : {
+          qtComments: forum.qtComments ? ++forum.qtComments : 1,
+          nameLastComment: nameUser
+        }
+      })
+      return true
+    }
   },
   deleteForum: async(id: string) => {
     return await prisma.forum.delete({ where: { id }})

@@ -64,11 +64,10 @@ export const createResponseComment = async(req: Request, res: Response) => {
       userCommentReply: comment2 ?? commentPost.comment
     })
     if(newCommentResponsePost) {
-      //const updateQtComments = await PostService.updateQtComments(post.id)
-      // if(updateQtComments) {
-        
-      // }
-      res.status(201).json({ commentResponse: newCommentResponsePost })
+      const updateQtComments = await PostService.updateQtComments(post.id)
+      if(updateQtComments) {
+        res.status(201).json({ commentResponse: newCommentResponsePost })
+      }
     } else {
       res.status(500).json({error : "Dados invalidos"})
     }

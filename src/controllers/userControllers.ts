@@ -3,6 +3,7 @@ import { UserService } from "../services/UserService";
 import validator from 'validator'
 import {isEmail} from 'class-validator'
 import Cookies from 'js-cookie'
+import { User } from "@prisma/client";
 
 
 export const createADM = async(req: Request, res: Response) => {
@@ -82,7 +83,34 @@ export const one = async(req: Request, res: Response) => {
       res.status(400).json({error : "Usuario nao localizado"})
   }
 }
+export const oneUser = async(req: Request, res: Response) => {
+    const { name, id } = req.params
+    console.log(name, id)
+    const idUser = decodeURI(id).split(' ').join('-')
+    const nameUser = name.split('-').join(' ')
+    const user = await UserService.findOneByNameId(idUser, nameUser)
+    console.log(user)
+    if(user) {
+        let userId = {}
+    if (req.user) {
+      //console.log(req.user)
+      const user1 = req.user as User
+        userId = {
+        id: user1.id,
+        name: user1.name,
+        email: user1.email,
+        avatar: user1.avatar ?? ''
+      }
+    } 
 
+        res.render('pages/perfil', {
+            user,
+            userId: req.user ? userId : ''
+        })
+    } else {
+        res.status(500).json({error : "Usuario nao localizado"})
+    }
+  }
 export const oneEmail = async(req: Request, res: Response) => {
     const { email } = req.params
     const user = await UserService.findByEmail(email)

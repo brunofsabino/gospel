@@ -67,7 +67,7 @@ export const CommentService = {
     }})
   },
   findAllResponseComments: async(id: string) => {
-    return await prisma.responseComment.findMany({ where: { post_id: id}})
+    return await prisma.responseComment.findMany({ where: { post_id: id}, orderBy: { date: 'desc'}})
   },
   findOne: async(id: string) => {
     return await prisma.commentInPost.findUnique({ where: { id }})

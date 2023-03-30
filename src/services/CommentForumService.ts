@@ -72,7 +72,9 @@ export const CommentForumService = {
     return await prisma.responseCommentInForum.findUnique({ where: { id }})
   },
   findAllResponseComments: async(id: string) => {
-    return await prisma.responseCommentInForum.findMany({ where: { forum_id: id}})
+    return await prisma.responseCommentInForum.findMany({ where: { forum_id: id}, orderBy: {
+      date: 'desc',
+    }})
   },
   update: async(id: string, data: UpdateCreate) => {
     return await prisma.commentInForum.update({

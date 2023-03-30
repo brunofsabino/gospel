@@ -59,7 +59,8 @@ export const PostService = {
           summaryParagraph: data.summaryParagraph,
           subTitle: data.subTitle,
           img: data.img ?? null,
-          video: data.video ?? null
+          video: data.video ?? null,
+          qtComments: data.qtComments
       }
     })
     return dataNewPost
@@ -77,7 +78,7 @@ export const PostService = {
     return await prisma.post.findMany({ where: { slideShow: true }})
   },
   findNewsShow: async() => {
-    return await prisma.post.findMany({ where: { newsShow: true }})
+    return await prisma.post.findMany({ where: { newsShow: true }, orderBy: { qtComments: 'desc'}})
   },
   findOneByTitle: async(title: string) => {
     return await prisma.post.findFirst({ where: { title }})

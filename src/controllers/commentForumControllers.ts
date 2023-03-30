@@ -26,7 +26,11 @@ export const create = async(req: Request, res: Response) => {
       imgUserInComment
     })
     if(newCommentForum) {
-      res.status(201).json({ commentForum: newCommentForum })
+      const updateQtComments = await ForumService.updateQtComments(forum.id, nameUserInComment)
+      console.log(updateQtComments)
+      if(updateQtComments) {
+        res.status(201).json({ commentForum: newCommentForum })
+      }
     } else {
       res.status(500).json({error : "Dados invalidos"})
     }
@@ -48,8 +52,8 @@ export const createResponseComment = async(req: Request, res: Response) => {
     const userNameCommentReply = name2 ?? commentPost.nameUserInComment
     const userAvatarCommentReply = commentPost.imgUserInComment
     const dateCommentReply = commentPost.date
-    console.log(name2)
-    console.log(userNameCommentReply)
+    //console.log(name2)
+    //console.log(userNameCommentReply)
     
     const newCommentResponsePost = await CommentForumService.createResponseComment(user.id, { 
       post_id: post.id, 
@@ -63,11 +67,10 @@ export const createResponseComment = async(req: Request, res: Response) => {
       userCommentReply: comment2 ?? commentPost.comment
     })
     if(newCommentResponsePost) {
-      //const updateQtComments = await PostService.updateQtComments(post.id)
-      // if(updateQtComments) {
-        
-      // }
-      res.status(201).json({ commentResponse: newCommentResponsePost })
+      const updateQtComments = await ForumService.updateQtComments(post.id, nameUser)
+      if(updateQtComments) {
+        res.status(201).json({ commentResponse: newCommentResponsePost })
+      }
     } else {
       res.status(500).json({error : "Dados invalidos"})
     }

@@ -62,7 +62,11 @@
                       <p>Opine</p>
                       <div class="news-week-1-p-comment">
                         <img src="images/forum.svg" alt="">
-                        <p><%=item.qtComments%></p>
+                        <p>
+                          <% if (item.qtComments>0) { %>
+                            <%=item.qtComments%>
+                          <% } %>
+                        </p>
                       </div>
                     </div>
                     <div class="news-week-1-more">

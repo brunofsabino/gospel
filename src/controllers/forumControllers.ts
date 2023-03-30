@@ -8,7 +8,6 @@ import { LikeInCommentForumService } from "../services/LikeInCommentForumService
 
 export const create = async(req: Request, res: Response) => {
   const { title, description } = req.body;
-  console.log(title)
   const { user } = req.params
   const userLogged = await UserService.findOne(user)
   if(req.user && userLogged && title && description ) {
@@ -19,7 +18,8 @@ export const create = async(req: Request, res: Response) => {
         title, 
         description, 
         avatar_user: userLogged.avatar ?? undefined, 
-        name_user: userLogged.name ?? undefined
+        name_user: userLogged.name ?? undefined,
+        qtComments: 0
       })
       if(newForum) {
           res.status(201).json({ newForum })
@@ -31,16 +31,12 @@ export const create = async(req: Request, res: Response) => {
   }
   } else {
     res.status(500).json({error : "Dados invalidos"})
-}
-  
-  
- 
-    
-     
+  }
 }
 export const home = async(req: Request, res: Response) => {
-  const forums = await ForumService.findAll()
-
+  
+  let forums = await ForumService.findAll()
+ 
   let userId = {}
     if (req.user) {
       const user1 = req.user as User
@@ -52,6 +48,7 @@ export const home = async(req: Request, res: Response) => {
       }
     } 
     console.log(userId)
+    console.log(forums)
   
     res.render('pages/forum.ejs', {
       forums,
@@ -59,11 +56,28 @@ export const home = async(req: Request, res: Response) => {
       // newsShow,
       userId: req.user ? userId : ''
     })
-  // if(forums) {
-  //   res.status(200).json({forums})
-  // } else {
-  //   res.status(500).json({error : "Dados invalidos"})
-  // }
+}
+export const filterForum = async(req: Request, res: Response) => {
+  const { filter } = req.params
+  
+  if(filter==='filterPopulary') {
+    const forums = await ForumService.findAll()
+    console.log(forums)
+    if(forums) {
+
+      res.status(200).json({forums})
+    } else {
+      res.status(500).json({error : "Dados invalidos"})
+    }
+  }
+  if(filter==='filterRecents') {
+    const forums = await ForumService.findAllRecents()
+    if(forums) {
+      res.status(200).json({forums})
+    } else {
+      res.status(500).json({error : "Dados invalidos"})
+    }
+  }
 }
 export const all = async(req: Request, res: Response) => {
   const forums = await ForumService.findAll()

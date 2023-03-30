@@ -53,7 +53,7 @@
     <section>
       <div class="area-forum-topics-filters">
         <div class="area-forum-filters">
-          <div class="area-filters-populary">Tópicos mais populares</div>
+          <div class="area-filters-populary active">Tópicos mais populares</div>
           <div class="area-filters-recents">Tópicos mais recentes</div>
         </div>
       </div>
@@ -92,7 +92,11 @@
                         <img src="images/forum.svg" alt="">
                         <p>
                           <% if (item.qtComments ) { %>
-                            <%=item.qtComments%> Comentários
+                            <% if (item.qtComments === 1 ) { %>
+                              <%=item.qtComments%> Comentário
+                            <% } else { %> 
+                              <%=item.qtComments%> Comentários
+                              <% } %> 
                           <% } else { %> 
                             Comente!
                             <% } %> 
@@ -104,167 +108,7 @@
               </div>
             </a>
           <%});%>
-          <div class="area-topics-user">
-            <div class="area-topics-user-person">
-              <div class="area-topics-person-img">
-                <img src="images/persona.png" alt="">
-              </div>
-            </div>
-            <div class="area-topics-user-content">
-              <div class="area-topics-user-content-info">
-                <div class="area-topics-title-date">
-                  <div class="area-topics-title">
-                    <h3>Duvida sobre tema Gospel</h3> <div class="area-topics-date">10 mar</div>
-                  </div>
-                </div>
-                <div class="area-topics-last-responde">
-                  <p>Ultima resposta: Bruno Ferraz</p>
-                  <div class="area-topics-last-responde-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>5 Comentários</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="area-topics-user">
-            <div class="area-topics-user-person">
-              <div class="area-topics-person-img">
-                <img src="images/persona.png" alt="">
-              </div>
-            </div>
-            <div class="area-topics-user-content">
-              <div class="area-topics-user-content-info">
-                <div class="area-topics-title-date">
-                  <div class="area-topics-title">
-                    <h3>Duvida sobre tema Gospel</h3> <div class="area-topics-date">10 mar</div>
-                  </div>
-                </div>
-                <div class="area-topics-last-responde">
-                  <p>Ultima resposta: Bruno Ferraz</p>
-                  <div class="area-topics-last-responde-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>5 Comentários</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="area-topics-user">
-            <div class="area-topics-user-person">
-              <div class="area-topics-person-img">
-                <img src="images/persona.png" alt="">
-              </div>
-            </div>
-            <div class="area-topics-user-content">
-              <div class="area-topics-user-content-info">
-                <div class="area-topics-title-date">
-                  <div class="area-topics-title">
-                    <h3>Duvida sobre tema Gospel</h3> <div class="area-topics-date">10 mar</div>
-                  </div>
-                </div>
-                <div class="area-topics-last-responde">
-                  <p>Ultima resposta: Bruno Ferraz</p>
-                  <div class="area-topics-last-responde-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>5 Comentários</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="area-topics-user">
-            <div class="area-topics-user-person">
-              <div class="area-topics-person-img">
-                <img src="images/persona.png" alt="">
-              </div>
-            </div>
-            <div class="area-topics-user-content">
-              <div class="area-topics-user-content-info">
-                <div class="area-topics-title-date">
-                  <div class="area-topics-title">
-                    <h3>Duvida sobre tema Gospel</h3> <div class="area-topics-date">10 mar</div>
-                  </div>
-                </div>
-                <div class="area-topics-last-responde">
-                  <p>Ultima resposta: Bruno Ferraz</p>
-                  <div class="area-topics-last-responde-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>5 Comentários</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="area-topics-user">
-            <div class="area-topics-user-person">
-              <div class="area-topics-person-img">
-                <img src="images/persona.png" alt="">
-              </div>
-            </div>
-            <div class="area-topics-user-content">
-              <div class="area-topics-user-content-info">
-                <div class="area-topics-title-date">
-                  <div class="area-topics-title">
-                    <h3>Duvida sobre tema Gospel</h3> <div class="area-topics-date">10 mar</div>
-                  </div>
-                </div>
-                <div class="area-topics-last-responde">
-                  <p>Ultima resposta: Bruno Ferraz</p>
-                  <div class="area-topics-last-responde-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>5 Comentários</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="area-topics-user">
-            <div class="area-topics-user-person">
-              <div class="area-topics-person-img">
-                <img src="images/persona.png" alt="">
-              </div>
-            </div>
-            <div class="area-topics-user-content">
-              <div class="area-topics-user-content-info">
-                <div class="area-topics-title-date">
-                  <div class="area-topics-title">
-                    <h3>Duvida sobre tema Gospel</h3> <div class="area-topics-date">10 mar</div>
-                  </div>
-                </div>
-                <div class="area-topics-last-responde">
-                  <p>Ultima resposta: Bruno Ferraz</p>
-                  <div class="area-topics-last-responde-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>5 Comentários</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="area-topics-user">
-            <div class="area-topics-user-person">
-              <div class="area-topics-person-img">
-                <img src="images/persona.png" alt="">
-              </div>
-            </div>
-            <div class="area-topics-user-content">
-              <div class="area-topics-user-content-info">
-                <div class="area-topics-title-date">
-                  <div class="area-topics-title">
-                    <h3>Duvida sobre tema Gospel</h3> <div class="area-topics-date">10 mar</div>
-                  </div>
-                </div>
-                <div class="area-topics-last-responde">
-                  <p>Ultima resposta: Bruno Ferraz</p>
-                  <div class="area-topics-last-responde-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>5 Comentários</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </div>
         <aside> 
           <div class="aside-content">
@@ -405,6 +249,31 @@
   const buttonDelete = document.querySelector('.buttonDelete')
 
   const buttonNewForum = document.querySelector('.buttonNewForum')
+ 
+  
+  const buttonFilterPopularyForum = document.querySelector('.area-filters-populary')
+  const buttonFilterRecentsForum = document.querySelector('.area-filters-recents')
+
+  buttonFilterPopularyForum.addEventListener('click', classActiveFilters)
+  buttonFilterRecentsForum.addEventListener('click', classActiveFilters)
+  modalHome2.addEventListener('click', closeModalNews)
+  buttonCloseModal2.addEventListener('click', closeModalNews)
+
+  function classActiveFilters() {
+    if(buttonFilterPopularyForum.classList.contains('active')) {
+        buttonFilterPopularyForum.classList.toggle('active')
+        buttonFilterRecentsForum.classList.toggle('active')
+        filterForuns('filterRecents')
+    } else  {
+        //buttonFilterPopularyForum.classList.remove('active')
+        buttonFilterRecentsForum.classList.toggle('active')
+        buttonFilterPopularyForum.classList.toggle('active')
+        
+        filterForuns('filterPopulary')
+    }
+  }
+  
+  //.addEventListener('click', item => filterForuns('filterPopulay'))
 
   const btnNewForum = document.querySelector('.area-forum-title-button button')
     btnNewForum.addEventListener('click', a => {
@@ -463,6 +332,59 @@
       return json.newForum
     }
   }
+  const areaTopicsForuns = document.querySelector('.area-topics-users')
+  async function filterForuns(filter) {
+    const newForum = await fetch(`/forumFilter/${filter}`, {
+      method: 'GET',
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+      },
+      credentials: "include"
+    })
+    if(newForum.status === 401) {
+      //openModal2()
+    }
+    const json = await newForum.json()
+    if(json.forums) {
+      areaTopicsForuns.innerHTML = ''
+      json.forums.forEach(item => {
+        areaTopicsForuns.innerHTML += `<a href="/forum/${item.title.split(' ').join('-').split('?').join('~')}">
+              <div class="area-topics-user">
+                <div class="area-topics-user-person">
+                  <div class="area-topics-person-img">
+                    <img src="/media/${item.avatar}" alt="">
+                  </div>
+                </div>
+                <div class="area-topics-user-content">
+                  <div class="area-topics-user-content-info">
+                    <div class="area-topics-title-date">
+                      <div class="area-topics-title">
+                        <h3>
+                          ${item.title.length > 65 ? item.title.substr(0,65)+"..." : item.title } 
+                           
+                        </h3> <div class="area-topics-date">${item.date.toString().slice(5,10)} </div>
+                      </div>
+                    </div>
+                    <div class="area-topics-last-responde">
+                      <p>
+                        ${ item.nameLastComment ? `Última resposta: ${item.nameLastComment}` : 'Nenhuma resposta. Responda agora mesmo!'}  
+                      </p>
+                      <div class="area-topics-last-responde-qt-comments">
+                        <img src="images/forum.svg" alt="">
+                        <p>
+                          ${ item.qtComments > 0 ? `${item.qtComments} Comentários` : 'Comente!'}  
+                          
+                          
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>`
+      })
+    }
+  }
   function createForumSucess(title) {
     buttonNewForum.style.backgroundColor = '#0cc70cfc'
     buttonNewForum.innerText = 'Tópico criado com sucesso'
@@ -481,4 +403,4 @@
       }, 400);
     }
 </script>
-<%- include('../partials/footer') %>
+<%- include('../partials/footer-forum') %>

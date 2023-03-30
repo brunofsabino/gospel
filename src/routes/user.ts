@@ -12,6 +12,7 @@ router.post('/user/4148fec44f0a20f4808a26928d4c8ed835e8175a', UserController.log
 router.get('/user', privateRoute, UserController.all)
 //router.get('/user/:id/:token', UserController.oneUser)
 router.get('/user/:id', privateRoute, UserController.one)
+router.get('/user/:name/:id', privateRoute, UserController.oneUser)
 router.get('/e5765c426d9d292a3fd76afe009beaf2', UserController.adm)
 //router.get('/userAdmToken/:token', UserController.oneAdm)
 // router.post('/perfil/:name', UserController.onePerfil)

@@ -50,7 +50,8 @@ export const create = async(req: Request, res: Response) => {
         summaryParagraph,
         subTitle,
         img: filename600 ?? null, 
-        video: video ?? null 
+        video: video ?? null,
+        qtComments: 0
       })
       if(newPost) {
         res.status(200).json({post: newPost})
@@ -89,6 +90,7 @@ export const home = async(req: Request, res: Response) => {
         avatar: user1.avatar ?? ''
       }
     } 
+    console.log(newsShow)
     console.log(userId)
   
     res.render('pages/home.ejs', {
