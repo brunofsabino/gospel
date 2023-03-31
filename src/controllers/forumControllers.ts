@@ -124,8 +124,8 @@ console.log(newTitle)
 
     console.log(userId)
     // console.log(likes)
-    console.log(responseComments)
     console.log(one)
+    console.log(responseComments)
 
     res.render('pages/oneforum', {
       foruns: one,

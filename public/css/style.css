@@ -64,8 +64,7 @@ header {
 .area-forum img {
   margin-right: 15px;
 }
-.area-alerts,
-.header-persona {
+.area-alerts {
   width: 50px;
   height: 50px;
   border: 1px solid #999;
@@ -100,9 +99,13 @@ header {
   justify-content: center;
 }
 .area-alerts img,
-.header-persona img,
 .header-persona-open img {
   width: 75%;
+}
+.header-persona img {
+  width: 100%;
+  border: 2px solid #43f343;
+  border-radius: 35px;
 }
 .header-persona-perfil {
   display: flex;
@@ -638,6 +641,7 @@ footer .header-logo p {
 .modal-login-home2 {
   transition: all ease .5s;
   display: none;
+  z-index: 100;
 }
 .modal-login-home-content,
 .modal-login-home-content2 {

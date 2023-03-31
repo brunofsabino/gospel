@@ -6,7 +6,8 @@ type PropCreate = {
   forumId: string,
   comment: string,
   nameUserInComment: string,
-  imgUserInComment: string
+  imgUserInComment: string,
+  nickName?: string
 }
 type PropCreateResponse = {
   post_id: string, 
@@ -17,11 +18,22 @@ type PropCreateResponse = {
   userAvatarCommentReply: string,
   dateCommentReply: Date,
   comment_response: string,
-  userCommentReply: string
+  userCommentReply: string,
+  nickName?: string
 }
 type UpdateCreate = {
   comment: string,
   id_comment_forum?: string,
+}
+type UpdateName = {
+  nameUserInComment?: string,
+  userNameCommentReply?: string,
+  nameUser?: string,
+  nickName?: string
+}
+type UpdateAvatar = {
+  imgUserInComment?: string,
+  imgUser?: string,
 }
 type DeleteProp = {
   commentShow: boolean
@@ -35,7 +47,8 @@ export const CommentForumService = {
         user_id: id,
         comment: data.comment,
         nameUserInComment: data.nameUserInComment,
-        imgUserInComment: data.imgUserInComment
+        imgUserInComment: data.imgUserInComment,
+        nickName: data.nickName
       }
     })
     return newCommentPost
@@ -52,7 +65,8 @@ export const CommentForumService = {
           userAvatarCommentReply: data.userAvatarCommentReply,
           dateCommentReply: data.dateCommentReply,
           comment_response : data.comment_response,
-          userCommentReply: data.userCommentReply
+          userCommentReply: data.userCommentReply,
+          nickName: data.nickName
       }
     })
     return newResponseCommentPost
@@ -159,6 +173,59 @@ export const CommentForumService = {
           commentShow: data.commentShow
         }
     })
+  },
+  updateAvatar: async(id: string, data: UpdateAvatar) => {
+    let comment = await prisma.commentInForum.findMany({ where: {user_id: id}})
+    console.log('updateAvatar')
+    console.log(comment)
+    if(comment) {
+      const qt = await prisma.commentInForum.updateMany({
+        where: {  user_id: id },
+        data : {
+          imgUserInComment: data.imgUserInComment 
+        }
+      })
+      return true
+    }
+  },
+  updateAvatarResponse: async(id: string, data: UpdateAvatar) => {
+    let comment = await prisma.responseCommentInForum.findMany({ where: {user_id :id}})
+    if(comment) {
+      const qt = await prisma.responseCommentInForum.updateMany({
+        where: {  user_id: id },
+        data : {
+          imgUser: data.imgUserInComment 
+        }
+      })
+      return true
+    }
+  },
+  updateName: async(id: string, data: UpdateName) => {
+    let comment = await prisma.commentInForum.findMany({ where: {user_id: id}})
+    console.log(comment)
+    if(comment) {
+      const qt = await prisma.commentInForum.updateMany({
+        where: {  user_id: id },
+        data : {
+          nameUserInComment: data.nameUserInComment,
+          nickName: data.nickName ?? undefined
+        }
+      })
+      return true
+    }
+  },
+  updateNameResponse: async(id: string, data: UpdateName) => {
+    let comment = await prisma.responseCommentInForum.findMany({ where: {user_id :id}})
+    if(comment) {
+      const qt = await prisma.responseCommentInForum.updateMany({
+        where: {  user_id: id },
+        data : {
+          nameUser: data.nameUser,
+          nickName: data.nickName ?? undefined
+        }
+      })
+      return true
+    }
   },
   deleteCommentForum: async(id: string) => {
     return await prisma.commentInForum.delete({ where: { id }})

@@ -21,7 +21,11 @@
     <div class="area-comments-new">
       <div class="area-comments-person">
         <div class="area-comments-person-img">
-          <img src="/images/persona.png" alt="">
+          <% if (userId.id) { %>
+          <img src="/media/<%=userId.avatar%>" alt="">
+          <% } else { %> 
+            <img src="/media/avatar.png" alt="">
+            <% } %>
         </div>
       </div>
       <div class="area-comments-content" >
@@ -40,20 +44,28 @@
       <%comments.forEach(function(item){%>
         <div class="area-comments-user">
           <div class="area-comments-user-person">
-            <div class="area-comments-person-img">
-              <img src="/images/persona.png" alt="">
-            </div>
+            <a href="/userName/<%=item.nickName%>">
+              <div class="area-comments-person-img">
+                <% if (item.imgUserInComment) { %>
+                  <img src="/media/<%=item.imgUserInComment%>" alt="">
+                <% } else { %> 
+                  <img src="/media/avatar.png" alt="">
+                <% } %>
+              </div>
+            </a>
           </div>
           <div class="area-comments-user-content">
             <div class="area-comments-user-content-info">
               <div class="area-comments-user-name-complaint">
                 <div class="area-comments-user-name">
                   <h3>
-                    <% if (item.commentShow===true ) { %>
+                    <a href="/userName/<%=item.nickName%>">
+                      <% if (item.commentShow===true ) { %>
                       <%=item.nameUserInComment%>
                       <% } else { %> 
                         Usuário
                        <% } %> 
+                      </a>
                   </h3> <div class="area-comments-user-name-date"><%=item.date.toString().slice(4,10)%></div>
                 </div>
                 <div class="area-comments-complaint " get-item="<%=item.id%>" data-item="<%=item.user_id%>">
@@ -112,7 +124,11 @@
             <div class="area-comments-reply-new area-comments-reply-new-none" get-item="<%=item.id%>">
               <div class="area-comments-person">
                 <div class="area-comments-person-img">
-                  <img src="/images/persona.png" alt="">
+                  <% if (userId.id) { %>
+                    <img src="/media/<%=userId.avatar%>" alt="">
+                    <% } else { %> 
+                    <img src="/media/avatar.png" alt="">
+                  <% } %>
                 </div>
               </div>
               <div class="area-comments-content"  id-item="<%=item.forum_id%>">
@@ -126,20 +142,28 @@
       <%responseComments.forEach(function(item){%>
         <div class="area-comments-user-response">
           <div class="area-comments-user-person">
-            <div class="area-comments-person-img">
-              <img src="/images/persona.png" alt="">
-            </div>
+            <a href="/userName/<%=item.nickName%>">
+              <div class="area-comments-person-img">
+                <% if (item.imgUser) { %>
+                  <img src="/media/<%=item.imgUser%>" alt="">
+                <% } else { %> 
+                  <img src="/media/avatar.png" alt="">
+                <% } %>
+              </div>
+            </a>
           </div>
           <div class="area-comments-user-content">
             <div class="area-comments-user-content-info">
               <div class="area-comments-user-name-complaint">
                 <div class="area-comments-user-name">
                   <h3>
+                    <a href="/userName/<%=item.nickName%>">
                     <% if (item.commentShow===true ) { %>
                     <%=item.nameUser%>
                     <% } else { %> 
                       Usuário
                      <% } %> 
+                    </a>
                   </h3> <div class="area-comments-user-name-date"><%=item.date.toString().slice(4,10)%></div>
                 </div>
                 <div class="area-comments-complaint " get-item="<%=item.id%>" data-item="<%=item.user_id%>">

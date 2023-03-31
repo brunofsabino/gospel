@@ -6,7 +6,8 @@ type PropCreate = {
   postId: string,
   comment: string,
   nameUserInComment: string,
-  imgUserInComment: string
+  imgUserInComment?: string,
+  nickName?: string
 }
 type PropCreateResponse = {
   post_id: string, 
@@ -17,10 +18,19 @@ type PropCreateResponse = {
   userAvatarCommentReply: string,
   dateCommentReply: Date,
   comment_response: string,
-  userCommentReply: string
+  userCommentReply: string,
+  nickName?: string
 }
 type UpdateCreate = {
   comment: string
+}
+type UpdateAvatar = {
+  imgUserInComment?: string
+}
+type UpdateName = {
+  nameUserInComment?: string,
+  nameUser?: string,
+  nickName?: string
 }
 type DeleteProp = {
   commentShow: boolean
@@ -36,7 +46,8 @@ export const CommentService = {
           post_id: data.postId,
           comment: data.comment,
           nameUserInComment: data.nameUserInComment,
-          imgUserInComment: data.imgUserInComment ?? ''
+          imgUserInComment: data.imgUserInComment ?? '',
+          nickName: data.nickName 
       }
     })
     return newCommentPost
@@ -53,7 +64,8 @@ export const CommentService = {
           userAvatarCommentReply: data.userAvatarCommentReply,
           dateCommentReply: data.dateCommentReply,
           comment_response : data.comment_response,
-          userCommentReply: data.userCommentReply
+          userCommentReply: data.userCommentReply,
+          nickName: data.nickName
       }
     })
     return newResponseCommentPost
@@ -177,6 +189,59 @@ export const CommentService = {
         where: {  id },
         data : {
           qtLikes: comment.qtLikes ? --comment.qtLikes : 0
+        }
+      })
+      return true
+    }
+  },
+  updateAvatar: async(id: string, data: UpdateAvatar) => {
+    let comment = await prisma.commentInPost.findMany({ where: {user_id: id}})
+    console.log('updateAvatar')
+    console.log(comment)
+    if(comment) {
+      const qt = await prisma.commentInPost.updateMany({
+        where: {  user_id: id },
+        data : {
+          imgUserInComment: data.imgUserInComment 
+        }
+      })
+      return true
+    }
+  },
+  updateAvatarResponse: async(id: string, data: UpdateAvatar) => {
+    let comment = await prisma.responseComment.findMany({ where: {user_id :id}})
+    if(comment) {
+      const qt = await prisma.responseComment.updateMany({
+        where: {  user_id: id },
+        data : {
+          imgUser: data.imgUserInComment 
+        }
+      })
+      return true
+    }
+  },
+  updateName: async(id: string, data: UpdateName) => {
+    let comment = await prisma.commentInPost.findMany({ where: {user_id: id}})
+    console.log(comment)
+    if(comment) {
+      const qt = await prisma.commentInPost.updateMany({
+        where: {  user_id: id },
+        data : {
+          nameUserInComment: data.nameUserInComment,
+          nickName: data.nickName ?? undefined
+        }
+      })
+      return true
+    }
+  },
+  updateNameResponse: async(id: string, data: UpdateName) => {
+    let comment = await prisma.responseComment.findMany({ where: {user_id :id}})
+    if(comment) {
+      const qt = await prisma.responseComment.updateMany({
+        where: {  user_id: id },
+        data : {
+          nameUser: data.nameUser ?? undefined,
+          nickName: data.nickName ?? undefined
         }
       })
       return true

@@ -87,6 +87,7 @@ export const home = async(req: Request, res: Response) => {
         id: user1.id,
         name: user1.name,
         email: user1.email,
+        nickName: user1.nickName,
         avatar: user1.avatar ?? ''
       }
     } 
@@ -141,7 +142,8 @@ export const oneNews = async(req: Request, res: Response) => {
         id: user1.id,
         name: user1.name,
         email: user1.email,
-        avatar: user1.avatar ?? ''
+        avatar: user1.avatar ?? '',
+        nickName: user1.nickName
       }
     } 
     console.log(userId)
@@ -153,6 +155,7 @@ export const oneNews = async(req: Request, res: Response) => {
     const responseLikes = await LikeInCommentService.findAllLikeResponseComment(one.id)
     
     console.log(responseComments)
+    console.log(comments)
     if(comments) {
       res.render('pages/news', {
         news: one,

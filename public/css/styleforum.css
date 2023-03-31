@@ -110,6 +110,10 @@ main {
   justify-content: center;
   margin-right: 10px;
 }
+.area-topics-person-img img {
+  width: 100%;
+  border-radius: 50%;
+}
 .area-topics-user-content {
   display: flex;
   flex-direction: column;
@@ -291,7 +295,7 @@ main {
 }
 .area-perfil {
   padding: 30px;
-  width: 30%;
+  width: 35%;
 }
 .area-forum-area-buttons {
   margin: 15px 0px;
@@ -331,30 +335,66 @@ main {
   border: 1px solid #999;
   border-radius: 50%;
 }
-.area-perfil-img img {
-  width: 100%;
+.area-perfil-avatar > img {
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  background-color: #43f343;
 }
 .area-perfil-alterar {
-  position: relative;
   bottom: 25px;
   left: 50px;
   width: 30px;
 }
 .area-perfil-alterar img {
   width: 100%;
+  cursor: pointer;
 }
 .area-perfil-name {
   display: flex;
   align-items: center;
   margin-top: 20px;
   margin-right: 5px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+/* .form-name {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  
+} */
+.area-perfil-name input {
+  font-weight: 600;
+  border: none;
+  width: 55%;
+  outline: none;
+  padding: 7px;
+  border-radius: 8px;
+}
+.area-perfil-name button {
+  margin-top: 20px;
+  display: none;
+  padding: 7px 15px;
+  border-radius: 8px;
+  border: none;
+  background-color: #1e781e;
+  color: #fff;
+  cursor: pointer;
 }
 .area-perfil-name p {
   font-weight: 600;
   margin-right: 5px;
+  display: none;
 }
 .area-perfil-name img {
   width: 20px;
+  cursor: pointer;
 }
 .area-comments {
   width: 90%;

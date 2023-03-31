@@ -62,6 +62,7 @@ export const ForumService = {
       return true
     }
   },
+  
   deleteForum: async(id: string) => {
     return await prisma.forum.delete({ where: { id }})
   }

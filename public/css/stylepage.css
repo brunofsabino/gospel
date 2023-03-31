@@ -96,6 +96,13 @@ main {
     justify-content: center;
     margin-right: 10px;
 }
+.area-comments-person-img img {
+  width: 100%;
+  border-radius: 50%;
+}
+.area-comments-person-img a {
+  display:flex;
+}
 .area-comments-content,
 .area-comments-content-resp {
   display: flex;
@@ -198,6 +205,10 @@ main {
 .area-comments-user-name-complaint h3 {
   font-size: 17px;
   margin-right: 10px;
+}
+.area-comments-user-name h3 a,
+.area-comments-user-name-complaint h3 a {
+  color: #333;
 }
 .area-comments-user-name {
   display: flex;

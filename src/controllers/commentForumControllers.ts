@@ -17,13 +17,15 @@ export const create = async(req: Request, res: Response) => {
   if(user && forum && comment ) {
     const nameUserInComment = user.name
     const imgUserInComment = user.avatar ?? ''
+    const nickNameUser = user.nickName 
     console.log(nameUserInComment)
     const newCommentForum = await CommentForumService.create(user.id, { 
       forumId, 
       comment, 
       id_comment_forum: id_comment_forum ?? '',
       nameUserInComment,
-      imgUserInComment
+      imgUserInComment,
+      nickName: nickNameUser ??  undefined
     })
     if(newCommentForum) {
       const updateQtComments = await ForumService.updateQtComments(forum.id, nameUserInComment)
@@ -49,6 +51,7 @@ export const createResponseComment = async(req: Request, res: Response) => {
   if(user && post && comment && commentPost) {
     const nameUser = user.name
     const imgUser = user.avatar
+    const nickNameUser = user.nickName 
     const userNameCommentReply = name2 ?? commentPost.nameUserInComment
     const userAvatarCommentReply = commentPost.imgUserInComment
     const dateCommentReply = commentPost.date
@@ -64,7 +67,8 @@ export const createResponseComment = async(req: Request, res: Response) => {
       userAvatarCommentReply: userAvatarCommentReply ?? '',
       dateCommentReply,
       comment_response: comment,
-      userCommentReply: comment2 ?? commentPost.comment
+      userCommentReply: comment2 ?? commentPost.comment,
+      nickName: nickNameUser ??  undefined
     })
     if(newCommentResponsePost) {
       const updateQtComments = await ForumService.updateQtComments(post.id, nameUser)

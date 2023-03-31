@@ -5,17 +5,23 @@ import { generateToken } from '../config/passport'
 
 const prisma = new PrismaClient()
 type PropCreate = {
-    
+    nickName: string,
     name: string,
     email: string,
     password: string,
     avatar: string
-
+}
+type PropCreateADM = {
+    name: string,
+    email: string,
+    password: string,
+    avatar: string
 }
 type PropUpdate = {
     name?: string,
     password?: string,
-    avatar?: string
+    avatar?: string,
+    nickName?: string
 }
 export const UserService = {
     findOne: async(id: string) => {
@@ -24,9 +30,18 @@ export const UserService = {
     findADM: async(id: string) => {
         return await prisma.userADM.findUnique({ where: { id }})
     },
-    findOneByNameId: async(id: string, name: string) => {
-        console.log(name, id)
-        return await prisma.user.findFirst({ where: { name, id }})
+    findOneByNickName: async(name: string) => {
+        console.log("NickName"+name)
+        const user = await prisma.user.findUnique({ where: { nickName: name }})
+        if(user) {
+            return {
+                id: user.id,
+                name: user.name,
+                nickName: user.nickName,
+                email: user.email,
+                avatar: user.avatar,
+            }
+        }
     },
     findAll: async() => {
         return await prisma.user.findMany({})
@@ -37,7 +52,8 @@ export const UserService = {
                 name: data.name,
                 email: data.email,
                 password: bcrypt.hashSync(data.password, 10),
-                avatar: data.avatar
+                avatar: data.avatar,
+                nickName: data.nickName
             }
         })
         if(dataNewUser) {
@@ -45,7 +61,7 @@ export const UserService = {
             return { dataNewUser, token}
         }
     },
-    createAdm: async(data: PropCreate) => {
+    createAdm: async(data: PropCreateADM) => {
         const dataNewUser =  await prisma.userADM.create({
             data: {
                 name: data.name,
@@ -71,11 +87,29 @@ export const UserService = {
             }
         })
     },
+    updatePhoto: async(id: string, data: PropUpdate) => {
+        console.log(data.avatar)
+        return await prisma.user.update({
+            where: { id },
+            data : {
+                avatar : data.avatar
+            }
+        })
+    },
     updateName: async(id: string, data: PropUpdate) => {
         return await prisma.user.update({
             where: { id },
             data : {
                 name : data.name
+            }
+        })
+    },
+    updateNameAndNickName: async(id: string, data: PropUpdate) => {
+        return await prisma.user.update({
+            where: { id },
+            data : {
+                name : data.name,
+                nickName: data.nickName
             }
         })
     },

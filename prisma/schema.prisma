@@ -13,6 +13,7 @@ datasource db {
 model User {
   id                         String                       @id @default(uuid())
   name                       String
+  nickName                   String?                      @unique
   email                      String                       @unique
   password                   String
   avatar                     String?
@@ -82,6 +83,7 @@ model CommentInPost {
   comment                String
   id_commentReply        String?
   nameUserReplyComment   String?
+  nickName               String?
   imgUserReplyComment    String?
   userNameCommentReply   String?
   userAvatarCommentReply String?
@@ -105,6 +107,7 @@ model ResponseComment {
   user_id                String
   id_comment             String
   nameUser               String
+  nickName               String?
   imgUser                String
   userNameCommentReply   String
   userAvatarCommentReply String
@@ -179,6 +182,7 @@ model CommentInForum {
   date                   DateTime                 @default(now())
   comment                String
   nameUserInComment      String?
+  nickName               String?
   imgUserInComment       String?
   id_commentReply        String?
   nameUserReplyComment   String?
@@ -206,6 +210,7 @@ model ResponseCommentInForum {
   id_commentForum            String
   nameUser                   String
   imgUser                    String
+  nickName                   String?
   userNameCommentReply       String
   userAvatarCommentReply     String
   userCommentReply           String?

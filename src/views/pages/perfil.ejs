@@ -48,16 +48,27 @@
       <div class="area-perfil">
         <div class="area-perfil-content">
           <div class="area-perfil-avatar">
-            <div class="area-perfil-img">
-              <img src="" alt="">
+            <!--<div class="area-perfil-img"> -->
+              <img src="/media/<%=user.avatar%>" alt="" class="avatarUser">
+              <% if (loggedUser===true) { %>
               <div class="area-perfil-alterar">
                 <img src="/images/camera.svg" alt="Alterar imagem do perfil">
               </div>
-            </div>
+              <form action="/userPhoto/<%=user.id%>" method="PUT" enctype="multipart/form-data" class="file-img" >
+                <input type="file" name="fileImg" id="file" accept="image/*" style="display: none;">
+              </form>
+              <% } %>
+            <!--</div> -->
           </div>
           <div class="area-perfil-name">
+            
+              <input type="text" name="nameUser" placeholder="Seu nome" value="<%=user.name%>">
+              <button>Editar nome</button>
+            
             <p>Bruno Ferraz Sabino</p>
+            <% if (loggedUser===true) { %>
             <img src="/images/pencil.svg" alt="">
+            <% } %>
           </div>
         </div>
       </div>
@@ -230,5 +241,94 @@
       </div>
     </div>
   </main>
+<script>
+  const photo = document.querySelector('.area-perfil-alterar img')
+  const file = document.querySelector('#file')
+  const form = document.querySelector('.file-img')
+  const avatarUser = document.querySelector('.avatarUser')
 
+  const imgAreaName = document.querySelector('.area-perfil-name img')
+  const inputAreaName = document.querySelector('.area-perfil-name  input')
+  const buttonAreaName = document.querySelector('.area-perfil-name  button')
+
+  imgAreaName.addEventListener('click', verifyName)
+  buttonAreaName.addEventListener('click', sendNewName)
+  photo.addEventListener('click', () => {
+    file.click()
+    file.addEventListener('change' , () => {
+      if (file.files && file.files.length > 0) {
+        const file2 = file.files[0];
+        const formData = new FormData();
+        formData.append('fileImg', file2);
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('PUT', '/userPhoto/<%=user.id%>', true);
+        xhr.onload = function() {
+          if (xhr.status === 201) {
+            if(xhr.response) {
+              const json = JSON.parse(xhr.response)
+              avatarUser.setAttribute('src', `/media/${json.avatar}`)
+              window.location.reload();
+            }
+            console.log(xhr)
+            // Upload concluído com sucesso
+            } else {
+              // Erro durante o upload
+            }
+          };
+          xhr.send(formData);
+      } else {
+          console.log('O input está vazio');
+        }
+      })
+    })
+    
+ 
+  function verifyName() {
+    imgAreaName.style.display = 'none';
+    buttonAreaName.style.display = 'block';
+    inputAreaName.style.border = '1px solid';
+    inputAreaName.focus()
+  }
+  function sucessName(data) {
+    imgAreaName.style.display = 'flex';
+    buttonAreaName.style.display = 'none';
+    inputAreaName.style.border = 'none';
+    inputAreaName.value = data.name
+    const name = data.nickName
+    window.location.href = `/userName/${name}`
+  }
+  async function sendNewName() {
+    if(inputAreaName.value.length > 2) {
+      const newName = await fetch(`/userName/${localStorage.getItem('id')}`, {
+        method: 'PUT',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        credentials: "include",
+        body: new URLSearchParams({
+          name: inputAreaName.value
+        })
+      })
+      if(newName.status === 401) {
+        openModal2()
+      }
+  
+      const json = await newName.json()
+      if(json) {
+        sucessName(json)
+      }
+    }
+  }
+  
+
+  
+
+
+
+
+
+
+
+</script>
   <%- include('../partials/footer') %>

@@ -34,10 +34,10 @@
           <% } %> 
         </nav>
         <% if (userId.id) { %>
-          <div class="header-persona"><a href=""><img src="/images/persona.png" alt="Imagem Perfil"></a></div>
+          <div class="header-persona"><a href=""><img src="/media/<%=userId.avatar%>" alt="Imagem Perfil"></a></div>
           <div class="header-persona-open"><a href=""><img src="/images/seta-expandir.png" alt="Imagem Expandir Perfil">
             <div class="header-persona-perfil close">
-              <a href="/user/<%=userId.name.split(' ').join('-')%>/<%=encodeURI(userId.id.split('-').join(' '))%>"><div class="area-persona-perfil" id="">Perfil</div></a>
+              <a href="/userName/<%=userId.nickName%>"><div class="area-persona-perfil" id="">Perfil</div></a>
               <a href="/logout"><div class="area-persona-logout" id="">Sair</div></a>
             </div></a>
           </div>
@@ -334,7 +334,7 @@ async function sendDataNewUser(email, name, password, password2) {
 async function findByEmail(email) {
   const emailValid = validateEmail(email)
   if(emailValid) {
-      const existsEmail = await fetch(`http://localhost:4000/user/email/${email}`, {
+      const existsEmail = await fetch(`http://localhost:4000/userEmail/${email}`, {
           method: 'GET',
           headers: {
               "Content-Type": "application/x-www-form-urlencoded"
