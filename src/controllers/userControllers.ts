@@ -109,6 +109,11 @@ export const oneUser = async(req: Request, res: Response) => {
     if(user) {
       let loggedUser = false
       let userId = {}
+      let newsComments = {}
+
+      const commentsInPosts = await CommentService.findAllCommentsInPosts(user.id)
+      const commentsInForum = await CommentForumService.findAllCommentsInForum(user.id)
+
       if (req.user) {
         const user1 = req.user as User
           userId = {
@@ -123,11 +128,15 @@ export const oneUser = async(req: Request, res: Response) => {
       } 
       
       console.log(loggedUser)
+      console.log(commentsInPosts)
+      console.log(commentsInForum)
 
       res.render('pages/perfil', {
           user,
           loggedUser,
-          userId: req.user ? userId : ''
+          userId: req.user ? userId : '',
+          commentsInPosts,
+          commentsInForum
       })
     } else {
         res.status(500).json({error : "Usuario nao localizado"})

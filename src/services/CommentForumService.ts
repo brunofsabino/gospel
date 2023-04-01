@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"
+import { Forum, PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 type PropCreate = {
@@ -89,6 +89,27 @@ export const CommentForumService = {
     return await prisma.responseCommentInForum.findMany({ where: { forum_id: id}, orderBy: {
       date: 'desc',
     }})
+  },
+  findAllCommentsInForum: async(id: string) => {
+    const forumComments =  await prisma.commentInForum.findMany({ where: { user_id: id}, orderBy: { date: 'desc', }})
+    const forumCommentsResponse =  await prisma.responseCommentInForum.findMany({ where: { user_id: id}, orderBy: { date: 'desc', }})
+    if(forumComments){
+      let post: Forum[] = []
+      for await (const item of forumComments) {
+        const item2 = await prisma.forum.findMany({ where: { id: item.forum_id } });
+        post.push(item2[0]); 
+      }
+      const result = post.map((p) => ({
+        id: p.id,
+        title: p.title,
+        qtComments: p.qtComments,
+        avatar: p.avatar_user,
+        nameLastComment: p.nameLastComment,
+        comments: forumComments.filter((c) => c.forum_id === p.id).map((c) => c.comment),
+        responseComments: forumCommentsResponse.filter((c) => c.forum_id === p.id).map((c) => c.comment_response),
+      }))
+      return result
+    }
   },
   update: async(id: string, data: UpdateCreate) => {
     return await prisma.commentInForum.update({

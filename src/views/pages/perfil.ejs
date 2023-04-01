@@ -74,170 +74,104 @@
       </div>
       <div class="area-comments">
         <h2>Comentários nas notícias</h2>
-        <div class="area-comment-content" style="height: auto">
-          <div class="news-week-1-aside-perfil">
-            <div class="news-week-1-aside-comment-user">
-              asdasdasd
-            </div>
-            <div class="news-week-1-aside-area-news">
-              <div class="news-week-1-img-aside-perfil">
-                <img src="/images/Imagem21-570x300 1.png" alt="">
-              </div>
-              <div class="news-week-1-desc-aside-perfil">
-                <div class="news-week-1-title-aside-perfil">
-                  <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
-                    mas são derrotadas pelas orações</h3>
+        <% if (commentsInPosts.length > 0) { %>
+          <div class="area-comment-content" style="height: auto">
+            <%commentsInPosts.forEach(function(item){%>
+              <div class="news-week-1-aside-perfil">
+                <a href="/news/<%=item.title.split(' ').join('-')%>">
+                <%item.comments.forEach(function(item2){%>
+                <div class="news-week-1-aside-comment-user">
+                  <%=user.name%>: <%=item2%>
                 </div>
-                <div class="news-week-1-p-more-aside-perfil">
-                  <div class="news-week-1-p-aside-perfil">
-                    <p>Opine</p>
-                    <div class="news-week-1-p-comment-aside-perfil">
-                      <img src="/images/forum.svg" alt="">
-                      <p>15</p>
+                <%});%>  
+                <%item.responseComments.forEach(function(item2){%>
+                  <div class="news-week-1-aside-comment-user">
+                    <%=user.name%>: <%=item2%>
+                  </div>
+                  <%});%>  
+                <div class="news-week-1-aside-area-news">
+                  <div class="news-week-1-img-aside-perfil">
+                    <img src="/media/<%=item.img.substring(0,item.img.length-7)%>150.jpg%>" alt="">
+                  </div>
+                  <div class="news-week-1-desc-aside-perfil">
+                    <div class="news-week-1-title-aside-perfil">
+                      <h3><%=item.title%></h3>
+                    </div>
+                    <div class="news-week-1-p-more-aside-perfil">
+                      <div class="news-week-1-p-aside-perfil">
+                        <p>Opine</p>
+                        <div class="news-week-1-p-comment-aside-perfil">
+                          <img src="/images/forum.svg" alt="">
+                          <% if (item.qtComments === 1) { %>
+                            <p><%=item.qtComments%> Comentário</p>
+                          <% } else { %>
+                            <p><%=item.qtComments%> Comentários</p>
+                          <% } %>
+                        </div>
+                      </div>
+                      <div class="news-week-1-more-perfil">
+                        Saiba mais
+                      </div>
                     </div>
                   </div>
-                  <div class="news-week-1-more-perfil">
-                    Saiba mais
-                  </div>
                 </div>
+                </a>
               </div>
-            </div>
+              
+            <%});%>  
           </div>
-          <div class="news-week-1-aside-perfil">
-            <div class="news-week-1-aside-comment-user">
-              asdasdasd
-            </div>
-            <div class="news-week-1-aside-area-news">
-              <div class="news-week-1-img-aside-perfil">
-                <img src="/images/Imagem21-570x300 1.png" alt="">
-              </div>
-              <div class="news-week-1-desc-aside-perfil">
-                <div class="news-week-1-title-aside-perfil">
-                  <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
-                    mas são derrotadas pelas orações</h3>
-                </div>
-                <div class="news-week-1-p-more-aside-perfil">
-                  <div class="news-week-1-p-aside-perfil">
-                    <p>Opine</p>
-                    <div class="news-week-1-p-comment-aside-perfil">
-                      <img src="/images/forum.svg" alt="">
-                      <p>15</p>
-                    </div>
-                  </div>
-                  <div class="news-week-1-more-perfil">
-                    Saiba mais
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="news-week-1-aside-perfil">
-            <div class="news-week-1-aside-comment-user">
-              asdasdasd
-            </div>
-            <div class="news-week-1-aside-area-news">
-              <div class="news-week-1-img-aside-perfil">
-                <img src="/images/Imagem21-570x300 1.png" alt="">
-              </div>
-              <div class="news-week-1-desc-aside-perfil">
-                <div class="news-week-1-title-aside-perfil">
-                  <h3>Bruxas reagem à cruzada evangelística na Nicarágua, 
-                    mas são derrotadas pelas orações</h3>
-                </div>
-                <div class="news-week-1-p-more-aside-perfil">
-                  <div class="news-week-1-p-aside-perfil">
-                    <p>Opine</p>
-                    <div class="news-week-1-p-comment-aside-perfil">
-                      <img src="/images/forum.svg" alt="">
-                      <p>15</p>
-                    </div>
-                  </div>
-                  <div class="news-week-1-more-perfil">
-                    Saiba mais
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <% } else { %>
+            <%=user.name%> ainda não fez nenhum comentário.
+        <% } %>
+        
         <h2>Comentários nos fóruns</h2>
+        <% if (commentsInForum.length > 0) { %>
         <div class="area-comment-content" style="height: auto">
+          <%commentsInForum.forEach(function(item){%>
           <div class="news-week-1-aside-perfil">
-            <div class="news-week-1-aside-comment-user">
-              asdasdasd
-            </div>
+            <a href="/forum/<%=item.title.split(' ').join('-').split('?').join('~')%>">
+              <%item.comments.forEach(function(item2){%>
+                <div class="news-week-1-aside-comment-user">
+                  <%=user.name%>: <%=item2%>
+                </div>
+              <%});%>  
+              <%item.responseComments.forEach(function(item2){%>
+                <div class="news-week-1-aside-comment-user">
+                  <%=user.name%>: <%=item2%>
+                </div>
+              <%});%>  
             <div class="aside-forum1" style="background-color: #FFF;">
               <div class="aside-forum1-person">
                 <div class="aside-forum1-person-area">
-                  <img src="/images/persona.png" alt="">
+                  <img src="/media/<%=item.avatar%>" alt="">
                 </div>
               </div>
               <div class="aside-forum1-desc">
                 <div class="aside-forum1-desc-title">
-                  <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
+                  <h3><%=item.title%></h3>
                 </div>
                 <div class="aside-forum1-desc-res">
-                  <p>Última resposta: Fulano de tal há 1 dia</p>
+                  <p>Última resposta de: <%=item.nameLastComment%></p>
                 </div>
                 <div class="aside-forum1-desc-qt-comments">
                   <img src="/images/forum.svg" alt="">
-                  <p>10 Comentários</p>
+                  <% if (item.qtComments === 1) { %>
+                    <p><%=item.qtComments%> Comentário</p>
+                  <% } else { %>
+                    <p><%=item.qtComments%> Comentários</p>
+                  <% } %>
                 </div>
               </div>
   
             </div>
+            </a>
           </div>
-          <div class="news-week-1-aside-perfil">
-            <div class="news-week-1-aside-comment-user">
-              asdasdasd
-            </div>
-            <div class="aside-forum1" style="background-color: #FFF;">
-              <div class="aside-forum1-person">
-                <div class="aside-forum1-person-area">
-                  <img src="/images/persona.png" alt="">
-                </div>
-              </div>
-              <div class="aside-forum1-desc">
-                <div class="aside-forum1-desc-title">
-                  <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
-                </div>
-                <div class="aside-forum1-desc-res">
-                  <p>Última resposta: Fulano de tal há 1 dia</p>
-                </div>
-                <div class="aside-forum1-desc-qt-comments">
-                  <img src="/images/forum.svg" alt="">
-                  <p>10 Comentários</p>
-                </div>
-              </div>
-  
-            </div>
-          </div>
-          <div class="news-week-1-aside-perfil">
-            <div class="news-week-1-aside-comment-user">
-              asdasdasd
-            </div>
-            <div class="aside-forum1" style="background-color: #FFF;">
-              <div class="aside-forum1-person">
-                <div class="aside-forum1-person-area">
-                  <img src="/images/persona.png" alt="">
-                </div>
-              </div>
-              <div class="aside-forum1-desc">
-                <div class="aside-forum1-desc-title">
-                  <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
-                </div>
-                <div class="aside-forum1-desc-res">
-                  <p>Última resposta: Fulano de tal há 1 dia</p>
-                </div>
-                <div class="aside-forum1-desc-qt-comments">
-                  <img src="/images/forum.svg" alt="">
-                  <p>10 Comentários</p>
-                </div>
-              </div>
-  
-            </div>
-          </div>
+          <%});%>
         </div>
+          <% } else { %>
+            <%=user.name%> ainda não fez nenhum comentário.
+        <% } %>
+          
       </div>
     </div>
   </main>

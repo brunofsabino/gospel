@@ -126,11 +126,11 @@
             <div class="area-comments-reply-new area-comments-reply-new-none" get-item="<%=item.id%>">
               <div class="area-comments-person">
                 <div class="area-comments-person-img">
-                  <% if (item.imgUserInComment) { %>
-                    <img src="/media/<%=item.imgUserInComment%>" alt="">
-                  <% } else { %> 
-                    <img src="/media/avatar.png" alt="">
-                  <% } %>
+                  <% if (userId.id) { %>
+                    <img src="/media/<%=userId.avatar%>" alt="">
+                    <% } else { %> 
+                      <img src="/media/avatar.png" alt="">
+                      <% } %>
                 </div>
               </div>
               <div class="area-comments-content"  id-item="<%=item.post_id%>">
@@ -230,7 +230,11 @@
             <div class="area-comments-reply-new area-comments-reply-new-none" get-item="<%=item.id%>">
               <div class="area-comments-person">
                 <div class="area-comments-person-img">
-                  <img src="/images/persona.png" alt="">
+                  <% if (userId.id) { %>
+                    <img src="/media/<%=userId.avatar%>" alt="">
+                    <% } else { %> 
+                      <img src="/media/avatar.png" alt="">
+                      <% } %>
                 </div>
               </div>
               <div class="area-comments-content-resp"  id-item="<%=item.post_id%>">

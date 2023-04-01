@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"
+import { Post, PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 type PropCreate = {
@@ -77,6 +77,26 @@ export const CommentService = {
     return await prisma.commentInPost.findMany({ where: { post_id: id}, orderBy: {
       date: 'desc',
     }})
+  },
+  findAllCommentsInPosts: async(id: string) => {
+    const postComments =  await prisma.commentInPost.findMany({ where: { user_id: id}, orderBy: { date: 'desc', }})
+    const postCommentsResponse =  await prisma.responseComment.findMany({ where: { user_id: id}, orderBy: { date: 'desc', }})
+    if(postComments){
+      let post: Post[] = []
+      for await (const item of postComments) {
+        const item2 = await prisma.post.findMany({ where: { id: item.post_id } });
+        post.push(item2[0]); 
+      }
+      const result = post.map((p) => ({
+        id: p.id,
+        title: p.title,
+        qtComments: p.qtComments,
+        img: p.img,
+        comments: postComments.filter((c) => c.post_id === p.id).map((c) => c.comment),
+        responseComments: postCommentsResponse.filter((c) => c.post_id === p.id).map((c) => c.comment_response),
+      }))
+      return result
+    }
   },
   findAllResponseComments: async(id: string) => {
     return await prisma.responseComment.findMany({ where: { post_id: id}, orderBy: { date: 'desc'}})
