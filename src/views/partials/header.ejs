@@ -30,7 +30,13 @@
           <li><a href="/"><div class="area-home"><img src="/images/home.svg" alt="Imagem Home">Home</div></a></li>
           <li><a href="/forum"><div class="area-forum"><img src="/images/forum.svg" alt="Imagem Fórum">Fórum</div></a></li>
           <% if (userId.id) { %>
-            <li><a href=""><div class="area-alerts"><img src="/images/alert.svg" alt="Imagem Alerta"></div></a></li>
+            <!--<li><div class="area-alerts" >
+              <img src="/images/alert.svg" alt="Imagem Alerta">
+              
+              <div class="area-alerts-content close">
+               
+              </div>
+            </div></li>-->
           <% } %> 
         </nav>
         <% if (userId.id) { %>
@@ -130,13 +136,20 @@
   const pNoticePassword = document.querySelector('.modal-login-home-content .notice-password')
   const pNoticePassword2 = document.querySelector('.modal-login-home-content .notice-password2')
 
-  //areaLoggoutUser.addEventListener('click', loggoutUser)
+  //const alerts = document.querySelector('.area-alerts')
+  //const areaAlerts = document.querySelector('.area-alerts-content')
+
+
   function toggleAreaUser(item) {
     item.preventDefault()
     areaConfigLoggoutUser.classList.toggle('close')
   }
+  function toogleAreaAlerts() {
+    //item.preventDefault()
+    areaAlerts.classList.toggle('close')
+  }
   if(areaPersonaAUser) {
-
+    //alerts.addEventListener('click', toogleAreaAlerts)
     areaPersonaAUser.addEventListener('click', item => toggleAreaUser(item))
     areaPersonaIMGUser.addEventListener('click', item => toggleAreaUser(item))
     areaPersonaUser.addEventListener('click', item => toggleAreaUser(item))

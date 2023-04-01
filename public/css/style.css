@@ -92,6 +92,7 @@ header {
   height: 40px;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .header-persona a {
   display: flex;
@@ -101,6 +102,57 @@ header {
 .area-alerts img,
 .header-persona-open img {
   width: 75%;
+}
+.area-alerts-content {
+  background-color: #999999b5;
+  display: flex;
+  flex-direction: column;
+  width: 216px;
+  
+  position: absolute;
+  padding: 6px 8px;
+  top: 9%;
+  margin-left: -160px;
+}
+.area-alerts-content.close {
+  display: none;
+}
+.area-alerts-content a {
+  font-size: 11px;
+  width: 100%;
+  margin-bottom: 5px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.area-alerts {
+  display: none;
+}
+.alerts-img {
+  -webkit-animation: rotate-center 1.5s ease-in-out infinite both;
+	animation: rotate-center 1.5s ease-in-out infinite both;
+}
+@-webkit-keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 .header-persona img {
   width: 100%;

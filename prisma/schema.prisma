@@ -28,6 +28,7 @@ model User {
   ResponseCommentInForum     ResponseCommentInForum[]
   LikeInResponseCommentForum LikeInResponseCommentForum[]
   DenounceInForum            DenounceInForum[]
+  Notification               Notification[]
 
   @@map("users")
 }
@@ -294,4 +295,15 @@ model DenounceInForum {
   userId                    User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("denouncesInForum")
+}
+
+model Notification {
+  id       String  @id @default(uuid())
+  user_id  String
+  forum_id String?
+  post_id  String?
+  msg      String
+  userId   User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
 }
