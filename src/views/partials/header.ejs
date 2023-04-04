@@ -179,7 +179,15 @@
 
  
   forgotPassword.addEventListener('click', sendForgotPassword)
-
+  buttonForgot.addEventListener('click', () => {
+    const email = inputEmailModal.value
+    const emailValid = validateEmail(email)
+    if(emailValid) {
+      sendForgotPassword2(email)
+    } else {
+      pNoticeEmail.innerText = 'Digite um e-mail valido'
+    }
+  })
   function toggleAreaUser(item) {
     item.preventDefault()
     areaConfigLoggoutUser.classList.toggle('close')
@@ -370,6 +378,10 @@ function validateEmail (emailCapturadoDoFormulario) {
      return false; 
    }
 }
+function sendEmailForgetSucess() {
+  buttonForgot.style.backgroundColor = '#0cc70cfc'
+  buttonForgot.innerText = 'E-mail encaminhado com sucesso'
+}
 function loginSucess(user) {
     buttonLogin.style.backgroundColor = '#0cc70cfc'
     buttonLogin.innerText = 'Login feito com sucesso'
@@ -394,6 +406,21 @@ buttonLogin.addEventListener('click', item => {
     loginUser(inputEmailModal.value, inputPasswordModal.value)
 })
 
+async function sendForgotPassword2(email) {
+  const forgot = await fetch('/notification', {
+    method: 'POST',
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: new URLSearchParams({
+        email
+    })
+  })
+  const json = await forgot.json()
+  if(json.message === "e-mail enviado com sucesso") {
+    sendEmailForgetSucess()
+  }
+}
 async function sendDataNewUser(email, name, password, password2) {
     pNoticePassword2.innerHTML = ''
     pNoticeEmail.innerText = ''
