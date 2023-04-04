@@ -285,7 +285,7 @@ export const login = async(req: Request, res: Response) => {
         //res.status(200).json({sucess: true, token: loggedUser.token, id: loggedUser.id}).render('pages/home')
         
       } else {
-          res.status(500).json({error : "Dados invalidos"})
+          res.status(500).json({error : "E-mail e/ou senha invalidos"})
       }
   } else {
       res.status(500).json({error : "Dados invalidos"})

@@ -1,7 +1,11 @@
-import { Router } from 'express'
+import { Router,NextFunction, Request, Response } from 'express'
 import { isAuthenticated, privateRoute } from '../config/passport'
 import * as UserController from '../controllers/userControllers'
+import passport from "passport";
+import jwt from "jsonwebtoken";
 import multer from 'multer'
+import { User } from '@prisma/client';
+import cors from 'cors';
 
 const router = Router()
 const upload = multer({
@@ -33,6 +37,17 @@ router.put('/userName/:id', privateRoute, UserController.updateName)
 router.put('/user/:id', privateRoute, UserController.update)
 router.post('/logout', UserController.logout)
 router.delete('/user/:id', privateRoute, UserController.deleteUser)
+
+
+// router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+
+// router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+//   if(req.user){
+//     const token = jwt.sign(req.user, process.env.JWT_SECRET!);
+//     res.redirect(`/dashboard?token=${token}`);
+//   }
+// });
 
 
 

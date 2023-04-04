@@ -8,6 +8,7 @@ import userRouter from './routes/user'
 import postRouter from './routes/post'
 import commentRouter from './routes/comment'
 import denounce from './routes/denounce'
+import notification from './routes/notification'
 import likeInCommentPostRouter from './routes/likeInComment'
 import likeInCommentForumRouter from './routes/likeInForum'
 import forumRouter from './routes/forum'
@@ -23,6 +24,8 @@ const server = express()
 server.use(cookieParser())
 server.use(cors({
   credentials: true,
+  origin: 'http://localhost:4000',
+  optionsSuccessStatus: 200,
 }))
 
 
@@ -38,7 +41,7 @@ server.use(passport.initialize())
 
 
 
-// declare module 'express-session' {
+//  declare module 'express-session' {
 //   export interface SessionData {
 //     // user: { [key: string]: any };
 //     // userId: number;
@@ -57,7 +60,8 @@ const sessionConfig: SessionOptions = {
   saveUninitialized: true,
   cookie: { secure: false }, // use secure: true em produção, com HTTPS
 };
-//server.use(session(sessionConfig))
+server.use(session(sessionConfig))
+
 server.use(userRouter)
 server.use(homeRouter)
 server.use(postRouter)
@@ -67,6 +71,7 @@ server.use(forumRouter)
 server.use(commentForumRouter)
 server.use(likeInCommentForumRouter)
 server.use(denounce)
+server.use(notification)
 // server.use(session({
 //   secret: 'dapsdaifnasdáosdasd',
 //   resave: false,

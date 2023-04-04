@@ -1,12 +1,48 @@
 import { Request, Response, NextFunction } from 'express'
 import passport from 'passport'
 import dotenv from 'dotenv'
-import { Strategy as JWTStrategy , ExtractJwt} from 'passport-jwt'
+import { Strategy as JWTStrategy , ExtractJwt } from 'passport-jwt'
+import { Strategy as GoogleStrategy, Profile  } from 'passport-google-oauth20';
 import jwt from 'jsonwebtoken'
 import { UserService } from '../services/UserService'
 import { User, UserADM } from '@prisma/client'
 
 dotenv.config()
+// passport.use(new GoogleStrategy({
+//     clientID: process.env.CLIENT_ID as string,
+//     clientSecret: process.env.CLIENT_SECRETY_GOOGLE as string,
+//     callbackURL: "http://localhost:4000/google/callback"
+//   },
+//   function(accessToken: any, refreshToken: any, profile:any, done: any) {
+//     console.log(profile);
+//     return done(null, profile);
+//   }
+// ));
+
+// passport.use(new GoogleStrategy({
+//     clientID: process.env.GOOGLE_CLIENT_ID as string,
+//     clientSecret: process.env.GOOGLE_CLIENT_SECRET! as string,
+//     callbackURL: 'http://localhost:3000/auth/google/callback',
+// }, (accessToken, refreshToken, profile, done) => {
+//     const user = {
+//         id: profile.id,
+//         name: profile.displayName,
+//         email: profile.emails ? profile.emails[0].value : '',
+//     };
+//     done(null, user);
+// }));
+
+
+  // Função para serializar o usuário
+  passport.serializeUser((user: any, done) => {
+    done(null, user.id);
+  });
+  
+  // Função para desserializar o usuário
+  passport.deserializeUser((id: any, done) => {
+    done(null, { id });
+  });
+
 
 const notAuthorizedJson = { status: 401, message: "Não autorizado" }
 const options = {

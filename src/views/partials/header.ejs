@@ -83,14 +83,22 @@
             <div class="modal-login-home-buttons">
               <button class="buttonEmail">Continuar com o e-mail</button>
               <button class="buttonLogin">Continuar</button>
+              <p class="forgotPassword">Esqueci a senha</p>
               <button class="buttonLoginEmail">Login</button>
+              <button class="buttonForgot">Recuperar a senha</button>
             </div>
-            <div class="modal-login-home-g">
+            
+            <div class="modal-login-home-g" style="display: none;">
               <p>Ou continue com o</p>
             </div>
-            <div class="modal-login-home-buttons-google">
+            
+            <div class="modal-login-home-buttons-google" style="display: none;">
               <a class="buttonGoogle"><img src="/images/google.svg" alt=""></a>
             </div>
+            <!--
+            <button class="face" scope="public_profile,email" onlogin="checkLoginState();">FACE
+              
+            </button>-->
           </div>
           <div class="modal-login-home-content-close"></div>
         </div>
@@ -99,6 +107,37 @@
   </div>
 </header>
 <script>
+  // const fb = document.querySelector('.face')
+  // //fb.addEventListener('click', checkLoginState)
+  
+
+  // window.fbAsyncInit = function() {
+  //   FB.init({
+  //     appId      : '207266138594680',
+  //     cookie     : true,
+  //     xfbml      : true,
+  //     version    : '16.0'
+  //   });
+      
+  //   FB.AppEvents.logPageView();   
+      
+  // };
+
+  // (function(d, s, id){
+  //    var js, fjs = d.getElementsByTagName(s)[0];
+  //    if (d.getElementById(id)) {return;}
+  //    js = d.createElement(s); js.id = id;
+  //    js.src = "https://connect.facebook.net/en_US/sdk.js";
+  //    fjs.parentNode.insertBefore(js, fjs);
+  //  }(document, 'script', 'facebook-jssdk'));
+
+  //  FB.getLoginStatus(function(response) {
+  //   statusChangeCallback(response);
+  //   console.log(response);
+  // });
+
+ 
+
   const body = document.querySelector('body')
   const buttonEnter = document.querySelector('.button-enter') 
   const areaAlertsUser = document.querySelector('.area-alerts')
@@ -125,6 +164,8 @@
   const buttonContinuesEmail = document.querySelector('.modal-login-home-content .buttonEmail')
   const buttonRegister = document.querySelector('.modal-login-home-content .buttonLogin')
   const buttonLogin = document.querySelector('.modal-login-home-content .buttonLoginEmail')
+  const buttonForgot = document.querySelector('.modal-login-home-content .buttonForgot')
+  const forgotPassword = document.querySelector('.modal-login-home-content .forgotPassword')
   const buttonGoogle = document.querySelector('.modal-login-home-content .buttonGoogle')
   const pEmailModal = document.querySelector('.modal-login-home-content .modal-login-home-inputs-p')
   const pNameModal = document.querySelector('.modal-login-home-content .modal-login-home-inputs-p-n')
@@ -136,9 +177,8 @@
   const pNoticePassword = document.querySelector('.modal-login-home-content .notice-password')
   const pNoticePassword2 = document.querySelector('.modal-login-home-content .notice-password2')
 
-  //const alerts = document.querySelector('.area-alerts')
-  //const areaAlerts = document.querySelector('.area-alerts-content')
-
+ 
+  forgotPassword.addEventListener('click', sendForgotPassword)
 
   function toggleAreaUser(item) {
     item.preventDefault()
@@ -148,6 +188,9 @@
     //item.preventDefault()
     areaAlerts.classList.toggle('close')
   }
+  
+  
+  
   if(areaPersonaAUser) {
     //alerts.addEventListener('click', toogleAreaAlerts)
     areaPersonaAUser.addEventListener('click', item => toggleAreaUser(item))
@@ -220,6 +263,11 @@ function noticePassword2() {
         pNoticePassword2.innerText = 'A senha deve igual a digitada anteriormente'
     }
 }
+function noticePassword3(msg) {
+  pNoticePassword2.style.display = 'flex'
+  pNoticePassword2.innerText = msg
+    
+}
 function countNoticePassword(item) {
     const count = inputPasswordModal.value.length 
     if(count == 8) {
@@ -243,6 +291,22 @@ function openInputs() {
         pNoticeEmail.innerText = 'Informe um e-mail valido'
     }
 }
+function sendForgotPassword() {
+  buttonContinuesEmail.style.display = 'none'
+  buttonGoogle.style.display = 'none'
+  pGoogleModal.style.display = 'none'
+  pNoticePassword.style.display = 'none'
+  inputPasswordModal.style.display = 'none'
+  pNoticePassword2.style.display = 'none'
+  forgotPassword.style.display = 'none'
+  buttonLogin.style.display = 'none'
+  buttonForgot.style.display = 'flex'
+  forgotPassword.style.display = 'none'
+  pEmailModal.style.display = 'flex'
+  inputEmailModal.value = ''
+  pPasswordModal.style.display = 'none'
+  h3Modal.innerText = 'Digite seu e-mail para recuperação da senha!'
+}
 function toDoLogin() {
     buttonContinuesEmail.style.display = 'none'
     buttonGoogle.style.display = 'none'
@@ -250,6 +314,8 @@ function toDoLogin() {
     pNoticePassword.style.display = 'none'
     inputPasswordModal.style.display = 'flex'
     buttonLogin.style.display = 'flex'
+    buttonForgot.style.display = 'none'
+    forgotPassword.style.display = 'flex'
     pEmailModal.style.display = 'flex'
     pPasswordModal.style.display = 'flex'
     h3Modal.innerText = 'Faça o Login em sua conta!'
@@ -271,12 +337,13 @@ function openInputsRegisterEmail(){
 function closeInputsRegisterEmail() {
     buttonContinuesEmail.style.display = 'flex'
     buttonGoogle.style.display = 'flex'
-    pGoogleModal.style.display = 'flex'
     inputNameModal.style.display = 'none'
     inputPasswordModal.style.display = 'none'
     inputPassword2Modal.style.display = 'none'
     buttonRegister.style.display = 'none'
     buttonLogin.style.display = 'none'
+    buttonForgot.style.display = 'none'
+    forgotPassword.style.display = 'none'
     pEmailModal.style.display = 'none'
     pNameModal.style.display = 'none'
     pPasswordModal.style.display = 'none'
@@ -387,7 +454,7 @@ async function registerNewUser(email, name, password, password2) {
 }
 
 async function loginUser(email, password)  {
-    const loginUser = await fetch(`http://localhost:4000/login`, {
+    const loginUser = await fetch(`/login`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -398,10 +465,14 @@ async function loginUser(email, password)  {
     })
     const json = await loginUser.json();
     if(json.id){
-        loginSucess(json)
-        console.log(json)
-        localStorage.setItem('id', json.id)
-        location.reload() 
+      loginSucess(json)
+      console.log(json)
+      localStorage.setItem('id', json.id)
+      location.reload() 
+    }
+    if(json.error === 'E-mail e/ou senha invalidos') {
+      const msg = json.error
+      noticePassword3(msg)
     }
 }
 

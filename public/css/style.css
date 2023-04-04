@@ -794,7 +794,8 @@ footer .header-logo p {
 .buttonDenounce,
 .buttonEdit,
 .buttonDelete,
-.buttonNewForum {
+.buttonNewForum,
+.buttonForgot {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -811,8 +812,16 @@ footer .header-logo p {
 .buttonLogin,
 .buttonLoginEmail,
 .buttonEdit,
-.buttonDelete {
+.buttonDelete,
+.forgotPassword,
+.buttonForgot {
   display: none;
+}
+
+.forgotPassword {
+  font-size: 12px;
+  margin-bottom: 15px;
+  cursor: pointer;
 }
 .modal-news-comment {
   border: 1px solid #999;
