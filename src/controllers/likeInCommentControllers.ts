@@ -3,11 +3,14 @@ import { UserService } from "../services/UserService";
 import { PostService } from "../services/PostService";
 import { CommentService } from "../services/CommentService";
 import { LikeInCommentService } from "../services/LikeInCommentService";
+import { schemaCreateLike, schemaIds } from "../dtos/validator";
 
 
 export const create = async(req: Request, res: Response) => {
   const { userId, postId, commentId  } = req.body
-  const user = await UserService.findOne(userId)
+  try {
+    schemaCreateLike.parse({ userId, postId, commentId });
+    const user = await UserService.findOne(userId)
   const post = await PostService.findOne(postId)
   const comment = await CommentService.findOne(commentId)
   console.log(req.user)
@@ -48,12 +51,17 @@ export const create = async(req: Request, res: Response) => {
       } 
     } 
   } else {
-    res.status(500).json({error : "Dados invalidos"})
+    res.status(400).json({error : "Dados invalidos"})
+  }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 export const createResponse = async(req: Request, res: Response) => {
   const { userId, postId, commentId  } = req.body
-  const user = await UserService.findOne(userId)
+  try {
+    schemaCreateLike.parse({ userId, postId, commentId });
+    const user = await UserService.findOne(userId)
   const post = await PostService.findOne(postId)
   const comment = await CommentService.findOneResponseComment(commentId)
   const likeComment = await LikeInCommentService.findOneByResponseCommentId(commentId, userId)
@@ -101,35 +109,49 @@ export const createResponse = async(req: Request, res: Response) => {
       } 
     } 
   } else {
-    res.status(500).json({error : "Dados invalidos"})
+    res.status(400).json({error : "Dados invalidos"})
+  }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 export const all = async(req: Request, res: Response) => {
-  console.log(req.user)
   const all = await LikeInCommentService.findAll()
   res.status(200).json({likes: all})
 }
 export const one = async(req: Request, res: Response) => {
   const { id } = req.params
-  const likeComment = await LikeInCommentService.findOne(id)
+  try {
+    schemaIds.parse({ id });
+    const likeComment = await LikeInCommentService.findOne(id)
   if(likeComment) {
       res.status(200).json({likeComment })
   } else {
-      res.status(500).json({error : "Dados invalidos"})
+    res.status(400).json({error : "Dados invalidos"})
+  }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 export const deleteLikeCommentPost = async(req: Request, res: Response) => {
   const { id } = req.params
-  const likeCommentPost = await LikeInCommentService.deleteLikeCommentPost(id)
-  if(likeCommentPost) {
-     res.json({ success: true})
-  } else {
-      res.status(500).json({error : "Dados invalidos"})
+  try {
+    schemaIds.parse({ id });
+    const likeCommentPost = await LikeInCommentService.deleteLikeCommentPost(id)
+    if(likeCommentPost) {
+      res.json({ success: true})
+    } else {
+        res.status(500).json({error : "Dados invalidos"})
+    }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 export const update = async(req: Request, res: Response) => {
   const { id } = req.params
-  const likeCommentPost = await LikeInCommentService.findOne(id)
+  try {
+    schemaIds.parse({ id });
+    const likeCommentPost = await LikeInCommentService.findOne(id)
   if(likeCommentPost) {
     const likeCommentPostUpdate = await LikeInCommentService.update(likeCommentPost.id, {
       done: !likeCommentPost.done
@@ -141,6 +163,9 @@ export const update = async(req: Request, res: Response) => {
     }
       
   } else {
-      res.status(500).json({error : "Dados invalidos"})
+    res.status(400).json({error : "Dados invalidos"})
+  }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }

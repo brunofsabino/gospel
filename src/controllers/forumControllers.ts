@@ -4,12 +4,15 @@ import { ForumService } from "../services/ForumService";
 import { User } from "@prisma/client";
 import { CommentForumService } from "../services/CommentForumService";
 import { LikeInCommentForumService } from "../services/LikeInCommentForumService";
+import { schemaCreateForum, schemaFilterForum, schemaIds, schemaOneForum, schemaUpdateForum } from "../dtos/validator";
 
 
 export const create = async(req: Request, res: Response) => {
   const { title, description } = req.body;
   const { user } = req.params
-  const userLogged = await UserService.findOne(user)
+  try {
+    schemaCreateForum.parse({ user,  title, description });
+    const userLogged = await UserService.findOne(user)
   if(req.user && userLogged && title && description ) {
     const user = req.user as User
     if(user.id  === userLogged.id){
@@ -30,13 +33,14 @@ export const create = async(req: Request, res: Response) => {
       res.status(500).json({error : "Usuario Invalido"})
   }
   } else {
-    res.status(500).json({error : "Dados invalidos"})
+    res.status(400).json({error : "Dados invalidos"})
+  }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 export const home = async(req: Request, res: Response) => {
-  
   let forums = await ForumService.findAll()
- 
   let userId = {}
     if (req.user) {
       const user1 = req.user as User
@@ -59,29 +63,32 @@ export const home = async(req: Request, res: Response) => {
 }
 export const filterForum = async(req: Request, res: Response) => {
   const { filter } = req.params
+  try {
+    schemaFilterForum.parse({ filter });
+    if(filter==='filterPopulary') {
+      const forums = await ForumService.findAll()
+      console.log(forums)
+      if(forums) {
   
-  if(filter==='filterPopulary') {
-    const forums = await ForumService.findAll()
-    console.log(forums)
-    if(forums) {
-
-      res.status(200).json({forums})
-    } else {
-      res.status(500).json({error : "Dados invalidos"})
+        res.status(200).json({forums})
+      } else {
+        res.status(500).json({error : "Dados invalidos"})
+      }
     }
-  }
-  if(filter==='filterRecents') {
-    const forums = await ForumService.findAllRecents()
-    if(forums) {
-      res.status(200).json({forums})
-    } else {
-      res.status(500).json({error : "Dados invalidos"})
+    if(filter==='filterRecents') {
+      const forums = await ForumService.findAllRecents()
+      if(forums) {
+        res.status(200).json({forums})
+      } else {
+        res.status(400).json({error : "Dados invalidos"})
+      }
     }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 export const all = async(req: Request, res: Response) => {
   const forums = await ForumService.findAll()
-
   if(forums) {
     res.status(200).json({forums})
   } else {
@@ -90,20 +97,25 @@ export const all = async(req: Request, res: Response) => {
 }
 export const one = async(req: Request, res: Response) => {
   const { id } = req.params
-  const forum = await ForumService.findOne(id)
-  if(forum) {
-      res.status(200).json({forum })
-  } else {
-      res.status(500).json({error : "Dados invalidos"})
+  try {
+    schemaIds.parse({ id });
+    const forum = await ForumService.findOne(id)
+    if(forum) {
+        res.status(200).json({forum })
+    } else {
+      res.status(400).json({error : "Dados invalidos"})
+    }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 
 export const oneForum = async(req: Request, res: Response) => {
   const { title } = req.params
-  const newTitle = title.split('-').join(' ').split('~').join('?')
-  //const newTitle = decodeURI(title)
-console.log(newTitle)
-  const one = await ForumService.findOneByTitle(newTitle)
+  try {
+    schemaOneForum.parse({ title });
+    const newTitle = title.split('-').join(' ').split('~').join('?')
+    const one = await ForumService.findOneByTitle(newTitle)
   //const forum = await ForumService.findOne(id)
   if(one) {
     let userId = {}
@@ -122,11 +134,6 @@ console.log(newTitle)
     const likes = await LikeInCommentForumService.findAllLikeComment(one.id)
     const responseLikes = await LikeInCommentForumService.findAllLikeResponseComment(one.id)
 
-    console.log(userId)
-    // console.log(likes)
-    console.log(one)
-    console.log(responseComments)
-
     res.render('pages/oneforum', {
       foruns: one,
       userId,
@@ -136,13 +143,18 @@ console.log(newTitle)
       responseLikes,
     })
   } else {
-      res.status(500).json({error : "Dados invalidos"})
+      res.status(400).json({error : "Dados invalidos"})
+  }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 export const update = async(req: Request, res: Response) => {
   const { id } = req.params
   const { title, description } = req.body;
-  const forum = await ForumService.findOne(id)
+  try {
+    schemaUpdateForum.parse({ id, title, description });
+    const forum = await ForumService.findOne(id)
   if(forum) {
       if(title || description) {
           const forumUpdate = await ForumService.update(forum.id, {
@@ -158,15 +170,23 @@ export const update = async(req: Request, res: Response) => {
           res.status(500).json({error : "Dados invalidos"})
       }
   } else {
-      res.status(500).json({error : "Dados invalidos"})
+      res.status(400).json({error : "Dados invalidos"})
+  }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 export const deletePost = async(req: Request, res: Response) => {
   const { id } = req.params
-  const forum = await ForumService.deleteForum(id)
+  try {
+    schemaIds.parse({ id });
+    const forum = await ForumService.deleteForum(id)
   if(forum) {
      res.json({ success: true})
   } else {
-      res.status(500).json({error : "Dados invalidos"})
+      res.status(400).json({error : "Dados invalidos"})
+  }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }

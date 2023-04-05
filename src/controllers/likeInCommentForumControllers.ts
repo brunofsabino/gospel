@@ -6,14 +6,18 @@ import { LikeInCommentService } from "../services/LikeInCommentService";
 import { LikeInCommentForumService } from "../services/LikeInCommentForumService";
 import { ForumService } from "../services/ForumService";
 import { CommentForumService } from "../services/CommentForumService";
+import { schemaCreateLike, schemaIds } from "../dtos/validator";
 
 
 export const create = async(req: Request, res: Response) => {
   const { userId , postId, commentId  } = req.body
-  const user = await UserService.findOne(userId)
-  const forum = await ForumService.findOne(postId)
-  const commentForum = await CommentForumService.findOne(commentId)
-  const likeCommentForum = await LikeInCommentForumService.findOneByCommentId(userId, commentId)
+  
+  try {
+    schemaCreateLike.parse({ userId , postId, commentId });
+    const user = await UserService.findOne(userId)
+    const forum = await ForumService.findOne(postId)
+    const commentForum = await CommentForumService.findOne(commentId)
+    const likeCommentForum = await LikeInCommentForumService.findOneByCommentId(userId, commentId)
 
   if(user && forum && commentForum && !likeCommentForum ) {
     const newLikeInCommentPost = await LikeInCommentForumService.create(user.id, { 
@@ -51,15 +55,20 @@ export const create = async(req: Request, res: Response) => {
       res.status(500).json({error : "Dados invalidos"})
   }
   } else {
-    res.status(500).json({error : "Dados invalidos"})
-}
+    res.status(400).json({error : "Dados invalidos"})
+  }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
+  }
 }
 export const createResponse = async(req: Request, res: Response) => {
   const { userId, postId, commentId  } = req.body
-  const user = await UserService.findOne(userId)
-  const post = await ForumService.findOne(postId)
-  const comment = await CommentForumService.findOneResponseComment(commentId)
-  const likeComment = await LikeInCommentForumService.findOneByResponseCommentId(commentId, userId)
+  try {
+    schemaCreateLike.parse({ userId , postId, commentId });
+    const user = await UserService.findOne(userId)
+    const post = await ForumService.findOne(postId)
+    const comment = await CommentForumService.findOneResponseComment(commentId)
+    const likeComment = await LikeInCommentForumService.findOneByResponseCommentId(commentId, userId)
 
   if(user && post && comment && !likeComment ) {
     const newLikeInResponseCommentPost = await LikeInCommentForumService.createResponse(user.id, { 
@@ -104,7 +113,10 @@ export const createResponse = async(req: Request, res: Response) => {
       } 
     } 
   } else {
-    res.status(500).json({error : "Dados invalidos"})
+    res.status(400).json({error : "Dados invalidos"})
+  }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 export const all = async(req: Request, res: Response) => {
@@ -113,26 +125,38 @@ export const all = async(req: Request, res: Response) => {
 }
 export const one = async(req: Request, res: Response) => {
   const { id } = req.params
-  const likeComment = await LikeInCommentForumService.findOne(id)
-  if(likeComment) {
-      res.status(200).json({likeComment })
-  } else {
-      res.status(500).json({error : "Dados invalidos"})
+  try {
+    schemaIds.parse({ id });
+    const likeComment = await LikeInCommentForumService.findOne(id)
+    if(likeComment) {
+        res.status(200).json({likeComment })
+    } else {
+        res.status(400).json({error : "Dados invalidos"})
+    }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 export const deleteLikeCommentForum = async(req: Request, res: Response) => {
   const { id } = req.params
-  const likeCommentForum = await LikeInCommentForumService.deleteLikeCommentForum(id)
-  if(likeCommentForum) {
-     res.json({ success: true})
-  } else {
-      res.status(500).json({error : "Dados invalidos"})
+  try {
+    schemaIds.parse({ id });
+    const likeCommentForum = await LikeInCommentForumService.deleteLikeCommentForum(id)
+    if(likeCommentForum) {
+      res.json({ success: true})
+    } else {
+        res.status(400).json({error : "Dados invalidos"})
+    }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 export const update = async(req: Request, res: Response) => {
   const { id } = req.params
-  const likeCommentForum = await LikeInCommentForumService.findOne(id)
-  if(likeCommentForum) {
+  try {
+    schemaIds.parse({ id });
+    const likeCommentForum = await LikeInCommentForumService.findOne(id)
+    if(likeCommentForum) {
     const likeCommentForumUpdate = await LikeInCommentForumService.update(likeCommentForum.id, {
       done: !likeCommentForum.done
     })
@@ -142,6 +166,9 @@ export const update = async(req: Request, res: Response) => {
         res.status(500).json({error : "Dados invalidos"})
     }
   } else {
-      res.status(500).json({error : "Dados invalidos"})
+      res.status(400).json({error : "Dados invalidos"})
+  }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }

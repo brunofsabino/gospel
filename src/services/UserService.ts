@@ -87,6 +87,14 @@ export const UserService = {
             }
         })
     },
+    updatePass: async(id: string, data: PropUpdate) => {
+        return await prisma.user.update({
+            where: { id },
+            data : {
+                password : bcrypt.hashSync(data.password as string, 10)
+            }
+        })
+    },
     updatePhoto: async(id: string, data: PropUpdate) => {
         console.log(data.avatar)
         return await prisma.user.update({

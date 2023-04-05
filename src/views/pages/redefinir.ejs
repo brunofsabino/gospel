@@ -1,6 +1,90 @@
 <%- include('../partials/header') %>
-oi
+<main>
+  <div class="redefinir container"> 
+    
+    <div class="area-redefinir">
+      <h1>Redefinir sua senha</h1>
+      <p>Digite sua nova senha:</p>
+      <input type="password" name="pass1" class="pass1" placeholder="Digite sua nova senha">
+      <p class="pPass1"></p>
+      <p>Digite novamente sua nova senha:</p>
+      <input type="password" name="pass2" class="pass2" placeholder="Digite novamente sua nova senha">
+      <p class="pPass2"></p>
+      <button  class="redefinirPass">Criar nova senha</button>
+    </div>
+    
+  
+  </div>
+</main>
+<script>
+  const inputPasswordModal2 = document.querySelector('.pass1')
+  const inputPassword2Modal2 = document.querySelector('.pass2')
+  const pNoticePassword3 = document.querySelector('.pPass1')
+  const pNoticePassword4 = document.querySelector('.pPass2')
+  const buttonNewPass = document.querySelector('.redefinirPass')
+
+  buttonNewPass.addEventListener('click', verifyInputs)
+  inputPasswordModal2.addEventListener('focus', noticePassword)
+  inputPasswordModal2.addEventListener('keyup', item => countNoticePassword(item))
+  inputPassword2Modal2.addEventListener('focus', noticePassword2)
+  inputPassword2Modal2.addEventListener('keyup', item => countNoticePassword2(item))
+  function noticePassword() {
+  if(inputPasswordModal2.value.length < 8) {
+    pNoticePassword3.innerText = 'A nova senha deve contar ao menos 8 digitos!'
+    }
+  }
+  function noticePassword2() {
+    if(inputPasswordModal2.value !== inputPassword2Modal2.value) {
+      pNoticePassword4.innerText = 'A nova senha deve igual a digitada anteriormente'
+    }
+  }
+  function countNoticePassword(item) {
+    const count = inputPasswordModal2.value.length 
+    if(count == 8) {
+        pNoticePassword3.innerText = ''
+    }
+  }
+  function sendNewPassSucess() {
+    buttonNewPass.style.backgroundColor = '#0cc70cfc'
+    buttonNewPass.innerText = 'Senha criada com sucesso'
+  }
+  function countNoticePassword2(item) {
+      if(inputPasswordModal2.value === inputPassword2Modal2.value) {
+          pNoticePassword4.innerText = ''
+      }
+      if(inputPasswordModal2.value !== inputPassword2Modal2.value) {
+          pNoticePassword4.innerText = 'A senha deve igual a digitada anteriormente'
+      }
+  }
+  function verifyInputs() {
+    const count = inputPasswordModal2.value.length 
+    const count2 = inputPassword2Modal2.value.length 
+    if(count == 8 && count2 == 8 ) {
+      const newPass = sendNewPass(inputPasswordModal2.value, inputPassword2Modal2.value)
+    }
+  }
+
+  async function sendNewPass(input1, input2) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    if(input1 === input2) {
+      const forgot = await fetch(`/redefinir-pass/${token}`, {
+      method: 'POST',
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams({
+        input1, input2
+      })
+    })
+      const json = await forgot.json()
+      if(json.message === "Senha atualizada com sucesso!") {
+        sendNewPassSucess()
+      }
+    }
+  }
+</script>
 
 
 
-<%- include('../partials/footer') %>
+

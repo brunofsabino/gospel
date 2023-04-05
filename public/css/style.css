@@ -753,7 +753,9 @@ footer .header-logo p {
 .modal-login-home-inputs .nameInput,
 .modal-login-home-inputs .p2assword,
 .textDenounce,
-.textDescribeForum {
+.textDescribeForum,
+.area-redefinir .pass1, 
+.area-redefinir .pass2 {
   width: 90%;
   padding: 8px;
   border-radius: 5px;
@@ -795,7 +797,8 @@ footer .header-logo p {
 .buttonEdit,
 .buttonDelete,
 .buttonNewForum,
-.buttonForgot {
+.buttonForgot,
+.redefinirPass {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -859,7 +862,9 @@ footer .header-logo p {
 .notice-email,
 .notice-password,
 .notice-name,
-.notice-password2 {
+.notice-password2,
+.pPass1,
+.pPass2 {
   color: red;
   font-weight: 500;
   margin-top: -10px;

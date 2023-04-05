@@ -5,76 +5,97 @@ import { PostService } from "../services/PostService";
 import { CommentService } from "../services/CommentService";
 import { CommentForumService } from "../services/CommentForumService";
 import { ForumService } from "../services/ForumService";
+import { schemaCreateDenounce, schemaIds } from "../dtos/validator";
 
 
 export const createDenounceComment = async(req: Request, res: Response) => {
   const { idUser, idComment, idCommentReponse, describingDenounce, idPost, idForum,idCommentForum, userDenounced_id } = req.body
 
-  const user = await UserService.findOne(idUser)
-  const comment = await CommentService.findOne(idComment)
-  const post = await PostService.findOne(idPost)
+  try {
+    schemaCreateDenounce.parse({ idUser, idComment, idCommentReponse, describingDenounce, idPost, idForum,idCommentForum, userDenounced_id });
+    const user = await UserService.findOne(idUser)
+    const comment = await CommentService.findOne(idComment)
+    const post = await PostService.findOne(idPost)
 
-  if(user && post ){
-    const nameUser = user.name
-    const denounce = await DenounceService.create(user.id, {
-      nameUser,
-      userDenounced_id: userDenounced_id ?? undefined,
-      describingDenounce: describingDenounce ?? undefined,
-      post_id:  post.id ?? null,
-      id_comment: comment ? comment.id : idComment
-    })
-    if(denounce) {
-      res.status(200).json({denounce})
+    if(user && post ){
+      const nameUser = user.name
+      const denounce = await DenounceService.create(user.id, {
+        nameUser,
+        userDenounced_id: userDenounced_id ?? undefined,
+        describingDenounce: describingDenounce ?? undefined,
+        post_id:  post.id ?? null,
+        id_comment: comment ? comment.id : idComment
+      })
+      if(denounce) {
+        res.status(200).json({denounce})
+      } else {
+        res.status(500).json({error : "Dados invalidos"})
+      }
     } else {
-      res.status(500).json({error : "Dados invalidos"})
+      res.status(400).json({error : "Dados invalidos"})
     }
-  } else {
-    res.status(500).json({error : "Dados invalidos"})
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 
 export const createDenounceInForumComment = async(req: Request, res: Response) => {
   const { idUser, idComment, idCommentReponse, describingDenounce, idPost, idForum,idCommentForum, userDenounced_id } = req.body
 
-  const user = await UserService.findOne(idUser)
-  const comment = await CommentService.findOne(idComment)
-  const post = await ForumService.findOne(idPost)
+  try {
+    schemaCreateDenounce.parse({ idUser, idComment, idCommentReponse, describingDenounce, idPost, idForum,idCommentForum, userDenounced_id });
+    const user = await UserService.findOne(idUser)
+    const comment = await CommentService.findOne(idComment)
+    const post = await ForumService.findOne(idPost)
 
-  if(user && post ){
-    const nameUser = user.name
-    const denounce = await DenounceService.createInForum(user.id, {
-      nameUser,
-      userDenounced_id: userDenounced_id ?? undefined,
-      describingDenounce: describingDenounce ?? undefined,
-      forum_id:  post.id ?? null,
-      id_comment: comment ? comment.id : idComment
-    })
-    if(denounce) {
-      res.status(200).json({denounce})
+    if(user && post ){
+      const nameUser = user.name
+      const denounce = await DenounceService.createInForum(user.id, {
+        nameUser,
+        userDenounced_id: userDenounced_id ?? undefined,
+        describingDenounce: describingDenounce ?? undefined,
+        forum_id:  post.id ?? null,
+        id_comment: comment ? comment.id : idComment
+      })
+      if(denounce) {
+        res.status(200).json({denounce})
+      } else {
+        res.status(500).json({error : "Dados invalidos"})
+      }
     } else {
-      res.status(500).json({error : "Dados invalidos"})
+      res.status(400).json({error : "Dados invalidos"})
     }
-  } else {
+  } catch (error) {
     res.status(500).json({error : "Dados invalidos"})
   }
 }
 export const all = async(req: Request, res: Response) => {
   const { id } = req.params
-  const userADM = await UserService.findADM(id)
+  try {
+    schemaIds.parse({ id });
+    const userADM = await UserService.findADM(id)
     if(userADM) {
       const all = await DenounceService.findAll()
       res.status(200).json({denounce: all})
     } else {
-      res.status(500).json({error : "Dados invalidos"})
+      res.status(400).json({error : "Dados invalidos"})
     }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
+  }
 }
 export const allInForum = async(req: Request, res: Response) => {
   const { id } = req.params
-  const userADM = await UserService.findADM(id)
+  try {
+    schemaIds.parse({ id });
+    const userADM = await UserService.findADM(id)
     if(userADM) {
       const all = await DenounceService.findAllInForum()
       res.status(200).json({denounce: all})
     } else {
       res.status(500).json({error : "Dados invalidos"})
     }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
+  }
 }

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { UserService } from "../services/UserService";
 import { PostService } from "../services/PostService";
 import { CommentService } from "../services/CommentService";
-import validator from 'validator'
+import {  schemaCommentUser, schemaIds, schemaResponseCommentUser } from "../dtos/validator";
 import { User } from "@prisma/client";
 
 
@@ -10,8 +10,12 @@ export const create = async(req: Request, res: Response) => {
   const { userId, postId    } = req.params
   const { comment } = req.body
 
-  const user = await UserService.findOne(userId)
-  const post = await PostService.findOne(postId)
+  try {
+    schemaCommentUser.parse({ comment, userId, postId });
+    // Se chegou aqui, é porque os dados são válidos
+    // Então você pode continuar com a lógica do seu controller
+    const user = await UserService.findOne(userId)
+    const post = await PostService.findOne(postId)
 
   if(user && post && comment) {
     const nameUserInComment = user.name
@@ -36,14 +40,22 @@ export const create = async(req: Request, res: Response) => {
   } else {
       res.status(500).json({error : "Dados invalidos"})
   }
+  } catch (error) {
+    // Se cair aqui, é porque os dados são inválidos
+    res.status(400).json({error : "Dados invalidos"})
+  }
 }
 export const createResponseComment = async(req: Request, res: Response) => {
   const { userId, postId, commentId    } = req.params
   const { comment, comment2, name2 } = req.body
 
-  const user = await UserService.findOne(userId)
-  const post = await PostService.findOne(postId)
-  const commentPost = await CommentService.findOne(commentId)
+  try {
+    schemaResponseCommentUser.parse({ comment, comment2, name2, userId, postId, commentId });
+    // Se chegou aqui, é porque os dados são válidos
+    // Então você pode continuar com a lógica do seu controller
+    const user = await UserService.findOne(userId)
+    const post = await PostService.findOne(postId)
+    const commentPost = await CommentService.findOne(commentId)
 
   if(user && post && comment && commentPost) {
     const nameUser = user.name
@@ -78,6 +90,10 @@ export const createResponseComment = async(req: Request, res: Response) => {
   } else {
       res.status(500).json({error : "Dados invalidos"})
   }
+  } catch (error) {
+    // Se cair aqui, é porque os dados são inválidos
+    res.status(400).json({error : "Dados invalidos"})
+  }
 }
 export const all = async(req: Request, res: Response) => {
   const all = await CommentService.findAll()
@@ -85,53 +101,73 @@ export const all = async(req: Request, res: Response) => {
 }
 export const one = async(req: Request, res: Response) => {
   const { id } = req.params
-  const comment = await CommentService.findOne(id)
-  if(comment) {
+  try {
+    schemaIds.parse({ id });
+    const comment = await CommentService.findOne(id)
+    if(comment) {
       res.status(200).json({comment })
-  } else {
-      res.status(500).json({error : "Dados invalidos"})
+    } else {
+      res.status(400).json({error : "Dados invalidos"})
+    }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
+  
 }
 export const oneResponse = async(req: Request, res: Response) => {
   const { id } = req.params
-  const comment = await CommentService.findOneResponseComment(id)
+  try {
+    schemaIds.parse({ id });
+    const comment = await CommentService.findOneResponseComment(id)
   if(comment) {
       res.status(200).json({comment })
   } else {
-      res.status(500).json({error : "Dados invalidos"})
+      res.status(400).json({error : "Dados invalidos"})
+  }
+  } catch (error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 export const update = async(req: Request, res: Response) => {
   const { id } = req.params
   const { comment, idUser } = req.body
   const commentOne = await CommentService.findOne(id)
-  
-  if(req.user ) {
-    const user = req.user as User
-    if(user.id  === idUser) {
-      if(commentOne && comment) {
-        const commentUpdate = await CommentService.update(commentOne.id, {
-          comment
-        })
-        if(commentUpdate) {
-            res.status(201).json({ comment: commentUpdate })
+
+  try {
+    schemaCommentUser.parse({ comment, idUser, id });
+    if(req.user ) {
+      const user = req.user as User
+      if(user.id  === idUser) {
+        if(commentOne && comment) {
+          const commentUpdate = await CommentService.update(commentOne.id, {
+            comment
+          })
+          if(commentUpdate) {
+              res.status(201).json({ comment: commentUpdate })
+          } else {
+              res.status(500).json({error : "Dados invalidos"})
+          }
         } else {
             res.status(500).json({error : "Dados invalidos"})
         }
       } else {
-          res.status(500).json({error : "Dados invalidos"})
+        res.status(500).json({error : "Dados invalidos"})
       }
     } else {
       res.status(500).json({error : "Dados invalidos"})
     }
-  } else {
-    res.status(500).json({error : "Dados invalidos"})
+  } catch (error) {
+    // Se cair aqui, é porque os dados são inválidos
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 export const updateDel = async(req: Request, res: Response) => {
   const { id } = req.params
   const {  idUser } = req.body
-  const commentOne = await CommentService.findOne(id)
+
+  try {
+    schemaIds.parse({ id, idUser });
+    const commentOne = await CommentService.findOne(id)
   
   if(req.user ) {
     const user = req.user as User
@@ -152,14 +188,20 @@ export const updateDel = async(req: Request, res: Response) => {
       res.status(500).json({error : "Dados invalidos"})
     }
   } else {
-    res.status(500).json({error : "Dados invalidos"})
+    res.status(400).json({error : "Dados invalidos"})
+  }
+  } catch(error) {
+    res.status(400).json({error : "Dados invalidos"})
   }
 }
 
 export const updateDelResponse = async(req: Request, res: Response) => {
   const { id } = req.params
   const {  idUser } = req.body
-  const commentOne = await CommentService.findOneResponseComment(id)
+
+  try {
+    schemaIds.parse({ id, idUser });
+    const commentOne = await CommentService.findOneResponseComment(id)
   
   if(req.user ) {
     const user = req.user as User
@@ -182,43 +224,57 @@ export const updateDelResponse = async(req: Request, res: Response) => {
   } else {
     res.status(500).json({error : "Dados invalidos"})
   }
+  } catch (error) {
+    console.error('ID inválido:', error);
+  }
 }
 export const updateResponse = async(req: Request, res: Response) => {
   const { id } = req.params
   const { comment, idUser } = req.body
   const commentOne = await CommentService.findOneResponseComment(id)
-  
-  if(req.user ) {
-    const user = req.user as User
-    if(user.id  === idUser) {
-      if(commentOne && comment) {
-        const commentUpdate = await CommentService.updateResponseComment(commentOne.id, {
-          comment
-        })
-        if(commentUpdate) {
-            res.status(201).json({ comment: commentUpdate })
+
+  try {
+    schemaCommentUser.parse({ comment, id });
+    // Se chegou aqui, é porque os dados são válidos
+    // Então você pode continuar com a lógica do seu controller
+    if(req.user ) {
+      const user = req.user as User
+      if(user.id  === idUser) {
+        if(commentOne && comment) {
+          const commentUpdate = await CommentService.updateResponseComment(commentOne.id, {
+            comment
+          })
+          if(commentUpdate) {
+              res.status(201).json({ comment: commentUpdate })
+          } else {
+              res.status(500).json({error : "Dados invalidos"})
+          }
+            
         } else {
             res.status(500).json({error : "Dados invalidos"})
         }
-          
       } else {
-          res.status(500).json({error : "Dados invalidos"})
+        res.status(500).json({error : "Dados invalidos"})
       }
     } else {
       res.status(500).json({error : "Dados invalidos"})
     }
-  } else {
-    res.status(500).json({error : "Dados invalidos"})
+  } catch (error) {
+    // Se cair aqui, é porque os dados são inválidos
+    res.status(400).json({error : "Dados invalidos"})
   }
-  
-  
 }
 export const deleteCommentPost = async(req: Request, res: Response) => {
   const { id } = req.params
-  const commentPost = await CommentService.deleteCommentPost(id)
-  if(commentPost) {
-     res.json({ success: true})
-  } else {
-      res.status(500).json({error : "Dados invalidos"})
+  try {
+    schemaIds.parse({ id });
+    const commentPost = await CommentService.deleteCommentPost(id)
+    if(commentPost) {
+      res.json({ success: true})
+    } else {
+        res.status(500).json({error : "Dados invalidos"})
+    }
+  } catch (error) {
+    res.status(500).json({error : "Dados invalidos"})
   }
 }
