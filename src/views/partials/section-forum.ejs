@@ -1,0 +1,54 @@
+<div class="aside-content">
+  <div class="aside-title">
+    <h3>As mais comentadas da semana no Fórum</h3>
+  </div>
+  <div class="aside-forum">
+    <%forumAside.forEach(function(item){%>
+      <div class="aside-forum1">
+        <div class="aside-forum1-person">
+          <a href="/forum/<%=item.title.split(' ').join('-').split('?').join('~')%>">
+            <div class="aside-forum1-person-area">
+              <img src="/media/<%=item.avatar_user%>" alt="">
+            </div>
+          </a>
+        </div>
+        <div class="aside-forum1-desc">
+          <a href="/forum/<%=item.title.split(' ').join('-').split('?').join('~')%>">
+          <div class="aside-forum1-desc-title">
+            <h3>
+              <%if(item.title.length < 65) { %>
+                <%=item.title%>
+              <% } else { %> 
+                <%=item.title.substr(0,65)+"..."%>
+              <% } %> 
+            </h3>
+          </div>
+          <div class="aside-forum1-desc-res">
+            <p>
+              <% if (item.nameLastComment ) { %>
+                Ultima resposta: <%=item.nameLastComment%>
+              <% } else { %> 
+                Comente!
+                <% } %> 
+            </p>
+          </div>
+          <div class="aside-forum1-desc-qt-comments">
+            <img src="images/forum.svg" alt="">
+            <p>
+              <% if (item.qtComments ) { %>
+                <% if (item.qtComments === 1 ) { %>
+                  <%=item.qtComments%> Comentário
+                <% } else { %> 
+                  <%=item.qtComments%> Comentários
+                  <% } %> 
+              <% } else { %> 
+                Comente!
+                <% } %> 
+            </p>
+          </div>
+          </a>
+        </div>
+      </div>
+    <%});%>
+  </div>
+</div>

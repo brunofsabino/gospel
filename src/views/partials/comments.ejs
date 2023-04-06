@@ -144,15 +144,15 @@
       <%responseComments.forEach(function(item){%>
         <div class="area-comments-user-response">
           <div class="area-comments-user-person">
+            <a href="/userName/<%=item.nickName%>">
             <div class="area-comments-person-img">
-              <a href="/userName/<%=item.nickName%>">
                 <% if (item.userAvatarCommentReply) { %>
                   <img src="/media/<%=item.imgUser%>" alt="">
                 <% } else { %> 
                   <img src="/media/avatar.png" alt="">
                 <% } %>
+              </div>
               </a>
-            </div>
           </div>
           <div class="area-comments-user-content">
             <div class="area-comments-user-content-info">

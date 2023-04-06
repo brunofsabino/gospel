@@ -35,6 +35,7 @@ main {
 }
 .news-details-img-video img {
   width: 55%;
+  border-radius: 10px;
 }
 .news-details-desc-aside {
   display: flex;
@@ -56,6 +57,7 @@ main {
   margin-bottom: 30px;
 }
 .news-details-comments {
+  width: 60%;
   border: 1px solid #999;
   border-radius: 15px;
   margin: 15px 20px;
@@ -89,7 +91,7 @@ main {
 .area-comments-person-img {
   width: 50px;
     height: 50px;
-    border: 1px solid #999;
+    border: 1px solid #48BC6A;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -97,7 +99,7 @@ main {
     margin-right: 10px;
 }
 .area-comments-person-img img {
-  width: 100%;
+  width: 90%;
   border-radius: 50%;
 }
 .area-comments-person-img a {
@@ -339,4 +341,163 @@ main {
 }
 .redefinirPass {
   margin-top: 15px;
+}
+
+@media( max-width: 992px ) {
+  .main-news-title h1 {
+    font-size: 44px;
+  }
+  .aside-title {
+    font-size: 12px;
+    text-align: center;
+  }
+  .aside-forum1-desc-title h3,
+  .news-details-share p,
+  .aside-forum1-desc-qt-comments p,
+  .area-topics-last-responde p,
+  .news-week-1-more {
+    font-size: 12px;
+  }
+  .opine {
+    display: none;
+  }
+  .news-week-1-p-aside p {
+    font-weight: 600;
+    margin-right: 0px;
+  }
+  .news-week-1-more {
+    margin-right: 10px;
+  }
+  .aside-forum1-desc-res p {
+    font-size: 9px;
+  }
+  .news-week-1-title-aside h3 {
+    font-size: 14px;
+  }
+}
+
+@media( max-width: 965px ) {
+  .news-week-1-aside {
+    padding: 10px 10px;
+    align-items: center;
+  }
+  .news-details-share p {
+    font-size: 10px;
+  }
+}
+@media( max-width: 800px ) {
+  .main-news-title h1 {
+    font-size: 40px;
+  }
+  .main-news-p {
+    font-size: 12px;
+  }
+  .aside-forum1-desc-res p {
+    font-size: 8px;
+  }
+  .aside-forum1-desc a {
+    padding: 0px 0px 0px 15px;
+  }
+  .aside-forum1-desc-qt-comments p {
+    font-size: 10px;
+  }
+  .news-week-1-title h3 {
+    font-size: 16px;
+  }
+  .area-topics-last-responde p {
+    font-size: 8px;
+  }
+  .news-week-1-title-aside h3 {
+    font-size: 12px;
+  }
+  .news-week-1-more {
+    margin-right: 0px;
+  }
+}
+@media( max-width: 778px ) {
+  main .main-news {
+    display: grid;
+    grid-template-areas: 
+    "area2"
+    "area1";
+  }
+  main .main-news-area1 {
+    grid-area: area1;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  main .main-news-area2 {
+    grid-area: area2;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  main .main-news-area2 a {
+    width: 70%;
+  }
+  .area-sections-aside {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .area-sections {
+    width: 100%;
+  }
+  .news-week-1-more {
+    font-size: 16px;
+  }
+  .news-week-1-p-comment p {
+    margin-left: 10px;
+  }
+  aside {
+    width: 90%;
+  }
+  .aside-title {
+    font-size: 16px;
+  }
+  .aside-forum1-desc-title h3 {
+    font-size: 15px;
+  }
+  .aside-forum1-desc-res p {
+    font-size: 10px;
+  }
+  .aside-forum1-desc-qt-comments p {
+    font-size: 14px;
+  }
+  .area-forum-title h1 {
+    font-size: 42px;
+  }
+  .area-forum-title-button button {
+    font-size: 16px;
+  }
+  .area-forum-topics {
+    flex-direction: column;
+    align-items: center;
+  }
+  .area-topics-users {
+    width: 95%;
+  }
+  .area-topics-last-responde p {
+    font-size: 12px;
+  }
+  .area-topics-last-responde-qt-comments p {
+    font-size: 14px;
+  }
+  .news-week-1-title-aside h3 {
+    font-size: 16px;
+  }
+  .aside-forum1,
+  .news-week-1-aside {
+    margin-bottom: 20px;
+  }
+  .news-details-comments {
+    width: 90%;
+  }
+  .news-details-desc-aside {
+    flex-direction: column;
+    align-items: center;
+  }
+  .news-details-content-comment-desc {
+    width: 100%;
+    margin-bottom: 30px;
+  }
 }

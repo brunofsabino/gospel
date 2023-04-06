@@ -5,6 +5,7 @@ import { User } from "@prisma/client";
 import { CommentForumService } from "../services/CommentForumService";
 import { LikeInCommentForumService } from "../services/LikeInCommentForumService";
 import { schemaCreateForum, schemaFilterForum, schemaIds, schemaOneForum, schemaUpdateForum } from "../dtos/validator";
+import { PostService } from "../services/PostService";
 
 
 export const create = async(req: Request, res: Response) => {
@@ -22,7 +23,8 @@ export const create = async(req: Request, res: Response) => {
         description, 
         avatar_user: userLogged.avatar ?? undefined, 
         name_user: userLogged.name ?? undefined,
-        qtComments: 0
+        qtComments: 0,
+        nickName: userLogged.nickName ?? undefined
       })
       if(newForum) {
           res.status(201).json({ newForum })
@@ -41,6 +43,7 @@ export const create = async(req: Request, res: Response) => {
 }
 export const home = async(req: Request, res: Response) => {
   let forums = await ForumService.findAll()
+  const newsAside = await PostService.findAllAside()
   let userId = {}
     if (req.user) {
       const user1 = req.user as User
@@ -48,16 +51,16 @@ export const home = async(req: Request, res: Response) => {
         id: user1.id,
         name: user1.name,
         email: user1.email,
-        avatar: user1.avatar ?? ''
+        avatar: user1.avatar ?? '',
+        nickName: user1.nickName
       }
     } 
-    console.log(userId)
     console.log(forums)
+    console.log(userId)
   
     res.render('pages/forum.ejs', {
       forums,
-      // slideShow,
-      // newsShow,
+      newsAside,
       userId: req.user ? userId : ''
     })
 }
@@ -116,6 +119,7 @@ export const oneForum = async(req: Request, res: Response) => {
     schemaOneForum.parse({ title });
     const newTitle = title.split('-').join(' ').split('~').join('?')
     const one = await ForumService.findOneByTitle(newTitle)
+    const forumAside = await ForumService.findAllAside()
   //const forum = await ForumService.findOne(id)
   if(one) {
     let userId = {}
@@ -126,13 +130,15 @@ export const oneForum = async(req: Request, res: Response) => {
         id: user1.id,
         name: user1.name,
         email: user1.email,
-        avatar: user1.avatar ?? ''
+        avatar: user1.avatar ?? '',
+        nickName: user1.nickName
       }
     } 
     const comments = await CommentForumService.findAllPost(one.id)
     const responseComments = await CommentForumService.findAllResponseComments(one.id)
     const likes = await LikeInCommentForumService.findAllLikeComment(one.id)
     const responseLikes = await LikeInCommentForumService.findAllLikeResponseComment(one.id)
+    console.log(one)
 
     res.render('pages/oneforum', {
       foruns: one,
@@ -141,6 +147,7 @@ export const oneForum = async(req: Request, res: Response) => {
       responseComments,
       likes,
       responseLikes,
+      forumAside
     })
   } else {
       res.status(400).json({error : "Dados invalidos"})

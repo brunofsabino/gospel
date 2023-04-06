@@ -2,6 +2,16 @@ let totalSlides = document.querySelectorAll('.slider--item').length;
 let sliderWidth = document.querySelector('.slider').clientWidth;
 let currentSlide = 0;
 
+
+document.querySelectorAll('.slider--item').forEach((item) => {
+    item.addEventListener('click', () => {
+      console.log('clicou')
+      const id = item.getAttribute('getItem');
+      window.location.href = `#slide-${id}`;
+    });
+});
+
+
 document.querySelector('.slider--width').style.width = 
     `${sliderWidth * totalSlides}px`;
 document.querySelector('.slider--controls').style.width = 

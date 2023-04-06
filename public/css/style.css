@@ -90,6 +90,7 @@ header {
 .header-persona {
   width: 40px;
   height: 40px;
+  margin-left: 15px;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -270,8 +271,12 @@ main .main-news-area2 {
   align-items: end;
   justify-content: center;
 }
+main .main-news-area2 a {
+  width: 90%;
+}
 main .main-news-area2 img{
   width: 100%;
+  border-radius: 10px;
   cursor: pointer;
 }
 .area-sections-aside {
@@ -297,6 +302,7 @@ main .main-news-area2 img{
   width: 100%;
   height: 350px;
   overflow: hidden;
+  border-radius: 10px;
 }
 .slider--width {
   height: 100%;
@@ -324,6 +330,7 @@ main .main-news-area2 img{
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  pointer-events: none;
 }
 .slider--control {
   width: 25px;
@@ -394,7 +401,7 @@ aside {
   margin-bottom:20px;
 }
 .aside-title {
-  font-size: 15px;
+  font-size: 14px;
   background-color: var(--orange-black);
   width: fit-content;
   border-radius: 7px;
@@ -462,6 +469,12 @@ aside {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+}
+.aside-forum1-desc a {
+  width: 100%;
+  padding: 0px 8px;
+  display: flex;
+  flex-direction: column;
 }
 .aside-forum1-desc-title h3,
 .aside-forum2-desc-title h3,
@@ -552,6 +565,7 @@ aside {
 .news-week-5 a,
 .news-week-6 a,
 .news-week-7 a {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -563,7 +577,7 @@ aside {
 .news-week-5-img,
 .news-week-6-img,
 .news-week-7-img {
-  width: 35%;
+  width: 215px;
   height: 140px;
   display: flex;
   align-items: center;
@@ -578,6 +592,7 @@ aside {
 .news-week-7-img img {
   width: 100%;
   height: inherit;
+  border-radius: 5px;
 }
 .news-week-1-desc,
 .news-week-2-desc,
@@ -871,3 +886,4 @@ footer .header-logo p {
   font-size: 12px;
   margin-bottom: 10px;
 }
+

@@ -8,6 +8,7 @@ import { CommentService } from "../services/CommentService";
 import { LikeInCommentService } from "../services/LikeInCommentService";
 import { User } from "@prisma/client";
 import { schemaCreatePost, schemaIds, schemaOneNews, schemaOnePost, schemaUpdatePost } from "../dtos/validator";
+import { ForumService } from "../services/ForumService";
 
 
 export const create = async(req: Request, res: Response) => {
@@ -102,6 +103,7 @@ export const home = async(req: Request, res: Response) => {
     const mainNews = await PostService.findMainNews()
     const slideShow = await PostService.findSlideShow()
     const newsShow = await PostService.findNewsShow()
+    const forumAside = await ForumService.findAllAside()
     let userId = {}
     if (req.user) {
       //console.log(req.user)
@@ -116,11 +118,13 @@ export const home = async(req: Request, res: Response) => {
     } 
     console.log(newsShow)
     console.log(userId)
+    console.log(forumAside)
   
     res.render('pages/home.ejs', {
       mainNews,
       slideShow,
       newsShow,
+      forumAside,
       userId: req.user ? userId : ''
     })
 }
@@ -163,6 +167,7 @@ export const oneNews = async(req: Request, res: Response) => {
   try {
     schemaOneNews.parse({ title, id });
     console.log(title)
+    const forumAside = await ForumService.findAllAside()
     
     console.log(newTitle)
     const one = await PostService.findOneByTitle(newTitle)
@@ -193,6 +198,7 @@ export const oneNews = async(req: Request, res: Response) => {
         responseComments,
         likes,
         responseLikes,
+        forumAside,
         userId
       })
     }

@@ -7,11 +7,15 @@ type PropCreate = {
   description: string,
   avatar_user?: string,
   name_user?: string
-  qtComments?: number
+  qtComments?: number,
+  nickName?: string
 }
 type PropUpdate = {
   title?: string,
-  description?: string
+  description?: string,
+  avatar_user?: string,
+  name_user?: string,
+  nickName?: string
 }
 export const ForumService = {
   create: async(data: PropCreate) => {
@@ -22,13 +26,17 @@ export const ForumService = {
         description: data.description,
         avatar_user: data.avatar_user ?? undefined,
         name_user: data.name_user ?? undefined,
-        qtComments: data.qtComments
+        qtComments: data.qtComments,
+        nickName: data.nickName ?? undefined
       }
     })
     return dataNewForum
   },
   findAll: async() => {
     return await prisma.forum.findMany({ orderBy: { qtComments: 'desc'}})
+  },
+  findAllAside: async() => {
+    return await prisma.forum.findMany({ orderBy: { qtComments: 'desc'}, take: 5})
   },
   findAllRecents: async() => {
     return await prisma.forum.findMany({orderBy: { date: 'desc'}})
@@ -47,6 +55,20 @@ export const ForumService = {
           description: data.description
         }
     })
+  },
+  updateAvatar: async(id: string, data2: PropUpdate ) => {
+    const count = await prisma.forum.updateMany({
+      where: { user_id: id },
+      data: { avatar_user: data2.avatar_user }
+      })
+      return true
+  },
+  updateName: async(id: string, data2: PropUpdate ) => {
+    const count = await prisma.forum.updateMany({
+      where: { user_id: id },
+      data: { name_user: data2.name_user ?? undefined, nickName: data2.nickName ?? undefined}
+      })
+      return true
   },
   updateQtComments: async(id: string, nameUser: string) => {
     let forum = await prisma.forum.findUnique({ where: {id}})

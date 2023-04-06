@@ -163,6 +163,7 @@ model Forum {
   user_id                    String
   date                       DateTime?                    @default(now())
   avatar_user                String?
+  nickName                   String?
   name_user                  String?
   nameLastComment            String?
   qtComments                 Int?

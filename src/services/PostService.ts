@@ -71,6 +71,9 @@ export const PostService = {
   findOne: async(id: string) => {
     return await prisma.post.findUnique({ where: { id }})
   },
+  findAllAside: async() => {
+    return await prisma.post.findMany({ orderBy: { qtComments: 'desc'}, take: 5})
+  },
   findMainNews: async() => {
     return await prisma.post.findFirst({ where: { mainNewsShow: true }})
   },

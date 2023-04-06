@@ -28,8 +28,9 @@
             </div>
             <div class="slider--width">
               <%slideShow.forEach(function(item){%>
+                
                 <div class="slider--item slide-one" getItem="<%=item.id%>">
-                  <a href="/news/<%=item.title.split(' ').join('-')%>">
+                  <a href="/news/<%=item.title.split(' ').join('-')%>" id="slide-<%=item.id%>">
                     <div class="slider--item-content-1" style="background-image: url('media/<%=item.img%>');">
                       <div class="slider--item-subtitle-1"><%=item.subTitle%></div>
                       <div class="slider--item-title-1">
@@ -55,7 +56,13 @@
                 </div>
                 <div class="news-week-1-desc">
                   <div class="news-week-1-title">
-                    <h3><%=item.title%></h3>
+                    <h3>
+                      <%if(item.title.length < 70) { %>
+                        <%=item.title%>
+                      <% } else { %> 
+                        <%=item.title.substr(0,70)+"..."%>
+                      <% } %> 
+                    </h3>
                   </div>
                   <div class="news-week-1-p-more">
                     <div class="news-week-1-p">
@@ -81,130 +88,15 @@
         </section>
       </div>
       <aside> 
-        <div class="aside-content">
-          <div class="aside-title">
-            <h3>As mais comentadas da semana no Fórum</h3>
-          </div>
-          <div class="aside-forum">
-            <div class="aside-forum1">
-              <div class="aside-forum1-person">
-                <a href="">
-                  <div class="aside-forum1-person-area">
-                    <img src="images/persona.png" alt="">
-                  </div>
-                </a>
-              </div>
-              <div class="aside-forum1-desc">
-                <a href="">
-                <div class="aside-forum1-desc-title">
-                  <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
-                </div>
-                <div class="aside-forum1-desc-res">
-                  <p>Última resposta: Fulano de tal há 1 dia</p>
-                </div>
-                <div class="aside-forum1-desc-qt-comments">
-                  <img src="images/forum.svg" alt="">
-                  <p>10 Comentários</p>
-                </div>
-                </a>
-              </div>
-  
-            </div>
-            <div class="aside-forum2">
-              <div class="aside-forum2-person">
-                <a href="">
-                  <div class="aside-forum2-person-area">
-                    <img src="images/persona.png" alt="">
-                  </div>
-                </a>
-              </div>
-              <div class="aside-forum2-desc">
-                <a href="">
-                  <div class="aside-forum2-desc-title">
-                    <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
-                  </div>
-                  <div class="aside-forum2-desc-res">
-                    <p>Última resposta: Fulano de tal há 1 dia</p>
-                  </div>
-                  <div class="aside-forum2-desc-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>10 Comentários</p>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="aside-forum3">
-              <div class="aside-forum3-person">
-                <a href="">
-                  <div class="aside-forum3-person-area">
-                    <img src="images/persona.png" alt="">
-                  </div>
-                </a>
-              </div>
-              <div class="aside-forum3-desc">
-                <a href="">
-                  <div class="aside-forum3-desc-title">
-                    <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
-                  </div>
-                  <div class="aside-forum3-desc-res">
-                    <p>Última resposta: Fulano de tal há 1 dia</p>
-                  </div>
-                  <div class="aside-forum3-desc-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>10 Comentários</p>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="aside-forum4">
-              <div class="aside-forum4-person">
-                <a href="">
-                  <div class="aside-forum4-person-area">
-                    <img src="images/persona.png" alt="">
-                  </div>
-                </a>
-              </div>
-              <div class="aside-forum4-desc">
-                <a href="">
-                  <div class="aside-forum4-desc-title">
-                    <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
-                  </div>
-                  <div class="aside-forum4-desc-res">
-                    <p>Última resposta: Fulano de tal há 1 dia</p>
-                  </div>
-                  <div class="aside-forum4-desc-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>10 Comentários</p>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <div class="aside-forum5">
-              <div class="aside-forum5-person">
-                <a href="">
-                  <div class="aside-forum5-person-area">
-                    <img src="images/persona.png" alt="">
-                  </div>
-                </a>
-              </div>
-              <div class="aside-forum5-desc">
-                <a href="">
-                  <div class="aside-forum5-desc-title">
-                    <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
-                  </div>
-                  <div class="aside-forum5-desc-res">
-                    <p>Última resposta: Fulano de tal há 1 dia</p>
-                  </div>
-                  <div class="aside-forum5-desc-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>10 Comentários</p>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <%- include('../partials/section-forum') %>
       </aside>
     </div>
   </main>
+  <script>
+    // function sliderr(){
+      
+    // }
+    // sliderr()
+    
+  </script>
   <%- include('../partials/footer') %>

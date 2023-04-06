@@ -227,6 +227,7 @@ export const updatePhoto = async(req: Request, res: Response) => {
           })
           if(userUpdatePhoto) {
             const commentsInPosts = await CommentService.updateAvatar(user.id, { imgUserInComment: userUpdatePhoto.avatar ?? undefined })
+            const updateForum = await ForumService.updateAvatar(user.id, {avatar_user: userUpdatePhoto.avatar ?? undefined} )
             const responseCommentsInPosts = await CommentService.updateAvatarResponse(user.id, { imgUserInComment: userUpdatePhoto.avatar ?? undefined })
             const commentsInForum = await CommentForumService.updateAvatar(user.id, { imgUserInComment: userUpdatePhoto.avatar ?? undefined })
             const responseCommentsInForum = await CommentForumService.updateAvatarResponse(user.id, { imgUserInComment: userUpdatePhoto.avatar ?? undefined })
@@ -273,6 +274,7 @@ export const updateName = async(req: Request, res: Response) => {
       })
       if(userUpdateName) {
         const commentsInPosts = await CommentService.updateName(user.id, { nameUserInComment: userUpdateName.name ?? undefined, nickName: userUpdateName.nickName ?? undefined})
+        const updateNameForum = await ForumService.updateName(user.id, { name_user: userUpdateName.name ?? undefined, nickName: userUpdateName.nickName ?? undefined})
         const responseCommentsInPosts = await CommentService.updateNameResponse(user.id, { nameUser: userUpdateName.name ?? undefined, nickName: userUpdateName.nickName?? undefined })
         const commentsInForum = await CommentForumService.updateName(user.id, { nameUserInComment: userUpdateName.name ?? undefined, nickName: userUpdateName.nickName ?? undefined })
         const responseCommentsInForum = await CommentForumService.updateNameResponse(user.id, { nameUser: userUpdateName.name ?? undefined, nickName: userUpdateName.nickName ?? undefined })

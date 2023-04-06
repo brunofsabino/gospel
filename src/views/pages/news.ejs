@@ -60,7 +60,7 @@
             <% } %>
             <% if (news.video) { %>
               <p>Assista o video abaixo:</p>
-              <iframe width="560" height="315" src="<%=news.video.replace('watch?v=','embed/')%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <iframe width="100%" height="315" src="<%=news.video.replace('watch?v=','embed/')%>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
               <br><br>
             <% } %>
             <% if (news.instagram1) { %>
@@ -106,110 +106,7 @@
           <%- include('../partials/comments') %>
         </div>
         <aside> 
-          <div class="aside-content">
-            <div class="aside-title">
-              <h3>As mais comentadas da semana no Fórum</h3>
-            </div>
-            <div class="aside-forum">
-              <div class="aside-forum1">
-                <div class="aside-forum1-person">
-                  <div class="aside-forum1-person-area">
-                    <img src="images/persona.png" alt="">
-                  </div>
-                </div>
-                <div class="aside-forum1-desc">
-                  <div class="aside-forum1-desc-title">
-                    <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
-                  </div>
-                  <div class="aside-forum1-desc-res">
-                    <p>Última resposta: Fulano de tal há 1 dia</p>
-                  </div>
-                  <div class="aside-forum1-desc-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>10 Comentários</p>
-                  </div>
-                </div>
-    
-              </div>
-              <div class="aside-forum2">
-                <div class="aside-forum2-person">
-                  <div class="aside-forum2-person-area">
-                    <img src="images/persona.png" alt="">
-                  </div>
-                </div>
-                <div class="aside-forum2-desc">
-                  <div class="aside-forum2-desc-title">
-                    <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
-                  </div>
-                  <div class="aside-forum2-desc-res">
-                    <p>Última resposta: Fulano de tal há 1 dia</p>
-                  </div>
-                  <div class="aside-forum2-desc-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>10 Comentários</p>
-                  </div>
-                </div>
-              </div>
-              <div class="aside-forum3">
-                <div class="aside-forum3-person">
-                  <div class="aside-forum3-person-area">
-                    <img src="images/persona.png" alt="">
-                  </div>
-                </div>
-                <div class="aside-forum3-desc">
-                  <div class="aside-forum3-desc-title">
-                    <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
-                  </div>
-                  <div class="aside-forum3-desc-res">
-                    <p>Última resposta: Fulano de tal há 1 dia</p>
-                  </div>
-                  <div class="aside-forum3-desc-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>10 Comentários</p>
-                  </div>
-                </div>
-              </div>
-              <div class="aside-forum4">
-                <div class="aside-forum4-person">
-                  <div class="aside-forum4-person-area">
-                    <img src="images/persona.png" alt="">
-                  </div>
-                </div>
-                <div class="aside-forum4-desc">
-                  <div class="aside-forum4-desc-title">
-                    <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
-                  </div>
-                  <div class="aside-forum4-desc-res">
-                    <p>Última resposta: Fulano de tal há 1 dia</p>
-                  </div>
-                  <div class="aside-forum4-desc-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>10 Comentários</p>
-                  </div>
-                </div>
-              </div>
-              <div class="aside-forum5">
-                <div class="aside-forum5-person">
-                  <div class="aside-forum5-person-area">
-                    <img src="images/persona.png" alt="">
-                  </div>
-                </div>
-                <div class="aside-forum5-desc">
-                  <div class="aside-forum5-desc-title">
-                    <h3>Porque a igreja Congregacão Cristã se considera  a unica escolhida?</h3>
-                  </div>
-                  <div class="aside-forum5-desc-res">
-                    <p>Última resposta: Fulano de tal há 1 dia</p>
-                  </div>
-                  <div class="aside-forum5-desc-qt-comments">
-                    <img src="images/forum.svg" alt="">
-                    <p>10 Comentários</p>
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-          </div>
+          <%- include('../partials/section-forum') %>
         </aside>
       </div>
   </main>

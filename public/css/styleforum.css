@@ -103,7 +103,7 @@ main {
 .area-topics-person-img {
   width: 50px;
   height: 50px;
-  border: 1px solid #999;
+  border: 1px solid #48BC6A;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -111,7 +111,7 @@ main {
   margin-right: 10px;
 }
 .area-topics-person-img img {
-  width: 100%;
+  width: 90%;
   border-radius: 50%;
 }
 .area-topics-user-content {
@@ -186,7 +186,8 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 70%;
+  width: 115px;
+  height: 80px;
   margin-right: 10px;
 }
 .news-week-1-img-aside img,
@@ -196,6 +197,7 @@ main {
 .news-week-5-img-aside img,
 .news-week-1-img-aside-perfil img {
   width:100%;
+  border-radius: 5px;
   height: inherit;
 }
 .news-week-1-desc-aside,
@@ -204,6 +206,7 @@ main {
 .news-week-4-desc-aside,
 .news-week-5-desc-aside,
 .news-week-1-desc-aside-perfil {
+  width: 70%;
   margin: 0px 0px;
   display: flex;
   flex-direction: column;
@@ -293,6 +296,9 @@ main {
   color: #fff;
   margin: 15px 0px;
   font-size: 12px;
+}
+.area-forum-title-name-user a {
+  color: #fff;
 }
 .area-perfil-comments {
   display: flex;
