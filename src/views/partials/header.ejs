@@ -26,7 +26,7 @@
        </a>
       </div>
       <div class="header-icons-menu">
-        <nav>
+        <nav class="menu">
           <li><a href="/"><div class="area-home"><img src="/images/home.svg" alt="Imagem Home">Home</div></a></li>
           <li><a href="/forum"><div class="area-forum"><img src="/images/forum.svg" alt="Imagem Fórum">Fórum</div></a></li>
           <% if (userId.id) { %>
@@ -39,6 +39,41 @@
             </div></li>-->
           <% } %> 
         </nav>
+        <div class="menu-mobile">
+          <nav>
+            <li><a href="/"><div class="area-home active">
+              <svg width="45px" height="45px" viewBox="0 0 24 24" fill="rgb(177,86,130)" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 11.75C19.8376 11.7507 19.6795 11.698 19.55 11.6L12 5.94L4.45 11.6C4.29087 11.7193 4.09085 11.7706 3.89394 11.7425C3.69702 11.7143 3.51935 11.6091 3.4 11.45C3.28066 11.2909 3.22941 11.0908 3.25754 10.8939C3.28567 10.697 3.39087 10.5193 3.55 10.4L11.55 4.4C11.6798 4.30263 11.8377 4.25 12 4.25C12.1623 4.25 12.3202 4.30263 12.45 4.4L20.45 10.4C20.5952 10.5179 20.6911 10.6859 20.7189 10.8709C20.7466 11.0559 20.7042 11.2446 20.6 11.4C20.5363 11.503 20.4482 11.5888 20.3436 11.6498C20.239 11.7108 20.121 11.7452 20 11.75Z" />
+                <path d="M18 19.75H6C5.80189 19.7474 5.61263 19.6676 5.47253 19.5275C5.33244 19.3874 5.25259 19.1981 5.25 19V9.5C5.25 9.30109 5.32902 9.11032 5.46967 8.96967C5.61032 8.82902 5.80109 8.75 6 8.75C6.19891 8.75 6.38968 8.82902 6.53033 8.96967C6.67098 9.11032 6.75 9.30109 6.75 9.5V18.25H17.25V9.5C17.25 9.30109 17.329 9.11032 17.4697 8.96967C17.6103 8.82902 17.8011 8.75 18 8.75C18.1989 8.75 18.3897 8.82902 18.5303 8.96967C18.671 9.11032 18.75 9.30109 18.75 9.5V19C18.7474 19.1981 18.6676 19.3874 18.5275 19.5275C18.3874 19.6676 18.1981 19.7474 18 19.75Z" />
+                <path d="M14 19.75C13.8019 19.7474 13.6126 19.6676 13.4725 19.5275C13.3324 19.3874 13.2526 19.1981 13.25 19V12.75H10.75V19C10.75 19.1989 10.671 19.3897 10.5303 19.5303C10.3897 19.671 10.1989 19.75 10 19.75C9.80109 19.75 9.61032 19.671 9.46967 19.5303C9.32902 19.3897 9.25 19.1989 9.25 19V12C9.25259 11.8019 9.33244 11.6126 9.47253 11.4725C9.61263 11.3324 9.80189 11.2526 10 11.25H14C14.1981 11.2526 14.3874 11.3324 14.5275 11.4725C14.6676 11.6126 14.7474 11.8019 14.75 12V19C14.7474 19.1981 14.6676 19.3874 14.5275 19.5275C14.3874 19.6676 14.1981 19.7474 14 19.75Z" />
+              </svg>
+              Home
+            </div></a></li>
+            <li><a href="/forum"><div class="area-forum">
+              <svg height="45px" width="45px" version="1.1" id="_x32_" fill="#CCC"xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                viewBox="0 0 512 512"  xml:space="preserve">
+                <g>
+                  <path class="st0" d="M92.574,294.24V124.336H43.277C19.449,124.336,0,144.213,0,168.467v206.44
+                    c0,24.254,19.449,44.133,43.277,44.133h62v45.469c0,3.041,1.824,5.777,4.559,6.932c2.736,1.154,5.957,0.486,8.023-1.641
+                    l49.844-50.76h106.494c23.828,0,43.279-19.879,43.279-44.133v-0.061H172.262C128.314,374.846,92.574,338.676,92.574,294.24z"/>
+                  <path class="st0" d="M462.717,40H172.26c-27.105,0-49.283,22.59-49.283,50.197v204.037c0,27.61,22.178,50.199,49.283,50.199
+                    h164.668l75.348,76.033c2.399,2.442,6.004,3.172,9.135,1.852c3.133-1.322,5.176-4.434,5.176-7.887v-69.998h36.131
+                    c27.106,0,49.283-22.59,49.283-50.199V90.197C512,62.59,489.822,40,462.717,40z M369.156,280.115H195.92v-24.316h173.236V280.115z
+                    M439.058,204.129H195.92v-24.314h243.138V204.129z M439.058,128.143H195.92v-24.315h243.138V128.143z"/>
+                </g>
+              </svg>
+              Fórum</div></a></li>
+            <% if (userId.id) { %>
+              <!--<li><div class="area-alerts" >
+                <img src="/images/alert.svg" alt="Imagem Alerta">
+                
+                <div class="area-alerts-content close">
+                 
+                </div>
+              </div></li>-->
+            <% } %> 
+          </nav>
+        </div>
         <% if (userId.id) { %>
           <div class="header-persona"><a href=""><img src="/media/<%=userId.avatar%>" alt="Imagem Perfil"></a></div>
           <div class="header-persona-open"><a href=""><img src="/images/seta-expandir.png" alt="Imagem Expandir Perfil">
@@ -154,6 +189,11 @@
   const buttonCloseModal = document.querySelector('.modal-login-home-close')
   const backgroundModalHome = document.querySelector('.modal-login-home')
   const modalHome = document.querySelector('.modal-login-home-content-close')
+
+  const menuMobileHome = document.querySelector('.menu-mobile .area-home')
+  const menuMobileHomeSVG = document.querySelector('.menu-mobile .area-home svg')
+  const menuMobileForum = document.querySelector('.menu-mobile .area-forum')
+  const menuMobileForumSVG = document.querySelector('.menu-mobile .area-forum svg')
   
 
   const h3Modal = document.querySelector('.modal-login-home-content h3')
@@ -177,6 +217,11 @@
   const pNoticePassword = document.querySelector('.modal-login-home-content .notice-password')
   const pNoticePassword2 = document.querySelector('.modal-login-home-content .notice-password2')
 
+
+  if(menuMobileHome.classList.contains('active')) {
+    menuMobileHome.style.color = '#333'
+    menuMobileHomeSVG.setAttribute('fill', 'rgb(177,86,130)')
+  }
  
   forgotPassword.addEventListener('click', sendForgotPassword)
   buttonForgot.addEventListener('click', () => {
