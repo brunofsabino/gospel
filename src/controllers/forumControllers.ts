@@ -57,10 +57,13 @@ export const home = async(req: Request, res: Response) => {
     } 
     console.log(forums)
     console.log(userId)
-  
+    const menuForumMobile = true
+    const menuHomeMobile = false
     res.render('pages/forum.ejs', {
       forums,
       newsAside,
+      menuForumMobile,
+      menuHomeMobile,
       userId: req.user ? userId : ''
     })
 }
@@ -138,12 +141,15 @@ export const oneForum = async(req: Request, res: Response) => {
     const responseComments = await CommentForumService.findAllResponseComments(one.id)
     const likes = await LikeInCommentForumService.findAllLikeComment(one.id)
     const responseLikes = await LikeInCommentForumService.findAllLikeResponseComment(one.id)
-    console.log(one)
+    const menuHomeMobile = false
+    const menuForumMobile = true
 
     res.render('pages/oneforum', {
       foruns: one,
       userId,
       comments,
+      menuForumMobile,
+      menuHomeMobile,
       responseComments,
       likes,
       responseLikes,

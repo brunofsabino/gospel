@@ -346,6 +346,9 @@ main {
   .area-comment-content {
     width: 70%;
   }
+  .modal-login-home-content, .modal-login-home-content2 {
+    padding: 35px;
+  }
 }
 @media( max-width: 992px ) {
   .main-news-title h1 {
@@ -423,6 +426,9 @@ main {
   .aside-forum1-desc-res p {
     font-size: 10px;
   }
+  .modal-login-home-content, .modal-login-home-content2 {
+    width: 45%;
+  }
 }
 @media( max-width: 800px ) {
   .main-news-title h1 {
@@ -463,6 +469,11 @@ main {
     grid-template-areas: 
     "area2"
     "area1";
+    background-color: #fff;
+    padding: 10px 20px;
+    border: 1.5px solid #E9EAED;
+    border-radius: 10px;
+    margin-bottom: 30px;
   }
   main .main-news-area1 {
     grid-area: area1;
@@ -472,7 +483,7 @@ main {
   main .main-news-area2 {
     grid-area: area2;
     width: 100%;
-    margin-bottom: 20px;
+    margin-top: 20px;
   }
   main .main-news-area2 a {
     width: 70%;
@@ -543,6 +554,10 @@ main {
     width: 100%;
     margin-bottom: 30px;
   }
+  .modal-login-home-content, .modal-login-home-content2 {
+    width: 50%;
+    left: 27%;
+  }
 }
 @media (max-width: 700px) {
   header {
@@ -559,8 +574,23 @@ main {
     display: none;
   }
   .menu-mobile {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border-top: 1.5px solid #E9EAED;
+    height: 70px;
   }
+   .header-icons-menu nav li {
+    margin: 0px;
+  }
+  .menu-mobile .area-home, .menu-mobile .area-forum {
+    font-size: 12px;
+  }
+  .menu-mobile .area-home svg, .menu-mobile .area-forum svg {
+    width: 65%;
+    margin-right: 0px;
+    margin-bottom: 0px; 
+}
   .header-content {
     display: flex;
     align-items: center;
@@ -575,7 +605,495 @@ main {
     font-size:16px;
   }
   footer {
-    margin-bottom: 85px;
+    margin-bottom: 65px;
     margin-top: 0px;
+  }
+  .area-comment-content {
+    width: 100%;
+    margin-bottom: 60px;
+  }
+  .news-week-1-title-aside-perfil h3 {
+    font-size: 13px;
+  }
+}
+@media (max-width: 620px) {
+  .modal-login-home-content, .modal-login-home-content2 {
+    width: 60%;
+    left: 22%;
+  }
+  aside {
+    width: 95%;
+  }
+  .news-details h1 {
+    font-size: 34px;
+  }
+  .area-comments-user-name h3, .area-comments-user-name-complaint h3 {
+    font-size: 15px;
+  }
+  .area-comments-user-name-date {
+    font-size: 10px;
+  }
+  .area-comments-user-comment p, .area-comments-user-response-content p {
+    font-size: 13px;
+  }
+  .area-comments-user-resp {
+    align-items: center;
+  }
+  .area-comments-user-resp p {
+    font-size: 14px;
+  }
+  .area-comments-user-like-dislike-resp {
+    margin-left: 5px;
+  }
+  .news-details-img-video {
+    width: auto;
+  }
+  .news-details-img-video img {
+    width: 80%;
+  }
+  .footer-area-desc {
+    font-size: 12px;
+  }
+}
+@media( max-width: 589px) {
+  .area-forum-title h1 {
+    font-size: 36px;
+  }
+  .area-forum-title p {
+    width: 90%;
+    font-size: 14px;
+  }
+  .area-topics-last-responde p {
+    font-size: 10px;
+  }
+  .area-topics-last-responde-qt-comments p {
+    font-size: 12px;
+  }
+  .news-week-1-title-aside h3 {
+    font-size: 14px;
+  }
+  .news-week-1-more {
+    font-size: 12px;
+  }
+  .news-details-share {
+    width: 85%;
+  }
+}
+@media( max-width: 550px) {
+  .main-news-title h1 {
+    font-size: 34px;
+  }
+  .news-details h1 {
+    font-size: 30px;
+  }
+  .news-details-content-comment-desc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .news-details-comments {
+    width: 95%;
+    margin: 0px;
+    margin-bottom: 30px;
+  }
+  .aside-content {
+    margin: 0px;
+  }
+  .area-comments {
+    width: 95%;
+    padding: 0;
+  }
+  .area-comments h2 {
+    font-size: 20px;
+  }
+  .slider--item-title-1 h2 {
+    font-size: 18px;
+  }
+  main .main-news-area2 a {
+    width: 80%;
+  }
+}
+@media( max-width: 500px) {
+  .area-forum-area-buttons .btn-forum,
+  .area-forum-area-buttons .btn-newforum {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+  .news-details-share {
+    width: 95%;
+  }
+  .news-details-share-area-img {
+    width: 25%;
+  }
+  .aside-title {
+    font-size: 14px;
+  }
+  .aside-forum1-desc-qt-comments p {
+    font-size: 12px;
+  }
+  .slider {
+    height: 320px;
+  }
+  .area-forum-filters {
+    align-items: center;
+    justify-content: center;
+  }
+  .area-filters-recents, .area-filters-populary {
+    font-size: 12px;
+  }
+  .area-topics-users {
+    width: 100%;
+  }
+  .area-topics-title h3 {
+    font-size: 14px;
+  }
+  .area-topics-last-responde {
+    flex-direction: column;
+    margin: 0;
+  }
+  .area-topics-last-responde-qt-comments {
+    margin-top: 10px;
+    justify-content: flex-start;
+  }
+  .area-perfil {
+    width: 75%;
+  } 
+}
+@media( max-width: 450px) {
+  .footer-area-desc {
+    font-size: 10px;
+  }
+  .news-week-1-img {
+    width: 185px;
+    height: 115px;
+  }
+  .news-week-1-p-comment p {
+    margin-left: 0px; 
+  } 
+  .main-news-subtitle {
+    margin: 10px 0px 0px 0px;
+  }
+  .main-news-subtitle p {
+    font-size: 12px;
+  }
+  .main-news-title h1 {
+    font-size: 30px;
+    padding: 15px 0px 0px 0px;
+  }
+  .main-news-p {
+    letter-spacing: 1px;
+  }
+  .main-news-comment {
+    font-size: 14px;
+  }
+  .main-news-comment img {
+    margin-right: 5px;
+    width: 10%;
+  }
+  .slider {
+    height: 280px;
+  }
+  .news-week-1 {
+    padding: 10px 15px;
+  }
+  .news-week-1-desc {
+    width: 80%;
+  }
+  .news-week-1-title h3 {
+    font-size: 14px;
+  }
+  .news-week-1-p {
+    font-size: 14px;
+    align-items: center;
+  }
+  .news-week-1-p-comment {
+    align-items: center;
+  }
+  .news-week-1-p-more {
+    margin-top: 20px;
+  }
+  .button-enter {
+    width: 95px;
+    height: 33px;
+    font-size: 16px;
+  }
+  .modal-login-home-content, .modal-login-home-content2 {
+    width: 70%;
+    left: 16%;
+  }
+  main {
+    margin-top: 75px;
+  }
+  .news-week-1-p-more-aside {
+    margin-left: 7px;
+  }
+  .area-topics-user {
+    padding: 5px 20px;
+  }
+  .news-details-content-comment-desc {
+    font-size: 14px;
+  }
+  .news-details-comment-desc p {
+    font-size: 12px;
+    margin-bottom: 0px;
+  }
+  .news-details-comments-qt p {
+    font-size: 16px;
+  }
+  .news-details-comments {
+    width: 100%;
+  }
+  .area-comments-users {
+    padding: 30px 15px;
+  }
+  .area-comments-user-name h3, .area-comments-user-name-complaint h3 {
+    font-size: 13px;
+  }
+  .area-comments-user-name-date {
+    font-size: 8px;
+  }
+  .area-comments-user-comment p, .area-comments-user-response-content p {
+    font-size: 12px;
+  }
+  .area-comments-user-resp p {
+    font-size: 12px;
+  }
+  .aside-title {
+    font-size: 12px;
+  }
+  .news-week-1-more-perfil {
+    display: none;
+  }
+  .aside-forum1-desc {
+    margin-left: 7px;
+  }
+  .area-comments-person-img {
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+  }
+  .buttonLogin, .buttonEmail, .buttonLoginEmail, .buttonDenounce, .buttonEdit, .buttonDelete, .buttonNewForum, .buttonForgot, .redefinirPass {
+    font-size: 13px;
+  }
+  .area-forum-area-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  .area-forum-area-buttons .btn-forum, .area-forum-area-buttons .btn-newforum {
+    width: fit-content;
+    margin-bottom: 10px;
+  }
+  .area-forum-title h1 {
+    font-size: 30px;
+  }
+  .news-details-share {
+    flex-direction: column;
+  }
+  .news-details-share p {
+    margin-right: 0;
+    margin-top: 10px;
+  }
+  .news-details-share-area-img {
+    width: 45%;
+    height: 40px;
+  }
+  .aside-forum1-person-area {
+    width: 40px;
+    height: 40px;
+  }
+  .aside-forum1-desc a {
+    padding:0;
+  }
+  .news-week-1-img-aside-perfil {
+    height: 60px;
+  }
+  .news-week-1-title-aside-perfil h3 {
+    font-size: 12px;
+  }
+  .aside-forum1-desc-title h3 {
+    font-size: 13px;
+  } 
+  .aside-forum1-desc-res p {
+    font-size: 9px;
+  }
+}
+@media( max-width: 400px) {
+  .header-logo p {
+    font-size: 14px;
+  }
+  main .main-news-area2 a {
+    width: 90%;
+  }
+  .slider {
+    height: 250px;
+  }
+  .slider--item-subtitle-1, .slider--item-subtitle-2, .slider--item-subtitle-3 {
+    font-size: 12px;
+  }
+  .slider--item-title-1 {
+    margin-bottom: 35px;
+  }
+  .slider--item-title-1 h2 {
+    font-size: 14px;
+  }
+  .news-week-1-img {
+    width: 150px;
+    height: 100px;
+  }
+  .area-topics-person-img {
+    width: 40px;
+    height: 40px;
+    margin-right: 0;
+  }
+  .area-topics-last-responde p {
+    font-size: 8px;
+  }
+  .area-forum-title-button button {
+    font-size: 14px;
+  }
+  .news-details-subtitle p {
+    font-size: 14px;
+  }
+  .news-details h1 {
+    font-size: 26px;
+  }
+  .news-details-img-video img {
+    width: 95%;
+  }
+  .area-forum-title p {
+    width: 100%;
+    font-size: 12px;
+  }
+  .footer-area-desc {
+    font-size: 8px;
+  }
+  .area-topics-date {
+    font-size: 8px;
+  }
+  .area-topics-title h3 {
+    font-size: 12px;
+  }
+  .area-topics-user-content-info {
+    padding: 10px 8px;
+  }
+  .area-topics-last-responde-qt-comments img {
+    width: 20px;
+    margin-right: 5px;
+  }
+  .news-week-1-title-aside h3 {
+    font-size: 12px;
+  }
+  .news-details-content-comment-desc {
+    padding: 15px 15px;
+  }
+  .area-filters-recents, .area-filters-populary {
+    font-size: 10px;
+  }
+  .buttonLogin, .buttonEmail, .buttonLoginEmail, .buttonDenounce, .buttonEdit, .buttonDelete, .buttonNewForum, .buttonForgot, .redefinirPass {
+    font-size: 11px;
+  }
+}
+@media( max-width: 350px) {
+  .header-logo img {
+    width: 50px;
+  }
+  .header-logo p {
+    font-size: 12px;
+  } 
+  .main-news-title h1 {
+    font-size: 24px;
+  }
+  .slider--item-subtitle-1, .slider--item-subtitle-2, .slider--item-subtitle-3 {
+    font-size: 10px;
+  }
+  .slider--item-title-1 h2 {
+    font-size: 12px;
+  }
+  .news-week-titlemain {
+    font-size: 18px;
+  }
+  .news-week-1-img {
+    width: 120px;
+    height: 85px;
+  }
+  .news-week-1-desc {
+    width: 85%;
+  }
+  .news-week-1-title h3 {
+    font-size: 12px;
+  }
+  .news-week-1-more {
+    display: none;
+  }
+  .aside-forum1-desc-title h3 {
+    font-size: 12px;
+  }
+  .area-forum-title h1 {
+    font-size: 24px;
+  }
+  .area-forum-title-button button {
+    font-size: 12px;
+  }
+  .area-filters-recents, .area-filters-populary {
+    font-size: 9px;
+  }
+  .area-topics-title h3 {
+    font-size: 10px;
+  }
+  .news-week-1-img-aside {
+    width: 100px;
+    height: 70px;
+  }
+  .news-details-subtitle p {
+    font-size: 12px;
+  }
+  .news-details h1 {
+    font-size: 20px;
+  }
+  .area-comments-content, .area-comments-content-resp {
+    height: 35px;
+  }
+  .area-comments-content input, .area-comments-content-resp input {
+    font-size: 10px;
+  }
+  .area-comments-user-name h3, .area-comments-user-name-complaint h3 {
+    font-size: 10px;
+  }
+  .area-comments-user-name-date {
+    font-size: 6px;
+  }
+  .area-comments-user-comment p, .area-comments-user-response-content p {
+    font-size: 10px;
+  }
+  .area-comments-user-resp p {
+    font-size: 10px;
+  }
+  .area-comments-user-like svg, .area-comments-user-like-resp svg, .area-comments-user-dislike svg {
+    width: 17px;
+  }
+  .area-perfil {
+    width: 100%;
+  }
+  .area-comments h2 {
+    font-size: 16px;
+  }
+  .news-week-1-img-aside-perfil {
+    width: 25%;
+  }
+  .news-week-1-title-aside-perfil h3 {
+    font-size: 10px;
+  }
+  .aside-forum1-desc-title h3 {
+    font-size: 10px;
+  }
+  .aside-forum1-desc-res p {
+    font-size: 7px;
+  } 
+  .aside-forum1-desc-qt-comments p {
+    font-size: 10px;
+  }
+  .buttonLogin, .buttonEmail, .buttonLoginEmail, .buttonDenounce, .buttonEdit, .buttonDelete, .buttonNewForum, .buttonForgot, .redefinirPass {
+    font-size: 10px;
   }
 }

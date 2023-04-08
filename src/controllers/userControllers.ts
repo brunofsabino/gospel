@@ -117,13 +117,15 @@ export const oneUser = async(req: Request, res: Response) => {
           id: user1.id,
           name: user1.name,
           email: user1.email,
-          avatar: user1.avatar ?? ''
+          avatar: user1.avatar ?? '',
+          nickName: user1.nickName
         }
         if(user1.id === user.id) {
           loggedUser = true
         }
       } 
-      
+      const menuHomeMobile = false
+      const menuForumMobile = false
       console.log(loggedUser)
       console.log(commentsInPosts)
       console.log(commentsInForum)
@@ -131,6 +133,8 @@ export const oneUser = async(req: Request, res: Response) => {
       res.render('pages/perfil', {
           user,
           loggedUser,
+          menuHomeMobile,
+          menuForumMobile,
           userId: req.user ? userId : '',
           commentsInPosts,
           commentsInForum

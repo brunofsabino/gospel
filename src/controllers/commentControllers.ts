@@ -80,6 +80,7 @@ export const createResponseComment = async(req: Request, res: Response) => {
       nickName: nickNameUser ?? undefined
     })
     if(newCommentResponsePost) {
+      //const notificationUserComment = await UserService.
       const updateQtComments = await PostService.updateQtComments(post.id)
       if(updateQtComments) {
         res.status(201).json({ commentResponse: newCommentResponsePost })

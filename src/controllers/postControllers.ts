@@ -119,12 +119,15 @@ export const home = async(req: Request, res: Response) => {
     console.log(newsShow)
     console.log(userId)
     console.log(forumAside)
-  
+    const menuHomeMobile = true
+    const menuForumMobile = false
     res.render('pages/home.ejs', {
       mainNews,
       slideShow,
       newsShow,
       forumAside,
+      menuHomeMobile,
+      menuForumMobile,
       userId: req.user ? userId : ''
     })
 }
@@ -188,6 +191,8 @@ export const oneNews = async(req: Request, res: Response) => {
     const responseComments = await CommentService.findAllResponseComments(one.id)
     const likes = await LikeInCommentService.findAllLikeComment(one.id)
     const responseLikes = await LikeInCommentService.findAllLikeResponseComment(one.id)
+    const menuHomeMobile = false
+    const menuForumMobile = false
     
     console.log(responseComments)
     console.log(comments)
@@ -196,6 +201,8 @@ export const oneNews = async(req: Request, res: Response) => {
         news: one,
         comments,
         responseComments,
+        menuHomeMobile,
+        menuForumMobile,
         likes,
         responseLikes,
         forumAside,

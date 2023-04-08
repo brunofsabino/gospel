@@ -95,7 +95,11 @@
                   </div>
                   <div class="news-week-1-desc-aside-perfil">
                     <div class="news-week-1-title-aside-perfil">
-                      <h3><%=item.title%></h3>
+                      <h3><%if(item.title.length < 70) { %>
+                        <%=item.title%>
+                      <% } else { %> 
+                        <%=item.title.substr(0,70)+"..."%>
+                      <% } %> </h3>
                     </div>
                     <div class="news-week-1-p-more-aside-perfil">
                       <div class="news-week-1-p-aside-perfil">
