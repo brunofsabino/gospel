@@ -25,7 +25,7 @@ const server = express()
 server.use(cookieParser())
 server.use(cors({
   credentials: true,
-  origin: 'http://localhost:4000',
+  origin: 'https://www.opiniaogospel.com.br',
   optionsSuccessStatus: 200,
 }))
 
@@ -38,18 +38,6 @@ server.use(express.urlencoded({ extended: true}))
 server.use(passport.initialize())
 
 
-
-
-
-
-//  declare module 'express-session' {
-//   export interface SessionData {
-//     // user: { [key: string]: any };
-//     // userId: number;
-//     views: number;
-//     token: string;
-//   }
-// }
 declare module 'express-session' {
   export interface SessionData {
     userId: string;
@@ -73,28 +61,7 @@ server.use(commentForumRouter)
 server.use(likeInCommentForumRouter)
 server.use(denounce)
 server.use(notification)
-// server.use(session({
-//   secret: 'dapsdaifnasdáosdasd',
-//   resave: false,
-//   saveUninitialized: false,
-//   cookie: { secure: true }
-// }))
-// server.get('/homes', (req: Request, res: Response) => {
-//   // use a sessão aqui
-//   req.session.userId = '123';
-//   res.send('Hello World!');
-// });
-// server.get('/profile', (req: Request, res: Response) => {
-//   // verificar se o usuário está autenticado
-//   const userId = req.session.userId;
-//   if (userId) {
-//     // exibir o perfil do usuário
-//     res.send(`Bem-vindo, usuário ${userId}.`);
-//   } else {
-//     // redirecionar para a página de login
-//     res.redirect('/login');
-//   }
-// });
+
 
 
 server.use((req, res)=> {

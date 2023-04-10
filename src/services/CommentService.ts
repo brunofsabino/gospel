@@ -166,7 +166,7 @@ export const CommentService = {
   updateQtLikes: async(id: string) => {
     let comment = await prisma.commentInPost.findUnique({ where: {id}})
     if(comment) {
-      console.log('chegou aqui')
+      
       const qt = await prisma.commentInPost.update({
         where: {  id },
         data : {
@@ -190,7 +190,7 @@ export const CommentService = {
   },
   updateRemoveQtLikes: async(id: string) => {
     let comment = await prisma.commentInPost.findUnique({ where: {id}})
-    console.log(comment)
+    
     if(comment) {
       const qt = await prisma.commentInPost.update({
         where: {  id },
@@ -203,7 +203,7 @@ export const CommentService = {
   },
   updateRemoveResponseQtLikes: async(id: string) => {
     let comment = await prisma.responseComment.findUnique({ where: {id}})
-    console.log(comment)
+    
     if(comment) {
       const qt = await prisma.responseComment.update({
         where: {  id },
@@ -216,8 +216,7 @@ export const CommentService = {
   },
   updateAvatar: async(id: string, data: UpdateAvatar) => {
     let comment = await prisma.commentInPost.findMany({ where: {user_id: id}})
-    console.log('updateAvatar')
-    console.log(comment)
+    
     if(comment) {
       const qt = await prisma.commentInPost.updateMany({
         where: {  user_id: id },
@@ -242,7 +241,7 @@ export const CommentService = {
   },
   updateName: async(id: string, data: UpdateName) => {
     let comment = await prisma.commentInPost.findMany({ where: {user_id: id}})
-    console.log(comment)
+    
     if(comment) {
       const qt = await prisma.commentInPost.updateMany({
         where: {  user_id: id },

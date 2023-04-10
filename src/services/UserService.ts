@@ -34,7 +34,7 @@ export const UserService = {
         return await prisma.userADM.findUnique({ where: { id }})
     },
     findOneByNickName: async(name: string) => {
-        console.log("NickName"+name)
+        
         const user = await prisma.user.findUnique({ where: { nickName: name }})
         if(user) {
             return {
@@ -81,7 +81,7 @@ export const UserService = {
         const user = await UserService.findOne(id)
         const post = await PostService.findOne(idPost)
         if(user && post) {
-            console.log('entrou aqui')
+            
             const transporter = nodemailer.createTransport({
             host: smtp.host,
             port: smtp.port,
@@ -122,7 +122,7 @@ export const UserService = {
                 <body>
                   <p>Olá, ${user.name}!</p>
                   <p>Seu comentário foi respondido no Opinião Gospel!</p>
-                  <a href="http://localhost:4000/news/${post.title.split(' ').join('-')}" style="padding: 10px;
+                  <a href="https://www.opiniaogospel.com.br/news/${post.title.split(' ').join('-')}" style="padding: 10px;
                   border-radius: 10px;
                   text-decoration: none;
                   background-color: #FF6B00;
@@ -167,7 +167,7 @@ export const UserService = {
         })
     },
     updatePhoto: async(id: string, data: PropUpdate) => {
-        console.log(data.avatar)
+        
         return await prisma.user.update({
             where: { id },
             data : {

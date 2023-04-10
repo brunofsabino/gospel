@@ -14,7 +14,7 @@
   <%- include('../partials/header') %>
   <main>
     <div class="area-post container">
-      <form method="POST" enctype="multipart/form-data" action="http://localhost:4000/post/e5765c426d9d292a3fd76afe009beaf2">
+      <form method="POST" enctype="multipart/form-data" action="/post/e5765c426d9d292a3fd76afe009beaf2">
         <label>Titulo:<input type="text" name="title"><br><br></label>
         <label>Id:<input type="text" name="userADMId" class="id-post"><br><br></label>
         <label>Imagem:<input type="file"  accept='image/*' capture name="img" class="img-form"><br><br></label>
@@ -512,7 +512,7 @@
 
     button.addEventListener('click', getPosts)
     async function getPosts() {
-      const posts = await fetch(`http://localhost:4000/site/d215be0e-5383-4a98-ba99-5fd3f4738fd9`, {
+      const posts = await fetch(`/site/d215be0e-5383-4a98-ba99-5fd3f4738fd9`, {
           method: 'GET',
           headers: {
               "Content-Type": "application/x-www-form-urlencoded"
@@ -529,7 +529,7 @@
       }
     }
     async function getPost(id) {
-      const post = await fetch(`http://localhost:4000/post/${id}`, {
+      const post = await fetch(`/post/${id}`, {
           method: 'GET',
           headers: {
               "Content-Type": "application/x-www-form-urlencoded"

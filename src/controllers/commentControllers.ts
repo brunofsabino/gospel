@@ -64,8 +64,7 @@ export const createResponseComment = async(req: Request, res: Response) => {
     const userNameCommentReply = name2 ?? commentPost.nameUserInComment
     const userAvatarCommentReply = commentPost.imgUserInComment
     const dateCommentReply = commentPost.date
-    console.log(name2)
-    console.log(userNameCommentReply)
+    
     
     const newCommentResponsePost = await CommentService.createResponseComment(user.id, { 
       post_id: post.id, 

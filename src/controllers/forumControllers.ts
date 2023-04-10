@@ -55,8 +55,7 @@ export const home = async(req: Request, res: Response) => {
         nickName: user1.nickName
       }
     } 
-    console.log(forums)
-    console.log(userId)
+    
     const menuForumMobile = true
     const menuHomeMobile = false
     res.render('pages/forum.ejs', {
@@ -73,7 +72,7 @@ export const filterForum = async(req: Request, res: Response) => {
     schemaFilterForum.parse({ filter });
     if(filter==='filterPopulary') {
       const forums = await ForumService.findAll()
-      console.log(forums)
+      
       if(forums) {
   
         res.status(200).json({forums})
@@ -127,7 +126,7 @@ export const oneForum = async(req: Request, res: Response) => {
   if(one) {
     let userId = {}
     if (req.user) {
-      console.log(req.user)
+      
       const user1 = req.user as User
         userId = {
         id: user1.id,

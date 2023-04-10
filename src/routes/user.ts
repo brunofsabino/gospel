@@ -41,16 +41,6 @@ router.post('/logout', UserController.logout)
 router.delete('/user/:id', privateRoute, UserController.deleteUser)
 
 
-// router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-
-// router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-//   if(req.user){
-//     const token = jwt.sign(req.user, process.env.JWT_SECRET!);
-//     res.redirect(`/dashboard?token=${token}`);
-//   }
-// });
-
 
 
 export default router

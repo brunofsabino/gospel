@@ -73,7 +73,7 @@ export const ForumService = {
   updateQtComments: async(id: string, nameUser: string) => {
     let forum = await prisma.forum.findUnique({ where: {id}})
     if(forum) {
-      console.log('aqui')
+      
       const qt = await prisma.forum.update({
         where: {  id },
         data : {

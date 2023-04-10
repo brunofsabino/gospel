@@ -106,7 +106,7 @@ export const home = async(req: Request, res: Response) => {
     const forumAside = await ForumService.findAllAside()
     let userId = {}
     if (req.user) {
-      //console.log(req.user)
+      
       const user1 = req.user as User
         userId = {
         id: user1.id,
@@ -116,9 +116,7 @@ export const home = async(req: Request, res: Response) => {
         avatar: user1.avatar ?? ''
       }
     } 
-    console.log(newsShow)
-    console.log(userId)
-    console.log(forumAside)
+    
     const menuHomeMobile = true
     const menuForumMobile = false
     res.render('pages/home.ejs', {
@@ -137,9 +135,9 @@ export const logout = (req: Request,res: Response) => {
   return res.redirect('/');
 };
 export const home2 = async(req: Request, res: Response) => {
-  //console.log(req.cookies.token)
+  
   if(req.cookies) {
-    console.log(req.cookies.token)
+    
   }
   const all = await PostService.findAll()
   res.render('pages/home.ejs', {
@@ -166,17 +164,17 @@ export const oneNews = async(req: Request, res: Response) => {
   const { title } = req.params
   const { id } = req.body
   const newTitle = title.split('-').join(' ')
-  console.log(title)
+  
   try {
     schemaOneNews.parse({ title, id });
-    console.log(title)
+    
     const forumAside = await ForumService.findAllAside()
     
-    console.log(newTitle)
+    
     const one = await PostService.findOneByTitle(newTitle)
     let userId = {}
     if (req.user) {
-      console.log(req.user)
+      
       const user1 = req.user as User
         userId = {
         id: user1.id,
@@ -194,8 +192,7 @@ export const oneNews = async(req: Request, res: Response) => {
     const menuHomeMobile = false
     const menuForumMobile = false
     
-    console.log(responseComments)
-    console.log(comments)
+    
     if(comments) {
       res.render('pages/news', {
         news: one,
@@ -214,7 +211,7 @@ export const oneNews = async(req: Request, res: Response) => {
     const menuForumMobile = false
     let userId = {}
     if (req.user) {
-      console.log(req.user)
+      
       const user1 = req.user as User
         userId = {
         id: user1.id,
@@ -380,7 +377,7 @@ export const deletePost = async(req: Request, res: Response) => {
   try {
     schemaOnePost.parse({ id, idAdm });
     if(userADM) {
-      console.log('aqui')
+      
       const post = await PostService.deletePost(id)
       if(post) {
         res.json({ success: true})

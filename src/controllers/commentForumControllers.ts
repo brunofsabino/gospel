@@ -21,7 +21,7 @@ export const create = async(req: Request, res: Response) => {
     const nameUserInComment = user.name
     const imgUserInComment = user.avatar ?? ''
     const nickNameUser = user.nickName 
-    console.log(nameUserInComment)
+    
     const newCommentForum = await CommentForumService.create(user.id, { 
       forumId, 
       comment, 
@@ -32,7 +32,7 @@ export const create = async(req: Request, res: Response) => {
     })
     if(newCommentForum) {
       const updateQtComments = await ForumService.updateQtComments(forum.id, nameUserInComment)
-      console.log(updateQtComments)
+      
       if(updateQtComments) {
         res.status(201).json({ commentForum: newCommentForum })
       }
@@ -63,8 +63,7 @@ export const createResponseComment = async(req: Request, res: Response) => {
     const userNameCommentReply = name2 ?? commentPost.nameUserInComment
     const userAvatarCommentReply = commentPost.imgUserInComment
     const dateCommentReply = commentPost.date
-    //console.log(name2)
-    //console.log(userNameCommentReply)
+    
     
     const newCommentResponsePost = await CommentForumService.createResponseComment(user.id, { 
       post_id: post.id, 

@@ -40,7 +40,7 @@ function generateRandomString(length: number) {
 }
 export const create = async(req: Request, res: Response) => {
   const { name, password, email } = req.body
-  console.log(name, password, email)
+  
   try {
     schemaCreateUser.parse({ name, email, password });
     // Se chegou aqui, é porque os dados são válidos
@@ -57,8 +57,7 @@ export const create = async(req: Request, res: Response) => {
             nickName: `${randomString}_${nickName}`
           })
           if(newUser) {
-           // req.session.userId = newUser.dataNewUser.id;
-            //console.log(req.session)
+           
             res.cookie('94a08da1fecbb6e8b46990538c7b50b2', newUser.token, {httpOnly: true,secure: true, maxAge: 24 * 60 * 60 * 1000 });
             //res.setHeader('Set-Cookie', `id=${newUser.dataNewUser.id}; Max-Age=360000`);
             res.status(201).json({ id: newUser.dataNewUser.id,  token: newUser.token })
@@ -68,7 +67,7 @@ export const create = async(req: Request, res: Response) => {
       }
   } catch (error) {
     // Se cair aqui, é porque os dados são inválidos
-    console.log(error)
+    
     res.status(400).json({error : "Digite um e-mail ou nome valido"})
   }
 }
@@ -91,7 +90,7 @@ export const oneAdm = async(req: Request, res: Response) => {
 }
 export const one = async(req: Request, res: Response) => {
   const { id } = req.params
-  //console.log("ID"+id)
+  
   const user = await UserService.findOne(id)
   
   if(user) {
@@ -126,9 +125,7 @@ export const oneUser = async(req: Request, res: Response) => {
       } 
       const menuHomeMobile = false
       const menuForumMobile = false
-      console.log(loggedUser)
-      console.log(commentsInPosts)
-      console.log(commentsInForum)
+      
 
       res.render('pages/perfil', {
           user,
@@ -144,7 +141,7 @@ export const oneUser = async(req: Request, res: Response) => {
       const menuForumMobile = false
       let userId = {}
       if (req.user) {
-        console.log(req.user)
+        
         const user1 = req.user as User
           userId = {
           id: user1.id,
@@ -182,7 +179,7 @@ export const update = async(req: Request, res: Response) => {
   if(user) {
     
       if(name || password || avatar) {
-        //console.log('name, password, avatar')
+        
           const userUpdate = await UserService.update(user.id, {
               name: name ?? user.name, 
               password: password ?? user.password,
@@ -249,8 +246,7 @@ export const updatePhoto = async(req: Request, res: Response) => {
             const responseCommentsInPosts = await CommentService.updateAvatarResponse(user.id, { imgUserInComment: userUpdatePhoto.avatar ?? undefined })
             const commentsInForum = await CommentForumService.updateAvatar(user.id, { imgUserInComment: userUpdatePhoto.avatar ?? undefined })
             const responseCommentsInForum = await CommentForumService.updateAvatarResponse(user.id, { imgUserInComment: userUpdatePhoto.avatar ?? undefined })
-            console.log(commentsInPosts, responseCommentsInPosts)
-            console.log(userUpdatePhoto)
+            
               res.status(201).json({ avatar: userUpdatePhoto.avatar})
           } else {
               res.status(500).json({error : "Dados invalidos"})
@@ -363,7 +359,7 @@ export const conduta = async(req: Request, res: Response) => {
   const menuForumMobile = false
   let userId = {}
     if (req.user) {
-      console.log(req.user)
+      
       const user1 = req.user as User
         userId = {
         id: user1.id,
@@ -380,7 +376,7 @@ export const privacidade = async(req: Request, res: Response) => {
   const menuForumMobile = false
   let userId = {}
     if (req.user) {
-      console.log(req.user)
+      
       const user1 = req.user as User
         userId = {
         id: user1.id,

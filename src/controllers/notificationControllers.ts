@@ -18,7 +18,7 @@ export const createNotificationForgotPassword = async(req: Request, res: Respons
     const user = await UserService.findByEmail(email)
   if(user) {
     const token = jwt.sign({ email }, 'seu_@#$segredo_)(*aqui',  { expiresIn: '20m' });
-    const link = `http://localhost:4000/redefinir-senha/?token=${token}`;
+    const link = `https://www.opiniaogospel.com.br/redefinir-senha/?token=${token}`;
     const transporter = nodemailer.createTransport({
       host: smtp.host,
       port: smtp.port,
@@ -94,7 +94,7 @@ export const redefinir = async (req: Request, res: Response) => {
     try {
       // Verifica se o token é válido
       const decoded: JwtPayload | string | null = verify(token as string, 'seu_@#$segredo_)(*aqui');
-      console.log(decoded)
+      
       // Renderiza um formulário para o usuário definir a nova senha
       if(decoded){
         const tokenExpiration = typeof decoded === 'object' && decoded.exp && new Date(decoded.exp * 1000);

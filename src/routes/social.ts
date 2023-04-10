@@ -19,17 +19,6 @@ const upload = multer({
   limits: { fieldSize: 2000000}
 })
 
-// router.get('/', isAuthenticated, PostController.home)
 
-// router.get('/failed', (req, res) => res.send("Falhou o login"));
-// //router.get('/good', isLoggedIn, (req: any, res) => res.send(`Seja bem vindo(a) ${req.user.displayName}! --- email: ${req.user.emails[0].value} -- Photo: <img src=${req.user.photos[0].value}>`));
-// router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-// router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }),
-
-// function(req, res) {
-// // Successful authentication, redirect home.
-// res.redirect('/');
-// });
 
 export default router

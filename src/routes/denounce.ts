@@ -8,8 +8,6 @@ router.post('/denounceComment', privateRoute, DenounceController.createDenounceC
 router.post('/denounceCommentInForum', privateRoute, DenounceController.createDenounceInForumComment)
 router.get('/denounce/:id', privateRouteAdm, DenounceController.all)
 router.get('/denounceInForum/:id', privateRouteAdm, DenounceController.allInForum)
-// router.get('/commentForum/:id', privateRoute, CommentForumController.one)
-// router.put('/commentForum/:id', privateRoute, CommentForumController.update)
-// router.delete('/commentForum/:id', privateRoute, CommentForumController.deleteCommentForum)
+
 
 export default router

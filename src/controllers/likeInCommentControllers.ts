@@ -13,7 +13,7 @@ export const create = async(req: Request, res: Response) => {
     const user = await UserService.findOne(userId)
   const post = await PostService.findOne(postId)
   const comment = await CommentService.findOne(commentId)
-  console.log(req.user)
+  
   const likeComment = await LikeInCommentService.findOneByCommentId(userId, commentId)
 
   if(user && post && comment && !likeComment ) {

@@ -439,7 +439,7 @@
  
   async function sendLikeInComment(commentId, userId, postId) {
     if(userId) {
-      const like = await fetch(`http://localhost:4000/likeInComment`, {
+      const like = await fetch(`/likeInComment`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -465,7 +465,7 @@
   }
   async function sendLikeInResponseComment(commentId, userId, postId) {
     if(userId) {
-      const like = await fetch(`http://localhost:4000/likeInResponseComment`, {
+      const like = await fetch(`/likeInResponseComment`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -537,7 +537,7 @@
     }
   }
   async function sendCommentPost(id, idPost, comment) {
-    const newComment = await fetch(`http://localhost:4000/comment/${id}/${idPost}/`, {
+    const newComment = await fetch(`/comment/${id}/${idPost}/`, {
       method: 'POST',
       headers: {
           "Content-Type": "application/x-www-form-urlencoded",
