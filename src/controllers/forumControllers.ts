@@ -156,7 +156,10 @@ export const oneForum = async(req: Request, res: Response) => {
       forumAside
     })
   } else {
-      res.status(400).json({error : "Dados invalidos"})
+    const menuHomeMobile = false
+    const menuForumMobile = false
+    let userId = ''
+      res.render('pages/404', { userId, menuHomeMobile, menuForumMobile})
   }
   } catch (error) {
     res.status(400).json({error : "Dados invalidos"})

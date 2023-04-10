@@ -916,4 +916,19 @@ footer .header-logo p {
   font-size: 12px;
   margin-bottom: 10px;
 }
-
+.area-checkbox {
+  width: 85%;
+  font-size: 12px;
+  display: flex;
+  display: none;
+}
+.area-checkbox a {
+  font-weight: 600;
+  color: #333;
+  text-decoration: underline;
+}
+.policyPrivacy {
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
+}

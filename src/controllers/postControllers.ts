@@ -210,7 +210,21 @@ export const oneNews = async(req: Request, res: Response) => {
       })
     }
   } else {
-    res.status(400).json({error: 'Post não localizado'})
+    const menuHomeMobile = false
+    const menuForumMobile = false
+    let userId = {}
+    if (req.user) {
+      console.log(req.user)
+      const user1 = req.user as User
+        userId = {
+        id: user1.id,
+        name: user1.name,
+        email: user1.email,
+        avatar: user1.avatar ?? '',
+        nickName: user1.nickName
+      }
+    } 
+    res.render('pages/404', { userId, menuHomeMobile, menuForumMobile})
   }
   } catch (error) {
     res.status(400).json({error: 'Post não localizado'})

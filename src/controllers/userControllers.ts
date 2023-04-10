@@ -140,7 +140,21 @@ export const oneUser = async(req: Request, res: Response) => {
           commentsInForum
       })
     } else {
-        res.status(500).json({error : "Usuario nao localizado"})
+      const menuHomeMobile = false
+      const menuForumMobile = false
+      let userId = {}
+      if (req.user) {
+        console.log(req.user)
+        const user1 = req.user as User
+          userId = {
+          id: user1.id,
+          name: user1.name,
+          email: user1.email,
+          avatar: user1.avatar ?? '',
+          nickName: user1.nickName
+        }
+      } 
+      res.render('pages/404', { userId, menuHomeMobile, menuForumMobile})
     }
   }
 export const oneEmail = async(req: Request, res: Response) => {
@@ -344,10 +358,41 @@ export const loginAdm = async(req: Request, res: Response) => {
 export const logout = async(req: Request, res: Response) => {
   
 }
-export const home = async(req: Request, res: Response) => {
-     // const userId = req.session.userId;
-   // console.log(userId)
+export const conduta = async(req: Request, res: Response) => {
+  const menuHomeMobile = false
+  const menuForumMobile = false
+  let userId = {}
+    if (req.user) {
+      console.log(req.user)
+      const user1 = req.user as User
+        userId = {
+        id: user1.id,
+        name: user1.name,
+        email: user1.email,
+        avatar: user1.avatar ?? '',
+        nickName: user1.nickName
+      }
+    } 
+    res.render('pages/codigoConduta', { userId, menuHomeMobile, menuForumMobile})
 }
+export const privacidade = async(req: Request, res: Response) => {
+  const menuHomeMobile = false
+  const menuForumMobile = false
+  let userId = {}
+    if (req.user) {
+      console.log(req.user)
+      const user1 = req.user as User
+        userId = {
+        id: user1.id,
+        name: user1.name,
+        email: user1.email,
+        avatar: user1.avatar ?? '',
+        nickName: user1.nickName
+      }
+    } 
+    res.render('pages/privacidade', { userId, menuHomeMobile, menuForumMobile})
+}
+
 export const deleteUser = async(req: Request, res: Response) => {
   const { id } = req.params
   try {

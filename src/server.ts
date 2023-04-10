@@ -16,6 +16,7 @@ import commentForumRouter from './routes/commentForum'
 import session, { SessionOptions } from 'express-session';
 import { MulterError } from 'multer'
 import cookieParser from 'cookie-parser'
+import { User } from '@prisma/client'
 
 dotenv.config()
 
@@ -97,7 +98,21 @@ server.use(notification)
 
 
 server.use((req, res)=> {
-  res.render('pages/404')
+  const menuHomeMobile = false
+  const menuForumMobile = false
+  let userId = {}
+    if (req.user) {
+      console.log(req.user)
+      const user1 = req.user as User
+        userId = {
+        id: user1.id,
+        name: user1.name,
+        email: user1.email,
+        avatar: user1.avatar ?? '',
+        nickName: user1.nickName
+      }
+    } 
+    res.render('pages/404', { userId, menuHomeMobile, menuForumMobile})
   //res.json({error: 'Endpoint não encontrado.'})
 })
 

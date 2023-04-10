@@ -116,6 +116,10 @@
               </div>
               <input type="password" placeholder="Confirme sua senha"  name="password2" class="p2assword">
               <p class="notice-password2"></p>
+              <div class="area-checkbox">
+                <input type="checkbox" id="policyPrivacy" name="policyPrivacy" class="policyPrivacy" value="Bike">
+                <label for="policyPrivacy"> Confirmo que li, aceito e concordo com o <a href="/sobre/codigo-de-conduta" target="_blank">Código de conduta</a> e a <a href="/sobre/politica-de-privacidade" target="_blank">Política de privacidade</a> do Opinião Gospel</label>
+              </div>
             </div>
             <div class="modal-login-home-buttons">
               <button class="buttonEmail">Continuar com o e-mail</button>
@@ -144,36 +148,7 @@
   </div>
 </header>
 <script>
-  // const fb = document.querySelector('.face')
-  // //fb.addEventListener('click', checkLoginState)
   
-
-  // window.fbAsyncInit = function() {
-  //   FB.init({
-  //     appId      : '207266138594680',
-  //     cookie     : true,
-  //     xfbml      : true,
-  //     version    : '16.0'
-  //   });
-      
-  //   FB.AppEvents.logPageView();   
-      
-  // };
-
-  // (function(d, s, id){
-  //    var js, fjs = d.getElementsByTagName(s)[0];
-  //    if (d.getElementById(id)) {return;}
-  //    js = d.createElement(s); js.id = id;
-  //    js.src = "https://connect.facebook.net/en_US/sdk.js";
-  //    fjs.parentNode.insertBefore(js, fjs);
-  //  }(document, 'script', 'facebook-jssdk'));
-
-  //  FB.getLoginStatus(function(response) {
-  //   statusChangeCallback(response);
-  //   console.log(response);
-  // });
-
- 
 
   const body = document.querySelector('body')
   const buttonEnter = document.querySelector('.button-enter') 
@@ -190,6 +165,8 @@
 
   const buttonCloseModal = document.querySelector('.modal-login-home-close')
   const backgroundModalHome = document.querySelector('.modal-login-home')
+  const areaModalHome = document.querySelector('.modal-login-home-content')
+  const areaModalHome2 = document.querySelector('.modal-login-home-content2')
   const modalHome = document.querySelector('.modal-login-home-content-close')
 
   const menuMobileHome = document.querySelector('.menu-mobile .area-home')
@@ -218,24 +195,10 @@
   const pNoticeName = document.querySelector('.modal-login-home-content .notice-name')
   const pNoticePassword = document.querySelector('.modal-login-home-content .notice-password')
   const pNoticePassword2 = document.querySelector('.modal-login-home-content .notice-password2')
+  const areaInputCheckout = document.querySelector('.modal-login-home-content .area-checkbox')
+  const inputCheckout = document.querySelector('.modal-login-home-content .area-checkbox .policyPrivacy')
 
 
-  menuMobileHome.addEventListener('click', (item)=> {
-    
-      menuMobileHome.classList.add('active')
-      menuMobileForum.classList.remove('active')
-      toggleMenuMobile()
-    
-    
-  })
-  menuMobileForum.addEventListener('click', (item) => {
-    
-    menuMobileForum.classList.add('active')
-    menuMobileHome.classList.remove('active')
-      toggleMenuMobile()
-    
-    
-  })
  
  
   forgotPassword.addEventListener('click', sendForgotPassword)
@@ -248,17 +211,7 @@
       pNoticeEmail.innerText = 'Digite um e-mail valido'
     }
   })
-  function toggleMenuMobile() {
-    if(menuMobileHome.classList.contains('active')) {
-      menuMobileHomeSVG.setAttribute('fill', '#CCC')
-      menuMobileForumSVG.setAttribute('fill', '#41B5D3')
-    } 
-    if(menuMobileForum.classList.contains('active')) {
-      menuMobileForumSVG.setAttribute('fill', '#CCC')
-      menuMobileHomeSVG.setAttribute('fill', 'rgb(177,86,130)')
-    }
-    
-  }
+  
   function toggleAreaUser(item) {
     item.preventDefault()
     areaConfigLoggoutUser.classList.toggle('close')
@@ -400,6 +353,8 @@ function toDoLogin() {
     h3Modal.innerText = 'Faça o Login em sua conta!'
 }
 function openInputsRegisterEmail(){
+    areaModalHome.style.top = '0'
+    //areaModalHome2.style.top = '0'
     buttonContinuesEmail.style.display = 'none'
     buttonGoogle.style.display = 'none'
     pGoogleModal.style.display = 'none'
@@ -411,9 +366,11 @@ function openInputsRegisterEmail(){
     pNameModal.style.display = 'flex'
     pPasswordModal.style.display = 'flex'
     pPassword2Modal.style.display = 'flex'
-    
+    areaInputCheckout.style.display = 'flex'
 }
 function closeInputsRegisterEmail() {
+    areaModalHome.style.top = '20%'
+    //areaModalHome2.style.top = '20%'
     buttonContinuesEmail.style.display = 'flex'
     buttonGoogle.style.display = 'flex'
     inputNameModal.style.display = 'none'
@@ -427,6 +384,7 @@ function closeInputsRegisterEmail() {
     pNameModal.style.display = 'none'
     pPasswordModal.style.display = 'none'
     pPassword2Modal.style.display = 'none'
+    areaInputCheckout.style.display = 'none'
     pNoticeEmail.innerText = ''
     inputPasswordModal.value = ''
     inputPassword2Modal.value = ''
@@ -471,7 +429,9 @@ function createSucess(user) {
 }
 
 buttonRegister.addEventListener('click', item => {
+  if(inputEmailModal.value.length > 5 && inputNameModal.value.length > 2 && inputPasswordModal.value.length > 7 && inputPassword2Modal.value.length > 7 && inputCheckout.checked) {
     sendDataNewUser(inputEmailModal.value, inputNameModal.value, inputPasswordModal.value, inputPassword2Modal.value)
+  }
 })
 buttonLogin.addEventListener('click', item => {
     loginUser(inputEmailModal.value, inputPasswordModal.value)
@@ -512,7 +472,7 @@ async function sendDataNewUser(email, name, password, password2) {
 async function findByEmail(email) {
   const emailValid = validateEmail(email)
   if(emailValid) {
-      const existsEmail = await fetch(`http://localhost:4000/userEmail/${email}`, {
+      const existsEmail = await fetch(`/userEmail/${email}`, {
           method: 'GET',
           headers: {
               "Content-Type": "application/x-www-form-urlencoded"
@@ -531,7 +491,7 @@ async function findByEmail(email) {
 }
 async function registerNewUser(email, name, password, password2) {
     if(password === password2) {
-        const newUser = await fetch(`http://localhost:4000/user`, {
+        const newUser = await fetch(`/user`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"

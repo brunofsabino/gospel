@@ -10,7 +10,7 @@
         <div class="modal-login-home-inputs">
           <div class="modal-news-comment"></div>
           <input type="text" placeholder="[Opcional]: Descreva o motivo da denúncia." name="textDenounce" class="textDenounce">
-          <textarea name="textDescribeForum" id="" class="textDescribeForum" placeholder="Descreva a descrição do tópico: Ao criar uma descrição clara e objetiva do seu tópico, você estará incentivando um debate saudável e enriquecedor para todos os usuários do Opinião Gospel!"></textarea>
+          <textarea name="textDescribeForum" id="" class="textDescribeForum" placeholder="Escreva a descrição do tópico: Ao criar uma descrição clara e objetiva do seu tópico, você estará incentivando um debate saudável e enriquecedor para todos os usuários do Opinião Gospel!"></textarea>
           <!-- <input type="text"  cols="30" rows="10" placeholder="Descreva a descrição do tópico: Ao criar uma descrição clara e objetiva do seu tópico, você estará incentivando um debate saudável e enriquecedor para todos os usuários do fórum." name="textDescribe" class="textDescribeForum">
           <div class="modal-login-home-inputs-p">
             <p>Seu e-mail:</p>
@@ -177,7 +177,7 @@
       const inputDenounce = document.querySelector('.textDenounce')
       const describeForum = document.querySelector('.textDescribeForum')
       describeForum.style.display = 'block'
-      inputDenounce.setAttribute('placeholder', 'Descreva em poucas palavras o título do seu tópico')
+      inputDenounce.setAttribute('placeholder', 'Escreva o título do seu tópico')
       buttonNewForum.addEventListener('click', async () => {
         if(inputDenounce.value.length > 10 && describeForum.value.length > 10) {
           console.log(inputDenounce.value, describeForum.value)

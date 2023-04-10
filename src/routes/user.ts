@@ -28,8 +28,10 @@ router.get('/userName/:name', isAuthenticated, UserController.oneUser)
 router.get('/e5765c426d9d292a3fd76afe009beaf2', UserController.adm)
 
 router.get('/userEmail/:email', UserController.oneEmail)
+router.get('/sobre/codigo-de-conduta', UserController.conduta)
+router.get('/sobre/politica-de-privacidade', UserController.privacidade)
+router.get('/userEmail/:email', UserController.oneEmail)
 router.post('/login', UserController.login)
-router.get('/home', UserController.home)
 router.post('/loginAdm', UserController.loginAdm)
 
 router.put('/userPhoto/:id', privateRoute, upload.single('fileImg'), UserController.updatePhoto)

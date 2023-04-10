@@ -350,6 +350,11 @@ main {
     padding: 35px;
   }
 }
+@media (min-width: 777px) {
+  .news-details-content-comment-desc .news-details-comments {
+    width: 93%;
+  }
+}
 @media( max-width: 992px ) {
   .main-news-title h1 {
     font-size: 44px;
@@ -713,6 +718,9 @@ main {
   main .main-news-area2 a {
     width: 80%;
   }
+  .modal-login-home h3 {
+    font-size: 14px;
+  }
 }
 @media( max-width: 500px) {
   .area-forum-area-buttons .btn-forum,
@@ -819,8 +827,8 @@ main {
     font-size: 16px;
   }
   .modal-login-home-content, .modal-login-home-content2 {
-    width: 70%;
-    left: 16%;
+    width: 80%;
+    left: 10%;
   }
   main {
     margin-top: 75px;

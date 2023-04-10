@@ -399,7 +399,7 @@
       inputSendResponseComment.forEach(inp => {
         const id2 = inp.getAttribute('get-item') //comment_id
         const id3 = inp.closest('.area-comments-content').getAttribute('id-item') //post_id
-        if(id && inp.value.length > 1 && id3 && id2) {
+        if(id && inp.value.length >= 1 && id3 && id2) {
           console.log(id +' '+inp.value+ ' ' + id3 + ' '+id2)
           sendResponseComment(id, inp.value, id2, id3 )
         }
@@ -414,7 +414,7 @@
         const id3 = inp.closest('.area-comments-content-resp').getAttribute('id-item') //post_id
         const comment = inp.getAttribute('data-comment')
         const name2 = inp.getAttribute('data-name')
-        if(id && inp.value.length > 1 && id3 && id2 && comment && name2) {
+        if(id && inp.value.length >= 1 && id3 && id2 && comment && name2) {
 
           console.log(id +' '+inp.value+ ' ' + id3 + ' '+id2+' '+comment)
           sendResponseComment2(id, inp.value, id2, id3, comment, name2 )
@@ -428,7 +428,7 @@
     console.log('clicou')
   }
   function sendComment(idPost) {
-    if(inputSendComment.value != '' && inputSendComment.value.length > 1) {
+    if(inputSendComment.value != '' && inputSendComment.value.length >= 1) {
         if(idPost) {
           sendCommentPost(localStorage.getItem('id'), idPost, inputSendComment.value )
         }
@@ -843,13 +843,13 @@
       inputDenounce.setAttribute('placeholder', 'Edite o seu comentário')
       inputDenounce.focus()
       buttonEdit.addEventListener('click', () => {
-        if(inputDenounce.value.length > 1 && response == '') {
+        if(inputDenounce.value.length >= 1 && response == '') {
           const edit = sendCommentEdit(localStorage.getItem('id'), inputDenounce.value, idComment )
           if(edit) {
             editSucess()
           }
         }
-        if(inputDenounce.value.length > 1 && response == true) {
+        if(inputDenounce.value.length >= 1 && response == true) {
           const edit = sendCommentResponseEdit(localStorage.getItem('id'), inputDenounce.value, idComment )
           if(edit) {
             editSucess()
