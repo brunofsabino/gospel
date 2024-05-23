@@ -51,6 +51,39 @@ const sessionConfig: SessionOptions = {
 };
 server.use(session(sessionConfig))
 
+// server.use(userRouter)
+// server.use(homeRouter)
+// server.use(postRouter)
+// server.use(commentRouter)
+// server.use(likeInCommentPostRouter)
+// server.use(forumRouter)
+// server.use(commentForumRouter)
+// server.use(likeInCommentForumRouter)
+// server.use(denounce)
+// server.use(notification)
+
+
+
+// server.use((req, res)=> {
+//   const menuHomeMobile = false
+//   const menuForumMobile = false
+//   let userId = {}
+//     if (req.user) {
+//       console.log(req.user)
+//       const user1 = req.user as User
+//         userId = {
+//         id: user1.id,
+//         name: user1.name,
+//         email: user1.email,
+//         avatar: user1.avatar ?? '',
+//         nickName: user1.nickName
+//       }
+//     } 
+//     console.log("nao")
+//     res.render('pages/404', { userId, menuHomeMobile, menuForumMobile})
+//   //res.json({error: 'Endpoint não encontrado.'})
+// })
+
 server.use(userRouter)
 server.use(homeRouter)
 server.use(postRouter)
@@ -62,11 +95,10 @@ server.use(likeInCommentForumRouter)
 server.use(denounce)
 server.use(notification)
 
-
-
 server.use((req, res)=> {
   const menuHomeMobile = false
   const menuForumMobile = false
+  //console.log(req.user)
   let userId = {}
     if (req.user) {
       console.log(req.user)
@@ -79,10 +111,9 @@ server.use((req, res)=> {
         nickName: user1.nickName
       }
     } 
+  
     res.render('pages/404', { userId, menuHomeMobile, menuForumMobile})
-  //res.json({error: 'Endpoint não encontrado.'})
 })
-
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     //res.status(400) // bad request

@@ -12,6 +12,7 @@ import { schemaCreateUser, schemaUpdateUser, schemaNameUser, schemaLogin, schema
 
 export const createADM = async(req: Request, res: Response) => {
   const { name, password, email } = req.body
+  
   try {
     schemaCreateUser.parse({ name, email, password });
     // Se chegou aqui, é porque os dados são válidos
@@ -90,7 +91,7 @@ export const oneAdm = async(req: Request, res: Response) => {
 }
 export const one = async(req: Request, res: Response) => {
   const { id } = req.params
-  
+
   const user = await UserService.findOne(id)
   
   if(user) {
@@ -331,11 +332,13 @@ export const login = async(req: Request, res: Response) => {
 }
 export const loginAdm = async(req: Request, res: Response) => {
   const { email, password } = req.body
+  //console.log(email, password)
+  //console.log(req)
   try {
     schemaLogin.parse({ password, email });
     if(email && password) {
       const loggedUser = await UserService.admLogin(email, password)
-      if(loggedUser && loggedUser.id === 'd215be0e-5383-4a98-ba99-5fd3f4738fd9') {
+      if(loggedUser && loggedUser.id === '747f9a99-4b06-469f-9f5a-503d7f03a0f0') {
         res.status(200).json({sucess: true, token: loggedUser.token, name: loggedUser.name, email: loggedUser.email, id: loggedUser.id})
         //.render('pages/site.ejs')
           //res.render('pages/site.ejs')

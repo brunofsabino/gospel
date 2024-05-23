@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/brunofsabino/gospel#readme",
   "dependencies": {
-    "@prisma/client": "^4.11.0",
+    "@prisma/client": "^5.14.0",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -60,6 +60,6 @@
     "@types/sharp": "^0.31.1",
     "copyfiles": "^2.4.1",
     "ejs": "^3.1.8",
-    "prisma": "^4.12.0"
+    "prisma": "^5.14.0"
   }
 }

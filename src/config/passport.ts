@@ -48,10 +48,11 @@ function extractJwtFromCookie(req: Request) {
   }
 
 export const generateToken = (data: object) => {
-    return jwt.sign(data, process.env.JWT_SECRET as string, { expiresIn: "1d" })
+    return jwt.sign(data, process.env.JWT_SECRET as string, { expiresIn: "30d" })
 }
 
 export const privateRoute = (req: Request, res: Response, next: NextFunction) => {
+    
     passport.authenticate('jwt',{ session: false }, (err: any, user: User) => {
         req.user = user
         return user ? next() : next(notAuthorizedJson)
