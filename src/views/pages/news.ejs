@@ -23,9 +23,25 @@
         <div class="modal-login-home-content-close2"></div>
       </div>
       <div class="news-details-subtitle"><p><%=news.subTitle%></p></div>
-      <div class="news-details"><h1><%=news.title%></h1></div>
+      <div class="news-details">
+        <div class="news-details-author"> 
+          <h1><%=news.title%></h1>
+          <div class="news-details-author-det">
+            <p>
+              <a href="/userName/<%=userId.nickName%>">Redação </a>| <%= dateString %> 
+            </p>
+          </div>
+        </div>
+      </div>
       <div class="news-details-img-video">
-        <img src="/media/<%=news.img%>" alt="<%=news.title%>">
+        <div class="news-details-img-subtitle">
+          <img src="/media/<%=news.img%>" alt="<%=news.title%>">
+          <div class="news-details-img-subtitle2">
+            <p>
+              <%=news.subTitleImg%> (Reprodução)
+            </p>
+          </div>
+        </div>
       </div>
       <div class="news-details-desc-aside">
         <div class="news-details-content-comment-desc">
@@ -87,7 +103,21 @@
           </div>
           <% if (news.contentPreComment) { %>
             <div class="news-details-comment-desc">
-              <p><%=news.contentPreComment%></p>
+              <!-- <p><%=news.contentPreComment%></p> -->
+                <div class="news-details-author-det2">
+                  <div class="area-comments-person">
+                    <a href="/userName/<%=userId.nickName%>">
+                      <div class="area-comments-person-img2">
+                        <% if (userId.id) { %>
+                        <img src="/media/<%=userId.avatar%>" alt="">
+                        <% } else { %> 
+                          <img src="/media/avatar.png" alt="">
+                          <% } %>
+                      </div>
+                    </a>
+                  </div> 
+                    <a href="/userName/<%=userId.nickName%>">Redação </a>
+                </div>
             <br>
             </div>
           <% } %>

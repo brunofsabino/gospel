@@ -57,6 +57,7 @@ model Post {
   updatedIn             DateTime?
   title                 String
   subTitle              String
+  subTitleImg           String?
   mainNewsShow          Boolean                 @default(false)
   slideShow             Boolean                 @default(false)
   newsShow              Boolean                 @default(false)

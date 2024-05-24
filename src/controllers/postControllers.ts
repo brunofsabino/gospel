@@ -23,6 +23,7 @@ export const create = async(req: Request, res: Response) => {
     contentPreComment, 
     title,
     subTitle, 
+    subTitleImg,
     summaryParagraph,
     img, 
     video, 
@@ -36,6 +37,7 @@ export const create = async(req: Request, res: Response) => {
       contentP4, 
       contentP5, 
       contentP6, 
+      subTitleImg,
       contentP7, 
       contentPreComment, 
       title,
@@ -64,6 +66,7 @@ export const create = async(req: Request, res: Response) => {
           contentP5: contentP5 ?? null, 
           contentP6: contentP6 ?? null, 
           contentP7: contentP7 ?? null, 
+          subTitleImg: subTitleImg ?? null, 
           contentPreComment, 
           summaryParagraph,
           subTitle,
@@ -192,10 +195,15 @@ export const oneNews = async(req: Request, res: Response) => {
     const menuHomeMobile = false
     const menuForumMobile = false
     
-    
+    const dateString = one.date;
+    const date: Date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+    const formattedDate: string = date.toLocaleDateString('pt-BR', options);
+  
     if(comments) {
       res.render('pages/news', {
         news: one,
+        dateString: formattedDate,
         comments,
         responseComments,
         menuHomeMobile,
@@ -240,6 +248,7 @@ export const update = async(req: Request, res: Response) => {
     contentPreComment, 
     title,
     subTitle, 
+    subTitleImg, 
     img,
     summaryParagraph, 
     video, 
@@ -257,6 +266,7 @@ export const update = async(req: Request, res: Response) => {
       contentPreComment, 
       title,
       subTitle, 
+      subTitleImg, 
       img,
       summaryParagraph, 
       video, 
@@ -284,6 +294,7 @@ export const update = async(req: Request, res: Response) => {
                 contentP5: contentP5 ?? post.contentP5, 
                 contentP6: contentP6 ?? post.contentP6, 
                 contentP7: contentP7 ?? post.contentP7, 
+                subTitleImg: subTitleImg ?? post.subTitleImg, 
                 contentPreComment: contentPreComment ?? post.contentPreComment, 
                 subTitle: subTitle ?? post.subTitle, 
                 summaryParagraph: summaryParagraph ?? post.summaryParagraph, 
