@@ -5,8 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "nodemon -e ts,json src/server.ts",
-    "postinstall": "tsc &&copyfiles -u 1 src/**/*.ejs dist/"
+    "start": "node dist/server/server.js",
+    "start-dev": "npm run client-build && concurrently \"npm run server-dev\" \"npm run client\"",
+    "server": "node dist/server/server.js",
+    "server-dev": "nodemon -e ts,json -x ts-node -P server/tsconfig.server.json server/server.ts",
+    "client": "npm start --prefix client",
+    "client-build": "npm run build --prefix client",
+    "build": "npm run server-build && npm run client-build",
+    "server-build": "tsc -p tsconfig.server.json"
   },
   "repository": {
     "type": "git",
@@ -20,6 +26,7 @@
   "homepage": "https://github.com/brunofsabino/gospel#readme",
   "dependencies": {
     "@prisma/client": "^5.14.0",
+    "axios": "^1.7.2",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -58,6 +65,7 @@
     "@types/passport-google-oauth20": "^2.0.11",
     "@types/passport-jwt": "^3.0.8",
     "@types/sharp": "^0.31.1",
+    "concurrently": "^8.2.2",
     "copyfiles": "^2.4.1",
     "ejs": "^3.1.8",
     "prisma": "^5.14.0"

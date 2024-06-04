@@ -142,10 +142,13 @@ export const home2 = async(req: Request, res: Response) => {
   if(req.cookies) {
     
   }
+
   const all = await PostService.findAll()
-  res.render('pages/home.ejs', {
-    all
-  } )
+  console.log(all)
+  res.json(all) 
+  // res.render('pages/home.ejs', {
+  //   all
+  // } )
 }
 export const one = async(req: Request, res: Response) => {
   const { idAdm, id } = req.params
