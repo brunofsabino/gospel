@@ -4,9 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    
+
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "nodemon -e ts,json src/server.ts",
-    "postinstall": "tsc &&copyfiles -u 1 src/**/*.ejs dist/"
+    "start": "node dist/server/server.js",
+    "start-dev": "concurrently \"npm run server-dev\" \"npm run client-dev\"",
+    "server": "node dist/server/server.js",
+    "server-dev": "nodemon -e ts,json -x ts-node -P server/tsconfig.server.json src/server.ts",
+    "client": "npm run dev --prefix client",
+    "client-build": "npm run build --prefix client",
+    "client-dev": "npm run dev --prefix client",
+    "build": "npm run server-build && npm run client-build",
+    "server-build": "tsc -p tsconfig.server.json",
+    "postinstall": "tsc && copyfiles -u 1 src/**/*.ejs dist/"
   },
   "repository": {
     "type": "git",
@@ -58,6 +68,7 @@
     "@types/passport-google-oauth20": "^2.0.11",
     "@types/passport-jwt": "^3.0.8",
     "@types/sharp": "^0.31.1",
+    "concurrently": "^8.2.2",
     "copyfiles": "^2.4.1",
     "ejs": "^3.1.8",
     "prisma": "^4.12.0"
